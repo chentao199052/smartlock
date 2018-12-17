@@ -7,8 +7,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import com.qingyi.model.RoomCard;
 
 public class HttpsUtil {
 	
@@ -50,16 +53,25 @@ public class HttpsUtil {
             // 参数
             Date date=new Date();
             String params="";
-            Set<Map.Entry<String, String>> paramsSet = param.entrySet();
+            Set<Map.Entry<String, Object>> paramsSet = param.entrySet();
             String md="";
-    		for (Map.Entry<String, String> paramEntry : paramsSet) {
-    			params+="&"+paramEntry.getKey()+"="+URLEncoder.encode(paramEntry
-    					.getValue(), "utf-8");
-    			md+=paramEntry
-    					.getValue();
+    		for (Map.Entry<String, Object> paramEntry : paramsSet) {
+    			if(paramEntry.getKey().contains("list")) {
+    				List<Object> l=(List<Object>) paramEntry.getValue();
+    				String json=StringTools.beanToString(l);
+    				params+="&"+paramEntry.getKey()+"="+URLEncoder.encode(json, "utf-8");
+	    			md+=json;
+    			}else {
+	    			params+="&"+paramEntry.getKey()+"="+URLEncoder.encode(paramEntry
+	    					.getValue().toString(), "utf-8");
+	    			md+=paramEntry
+	    					.getValue();
+    			}
     		}
+    		System.out.println(md+date.getTime()+secret);
     		params = params+ ("&sysdate=" + URLEncoder.encode(date.getTime()+"", "utf-8"));
             String md5=StringTools.getMd5(md+date.getTime()+secret);
+            System.out.println(md5);
             String verify = "&verify=" + URLEncoder.encode(md5, "utf-8");
             	            
             // 参数拼接 参数1+参数2+...... 
@@ -83,7 +95,7 @@ public class HttpsUtil {
             connection.disconnect(); // 销毁连接  
         } catch (Exception e) {  
             e.printStackTrace();  
-            result="{\"errcode\":\"0\",\"errmsg\":\"连接指令服务器失败，请检查网络！\"}";
+            result="{\"resultCode\":\"0\",\"resultMsg\":\"连接指令服务器失败，请检查网络！\"}";
         }  
         return result;
     } 
