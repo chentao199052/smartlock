@@ -5,15 +5,18 @@ public class SendResult {
 	private String resultCode;
 	
 	private String resultMsg;
+	
+	private String orderId;
 
 	public SendResult() {
 		super();
 	}
 
-	public SendResult(String resultCode, String resultMsg) {
+	public SendResult(String resultCode, String resultMsg, String orderId) {
 		super();
 		this.resultCode = resultCode;
 		this.resultMsg = resultMsg;
+		this.orderId = orderId;
 	}
 
 	public String getResultCode() {
@@ -30,6 +33,14 @@ public class SendResult {
 
 	public void setResultMsg(String resultMsg) {
 		this.resultMsg = resultMsg;
+	}
+
+	public String getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
 	}
 	
 }
