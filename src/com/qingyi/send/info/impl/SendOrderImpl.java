@@ -253,4 +253,200 @@ public class SendOrderImpl implements SendOrderInfo{
 		return sr;
 	}
 
+	@Override
+	public SendResult syncRoomFinger(String gatewaycode, String gatewaycode2, String roomcode, List<RoomFinger> rflist,
+			Integer timeout, String callbackurl) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("gatewaycode", gatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("roomcode", roomcode);
+		param.put("rflist", rflist);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr=StringTools.check(param);
+		if(sr.getResultCode().equals("0")) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "syncroomfinger", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult updateRoomForcelock(String gatewaycode, String gatewaycode2, String roomcode, Integer type,
+			Integer timeout, String callbackurl) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("gatewaycode", gatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("roomcode", roomcode);
+		param.put("type", type);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr=StringTools.check(param);
+		if(sr.getResultCode().equals("0")) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateRoomForcelock", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult updateRoompow(String gatewaycode, String gatewaycode2, String roomcode, Integer level,
+			Integer timeout, String callbackurl) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("gatewaycode", gatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("roomcode", roomcode);
+		param.put("level", level);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr=StringTools.check(param);
+		if(sr.getResultCode().equals("0")) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateRoompow", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult updateRoomWorkmode(String gatewaycode, String gatewaycode2, String roomcode, Integer type,
+			Integer timeout, String callbackurl) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("gatewaycode", gatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("roomcode", roomcode);
+		param.put("type", type);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr=StringTools.check(param);
+		if(sr.getResultCode().equals("0")) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateRoomWorkmode", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult updateRoomNetmode(String gatewaycode, String gatewaycode2, String roomcode, Integer type,
+			Integer timeout, String callbackurl) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("gatewaycode", gatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("roomcode", roomcode);
+		param.put("type", type);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr=StringTools.check(param);
+		if(sr.getResultCode().equals("0")) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateRoomNetmode", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult saveFingerReagy(String gatewaycode2, Integer timeout, String callbackurl) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr=StringTools.check(param);
+		if(sr.getResultCode().equals("0")) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "saveFingerReagy", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult getGatewaystatus(String gatewaycode, String gatewaycode2, Integer timeout, String callbackurl) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("gatewaycode", gatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr=StringTools.check(param);
+		if(sr.getResultCode().equals("0")) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "getGatewaystatus", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult updateGatewayRooms(String gatewaycode, String gatewaycode2, String roomcodes, Integer timeout,
+			String callbackurl) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("gatewaycode", gatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("timeout", timeout);
+		param.put("roomcodes", roomcodes);
+		param.put("callbackurl", callbackurl);
+		SendResult sr=StringTools.check(param);
+		if(sr.getResultCode().equals("0")) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateGatewayRooms", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult readGatewayRecord(String gatewaycode, String gatewaycode2, Integer timeout, String callbackurl) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("gatewaycode", gatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr=StringTools.check(param);
+		if(sr.getResultCode().equals("0")) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "readGatewayRecord", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult gatewayInitialize(String gatewaycode, String newgatewaycode, String gatewaycode2, Integer timeout,
+			String callbackurl) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("gatewaycode", gatewaycode);
+		param.put("newgatewaycode", newgatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr=StringTools.check(param);
+		if(sr.getResultCode().equals("0")) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "gatewayInitialize", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult updateGatewaypow(String gatewaycode, String gatewaycode2, Integer level, Integer timeout,
+			String callbackurl) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("gatewaycode", gatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("level", level);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr=StringTools.check(param);
+		if(sr.getResultCode().equals("0")) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateGatewaypow", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		}
+		return sr;
+	}
+
 }
