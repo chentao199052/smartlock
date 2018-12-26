@@ -68,10 +68,8 @@ public class HttpsUtil {
 	    					.getValue();
     			}
     		}
-    		System.out.println(md+date.getTime()+secret);
     		params = params+ ("&sysdate=" + URLEncoder.encode(date.getTime()+"", "utf-8"));
             String md5=StringTools.getMd5(md+date.getTime()+secret);
-            System.out.println(md5);
             String verify = "&verify=" + URLEncoder.encode(md5, "utf-8");
             	            
             // 参数拼接 参数1+参数2+...... 
