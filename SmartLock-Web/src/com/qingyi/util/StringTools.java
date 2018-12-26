@@ -50,6 +50,17 @@ public class StringTools {
         return javabean;
     }
 	
+	public static Map stringToMap(String result) {
+		Map map=new HashMap();
+		String json2=result.substring(1,result.length()-1);
+		String arr[]=json2.split(",");
+		for(int i=0;i<arr.length;i++) {
+			String a[]=arr[i].split(":");
+			map.put(a[0].substring(1, a[0].length()-1), a[1].substring(1, a[1].length()-1));
+		}
+		return map;
+	}
+	
 	public static String beanToString(List<Object> list) {
 		String json="[";
 		for(int j=0;j<list.size();j++) {
@@ -384,5 +395,113 @@ public class StringTools {
 		}
 		return sr;
 	}
+	
+	/**
+	  * 切割指令获取failtype
+	  * @param result
+	  * @return
+	  */
+	 public static Integer getFailtype(String result){
+		 int ret = 11;
+		 if(null!=result && !"".equals(result)){
+			String od = "";
+			if(result.substring(0,4).toUpperCase().equals("BBBB")){
+				od = result.substring(22,24);
+			}else{
+				od = result.substring(20,22);
+			}
+			
+			if(od.equals("01") || od.equals("3a") || od.equals("3A")){
+				ret = -1;
+			}else if(od.equals("02")){
+				ret = 2;
+			}else if(od.equals("03")){
+				ret = 3;
+			}else if(od.equals("04")){
+				ret = 4;
+			}else if(od.equals("05")){
+				ret = 5;
+			}else if(od.equals("06")){
+				ret = 6;
+			}else if(od.equals("07")){
+				ret = 7;
+			}else if(od.equals("08")){
+				ret = 8;
+			}else if(od.equals("09")){
+				ret = 9;
+			}else if(od.equals("0a") || od.equals("0A")){
+				ret = 10;
+			}else if(od.equals("0b") || od.equals("0B")){
+				ret = 13;
+			}else if(od.equals("20")){
+				ret = 20;
+			}else if(od.equals("21")){
+				ret = 21;
+			}else if(od.equals("22")){
+				ret = 22;
+			}else if(od.equals("23")){
+				ret = 23;
+			}else if(od.equals("30")){
+				ret = 30;
+			}else if(od.equals("31")){
+				ret = 31;
+			}else if(od.equals("32")){
+				ret = 32;
+			}else if(od.equals("33")){
+				ret = 33;
+			}else if(od.equals("34")){
+				ret = 34;
+			}
+		 }
+		 return ret;
+	 }
+	 
+	 /**
+	  * 获取门锁状态
+	  * @param lockstatus
+	  * @return
+	  */
+	 public static String[] getlockstatus(String lockstatus){
+		 String[] ret = new String[2];
+		 
+		 String ls =hexString2binaryString("0"+lockstatus);
+		 ls = ls.substring(4);
+		 //1为（开关门）无意义
+		 if(ls.substring(0,1).equals("0")){
+			 if(ls.substring(3,4).equals("1")){
+				 ret[0] = "1";
+			 }else{
+				 ret[0] = "0";
+			 }
+		 }else{
+			 ret[0] = "2";
+		 }  
+		 
+		 //反锁有无意义
+		 if(ls.substring(1,2).equals("1")){
+			 ret[1] = "2";
+		 }else{
+			 if(ls.substring(2,3).equals("1")){
+				 ret[1] = "1";
+			 }else{
+				 ret[1] = "0";
+			 }
+		 }
+		 return ret;
+	 }
+	 
+	 public static String hexString2binaryString(String hexString){  
+	        if (hexString == null || hexString.length() % 2 != 0)  
+	            return null;  
+	        String bString = "", tmp;  
+	        for (int i = 0; i < hexString.length(); i++)  
+	        {  
+	            tmp = "0000"  
+	                    + Integer.toBinaryString(Integer.parseInt(hexString  
+	                            .substring(i, i + 1), 16));  
+	            bString += tmp.substring(tmp.length() - 4);  
+	        }  
+	        return bString;  
+		 } 
 
 }
