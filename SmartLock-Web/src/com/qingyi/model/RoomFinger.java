@@ -10,6 +10,8 @@ public class RoomFinger {
 	
 	private String fingercontent;
 	
+	private String fingerseq;
+	
 	private String edate;
 	
 	private String openstime;
@@ -50,6 +52,13 @@ public class RoomFinger {
 	}
 	public void setFingercontent(String fingercontent) {
 		this.fingercontent = fingercontent;
+	}
+	
+	public String getFingerseq() {
+		return fingerseq;
+	}
+	public void setFingerseq(String fingerseq) {
+		this.fingerseq = fingerseq;
 	}
 	public String getFingercode() {
 		return fingercode;

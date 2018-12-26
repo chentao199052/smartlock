@@ -56,6 +56,7 @@ public interface SendOrderInfo {
 	 * @param gatewaycode 门锁归属网关通讯ID
 	 * @param gatewaycode2  门锁归属网关唯一ID
 	 * @param roomcode 房间编号
+	 * @param type 1强制锁门 2非强制锁门
 	 * @param timeout 有效时间（单位s）
 	 * @param callbackurl 回调地址（接收指令发送结果）
 	 * @return 指令发送结果SendResult
@@ -100,22 +101,23 @@ public interface SendOrderInfo {
 	
 	/**
 	 * 指纹机录入准备
-	 * @param gatewaycode2  指纹机唯一ID
+	 * @param fpcode  指纹机唯一ID
 	 * @param timeout 有效时间（单位s）
 	 * @param callbackurl 回调地址（接收指令发送结果）
 	 * @return 指令发送结果SendResult
 	 */
-	public SendResult saveFingerReagy(String gatewaycode2,Integer timeout,String callbackurl);
+	public SendResult saveFingerReagy(String fpcode,Integer timeout,String callbackurl);
 	
 	/**
 	 * 网关状态查询
 	 * @param gatewaycode 网关通讯ID
 	 * @param gatewaycode2  网关唯一ID
 	 * @param timeout 有效时间（单位s）
+	 * @param date (格式yyMMddHHmm)
 	 * @param callbackurl 回调地址（接收指令发送结果）
 	 * @return 指令发送结果SendResult
 	 */
-	public SendResult getGatewaystatus(String gatewaycode,String gatewaycode2,Integer timeout,String callbackurl);
+	public SendResult getGatewaystatus(String gatewaycode,String gatewaycode2,String date,Integer timeout,String callbackurl);
 	
 	/**
 	 * 修改网关功率等级
@@ -127,13 +129,21 @@ public interface SendOrderInfo {
 	 * @return 指令发送结果SendResult
 	 */
 	public SendResult updateGatewaypow(String gatewaycode,String gatewaycode2,Integer level,Integer timeout,String callbackurl);
-	
+	/**
+	 * 清除网关异常数据
+	 * @param gatewaycode
+	 * @param gatewaycode2
+	 * @param timeout
+	 * @param callbackurl
+	 * @return
+	 */
+	public SendResult clearsGatewaytatus(String gatewaycode,String gatewaycode2,Integer timeout,String callbackurl);
 	
 	/**
 	 * 网关路由表更新
 	 * @param gatewaycode 网关通讯ID
 	 * @param gatewaycode2  网关唯一ID
-	 * @param roomcodes 网关下门锁编号拼接字符串
+	 * @param roomcodes 网关下门锁编号拼接字符串(如俩个房间：12345678)
 	 * @param timeout 有效时间（单位s）
 	 * @param callbackurl 回调地址（接收指令发送结果）
 	 * @return 指令发送结果SendResult
@@ -246,15 +256,16 @@ public interface SendOrderInfo {
 	 */
 	public SendResult syncRoomCardAndPsw(String gatewaycode,String gatewaycode2,String roomcode,List<RoomCard> rclist,List<UnlockPsw> pswlist,Integer timeout,String callbackurl);
 	
+
 	/**
 	 * 发送房间指纹授权同步指令
 	 * @param gatewaycode 门锁归属网关通讯ID
-	 * @param gatewaycode2 门锁归属网关唯一ID
+	 * @param gatewaycode2  门锁归属网关唯一ID
 	 * @param roomcode 房间编号
 	 * @param rflist 指纹授权实体list
 	 * @param timeout 有效时间（单位s）
-	 * @param callbackurl 回调地址（接收指令发送结果）
+	 * @param callbackurl  回调地址（接收指令发送结果）
 	 * @return 指令发送结果SendResult
 	 */
-	public SendResult syncRoomFinger(String gatewaycode,String gatewaycode2,String roomcode,List<RoomFinger> rflist,Integer timeout,String callbackurl);
+	public SendResult updateRoomFiger(String gatewaycode,String gatewaycode2,String roomcode,List<RoomFinger> rflist,Integer timeout,String callbackurl); 
 }

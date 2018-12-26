@@ -254,9 +254,8 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult syncRoomFinger(String gatewaycode, String gatewaycode2, String roomcode, List<RoomFinger> rflist,
+	public SendResult updateRoomFiger(String gatewaycode, String gatewaycode2, String roomcode, List<RoomFinger> rflist,
 			Integer timeout, String callbackurl) {
-		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
 		param.put("gatewaycode", gatewaycode);
 		param.put("gatewaycode2", gatewaycode2);
@@ -265,12 +264,16 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("timeout", timeout);
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
-		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "syncroomfinger", secret, param);
+		try {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateRoomFiger", secret, param);
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		} catch (Exception e) {
+			
 		}
 		return sr;
 	}
+
+
 
 	@Override
 	public SendResult updateRoomForcelock(String gatewaycode, String gatewaycode2, String roomcode, Integer type,
@@ -349,10 +352,10 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult saveFingerReagy(String gatewaycode2, Integer timeout, String callbackurl) {
+	public SendResult saveFingerReagy(String fpcode, Integer timeout, String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
-		param.put("gatewaycode2", gatewaycode2);
+		param.put("fpcode", fpcode);
 		param.put("timeout", timeout);
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
@@ -364,11 +367,12 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult getGatewaystatus(String gatewaycode, String gatewaycode2, Integer timeout, String callbackurl) {
+	public SendResult getGatewaystatus(String gatewaycode, String gatewaycode2,String date,Integer timeout, String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
 		param.put("gatewaycode", gatewaycode);
 		param.put("gatewaycode2", gatewaycode2);
+		param.put("date", date);
 		param.put("timeout", timeout);
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
@@ -386,8 +390,8 @@ public class SendOrderImpl implements SendOrderInfo{
 		LinkedHashMap param=new LinkedHashMap();
 		param.put("gatewaycode", gatewaycode);
 		param.put("gatewaycode2", gatewaycode2);
-		param.put("timeout", timeout);
 		param.put("roomcodes", roomcodes);
+		param.put("timeout", timeout);
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
 		if(sr.getResultCode().equals("0")) {
@@ -442,6 +446,10 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("timeout", timeout);
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
+		if(level ==null || level<1 || level >4) {
+			sr.setResultCode("-10042");
+			sr.setResultMsg("功率等级错误");
+		}
 		if(sr.getResultCode().equals("0")) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateGatewaypow", secret, param);
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
@@ -449,4 +457,20 @@ public class SendOrderImpl implements SendOrderInfo{
 		return sr;
 	}
 
+	@Override
+	public SendResult clearsGatewaytatus(String gatewaycode, String gatewaycode2, Integer timeout, String callbackurl) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("gatewaycode", gatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr=StringTools.check(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"clearsGatewaytatus", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		}
+		return sr;
+	}
+	
 }
