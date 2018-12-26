@@ -20,19 +20,19 @@ import com.qingyi.send.info.impl.SendOrderImpl;
 public class StringTools {
 	
 
-	public static void main(String[] args) {
-		RoomCard rc=new RoomCard("开门卡", "2f5d2e2c", "1812111506", "23:00", "23:30", "1");
-		List l=new ArrayList<>();
-		l.add(rc);
-		rc=new RoomCard("开门卡", "2e6f5e2a", "1812111506", "21:00", "23:33", "-1");
-		l.add(rc);
-		UnlockPsw psw=new UnlockPsw("123456", "1", "1812111620", "00:00", "23:59");
-		List l2=new ArrayList<>();
-		l2.add(psw);
-		SendOrderInfo send=new SendOrderImpl("http://localhost:80", "5s4d1rt41rtrt1were4rt1w415tfdsdt1tyt4y51yhtuy");
-		SendResult result=send.syncRoomCardAndPsw("00a1010001", "1818010001", "0101", l, l2, 100, "http://localhost/SmartLock");
-		System.out.println(result.getResultCode()+"-"+result.getResultMsg());
-	}
+//	public static void main(String[] args) {
+//		RoomCard rc=new RoomCard("开门卡", "2f5d2e2c", "1812111506", "23:00", "23:30", "1");
+//		List l=new ArrayList<>();
+//		l.add(rc);
+//		rc=new RoomCard("开门卡", "2e6f5e2a", "1812111506", "21:00", "23:33", "-1");
+//		l.add(rc);
+//		UnlockPsw psw=new UnlockPsw("123456", "1", "1812111620", "00:00", "23:59");
+//		List l2=new ArrayList<>();
+//		l2.add(psw);
+//		SendOrderInfo send=new SendOrderImpl("http://localhost:80", "5s4d1rt41rtrt1were4rt1w415tfdsdt1tyt4y51yhtuy");
+//		SendResult result=send.syncRoomCardAndPsw("00a1010001", "1818010001", "0101", l, l2, 100, "http://localhost/SmartLock");
+//		System.out.println(result.getResultCode()+"-"+result.getResultMsg());
+//	}
 	
 	public static Object mapToBean(Class<?> clazz, Map map) throws Exception {
         Object javabean = clazz.newInstance(); // 构建对象
@@ -100,7 +100,7 @@ public class StringTools {
 		}
 		return obj;
 	}
-	
+
 	public static String getMd5(String plainText) {  
         try {  
             MessageDigest md = MessageDigest.getInstance("MD5");  
@@ -374,6 +374,12 @@ public class StringTools {
 					return sr;
 				}
 			}else if(key.equals("rclist")) {
+			}else if(key.equals("fpcode")) {
+				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
+					sr.setResultCode("-10041");
+					sr.setResultMsg("指纹机唯一ID不允许为空");
+					return sr;
+				}
 			}
 		}
 		return sr;
