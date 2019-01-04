@@ -333,11 +333,14 @@ public interface SendOrderInfo {
 	/**
 	 * 重载卡片白名单 NB
 	 * @param roomcode2 门锁唯一ID
+	 * @param roomimei IMEI
+	 * @param roomtxtype  锁的种类 2华为 3电信 4移动
+	 * @param xzsx 白名单实体类  orderid SlRoomcard 主键
 	 * @param timeout
 	 * @param callbackurl
 	 * @return
 	 */
-	public SendResult updateRoomCardxzsxNB(String roomcode2,Integer timeout,String callbackurl); 
+	public SendResult updateRoomCardxzsxNB(String roomcode2,String roomimei,String roomtxtype,RoomCardxzsx xzsx,Integer timeout,String callbackurl); 
 	/**
 	    * 重载指纹白名单 NB
 	 * @param roomcode2 门锁唯一ID
