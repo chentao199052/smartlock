@@ -1,7 +1,6 @@
 package com.qingyi.model;
 
-public class LockStatusResult {
-	
+public class UpdateRoompowResult {
 	private String orderid;
 	
 	private Integer resultstatus;
@@ -33,25 +32,23 @@ public class LockStatusResult {
 	private String lockver;
 	
 	private Integer lockcharge;
+
+	private Integer no;
 	
 	private String order;
-	
-	private Integer no;
 	
 	private String result;
 	
 	private String space;
-
-	public LockStatusResult() {
+	
+	public UpdateRoompowResult() {
 		super();
 	}
 
-	
-
-	public LockStatusResult(String orderid, Integer resultstatus, Integer filetype, Integer locklca, Integer lockstatus,
-			Integer lockstatus2, String channelid, String channel, String powerlev, Integer networkmode,
-			Integer workmode, Integer locktype, Integer figernum, Integer recordnum, String lockver, Integer lockcharge,
-			String order, Integer no, String result, String space) {
+	public UpdateRoompowResult(String orderid, Integer resultstatus, Integer filetype, Integer locklca,
+			Integer lockstatus, Integer lockstatus2, String channelid, String channel, String powerlev,
+			Integer networkmode, Integer workmode, Integer locktype, Integer figernum, Integer recordnum,
+			String lockver, Integer lockcharge, Integer no, String order, String result, String space) {
 		super();
 		this.orderid = orderid;
 		this.resultstatus = resultstatus;
@@ -69,13 +66,11 @@ public class LockStatusResult {
 		this.recordnum = recordnum;
 		this.lockver = lockver;
 		this.lockcharge = lockcharge;
-		this.order = order;
 		this.no = no;
+		this.order = order;
 		this.result = result;
 		this.space = space;
 	}
-
-
 
 	public String getOrderid() {
 		return orderid;
@@ -205,20 +200,20 @@ public class LockStatusResult {
 		this.lockcharge = lockcharge;
 	}
 
-	public String getOrder() {
-		return order;
-	}
-
-	public void setOrder(String order) {
-		this.order = order;
-	}
-
 	public Integer getNo() {
 		return no;
 	}
 
 	public void setNo(Integer no) {
 		this.no = no;
+	}
+
+	public String getOrder() {
+		return order;
+	}
+
+	public void setOrder(String order) {
+		this.order = order;
 	}
 
 	public String getResult() {
@@ -236,6 +231,6 @@ public class LockStatusResult {
 	public void setSpace(String space) {
 		this.space = space;
 	}
-	
+
 	
 }

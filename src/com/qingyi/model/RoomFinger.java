@@ -5,7 +5,8 @@ package com.qingyi.model;
  *
  */
 public class RoomFinger {
-
+	private String rfid;//SlRoomfinger 主键
+	
 	private String fingercode;
 	
 	private String fingercontent;
@@ -46,65 +47,73 @@ public class RoomFinger {
 		this.opencount = opencount;
 		this.actioncount = actioncount;
 	}
-
+	
+	public RoomFinger(String rfid, String fingercode, String fingercontent, String fingerseq, String edate,
+			String openstime, String openetime, String opencount, String actioncount) {
+		super();
+		this.rfid = rfid;
+		this.fingercode = fingercode;
+		this.fingercontent = fingercontent;
+		this.fingerseq = fingerseq;
+		this.edate = edate;
+		this.openstime = openstime;
+		this.openetime = openetime;
+		this.opencount = opencount;
+		this.actioncount = actioncount;
+	}
+	public String getRfid() {
+		return rfid;
+	}
+	public void setRfid(String rfid) {
+		this.rfid = rfid;
+	}
+	public String getFingercode() {
+		return fingercode;
+	}
+	public void setFingercode(String fingercode) {
+		this.fingercode = fingercode;
+	}
 	public String getFingercontent() {
 		return fingercontent;
 	}
 	public void setFingercontent(String fingercontent) {
 		this.fingercontent = fingercontent;
 	}
-	
 	public String getFingerseq() {
 		return fingerseq;
 	}
 	public void setFingerseq(String fingerseq) {
 		this.fingerseq = fingerseq;
 	}
-	public String getFingercode() {
-		return fingercode;
-	}
-
-	public void setFingercode(String fingercode) {
-		this.fingercode = fingercode;
-	}
-
 	public String getEdate() {
 		return edate;
 	}
-
 	public void setEdate(String edate) {
 		this.edate = edate;
 	}
-
 	public String getOpenstime() {
 		return openstime;
 	}
-
 	public void setOpenstime(String openstime) {
 		this.openstime = openstime;
 	}
-
 	public String getOpenetime() {
 		return openetime;
 	}
-
 	public void setOpenetime(String openetime) {
 		this.openetime = openetime;
 	}
-
 	public String getOpencount() {
 		return opencount;
 	}
-
 	public void setOpencount(String opencount) {
 		this.opencount = opencount;
 	}
-
 	public String getActioncount() {
 		return actioncount;
 	}
-
 	public void setActioncount(String actioncount) {
 		this.actioncount = actioncount;
 	}
+	
 }

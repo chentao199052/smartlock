@@ -1,12 +1,13 @@
 package com.qingyi.model;
 
-public class LockStatusResult {
-	
+public class LockInitializeResult {
 	private String orderid;
 	
 	private Integer resultstatus;
 	
 	private Integer filetype;
+	
+	private String newcode;
 	
 	private Integer locklca;
 	
@@ -36,26 +37,27 @@ public class LockStatusResult {
 	
 	private String order;
 	
-	private Integer no;
+	private String no;
+	
+	private String space;
 	
 	private String result;
 	
-	private String space;
+	private String od;
 
-	public LockStatusResult() {
+	public LockInitializeResult() {
 		super();
 	}
 
-	
-
-	public LockStatusResult(String orderid, Integer resultstatus, Integer filetype, Integer locklca, Integer lockstatus,
-			Integer lockstatus2, String channelid, String channel, String powerlev, Integer networkmode,
-			Integer workmode, Integer locktype, Integer figernum, Integer recordnum, String lockver, Integer lockcharge,
-			String order, Integer no, String result, String space) {
+	public LockInitializeResult(String orderid, Integer resultstatus, Integer filetype, String newcode, Integer locklca,
+			Integer lockstatus, Integer lockstatus2, String channelid, String channel, String powerlev,
+			Integer networkmode, Integer workmode, Integer locktype, Integer figernum, Integer recordnum,
+			String lockver, Integer lockcharge, String order, String no, String space, String result, String od) {
 		super();
 		this.orderid = orderid;
 		this.resultstatus = resultstatus;
 		this.filetype = filetype;
+		this.newcode = newcode;
 		this.locklca = locklca;
 		this.lockstatus = lockstatus;
 		this.lockstatus2 = lockstatus2;
@@ -71,11 +73,10 @@ public class LockStatusResult {
 		this.lockcharge = lockcharge;
 		this.order = order;
 		this.no = no;
-		this.result = result;
 		this.space = space;
+		this.result = result;
+		this.od = od;
 	}
-
-
 
 	public String getOrderid() {
 		return orderid;
@@ -99,6 +100,14 @@ public class LockStatusResult {
 
 	public void setFiletype(Integer filetype) {
 		this.filetype = filetype;
+	}
+
+	public String getNewcode() {
+		return newcode;
+	}
+
+	public void setNewcode(String newcode) {
+		this.newcode = newcode;
 	}
 
 	public Integer getLocklca() {
@@ -213,12 +222,20 @@ public class LockStatusResult {
 		this.order = order;
 	}
 
-	public Integer getNo() {
+	public String getNo() {
 		return no;
 	}
 
-	public void setNo(Integer no) {
+	public void setNo(String no) {
 		this.no = no;
+	}
+
+	public String getSpace() {
+		return space;
+	}
+
+	public void setSpace(String space) {
+		this.space = space;
 	}
 
 	public String getResult() {
@@ -229,12 +246,12 @@ public class LockStatusResult {
 		this.result = result;
 	}
 
-	public String getSpace() {
-		return space;
+	public String getOd() {
+		return od;
 	}
 
-	public void setSpace(String space) {
-		this.space = space;
+	public void setOd(String od) {
+		this.od = od;
 	}
 	
 	
