@@ -17,22 +17,11 @@ import com.qingyi.send.info.SendOrderInfo;
 import com.qingyi.send.info.impl.SendOrderImpl;
 
 
+
+
 public class StringTools {
 	
 
-//	public static void main(String[] args) {
-//		RoomCard rc=new RoomCard("开门卡", "2f5d2e2c", "1812111506", "23:00", "23:30", "1");
-//		List l=new ArrayList<>();
-//		l.add(rc);
-//		rc=new RoomCard("开门卡", "2e6f5e2a", "1812111506", "21:00", "23:33", "-1");
-//		l.add(rc);
-//		UnlockPsw psw=new UnlockPsw("123456", "1", "1812111620", "00:00", "23:59");
-//		List l2=new ArrayList<>();
-//		l2.add(psw);
-//		SendOrderInfo send=new SendOrderImpl("http://localhost:80", "5s4d1rt41rtrt1were4rt1w415tfdsdt1tyt4y51yhtuy");
-//		SendResult result=send.syncRoomCardAndPsw("00a1010001", "1818010001", "0101", l, l2, 100, "http://localhost/SmartLock");
-//		System.out.println(result.getResultCode()+"-"+result.getResultMsg());
-//	}
 	
 	public static Object mapToBean(Class<?> clazz, Map map) throws Exception {
         Object javabean = clazz.newInstance(); // 构建对象
@@ -199,7 +188,7 @@ public class StringTools {
 					sr.setResultCode("-10010");
 					sr.setResultMsg("可开门次数不允许为空");
 					return sr;
-				}else if(!val.toString().matches("\\d+")) {
+				}else if(!val.toString().matches("\\d+|(-1)")) {
 					sr.setResultCode("-10011");
 					sr.setResultMsg("可开门次数必须为10进制数字");
 					return sr;
@@ -391,6 +380,12 @@ public class StringTools {
 					sr.setResultMsg("指纹机唯一ID不允许为空");
 					return sr;
 				}
+			}else if(key.equals("roomimei")) {
+				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
+					sr.setResultCode("-10042");
+					sr.setResultMsg("IMEI不允许为空");
+					return sr;
+				}
 			}
 		}
 		return sr;
@@ -503,5 +498,330 @@ public class StringTools {
 	        }  
 	        return bString;  
 		 } 
-
+	 /**
+	  * 多条门锁操作记录解析成json列表(完整版)
+	  * @param order
+	  * @return
+	  */
+	 public static List<Map> getUnlockinglist(String order){
+		 List<Map> slUnlockings = new ArrayList<Map>();
+		 String uns = "";
+		 //单条
+		 if(order.substring(0,4).toUpperCase().equals("AAAA")){
+			 uns = order.substring(36,order.length()-4);
+		 }else{
+			 uns = order.substring(46,order.length()-4);
+		 }
+		 String[] oders = getUnlockingorders(uns);
+		 for(int i=0;i<oders.length;i++){
+			 
+			 //010100010203070d000000000000
+			 //11 22 33 44 55 66 77 88 99 00 11 22 33 44 55 66 77 88 99=====38
+			 String unlock = oders[i];
+			 String locktype = unlock.substring(0,2);
+			 String cardtype = unlock.substring(2,4);
+			 String cardcode = unlock.substring(4,12);
+			 String roomcode = unlock.substring(12,16);
+			 String packageno = unlock.substring(16,20);
+			 String password = unlock.substring(20,26).toUpperCase();
+			 String time = unlock.substring(26,38);
+			 time = "20" + time.substring(0,2) +"-"+time.substring(2,4)+"-"+time.substring(4,6)+
+					 " "+ time.substring(6,8)+":"+time.substring(8,10)+":"+time.substring(10,12);
+			
+			 Map lock = new HashMap();
+			 
+			 if(packageno.equals("0000") || packageno.equals("ffff") || packageno.equals("FFFF")){
+				 lock.put("packageNo", "0");
+			 }else{
+				 String n = Long.valueOf(packageno,16) + "";
+				 lock.put("packageNo", Integer.valueOf(n)+"");
+			 }
+			 
+			 lock.put("roomcode", roomcode);
+			 lock.put("cardcode", cardcode);
+			 lock.put("cardcode2", "");
+			 
+			 if(!password.equals("FFFFFF")){
+				 lock.put("password", password);
+			 }else{
+				 lock.put("password", "0");
+			 }
+			 lock.put("time", time);
+			 if(locktype.equals("01")){
+				 if(cardtype.equals("20")){
+					 lock.put("type", "6");
+				 }else if(cardtype.equals("08")) {
+					 lock.put("type", "17");
+				 }else if(cardtype.equals("10")) {
+					 lock.put("type", "9");
+				 }else{
+				     lock.put("type", "1");
+				 }
+			 }else if(locktype.equals("02")){
+				 lock.put("type", "4");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("03")){
+				 lock.put("type", "3");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("04")){
+				 lock.put("type", "5");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("08")){
+				 lock.put("type", "8");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("10")){
+				 lock.put("type", "10");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("20")){
+				 lock.put("type", "20");
+				 lock.put("cardcode2", unlock.substring(16, 24));
+			 }else if(locktype.equals("80")){
+				 lock.put("type", "19");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("90")){
+				 lock.put("type", "21");
+				 String newcode = cardcode + unlock.substring(16,24);
+				 lock.put("cardcode", newcode);
+			 }else if(locktype.equals("f1") || locktype.equals("F1")){
+				 lock.put("type", "11");
+			 }else if(locktype.equals("f2") || locktype.equals("F2")){
+				 lock.put("type", "12");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("f3") || locktype.equals("F3")) {
+				 lock.put("type", "14");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("f4") || locktype.equals("F4")) {
+				 lock.put("type", "15");
+			 }else if(locktype.equals("f5") || locktype.equals("F5")) {
+				 lock.put("type", "16");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("f6") || locktype.equals("F6")) {
+				 lock.put("type", "18");
+			 }else{
+				 lock.put("type", "0");
+			 }
+			 slUnlockings.add(lock);
+		 }
+		 return slUnlockings;
+	 } 
+	 
+	 /**
+	  * 分割多条门锁操作记录为单条记录数组
+	  * @param order
+	  * @return
+	  */
+	 public static String[] getUnlockingorders(String order){
+		 String[] oder = new String[order.length()/38];
+		 for(int i=0;i<order.length()/38;i++){
+			 oder[i] = order.substring(i*38,(i+1)*38);
+		 }
+		 return oder;
+	 }
+	 
+	 /**
+	  * 为多个门锁字符串添加分隔符号","
+	  * @param locks
+	  * @return
+	  */
+	 public static String getAlllocks(String locks){
+		 String alllockString= "";
+		 if(locks.length()>4){
+			 for(int i=0;i<locks.length()/4;i++){
+				 if(alllockString.equals("")){
+					 alllockString = locks.substring(i*4,(i+1)*4);
+				 }else{
+					 alllockString += "," + locks.substring(i*4,(i+1)*4);
+				 }
+			 }
+		 }else if(locks.length()==4){
+			 return locks;
+		 }
+		 return alllockString;
+	 }
+	 
+	 //指令位22,26
+	 public static String getAllFailRoomcardByFailorder(String[] od) {
+		 String allcardcodes = "";
+		 for(int i=0;i<od.length;i++) {
+			 String order = od[i];
+			 if(order.substring(22, 26).toUpperCase().equals("FFA1")) {
+				 return "all";
+			 }else {
+				 String content = order.substring(42);
+				 String cardcodes = getFailRoomcardOne(content);
+				 if("".equals(allcardcodes)) {
+					 allcardcodes = cardcodes;
+				 }else {
+					 allcardcodes = "," + cardcodes;
+				 }
+			 }
+		 }
+		 return allcardcodes;
+	 }
+	 
+	 private static String getFailRoomcardOne(String content) {
+		 String cardcode = "";
+		 int len = content.length()/66;
+		 for(int i=0;i<len;i++) {
+			 String rc = content.substring(i*66, (i+1)*66);
+			 if("".equals(cardcode)) {
+				 cardcode = "'" + rc.substring(2, 10) + "'";
+			 }else {
+				 cardcode += ",'" + rc.substring(2, 10) + "'";
+			 }
+		 }
+		 return cardcode;
+	 }
+	 
+	 public static String getFingercodeByOrder(String order) {
+		 String fcodes = "";
+		 if(order.substring(22, 26).toUpperCase().equals("C1A2")) {
+			 String content = order.substring(62);
+			 int len = content.length()/66;
+			 for(int i=0;i<len;i++) {
+				 String rc = content.substring(i*66, (i+1)*66);
+				 if("".equals(fcodes)) {
+					 fcodes = "'" + rc.substring(2, 10) + "'";
+				 }else {
+					 fcodes += ",'" + rc.substring(2, 10) + "'";
+				 }
+			 }
+		 }
+		 return fcodes;
+	 }
+	 
+	 public static String getFingercodesByOrders(String[] od) {
+		 String fcodes = "";
+		 for(int i=0;i<od.length;i++) {
+			 String content = od[i];
+			 if("".equals(fcodes)) {
+				 fcodes = "'"+content.substring(64, 72)+"'";
+			 }else {
+				 fcodes += "," + "'" + content.substring(64, 72) + "'";
+			 }
+		 }
+		 return fcodes;
+	 }
+	 
+	 /**
+	  * 多条门锁操作记录解析成json列表(有效指令截取版)
+	  * @param order
+	  * @return
+	  */
+	 public static List<Map> getUnlockinglist2(String order){
+		 List<Map> slUnlockings = new ArrayList<Map>();
+		 
+		 String[] oders = getUnlockingorders(order);
+		 for(int i=0;i<oders.length;i++){
+			 String unlock = oders[i];
+			 String locktype = unlock.substring(0,2);
+			 String cardtype = unlock.substring(2,4);
+			 String cardcode = unlock.substring(4,12);
+			 String roomcode = unlock.substring(12,16);
+			 String packageno = unlock.substring(16,20);
+			 String password = unlock.substring(20,26).toUpperCase();
+			 String time = unlock.substring(26,38);
+			 time = "20" + time.substring(0,2) +"-"+time.substring(2,4)+"-"+time.substring(4,6)+
+					 " "+ time.substring(6,8)+":"+time.substring(8,10)+":"+time.substring(10,12);
+			
+			 Map lock = new HashMap();
+			 
+			 if(packageno.equals("0000") || packageno.equals("ffff") || packageno.equals("FFFF")){
+				 lock.put("packageNo", "0");
+			 }else{
+				 String n = Long.valueOf(packageno,16) + "";
+				 lock.put("packageNo", Integer.valueOf(n)+"");
+			 }
+			 
+			 lock.put("roomcode", roomcode);
+			 lock.put("cardcode", cardcode);
+			 lock.put("cardcode2", "");
+			 
+			 if(!password.equals("FFFFFF")){
+				 lock.put("password", password);
+			 }else{
+				 lock.put("password", "0");
+			 }
+			 lock.put("time", time);
+			 if(locktype.equals("01")){
+				 if(cardtype.equals("20")){
+					 lock.put("type", "6");
+				 }else if(cardtype.equals("08")) {
+					 lock.put("type", "17");
+				 }else if(cardtype.equals("10")) {
+					 lock.put("type", "9");
+				 }else{
+				     lock.put("type", "1");
+				 }
+			 }else if(locktype.equals("02")){
+				 lock.put("type", "4");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("03")){
+				 lock.put("type", "3");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("04")){
+				 lock.put("type", "5");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("08")){
+				 lock.put("type", "8");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("10")){
+				 lock.put("type", "10");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("20")){
+				 lock.put("type", "20");
+				 lock.put("cardcode2", unlock.substring(16, 24));
+			 }else if(locktype.equals("80")){
+				 lock.put("type", "19");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("90")){
+				 lock.put("type", "21");
+				 String newcode = cardcode + unlock.substring(16,24);
+				 lock.put("cardcode", newcode);
+			 }else if(locktype.equals("f1") || locktype.equals("F1")){
+				 lock.put("type", "11");
+			 }else if(locktype.equals("f2") || locktype.equals("F2")){
+				 lock.put("type", "12");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("f3") || locktype.equals("F3")) {
+				 lock.put("type", "14");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("f4") || locktype.equals("F4")) {
+				 lock.put("type", "15");
+			 }else if(locktype.equals("f5") || locktype.equals("F5")) {
+				 lock.put("type", "16");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("f6") || locktype.equals("F6")) {
+				 lock.put("type", "18");
+			 }else{
+				 lock.put("type", "0");
+			 }
+			 slUnlockings.add(lock);
+		 }
+		 return slUnlockings;
+	 }
+	 
+	 public static List<String> getListByString(String json) {
+		 if(json.length()<3) {
+			 return new ArrayList<String>();
+		 }
+		 json = json.substring(1, json.length()-1);
+		 String[] ss = json.split(",");
+		 //List<String> l = Arrays.asList(json);
+		 //JSONArray arr=JSONArray.fromObject(json);
+		
+		 List<String> l=new ArrayList<String>();
+		 
+		 /*for (Object object : arr) {
+			l.add(object);
+		 }*/
+		 String rets = "";
+		 for(int i=0;i<ss.length;i++) {
+			 rets = ss[i].replace(" ", "");
+			 rets = rets.replace("\"", "");
+			 l.add(rets);
+		 }
+		 return l;
+	 }
+	 
 }

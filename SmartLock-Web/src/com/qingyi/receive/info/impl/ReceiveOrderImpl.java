@@ -1,15 +1,66 @@
 package com.qingyi.receive.info.impl;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.qingyi.model.ClearsGatewaytatusResult;
+import com.qingyi.model.DelRoomCardResult;
+import com.qingyi.model.DelRoomFingerResult;
+import com.qingyi.model.DelUnlockpswResult;
+import com.qingyi.model.FingerfailResult;
+import com.qingyi.model.FingerfinishResult;
+import com.qingyi.model.FingersuccessResult;
+import com.qingyi.model.GatewayInitializeResult;
+import com.qingyi.model.GatewayRecord;
+import com.qingyi.model.GatewaystatusResult;
+import com.qingyi.model.LockInitializeResult;
+import com.qingyi.model.LockRemoteOpenResult;
+import com.qingyi.model.LockResetResult;
 import com.qingyi.model.LockStatusResult;
+import com.qingyi.model.NBbackorder;
+import com.qingyi.model.NBbackorderResult;
+import com.qingyi.model.NBbackorderResult2;
+import com.qingyi.model.NBbackorderResult3;
+import com.qingyi.model.NBbackorderResult4;
+import com.qingyi.model.NBbackorderResult5;
+import com.qingyi.model.NBorderResult;
+import com.qingyi.model.NBorderResult2;
+import com.qingyi.model.NBorderResult3;
+import com.qingyi.model.NBorderResult4;
+import com.qingyi.model.NBorderResult5;
+import com.qingyi.model.NBorderResult6;
+import com.qingyi.model.NBorderResult7;
+import com.qingyi.model.NBrecords;
+import com.qingyi.model.NBrecordsResult;
+import com.qingyi.model.ReadGatewayRecordResult;
+import com.qingyi.model.ReadLockRecord;
+import com.qingyi.model.ReadLockRecordResult;
 import com.qingyi.model.ReceiveResult;
+import com.qingyi.model.SaveFingerReagyResult;
+import com.qingyi.model.SaveRoomCardResult;
+import com.qingyi.model.SaveRoomFingerResult;
+import com.qingyi.model.SaveRoomFingerResult2;
+import com.qingyi.model.SaveRoomFingerResult3;
+import com.qingyi.model.SaveUnlockPswResult;
+import com.qingyi.model.SyncFailResult;
+import com.qingyi.model.SyncFinishResult;
+import com.qingyi.model.SyncSuccessResult;
+import com.qingyi.model.UpdateGatewayRoomsResult;
+import com.qingyi.model.UpdateGatewaypowResult;
+import com.qingyi.model.UpdateRoomForcelockResult;
+import com.qingyi.model.UpdateRoomNetmodeResult;
+import com.qingyi.model.UpdateRoomWorkmodeResult;
+import com.qingyi.model.UpdateRoompowResult;
 import com.qingyi.receive.info.ReceiveOrderInfo;
 import com.qingyi.util.Constant;
 import com.qingyi.util.StringTools;
 import com.qingyi.util.Verify;
+
+
+
 
 public class ReceiveOrderImpl implements ReceiveOrderInfo{
 
@@ -38,7 +89,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String itid=json.get("itid").toString();
 			LockStatusResult r=new LockStatusResult();
 			r.setOrderid(itid);
-			if(json.get("status").equals("1")){
+			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			if(json.get("status").toString().equals("1")){
 				String resultorder = json.get("result").toString();
 				//生命周期
 				String lca = resultorder.substring(30,31);
@@ -93,14 +146,1710 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				}else{
 					r.setRecordnum(Integer.valueOf(recordnum,16));
 				}
-				
 			}
+			String order=json.get("order").toString();
+			String no=json.get("no").toString();
+			String space=json.get("space").toString();
 			String ret = json.get("result").toString();
+			r.setOrder(order);
+			if(null!=no&&no.matches("^[0-9]{1,}$")) {
+				r.setNo(Integer.parseInt(no));
+			}
+			r.setResult(ret);
+			r.setSpace(space);
 			int failtype = StringTools.getFailtype(ret);
 			r.setFiletype(failtype);
 			result.setResult(r);
 		}
 		return result;
 	}
+
+	@Override
+	public ReceiveResult getLockResetResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			String itid=json.get("itid").toString();
+			LockResetResult r =new LockResetResult();
+			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			r.setOrderid(itid);
+			String order=json.get("order").toString();
+			String no=json.get("no").toString();
+			String space=json.get("space").toString();
+			String ret = json.get("result").toString();
+			r.setOrder(order);
+			if(null!=no&&no.matches("^[0-9]{1,}$")) {
+				r.setNo(Integer.parseInt(no));
+			}
+			r.setResult(ret);
+			r.setSpace(space);
+			int failtype = StringTools.getFailtype(ret);
+			r.setFiletype(failtype);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getLockRemoteOpenResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			String itid=json.get("itid").toString();
+			LockRemoteOpenResult r=new LockRemoteOpenResult();
+			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			r.setOrderid(itid);
+			String order=json.get("order").toString();
+			String no=json.get("no").toString();
+			String space=json.get("space").toString();
+			String ret = json.get("result").toString();
+			r.setOrder(order);
+			if(null!=no&&no.matches("^[0-9]{1,}$")) {
+				r.setNo(Integer.parseInt(no));
+			}
+			r.setResult(ret);
+			r.setSpace(space);
+			int failtype = StringTools.getFailtype(ret);
+			r.setFiletype(failtype);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getReadLockRecordResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			String itid=json.get("itid").toString();
+			ReadLockRecordResult recordresult=new ReadLockRecordResult();
+			recordresult.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			recordresult.setOrderid(itid);
+			if(json.get("status").equals("1")){
+				String[] res = json.get("result").toString().split("-");
+				if(res!=null&&res.length>0) {
+					List<ReadLockRecord> lockRecords=new ArrayList<ReadLockRecord>();
+					for(int x=0;x<res.length;x++) {
+					    List<Map> unlockings = StringTools.getUnlockinglist(res[x]);
+					    for(int h=0;h<unlockings.size();h++){
+							Map map = unlockings.get(h);
+							String cardcode=map.get("cardcode").toString();
+							String packageNo=map.get("packageNo").toString();
+							String time=map.get("time").toString();
+							String type=map.get("type").toString();
+							String cardcode2=map.get("cardcode2").toString();
+							String password=map.get("password").toString();
+							ReadLockRecord record=new ReadLockRecord(cardcode, packageNo, time, type, cardcode2, password);
+							lockRecords.add(record);
+					    }
+		         }
+					recordresult.setLockRecords(lockRecords);
+			}
+		  }
+			String no  = "0";
+			try {
+				no = json.get("no").toString();
+			} catch (Exception e) {
+				no ="3";
+			}
+			recordresult.setNo(no);
+			String ret = json.get("result").toString();
+			String order=json.get("order").toString();
+			String space=json.get("space").toString();
+			recordresult.setOrder(order);
+			recordresult.setResult(ret);
+			recordresult.setSpace(space);
+			int failtype = StringTools.getFailtype(ret);
+			recordresult.setFiletype(failtype);
+			result.setResult(recordresult);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getUpdateRoomForcelockResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			String itid=json.get("itid").toString();
+			UpdateRoomForcelockResult r=new UpdateRoomForcelockResult();
+			r.setOrderid(itid);
+			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			String order=json.get("order").toString();
+			String no=json.get("no").toString();
+			String space=json.get("space").toString();
+			String ret = json.get("result").toString();
+			r.setOrder(order);
+			if(null!=no&&no.matches("^[0-9]{1,}$")) {
+				r.setNo(Integer.parseInt(no));
+			}
+			r.setResult(ret);
+			r.setSpace(space);
+			int failtype = StringTools.getFailtype(ret);
+			r.setFiletype(failtype);
+			result.setResult(r);
+		}	
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getUpdateRoompowResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			String itid=json.get("itid").toString();
+			UpdateRoompowResult r=new UpdateRoompowResult();
+			r.setOrderid(itid);
+			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			if(json.get("status").toString().equals("1")){
+				String resultorder = json.get("result").toString();
+				//生命周期
+				String lca = resultorder.substring(30,31);
+				
+				//开关门状态
+				String status =  resultorder.substring(31,32);
+				String bet = resultorder.substring(32,34);
+				//门锁功率等级默认为最大功率A3
+				String powerlev = resultorder.substring(46,48);
+				if(powerlev.toUpperCase().equals("A0")){
+					powerlev = "A0";
+				}else if(powerlev.toUpperCase().equals("A1")){
+					powerlev = "A1";
+				}else if(powerlev.toUpperCase().equals("A2")){
+					powerlev = "A2";
+				}else{
+					powerlev = "A3";
+				}
+				String recordnum = resultorder.substring(50,54);
+				String ver = resultorder.substring(54,62);
+				String channelid = resultorder.substring(62,66);
+				String channel = resultorder.substring(66,68);
+				String networkmode = resultorder.substring(78,79);
+				String workmode = resultorder.substring(79,80);
+				String locktype = resultorder.substring(81,82);
+				String figernum = resultorder.substring(82,84);
+				
+				int bettery  = Integer.valueOf(bet,16);
+				if(lca.equals("1")){
+					r.setLocklca(-1);
+				}else if(lca.equals("2")){
+					r.setLocklca(1);
+				}else if(lca.equals("4")){
+					r.setLocklca(2);
+				}
+				
+				String[] type = StringTools.getlockstatus(status);
+				//更新状态
+				r.setLockstatus(Integer.valueOf(type[0]));
+				r.setLockstatus2(Integer.valueOf(type[1]));
+				r.setChannelid(channelid);
+				r.setChannel(Integer.valueOf(channel,16)+"");
+				r.setPowerlev(powerlev);
+				r.setNetworkmode(Integer.valueOf(networkmode));
+				r.setWorkmode(Integer.valueOf(workmode));
+				r.setLocktype(Integer.valueOf(locktype));
+				r.setFigernum(Integer.valueOf(figernum,16));
+				r.setLockver(ver);
+				r.setLockcharge(bettery);
+				if(recordnum.equals("0000")){
+					r.setRecordnum(0);
+				}else{
+					r.setRecordnum(Integer.valueOf(recordnum,16));
+				}
+			}
+			String order=json.get("order").toString();
+			String no=json.get("no").toString();
+			String space=json.get("space").toString();
+			String ret = json.get("result").toString();
+			r.setOrder(order);
+			if(null!=no&&no.matches("^[0-9]{1,}$")) {
+				r.setNo(Integer.parseInt(no));
+			}
+			r.setResult(ret);
+			r.setSpace(space);
+			int failtype = StringTools.getFailtype(ret);
+			r.setFiletype(failtype);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getUpdateRoomWorkmodeResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			String itid=json.get("itid").toString();
+			UpdateRoomWorkmodeResult r=new UpdateRoomWorkmodeResult();
+			r.setOrderid(itid);
+			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			if(json.get("status").toString().equals("1")){
+				String resultorder = json.get("result").toString();
+				//生命周期
+				String lca = resultorder.substring(30,31);
+				
+				//开关门状态
+				String status =  resultorder.substring(31,32);
+				String bet = resultorder.substring(32,34);
+				//门锁功率等级默认为最大功率A3
+				String powerlev = resultorder.substring(46,48);
+				if(powerlev.toUpperCase().equals("A0")){
+					powerlev = "A0";
+				}else if(powerlev.toUpperCase().equals("A1")){
+					powerlev = "A1";
+				}else if(powerlev.toUpperCase().equals("A2")){
+					powerlev = "A2";
+				}else{
+					powerlev = "A3";
+				}
+				String recordnum = resultorder.substring(50,54);
+				String ver = resultorder.substring(54,62);
+				String channelid = resultorder.substring(62,66);
+				String channel = resultorder.substring(66,68);
+				String networkmode = resultorder.substring(78,79);
+				String workmode = resultorder.substring(79,80);
+				String locktype = resultorder.substring(81,82);
+				String figernum = resultorder.substring(82,84);
+				
+				int bettery  = Integer.valueOf(bet,16);
+				if(lca.equals("1")){
+					r.setLocklca(-1);
+				}else if(lca.equals("2")){
+					r.setLocklca(1);
+				}else if(lca.equals("4")){
+					r.setLocklca(2);
+				}
+				
+				String[] type = StringTools.getlockstatus(status);
+				//更新状态
+				r.setLockstatus(Integer.valueOf(type[0]));
+				r.setLockstatus2(Integer.valueOf(type[1]));
+				r.setChannelid(channelid);
+				r.setChannel(Integer.valueOf(channel,16)+"");
+				r.setPowerlev(powerlev);
+				r.setNetworkmode(Integer.valueOf(networkmode));
+				r.setWorkmode(Integer.valueOf(workmode));
+				r.setLocktype(Integer.valueOf(locktype));
+				r.setFigernum(Integer.valueOf(figernum,16));
+				r.setLockver(ver);
+				r.setLockcharge(bettery);
+				if(recordnum.equals("0000")){
+					r.setRecordnum(0);
+				}else{
+					r.setRecordnum(Integer.valueOf(recordnum,16));
+				}
+			}
+			String order=json.get("order").toString();
+			String no=json.get("no").toString();
+			String space=json.get("space").toString();
+			String ret = json.get("result").toString();
+			r.setOrder(order);
+			if(null!=no&&no.matches("^[0-9]{1,}$")) {
+				r.setNo(Integer.parseInt(no));
+			}
+			r.setResult(ret);
+			r.setSpace(space);
+			int failtype = StringTools.getFailtype(ret);
+			r.setFiletype(failtype);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getUpdateRoomNetmodeResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			String itid=json.get("itid").toString();
+			UpdateRoomNetmodeResult r=new UpdateRoomNetmodeResult();
+			r.setOrderid(itid);
+			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			if(json.get("status").toString().equals("1")){
+				String resultorder = json.get("result").toString();
+				//生命周期
+				String lca = resultorder.substring(30,31);
+				
+				//开关门状态
+				String status =  resultorder.substring(31,32);
+				String bet = resultorder.substring(32,34);
+				//门锁功率等级默认为最大功率A3
+				String powerlev = resultorder.substring(46,48);
+				if(powerlev.toUpperCase().equals("A0")){
+					powerlev = "A0";
+				}else if(powerlev.toUpperCase().equals("A1")){
+					powerlev = "A1";
+				}else if(powerlev.toUpperCase().equals("A2")){
+					powerlev = "A2";
+				}else{
+					powerlev = "A3";
+				}
+				String recordnum = resultorder.substring(50,54);
+				String ver = resultorder.substring(54,62);
+				String channelid = resultorder.substring(62,66);
+				String channel = resultorder.substring(66,68);
+				String networkmode = resultorder.substring(78,79);
+				String workmode = resultorder.substring(79,80);
+				String locktype = resultorder.substring(81,82);
+				String figernum = resultorder.substring(82,84);
+				
+				int bettery  = Integer.valueOf(bet,16);
+				if(lca.equals("1")){
+					r.setLocklca(-1);
+				}else if(lca.equals("2")){
+					r.setLocklca(1);
+				}else if(lca.equals("4")){
+					r.setLocklca(2);
+				}
+				
+				String[] type = StringTools.getlockstatus(status);
+				//更新状态
+				r.setLockstatus(Integer.valueOf(type[0]));
+				r.setLockstatus2(Integer.valueOf(type[1]));
+				r.setChannelid(channelid);
+				r.setChannel(Integer.valueOf(channel,16)+"");
+				r.setPowerlev(powerlev);
+				r.setNetworkmode(Integer.valueOf(networkmode));
+				r.setWorkmode(Integer.valueOf(workmode));
+				r.setLocktype(Integer.valueOf(locktype));
+				r.setFigernum(Integer.valueOf(figernum,16));
+				r.setLockver(ver);
+				r.setLockcharge(bettery);
+				if(recordnum.equals("0000")){
+					r.setRecordnum(0);
+				}else{
+					r.setRecordnum(Integer.valueOf(recordnum,16));
+				}
+			}
+			String order=json.get("order").toString();
+			String no=json.get("no").toString();
+			String space=json.get("space").toString();
+			String ret = json.get("result").toString();
+			r.setOrder(order);
+			if(null!=no&&no.matches("^[0-9]{1,}$")) {
+				r.setNo(Integer.parseInt(no));
+			}
+			r.setResult(ret);
+			r.setSpace(space);
+			int failtype = StringTools.getFailtype(ret);
+			r.setFiletype(failtype);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getSaveFingerReagyResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			String itid=json.get("itid").toString();
+			SaveFingerReagyResult r=new SaveFingerReagyResult();
+			r.setOrderid(itid);
+			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			String order=json.get("order").toString();
+			r.setOrder(order);
+			String ret = json.get("result").toString();
+			int failtype = StringTools.getFailtype(ret);
+			r.setResult(ret);
+			r.setFiletype(failtype);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getGatewaystatusResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			String itid=json.get("itid").toString();
+			GatewaystatusResult r=new GatewaystatusResult();
+			r.setOrderid(itid);
+			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			if(json.get("status").toString().equals("1")) {
+				String resultorder = json.get("result").toString();
+				if(null!=resultorder && resultorder.length()>50) {
+					String recordnum = resultorder.substring(30,34);
+					String version = resultorder.substring(34,42);
+					String beforever = version.substring(0,4);
+					//网关功率等级
+					String powerlev = resultorder.substring(48,50);
+					if(powerlev.toUpperCase().equals("A3")){
+						powerlev = "A3";
+					}else if(powerlev.toUpperCase().equals("A1")){
+						powerlev = "A1";
+					}else if(powerlev.toUpperCase().equals("A2")){
+						powerlev = "A2";
+					}else{
+						powerlev = "A0";
+					}
+					//网关更新信道id-信道-功率
+					String xindaoID = resultorder.substring(42,46);
+					String xindao = resultorder.substring(46,48);
+					xindao = Integer.valueOf(xindao,16)+"";
+					String information = xindaoID + "-" + xindao + "-" + powerlev;
+					
+					//门锁数量
+					String locknum = "";
+					String locks = "";
+					String wid = null;
+					if(Integer.valueOf(beforever)>=100){
+						//老版本(无唯一id)
+						if(resultorder.substring(20, 24).equals("017a") || resultorder.substring(20, 24).equals("017A")) {
+							locknum = resultorder.substring(62,64);
+							locks = resultorder.substring(64,resultorder.length()-4);
+						}else {
+							locknum = resultorder.substring(86,88);
+							locks = resultorder.substring(88,resultorder.length()-4);
+							wid = resultorder.substring(54,64);
+						}
+					}
+					
+					if(recordnum.equals("0000")){
+						r.setRecordnum(0);
+					}else{
+						String n = Long.valueOf(recordnum,16) + "";
+						r.setRecordnum(Integer.parseInt(n));
+					}
+					if(locknum.equals("00")){
+						r.setLocknum(0);
+						r.setLocks("");
+					}else{
+						String n = Long.valueOf(locknum,16) + "";
+						r.setLocknum(Integer.parseInt(n));
+						r.setLocks(StringTools.getAlllocks(locks));
+					}
+					r.setVersion(version);
+					r.setBeforever(beforever);
+					r.setPowerlev(powerlev.toUpperCase());
+					r.setXindaoID(xindaoID);
+					r.setXindao(Integer.valueOf(xindao,16));
+					r.setWid(wid);
+				}
+			}
+			String begin=json.get("begin").toString();
+			String no=json.get("no").toString();
+			String space=json.get("space").toString();
+			String ret = json.get("result").toString();
+			r.setBegin(begin);
+			if(null!=no&&no.matches("^[0-9]{1,}$")) {
+				r.setNo(Integer.parseInt(no));
+			}
+			r.setSpace(space);
+			r.setResult(ret);
+			int failtype = StringTools.getFailtype(ret);
+			r.setFiletype(failtype);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getUpdateGatewaypowResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			String itid=json.get("itid").toString();
+			UpdateGatewaypowResult r=new UpdateGatewaypowResult();
+			r.setOrderid(itid);
+			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			if(json.get("status").toString().equals("1")) {
+				String resultorder = json.get("result").toString();
+				if(null!=resultorder && resultorder.length()>50) {
+					String recordnum = resultorder.substring(30,34);
+					String version = resultorder.substring(34,42);
+					String beforever = version.substring(0,4);
+					//网关功率等级
+					String powerlev = resultorder.substring(48,50);
+					if(powerlev.toUpperCase().equals("A3")){
+						powerlev = "A3";
+					}else if(powerlev.toUpperCase().equals("A1")){
+						powerlev = "A1";
+					}else if(powerlev.toUpperCase().equals("A2")){
+						powerlev = "A2";
+					}else{
+						powerlev = "A0";
+					}
+					//网关更新信道id-信道-功率
+					String xindaoID = resultorder.substring(42,46);
+					String xindao = resultorder.substring(46,48);
+					xindao = Integer.valueOf(xindao,16)+"";
+					String information = xindaoID + "-" + xindao + "-" + powerlev;
+					
+					//门锁数量
+					String locknum = "";
+					String locks = "";
+					String wid = null;
+					if(Integer.valueOf(beforever)>=100){
+						//老版本(无唯一id)
+						if(resultorder.substring(20, 24).equals("017a") || resultorder.substring(20, 24).equals("017A")) {
+							locknum = resultorder.substring(62,64);
+							locks = resultorder.substring(64,resultorder.length()-4);
+						}else {
+							locknum = resultorder.substring(86,88);
+							locks = resultorder.substring(88,resultorder.length()-4);
+							wid = resultorder.substring(54,64);
+						}
+					}
+					
+					if(recordnum.equals("0000")){
+						r.setRecordnum(0);
+					}else{
+						String n = Long.valueOf(recordnum,16) + "";
+						r.setRecordnum(Integer.parseInt(n));
+					}
+					if(locknum.equals("00")){
+						r.setLocknum(0);
+						r.setLocks("");
+					}else{
+						String n = Long.valueOf(locknum,16) + "";
+						r.setLocknum(Integer.parseInt(n));
+						r.setLocks(StringTools.getAlllocks(locks));
+					}
+					r.setVersion(version);
+					r.setBeforever(beforever);
+					r.setPowerlev(powerlev.toUpperCase());
+					r.setXindaoID(xindaoID);
+					r.setXindao(Integer.valueOf(xindao,16));
+					r.setWid(wid);
+				}
+			}
+			String begin=json.get("begin").toString();
+			String no=json.get("no").toString();
+			String space=json.get("space").toString();
+			String ret = json.get("result").toString();
+			r.setBegin(begin);
+			if(null!=no&&no.matches("^[0-9]{1,}$")) {
+				r.setNo(Integer.parseInt(no));
+			}
+			r.setSpace(space);
+			r.setResult(ret);
+			int failtype = StringTools.getFailtype(ret);
+			r.setFiletype(failtype);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getClearsGatewaytatusResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			String itid=json.get("itid").toString();
+			ClearsGatewaytatusResult r=new ClearsGatewaytatusResult();
+			r.setOrderid(itid);
+			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			if(json.get("status").toString().equals("1")) {
+				String resultorder = json.get("result").toString();
+				if(null!=resultorder && resultorder.length()>50) {
+					String recordnum = resultorder.substring(30,34);
+					String version = resultorder.substring(34,42);
+					String beforever = version.substring(0,4);
+					//网关功率等级
+					String powerlev = resultorder.substring(48,50);
+					if(powerlev.toUpperCase().equals("A3")){
+						powerlev = "A3";
+					}else if(powerlev.toUpperCase().equals("A1")){
+						powerlev = "A1";
+					}else if(powerlev.toUpperCase().equals("A2")){
+						powerlev = "A2";
+					}else{
+						powerlev = "A0";
+					}
+					//网关更新信道id-信道-功率
+					String xindaoID = resultorder.substring(42,46);
+					String xindao = resultorder.substring(46,48);
+					xindao = Integer.valueOf(xindao,16)+"";
+					String information = xindaoID + "-" + xindao + "-" + powerlev;
+					
+					//门锁数量
+					String locknum = "";
+					String locks = "";
+					String wid = null;
+					if(Integer.valueOf(beforever)>=100){
+						//老版本(无唯一id)
+						if(resultorder.substring(20, 24).equals("017a") || resultorder.substring(20, 24).equals("017A")) {
+							locknum = resultorder.substring(62,64);
+							locks = resultorder.substring(64,resultorder.length()-4);
+						}else {
+							locknum = resultorder.substring(86,88);
+							locks = resultorder.substring(88,resultorder.length()-4);
+							wid = resultorder.substring(54,64);
+						}
+					}
+					
+					if(recordnum.equals("0000")){
+						r.setRecordnum(0);
+					}else{
+						String n = Long.valueOf(recordnum,16) + "";
+						r.setRecordnum(Integer.parseInt(n));
+					}
+					if(locknum.equals("00")){
+						r.setLocknum(0);
+						r.setLocks("");
+					}else{
+						String n = Long.valueOf(locknum,16) + "";
+						r.setLocknum(Integer.parseInt(n));
+						r.setLocks(StringTools.getAlllocks(locks));
+					}
+					r.setVersion(version);
+					r.setBeforever(beforever);
+					r.setPowerlev(powerlev.toUpperCase());
+					r.setXindaoID(xindaoID);
+					r.setXindao(Integer.valueOf(xindao,16));
+					r.setWid(wid);
+				}
+			}
+			String begin=json.get("begin").toString();
+			String no=json.get("no").toString();
+			String space=json.get("space").toString();
+			String ret = json.get("result").toString();
+			r.setBegin(begin);
+			if(null!=no&&no.matches("^[0-9]{1,}$")) {
+				r.setNo(Integer.parseInt(no));
+			}
+			r.setSpace(space);
+			r.setResult(ret);
+			int failtype = StringTools.getFailtype(ret);
+			r.setFiletype(failtype);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getUpdateGatewayRoomsResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			String itid=json.get("itid").toString();
+			UpdateGatewayRoomsResult r=new UpdateGatewayRoomsResult();
+			r.setOrderid(itid);
+			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			String order =json.get("order").toString();
+			String ret = json.get("result").toString();
+			String no=json.get("no").toString();
+			String space=json.get("space").toString();
+			if(null!=no&&no.matches("^[0-9]{1,}$")) {
+				r.setNo(Integer.parseInt(no));
+			}
+			r.setSpace(space);
+			int failtype = StringTools.getFailtype(ret);
+			r.setOrder(order);
+			r.setResult(ret);
+			r.setFiletype(failtype);
+			result.setResult(r);	
+			}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getReadGatewayRecordResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Integer status=null;
+			try {
+				String successval = content;
+				String gatewaycode2 = "";
+				String resultorder = successval;
+				String record="";
+				if(resultorder.substring(0,4).toUpperCase().equals("BBBB")){
+					gatewaycode2 = resultorder.substring(8,18);
+					record = resultorder.substring(38,resultorder.length()-4);
+				}else{
+						gatewaycode2= resultorder.substring(6,16);
+						record = resultorder.substring(36,resultorder.length()-4);
+					}
+				ReadGatewayRecordResult r=new ReadGatewayRecordResult();
+				r.setGatewaycode2(gatewaycode2);
+				r.setRecord(record);
+				if(null!=record&&record.trim().length()>0) {
+					List<Map> unlockings = StringTools.getUnlockinglist2(record);
+					if(unlockings!=null && unlockings.size()>0) {
+						List<GatewayRecord> gatewayRecords=new ArrayList<GatewayRecord>();  
+						for(int i=0;i<unlockings.size();i++) {
+							Map map = unlockings.get(i);
+							String roomcode = map.get("roomcode").toString();
+							String cardcode=map.get("cardcode").toString();
+							String cardcode2=map.get("cardcode2").toString();
+							String packageNo=map.get("packageNo").toString();
+							String time=map.get("time").toString();
+							String type=map.get("type").toString();
+							String password=map.get("password").toString();
+							GatewayRecord gatewayRecord=new GatewayRecord();
+							gatewayRecord.setRoomcode(roomcode);
+							gatewayRecord.setCardcode(cardcode);
+							gatewayRecord.setCardcode2(cardcode2);
+							gatewayRecord.setPackageNo(packageNo);
+							gatewayRecord.setTime(time);
+							gatewayRecord.setType(type);
+							gatewayRecord.setPassword(password);
+							gatewayRecords.add(gatewayRecord);
+						}
+						r.setGatewayRecords(gatewayRecords);
+					}
+				}
+				status=1;
+				result.setResult(r);
+			} catch (Exception e) {
+				e.printStackTrace();
+				status=0;
+			}finally {
+				result.setResultstatus(status);
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getGatewayInitializeResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			String itid=json.get("itid").toString();
+			GatewayInitializeResult r=new GatewayInitializeResult();
+			r.setOrderid(itid);
+			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			String order=json.get("order").toString();
+			String ret=json.get("result").toString();
+			String no=json.get("no").toString();
+			String space=json.get("space").toString();
+			r.setOrder(order);
+			r.setResult(ret);
+			r.setNo(no);
+			r.setSpace(space);
+			int failtype = StringTools.getFailtype(ret);
+			r.setFiletype(failtype);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getSaveUnlockPswResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			String rcid=json.get("rcid").toString();
+			SaveUnlockPswResult r=new SaveUnlockPswResult();
+			r.setOrderid(rcid);
+    		String status=json.get("status").toString();
+    		r.setResultstatus(Integer.parseInt(status));
+			result.setResultstatus(Integer.parseInt(status));
+			if(status.equals("0")) {
+				if(json.get("cardtype").toString().equals("20")) {
+	    			String order=json.get("order)").toString();
+	    			r.setOrder(order);
+	        		String cardtype=json.get("cardtype").toString();
+	        		r.setCardtype(cardtype);
+	        		String no=json.get("no").toString();
+	        		r.setNo(no);
+	        		String space=json.get("space").toString();
+	        		r.setSpace(space);
+	    		}
+			}
+    		String ret=json.get("result").toString();
+    		int failtype = StringTools.getFailtype(ret);
+			r.setFiletype(failtype);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getDelUnlockpswResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			String rcid=json.get("rcid").toString();
+			DelUnlockpswResult r=new DelUnlockpswResult();
+			r.setOrderid(rcid);
+    		String status=json.get("status").toString();
+    		r.setResultstatus(Integer.parseInt(status));
+			result.setResultstatus(Integer.parseInt(status));
+    		if(json.get("cardtype").toString().equals("40")) {
+    			String order=json.get("order)").toString();
+    			r.setOrder(order);
+        		String cardtype=json.get("cardtype").toString();
+        		r.setCardtype(cardtype);
+        		String no=json.get("no").toString();
+        		r.setNo(no);
+        		String space=json.get("space").toString();
+        		r.setSpace(space);
+    		}
+    		String ret=json.get("result").toString();
+    		int failtype = StringTools.getFailtype(ret);
+			r.setFiletype(failtype);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getLockInitializeResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			String itid = json.get("itid").toString();
+			String od = json.get("od").toString();
+			String ret=json.get("result").toString();
+			LockInitializeResult r=new LockInitializeResult();
+			r.setOrderid(itid);
+			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			if(json.get("status").toString().equals("1")){
+				r.setNewcode(json.get("newcode").toString());;
+				//TODO B0指令附带门锁当前状态
+				//生命周期
+				String lca = ret.substring(30,31);
+				if(lca.equals("1")){
+					r.setLocklca(-1);
+				}else if(lca.equals("2")){
+					r.setLocklca(1);
+				}else if(lca.equals("4")){
+					r.setLocklca(2);
+				}
+				//开关门状态
+				String status =  ret.substring(31,32);
+				String bet = ret.substring(32,34);
+				//门锁功率等级默认为最大功率A3
+				String powerlev = ret.substring(46,48);
+				if(powerlev.toUpperCase().equals("A0")){
+					powerlev = "A0";
+				}else if(powerlev.toUpperCase().equals("A1")){
+					powerlev = "A1";
+				}else if(powerlev.toUpperCase().equals("A2")){
+					powerlev = "A2";
+				}else{
+					powerlev = "A3";
+				}
+				String recordnum = ret.substring(50,54);
+				String ver = ret.substring(54,62);
+				String channelid = ret.substring(62,66);
+				String channel = ret.substring(66,68);
+				String networkmode = ret.substring(78,79);
+				String workmode = ret.substring(79,80);
+				String locktype = ret.substring(81,82);
+				String figernum = ret.substring(82,84);
+				int bettery  = Integer.valueOf(bet,16);
+				String[] type = StringTools.getlockstatus(status);
+				//更新状态
+				r.setLockstatus(Integer.valueOf(type[0]));
+				r.setLockstatus2(Integer.valueOf(type[1]));
+				r.setChannelid(channelid);
+				r.setChannel(Integer.valueOf(channel,16)+"");
+				r.setPowerlev(powerlev);
+				r.setNetworkmode(Integer.valueOf(networkmode));
+				r.setWorkmode(Integer.valueOf(workmode));
+				r.setLocktype(Integer.valueOf(locktype));
+				r.setFigernum(Integer.valueOf(figernum,16));
+				r.setLockver(ver);
+				r.setLockcharge(bettery);
+				if(recordnum.equals("0000")){
+					r.setRecordnum(0);
+				}else{
+					r.setRecordnum(Integer.valueOf(recordnum,16));
+				}
+			}
+			r.setOrder(json.get("order").toString());
+			r.setNo(json.get("no").toString());
+			r.setSpace(json.get("space").toString());
+			r.setResult(ret);
+			int failtype = StringTools.getFailtype(ret);
+			r.setFiletype(failtype);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	//??
+	public ReceiveResult getSaveRoomCardResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			String rcid = json.get("rcid").toString();
+			SaveRoomCardResult r=new SaveRoomCardResult();
+			r.setOrderid(rcid);
+			String status = json.get("status").toString();
+			r.setResultstatus(Integer.parseInt(status));
+			result.setResultstatus(Integer.parseInt(status));
+			String cardtype=json.get("cardtype").toString();
+			r.setCardtype(cardtype);
+			if("0".equals(status)) {
+				if(!"20".equals(cardtype)&&!"40".equals(cardtype)) {
+					String order=json.get("order").toString();
+					String no=json.get("no").toString();
+					String space=json.get("space").toString();
+					r.setOrder(order);
+					r.setNo(no);
+					r.setSpace(space);
+				}
+			}
+			String ret=json.get("result").toString();
+			r.setResult(ret);
+			int failtype = StringTools.getFailtype(ret);
+			r.setFiletype(failtype);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	//??
+	public ReceiveResult getSaveRoomFingerResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Map json = StringTools.stringToMap(content);
+			String type = json.get("type").toString();
+			String num= json.get("num").toString();
+			SaveRoomFingerResult r=new SaveRoomFingerResult();
+			r.setNum(num);
+			r.setType(type);
+			if(num.equals("1") || num.equals("2")) {
+					String rcid = json.get("itid").toString();
+					r.setOrderid(rcid);
+					r.setResultstatus(1);
+					result.setResultstatus(1);
+					if(type.equals("2")) {
+						String order = json.get("fail").toString();
+						String fingercodes = StringTools.getFingercodeByOrder(order);
+						r.setFingercodes(fingercodes);
+					}
+			}
+			Object object = json.get("result");
+    		if(null!=object) {
+    			String ret =(String)object;
+    			int failtype = StringTools.getFailtype(ret);
+    			r.setFiletype(failtype);
+    		}
+    		result.setResult(r);
+		}
+		return result;
+	}
+	@Override
+	//??
+	public ReceiveResult getSaveRoomFingerResult2(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Map json = StringTools.stringToMap(content);
+			SaveRoomFingerResult2 r=new SaveRoomFingerResult2();
+			String type = json.get("type").toString();
+			String rcid = json.get("itid").toString();
+    		String order = json.get("finish").toString();
+    		r.setType(type);
+    		r.setOrderid(rcid);
+			if(type.equals("2")) {
+				String fingercodes = StringTools.getFingercodeByOrder(order);
+				r.setFingercodes(fingercodes);
+			}
+			Object object = json.get("result");
+			if(null!=object) {
+				String ret =(String)object;
+				int failtype = StringTools.getFailtype(ret);
+				r.setFiletype(failtype);
+				r.setResult(ret);
+			}
+			r.setResultstatus(1);
+			result.setResultstatus(1);
+			result.setResult(r);
+		}
+		return result;
+	}
+	@Override
+	//??
+	public ReceiveResult getSaveRoomFingerResult3(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Map json = StringTools.stringToMap(content);
+			SaveRoomFingerResult3 r=new SaveRoomFingerResult3();
+			String rfid = json.get("itid").toString();
+			String type = json.get("type").toString();
+			String status = json.get("status").toString();
+			r.setOrderid(rfid);
+			r.setType(type);
+			r.setResultstatus(Integer.parseInt(status));
+			result.setResultstatus(Integer.parseInt(status));
+			if(status.equals("0")) {
+				if(type.equals("1")) {
+					String order=json.get("order").toString();
+					r.setOrder(order);
+				}else if(type.equals("2")) {
+					String failorder = json.get("fail").toString();
+					if(!"".equals(failorder)) {
+						String fingercodes = StringTools.getFingercodeByOrder(failorder);
+						r.setFingercodes(fingercodes);
+					}
+				}
+			}
+			Object object = json.get("result");
+			if(null!=object) {
+				String ret =(String)object;
+				int failtype = StringTools.getFailtype(ret);
+				r.setFiletype(failtype);
+				r.setResult(ret);
+			}
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	//??
+	public ReceiveResult getDelRoomCardResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if(result.getResultCode().equals("0")) {
+			Map json = StringTools.stringToMap(content);
+			DelRoomCardResult r=new DelRoomCardResult();
+			String rcid=json.get("rcid").toString();
+    		String status=json.get("status").toString();
+    		r.setOrderid(rcid);
+    		r.setResultstatus(Integer.parseInt(status));
+    		result.setResultstatus(Integer.parseInt(status));
+    		if(status.equals("0")) {
+    			String cardtype=json.get("cardtype").toString();
+    			r.setCardtype(cardtype);
+    			if(!cardtype.equals("20")&&!cardtype.equals("40")){
+    				String order=json.get("order").toString();
+    				String no=json.get("no").toString();
+    				String space=json.get("space").toString();
+    				r.setOrder(order);
+    				r.setNo(no);
+    				r.setSpace(space);
+    			}
+    		}
+    		String ret=json.get("result").toString();
+    		Integer failtype = StringTools.getFailtype(ret);
+    		r.setFiletype(failtype);
+    		result.setResult(r);
+		}
+		return result;
+	}
+	@Override
+	public ReceiveResult getSyncFailResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, sysdate, verify);
+		if(result.getResultCode().equals("0")) {
+			Map json = StringTools.stringToMap(content);
+			String num = json.get("num").toString();
+			SyncFailResult r=new SyncFailResult();
+			String status = json.get("status").toString();
+			r.setResultstatus(Integer.parseInt(status));
+			r.setNum(num);
+			result.setResultstatus(Integer.parseInt(status));
+			if(num.equals("1") || num.equals("2")) {
+				String itid = json.get("itid").toString();
+				String fail = json.get("fail").toString();
+				String cards = json.get("finish").toString();
+				String cardcodes = StringTools.getAllFailRoomcardByFailorder(new String[] {cards});
+				r.setOrderid(itid);
+				r.setFail(fail);
+				r.setCardcodes(cardcodes);
+			}
+			Object object = json.get("result");
+			if(object!=null) {
+				String ret=(String)object;
+	    		Integer failtype = StringTools.getFailtype(ret);
+	    		r.setFiletype(failtype);
+			}
+    		result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getSyncFinishResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			String itid = json.get("itid").toString();
+			String status = json.get("status").toString();
+			String cards = json.get("finish").toString();
+			String cardcodes = StringTools.getAllFailRoomcardByFailorder(new String[] {cards});
+			SyncFinishResult r=new SyncFinishResult();
+			r.setOrderid(itid);
+			r.setResultstatus(Integer.parseInt(status));
+			result.setResultstatus(Integer.parseInt(status));
+			r.setCardcodes(cardcodes);
+			Object object = json.get("result");
+			if(object!=null) {
+				String ret=(String)object;
+	    		Integer failtype = StringTools.getFailtype(ret);
+	    		r.setFiletype(failtype);
+			}
+    		result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getSyncSuccessResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result=Verify.verify(content, sysdate, verify, sysdate, verify);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			String itid = json.get("itid").toString();
+			String status = json.get("status").toString();
+			String ret = json.get("result").toString();
+			SyncSuccessResult r=new SyncSuccessResult();
+			r.setOrderid(itid);
+			r.setResultstatus(Integer.parseInt(status));
+			result.setResultstatus(Integer.parseInt(status));
+			Integer failtype = StringTools.getFailtype(ret);
+    		r.setFiletype(failtype);
+    		r.setResult(ret);
+    		result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getFingerfailResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+		if(result.getResultCode().equals("0")) {
+			Map json= StringTools.stringToMap(content);
+			FingerfailResult r=new FingerfailResult();
+			String type = json.get("type").toString();
+			String num = json.get("num").toString();
+			r.setType(type);
+			r.setNum(num);
+			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			if(num.equals("1") || num.equals("2")) {
+				String rcid = json.get("itid").toString();
+				String order = json.get("fail").toString();
+				r.setOrderid(rcid);
+				r.setOrder(order);
+				if(type.equals("1")) {
+					
+				}
+				else if(type.equals("2")) {
+					String fingercodes = StringTools.getFingercodeByOrder(order);
+					r.setFingercodes(fingercodes);
+				}else {
+					String fingercodes = StringTools.getFingercodesByOrders(new String[] {order});
+					r.setFingercodes(fingercodes);
+				}
+				
+			}
+			Object object = json.get("result");
+			if(object!=null) {
+				String ret=(String)object;
+	    		Integer failtype = StringTools.getFailtype(ret);
+	    		r.setFiletype(failtype);
+			}
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getFingerfinishResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			FingerfinishResult r=new FingerfinishResult();
+			String type = json.get("type").toString();
+			String itid = json.get("itid").toString();
+			String order = json.get("finish").toString();
+			r.setOrderid(itid);
+			r.setType(type);
+			r.setOrder(order);
+			if(type.equals("1")) {
+				
+			}else if(type.equals("2")) {
+				String fingercodes = StringTools.getFingercodeByOrder(order);
+				r.setFingercodes(fingercodes);
+			}else {
+				String fingercodes = StringTools.getFingercodesByOrders(new String[] {order});
+				r.setFingercodes(fingercodes);
+			}
+			String ret=json.get("result").toString();
+			Integer failtype = StringTools.getFailtype(ret);
+			r.setFiletype(failtype);
+			r.setResult(ret);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getFingersuccessResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			FingersuccessResult r=new FingersuccessResult();
+			String type = json.get("type").toString();
+			String itid = json.get("itid").toString();
+			String status = json.get("status").toString();
+			String ret=json.get("result").toString();
+			r.setOrderid(itid);
+			r.setType(type);
+			r.setResult(ret);
+			r.setResultstatus(Integer.parseInt(status));
+			result.setResultstatus(Integer.parseInt(status));
+			if(type.equals("2")) {
+				String failorder = json.get("fail").toString();
+				String fingercodes = StringTools.getFingercodeByOrder(failorder);
+				r.setFingercodes(fingercodes);
+			}
+			String order=json.get("order").toString();
+			Integer failtype = StringTools.getFailtype(ret);
+			r.setFiletype(failtype);
+			r.setOrder(order);
+			r.setResult(ret);
+			result.setResult(r);
+		}
+		return result;
+	}
+	//NB----------------------------------------------------------------------------------------
+	@Override
+	public ReceiveResult getNBbackorderResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			NBbackorderResult r=new NBbackorderResult();
+			String old = json.get("old").toString();
+			String order=json.get("order").toString();
+			List<String> rcs = StringTools.getListByString(old);
+			List<NBbackorder> rcs1=new ArrayList<NBbackorder>();
+			List<NBbackorder> rfs=new ArrayList<NBbackorder>();
+			List<NBbackorder> rps=new ArrayList<NBbackorder>();
+			for(int i=0;i<rcs.size();i++) {
+				
+				String c1 = rcs.get(i).toString();
+				String[] param = c1.split("-");
+				 if(param.length>=3) {
+					Integer paramvalue=Integer.valueOf(param[3]);
+					String id = param[1];
+					if(id.contains("c")) {
+						NBbackorder nbr=new NBbackorder();
+						id = id.substring(1);
+						nbr.setParam(param);
+						nbr.setParam(param);
+						nbr.setId(id);
+						rcs1.add(nbr);
+					}else if(id.contains("f")) {
+						NBbackorder nbr=new NBbackorder();
+						id = id.substring(1);
+						nbr.setParam(param);
+						nbr.setParam(param);
+						nbr.setId(id);
+						rfs.add(nbr);
+					}else if(id.contains("p")) {}
+						NBbackorder nbr=new NBbackorder();
+						id = id.substring(1);
+						nbr.setParam(param);
+						nbr.setParam(param);
+						nbr.setId(id);
+						rps.add(nbr);
+				 }
+			}
+			r.setOrder(order);
+			r.setRcfps(rcs);
+			r.setRcs(rcs1);
+			r.setRfs(rfs);
+			r.setRps(rps);
+			r.setResultstatus(1);
+			result.setResultstatus(1);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getNBbackorderResult2(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			NBbackorderResult2 r =new NBbackorderResult2();
+			String itid=json.get("rcid").toString();
+			String num=json.get("num").toString();
+			String finishorder=json.get("finishorder").toString();
+			r.setOrderid(itid);
+			r.setNum(Integer.parseInt(num));
+			r.setFinishorder(finishorder);
+			if(Integer.parseInt(num)>=3) {
+				String[] os = finishorder.split(",");
+				if(os.length>2) {
+					String rcids = os[1].replace("~", ",");
+					r.setRcids(rcids);
+				}
+			}	
+			r.setResultstatus(1);
+			result.setResultstatus(1);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getNBbackorderResult3(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			NBbackorderResult3 r =new NBbackorderResult3();
+			String itid=json.get("rcid").toString();
+			String num=json.get("num").toString();
+			String finishorder=json.get("finishorder").toString();
+			r.setOrderid(itid);
+			r.setNum(Integer.parseInt(num));
+			r.setFinishorder(finishorder);
+			if(Integer.parseInt(num)>=3) {
+				String[] os = finishorder.split(",");
+				if(os.length>=2) {
+					String rfid = os[1].toString();
+					r.setRfid(rfid);
+				}
+			}	
+			r.setResultstatus(1);
+			result.setResultstatus(1);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getNBbackorderResult4(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			NBbackorderResult4 r =new NBbackorderResult4();
+			String num=json.get("num").toString();
+			r.setNum(Integer.parseInt(num));
+			if(Integer.parseInt(num)>=3) {
+				String itid = json.get("rcid").toString();
+				r.setOrderid(itid);
+			}
+			r.setResultstatus(1);
+			result.setResultstatus(1);
+			result.setResult(r);
+		}
+		return result;
+	}
+	
+	@Override
+	public ReceiveResult getNBbackorderResult5(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			String id = json.get("id").toString();
+			String old = json.get("old").toString();
+			String[] param = old.split("-");
+			String order =json.get("order").toString();
+			NBbackorderResult5 r=new NBbackorderResult5();
+			r.setOrderid(id);
+			r.setOld(old);
+			r.setOrder(order);
+			r.setParam(param);
+			r.setResultstatus(1);
+			result.setResultstatus(1);
+			result.setResult(r);
+		}
+		return result;
+	}
+	
+	@Override
+	//门锁返回结果的json
+	public ReceiveResult getNBorderResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			NBorderResult r=new NBorderResult();
+			String order=json.get("order").toString();
+			r.setOrder(order);
+			String[] os = order.split(",");
+			String ids = os[1].replace("~", ",");
+			if(ids.contains("p")) {
+				ids = ids.replace("p", "");
+				r.setIds(ids);
+			}else if(ids.contains("c")){
+				ids = ids.replace("c", "");
+				r.setIds(ids);
+			}
+			r.setResultstatus(1);
+			result.setResultstatus(1);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getNBorderResult2(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			NBorderResult2 r=new NBorderResult2();
+			String order=json.get("order").toString();
+			r.setOrder(order);
+			String[] os = order.split(",");
+			if(os.length>=2) {
+				String id = os[1].toString();
+				r.setId(id);
+			}
+			r.setResultstatus(1);
+			result.setResultstatus(1);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getNBorderResult3(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			NBorderResult3 r=new NBorderResult3();
+			String order=json.get("order").toString();
+			String[] orders = order.split("-");
+			String itid = json.get("rcid").toString();
+			r.setOrder(order);
+			r.setOrderid(itid);
+			String puids = "";
+			String rcids = "";
+			for(int j=0;j<orders.length;j++) {
+				String or = orders[j];
+				String[] os = or.split(",");
+				String ids = os[1].replace("~", ",");
+				if(ids.contains("p")) {
+					if("".equals(puids)) {
+						puids = ids.replace("p", "");
+					}else {
+						puids = puids + "," + ids.replace("p", "");
+					}
+				}else if(ids.contains("c")){
+					if("".equals(rcids)) {
+						rcids = ids.replace("c", "");
+					}else {
+						rcids = rcids + "," + ids.replace("c", "");
+					}
+				}
+			}
+			r.setPuids(puids);
+			r.setRcids(rcids);
+			String ret=json.get("result").toString();
+			int failtype = StringTools.getFailtype(ret);
+			r.setFiletype(failtype);
+			r.setResultstatus(1);
+			result.setResultstatus(1);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getNBorderResult4(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result = Verify.verify(content, sysdate, verify, sysdate, verify);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			NBorderResult4 r=new NBorderResult4();
+			String order=json.get("order").toString();
+			String[] orders =order.split("-");
+			String itid = json.get("rcid").toString();
+			r.setOrder(order);
+			r.setOrders(orders);
+			r.setOrderid(itid);
+			r.setResultstatus(1);
+			result.setResultstatus(1);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getNBorderResult5(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result = Verify.verify(content, sysdate, verify, sysdate, verify);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			NBorderResult5 r=new NBorderResult5();
+			String order=json.get("order").toString();
+			String[] orders = json.get("order").toString().split("-");
+			String itid = json.get("rcid").toString();
+			r.setOrderid(itid);
+			r.setOrder(order);
+			String failids = "";
+			for(int j=0;j<orders.length;j++) {
+				String ord = orders[j];
+				String[] os = ord.split(",");
+				String id = os.length>1?os[1].toString():"";
+				if("".equals(failids)) {
+					failids = id;
+				}else {
+					failids = failids + "," + id;
+				}
+			}
+			r.setFailids(failids);
+			String ret=json.get("result").toString();
+			r.setResult(ret);
+			r.setResultstatus(1);
+			result.setResultstatus(1);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getNBorderResult6(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result = Verify.verify(content, sysdate, verify, sysdate, verify);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			NBorderResult6 r=new NBorderResult6();
+			//门锁返回结果的json
+			String resultorder = json.get("resultmap").toString();
+			r.setResultorder(resultorder);
+			Map retjson = StringTools.stringToMap(resultorder);
+			//服务器下发的指令
+			String order = json.get("order").toString();
+			r.setOrder(order);
+			String ids = json.get("ids").toString();
+			r.setIds(ids);
+			//指令结果
+			String fail = retjson.get("messageId").toString().substring(0, 2);
+			int failtype = Integer.valueOf(fail);
+			if(failtype==1) {
+				failtype = -1;
+			}
+			r.setFailtype(failtype);
+			String[] empids = ids.split(",");
+			List<String> c_ids=new ArrayList<String>();
+			List<String> f_ids=new ArrayList<String>();
+			List<String> p_ids=new ArrayList<String>();
+			for(int j=0;j<empids.length;j++) {
+				String id = empids[j];
+				if(id.contains("c") && !c_ids.contains(id)) {
+					c_ids.add(id.substring(1));
+				}else if (id.contains("f") && !f_ids.contains(id)) {
+					f_ids.add(id.substring(1));
+				}else if (id.contains("p") && !p_ids.contains(id)) {
+					p_ids.add(id.substring(1));
+				}
+			}
+			r.setC_ids(c_ids);
+			r.setF_ids(f_ids);
+			r.setP_ids(p_ids);
+			r.setResultstatus(1);
+			result.setResultstatus(1);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getNBorderResult7(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result = Verify.verify(content, sysdate, verify, sysdate, verify);
+		if(result.getResultCode().equals("0")) {
+			Map json=StringTools.stringToMap(content);
+			NBorderResult7 r=new NBorderResult7();
+			//门锁返回结果的json
+			String resultorder = json.get("resultmap").toString();
+			r.setResultorder(resultorder);
+			Map retjson = StringTools.stringToMap(resultorder);
+			//服务器下发的指令
+			String order = json.get("order").toString();
+			r.setOrder(order);
+			String rfid = json.get("id").toString();
+			r.setRfid(rfid);
+			//指令结果
+			String fail = retjson.get("messageId").toString().substring(0, 2);
+			int failtype = Integer.valueOf(fail);
+			if(failtype==1) {
+				failtype = -1;
+			}
+			r.setFailtype(failtype);
+			r.setResultstatus(1);
+			result.setResultstatus(1);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult getNBrecordsResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult result = Verify.verify(content, sysdate, verify, sysdate, verify);
+		if(result.getResultCode().equals("0")) {
+			String successval = content;
+			String[] p = successval.split("-");
+			String roomid = p[1];
+			String records = p[0];
+			NBrecordsResult r=new NBrecordsResult();
+			r.setRoomid(roomid);
+			r.setRecords(records);
+			List<NBrecords> list=new ArrayList<NBrecords>();
+			//保存读取到的记录
+			List<Map> unlockings = StringTools.getUnlockinglist2(records);
+			for(int h=0;h<unlockings.size();h++){
+				    NBrecords rds=new NBrecords();
+					Map map = unlockings.get(h);
+					rds.setPackageNo(map.get("packageNo").toString());
+					rds.setTime(map.get("time").toString());
+					rds.setCardcode(map.get("cardcode").toString());
+					rds.setType(map.get("type").toString());
+					rds.setCardcode2(map.get("cardcode2").toString());
+					rds.setPassword(map.get("password").toString());
+					list.add(rds);
+			}
+			r.setNbrecords(list);
+			r.setResultstatus(1);
+			result.setResultstatus(1);
+			result.setResult(r);
+		}
+		return result;
+	}
+
+	
 
 }
