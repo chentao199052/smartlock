@@ -39,13 +39,37 @@ public class StringTools {
         return javabean;
     }
 	
-	public static Map stringToMap(String result) {
-		Map map=new HashMap();
-		String json2=result.substring(1,result.length()-1);
-		String arr[]=json2.split(",");
-		for(int i=0;i<arr.length;i++) {
-			String a[]=arr[i].split(":");
-			map.put(a[0].substring(1, a[0].length()-1), a[1].substring(1, a[1].length()-1));
+//	public static Map stringToMap(String result) {
+//		Map map=new HashMap();
+//		String json2=result.substring(1,result.length()-1);
+//		String arr[]=json2.split(",");
+//		for(int i=0;i<arr.length;i++) {
+//			String a[]=arr[i].split(":");
+//			map.put(a[0].substring(1, a[0].length()-1), a[1].substring(1, a[1].length()-1));
+//		}
+//		return map;
+//	}
+	public static Map stringToMap2(String result) {
+		String ss=result.substring(1,result.length()-1);
+		String[] s=ss.split(",");
+		Map map =new HashMap();
+		outter:
+		for(int i=0; i<s.length ;i++) {
+			if(s[i].contains(":")) {
+			String[] str=s[i].split(":");
+			String key=str[0].replace("\"", "").trim();
+			map.put(key, str[1].replace("\"", "").trim());
+			intter:
+			for(int j=i+1;j<s.length;j++) {
+				String r=s[j];
+				if(!r.contains(":")) {
+					String va=map.get(key).toString()+","+r.replace("\"", "");
+					map.put(key, va.trim());
+				}else {
+					continue outter;
+				}
+			}
+			}
 		}
 		return map;
 	}
@@ -358,7 +382,7 @@ public class StringTools {
 					sr.setResultCode("-10037");
 					sr.setResultMsg("指纹特征码不允许为空");
 					return sr;
-				}else if(val.toString().length()!=8||val.toString().toUpperCase().matches(".*[G-Z].*")) {
+				}else if(val.toString().length()!=988||val.toString().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10038");
 					sr.setResultMsg("指纹特征码必须是长度为988的16进制字符串");
 					return sr;
