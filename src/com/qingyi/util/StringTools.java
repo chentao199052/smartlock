@@ -39,16 +39,16 @@ public class StringTools {
         return javabean;
     }
 	
-//	public static Map stringToMap(String result) {
-//		Map map=new HashMap();
-//		String json2=result.substring(1,result.length()-1);
-//		String arr[]=json2.split(",");
-//		for(int i=0;i<arr.length;i++) {
-//			String a[]=arr[i].split(":");
-//			map.put(a[0].substring(1, a[0].length()-1), a[1].substring(1, a[1].length()-1));
-//		}
-//		return map;
-//	}
+	public static Map stringToMap(String result) {
+		Map map=new HashMap();
+		String json2=result.substring(1,result.length()-1);
+		String arr[]=json2.split(",");
+		for(int i=0;i<arr.length;i++) {
+			String a[]=arr[i].split(":");
+			map.put(a[0].substring(1, a[0].length()-1), a[1].substring(1, a[1].length()-1));
+		}
+		return map;
+	}
 	public static Map stringToMap2(String result) {
 		String ss=result.substring(1,result.length()-1);
 		String[] s=ss.split(",");
@@ -63,7 +63,7 @@ public class StringTools {
 			for(int j=i+1;j<s.length;j++) {
 				String r=s[j];
 				if(!r.contains(":")) {
-					String va=map.get(key).toString()+","+r.replace("\"", "");
+					String va=map.get(key).toString()+","+r.replace("\"", "").trim();
 					map.put(key, va.trim());
 				}else {
 					continue outter;
@@ -734,10 +734,15 @@ public class StringTools {
 	  */
 	 public static List<Map> getUnlockinglist2(String order){
 		 List<Map> slUnlockings = new ArrayList<Map>();
-		 
+		 if(order.length()<38) {
+			 return slUnlockings;
+		 }
 		 String[] oders = getUnlockingorders(order);
 		 for(int i=0;i<oders.length;i++){
 			 String unlock = oders[i];
+			 if(unlock.length()<38) {
+				 continue;
+			 }
 			 String locktype = unlock.substring(0,2);
 			 String cardtype = unlock.substring(2,4);
 			 String cardcode = unlock.substring(4,12);
