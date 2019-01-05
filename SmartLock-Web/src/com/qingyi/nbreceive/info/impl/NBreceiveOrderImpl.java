@@ -57,7 +57,6 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 				List<NBbackorder> rfs=new ArrayList<NBbackorder>();
 				List<NBbackorder> rps=new ArrayList<NBbackorder>();
 				for(int i=0;i<rcs.size();i++) {
-					
 					String c1 = rcs.get(i).toString();
 					String[] param = c1.split("-");
 					 if(param.length>=3) {
@@ -67,21 +66,21 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 							NBbackorder nbr=new NBbackorder();
 							id = id.substring(1);
 							nbr.setParam(param);
-							nbr.setParam(param);
+							nbr.setParamvalue(paramvalue);
 							nbr.setId(id);
 							rcs1.add(nbr);
 						}else if(id.contains("f")) {
 							NBbackorder nbr=new NBbackorder();
 							id = id.substring(1);
 							nbr.setParam(param);
-							nbr.setParam(param);
+							nbr.setParamvalue(paramvalue);
 							nbr.setId(id);
 							rfs.add(nbr);
 						}else if(id.contains("p")) {}
 							NBbackorder nbr=new NBbackorder();
 							id = id.substring(1);
 							nbr.setParam(param);
-							nbr.setParam(param);
+							nbr.setParamvalue(paramvalue);
 							nbr.setId(id);
 							rps.add(nbr);
 					 }
