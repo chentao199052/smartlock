@@ -153,5 +153,38 @@ public interface NBSendOrderInfo {
 		 * @param callbackurl
 		 * @return
 		 */
-		public SendResult addDXOnline(String id ,String deviceId,String timeout ,String callbackurl); 
+		public SendResult addDXOnline(String id ,String deviceId,Integer timeout ,String callbackurl); 
+		/**
+		 * 注册NB锁
+		 * @param roomlocation  移动注册时必传
+		 * @param roomname  移动注册时必传
+		 * @param roomimsi  移动注册时必传
+		 * @param roomtxtype
+		 * @param roomimei
+		 * @param timeout
+		 * @param callbackurl
+		 * @return
+		 */
+		public SendResult registerDevice(String roomlocation,String roomname,String roomimsi,String roomtxtype ,String roomimei,Integer timeout ,String callbackurl); 
+		/**
+		 * 修改NB锁
+		 * @param roomlocation
+		 * @param roomname
+		 * @param roomimsi
+		 * @param roomtxtype
+		 * @param roomimei
+		 * @param timeout
+		 * @param callbackurl
+		 * @return
+		 */
+		public SendResult updateDevice(String roomlocation,String roomname,String roomtxtype ,String roomimei,String roomdeviceid,Integer timeout ,String callbackurl); 
+		/**
+		 * 删除NB锁
+		 * @param roomdeviceid
+		 * @param timeout
+		 * @param callbackurl
+		 * @return
+		 */
+		public SendResult delDevice(String roomdeviceid,String roomtxtype,Integer timeout ,String callbackurl); 
+		
 }

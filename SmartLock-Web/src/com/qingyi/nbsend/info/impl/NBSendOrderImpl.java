@@ -2,9 +2,11 @@ package com.qingyi.nbsend.info.impl;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.qingyi.model.Command;
 import com.qingyi.model.NBUnlockPsw;
+import com.qingyi.model.RegistNb;
 import com.qingyi.model.Room;
 import com.qingyi.model.RoomCard;
 import com.qingyi.model.RoomCardxzsx;
@@ -314,7 +316,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 		}
 
 		@Override
-		public SendResult addDXOnline(String id, String deviceId, String timeout, String callbackurl) {
+		public SendResult addDXOnline(String id, String deviceId, Integer timeout, String callbackurl) {
 			// TODO Auto-generated method stub
 			LinkedHashMap param=new LinkedHashMap();
 			param.put("id", id);
@@ -325,6 +327,82 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			if("0".equals(sr.getResultCode())) {
 				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"addDXOnline", secret, param);
 				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+			}
+			return sr;
+		}
+
+		@Override
+		public SendResult registerDevice(String roomlocation,String roomname,String roomimsi,String roomtxtype, String roomimei, Integer timeout, String callbackurl) {
+			// TODO Auto-generated method stub
+			LinkedHashMap param=new LinkedHashMap();
+			param.put("roomlocation", roomlocation);
+			param.put("roomname", roomname);
+			param.put("roomimsi", roomimsi);
+			param.put("roomtxtype", roomtxtype);
+			param.put("roomimei", roomimei);
+			param.put("timeout", timeout);
+			param.put("callbackurl", callbackurl);
+			SendResult sr=StringTools.check(param);
+			if("0".equals(sr.getResultCode())) {
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"registerDevice", secret, param);
+				Map map=StringTools.stringToMap2(result);
+				if(map!=null) {
+					String resultCode=map.get("resultCode")==null?"":map.get("resultCode").toString();
+					String resultMsg=map.get("resultMsg")==null?"":map.get("resultMsg").toString();
+					String orderId=map.get("orderId")==null?"":map.get("orderId").toString();
+					String msg=map.get("msg")==null?"":map.get("msg").toString();
+					String[] split = msg.split("~");
+					String deviceId="";
+					String verifyCode="";
+					String psk="";
+					if(split.length==3) {
+						deviceId=split[0];
+						verifyCode=split[1];
+						psk=split[2];
+					}else {
+						deviceId=msg;
+					}
+					RegistNb registNb=new RegistNb(deviceId, verifyCode, psk);
+					sr=new SendResult(resultCode, resultMsg, orderId, registNb);
+				}
+				
+				//sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+			}
+			return sr;
+		}
+
+		@Override
+		public SendResult updateDevice(String roomlocation, String roomname, String roomtxtype, String roomimei,String roomdeviceid,
+				Integer timeout, String callbackurl) {
+			// TODO Auto-generated method stub
+			LinkedHashMap param=new LinkedHashMap();
+			param.put("roomlocation", roomlocation);
+			param.put("roomname", roomname);
+			param.put("roomtxtype", roomtxtype);
+			param.put("roomimei", roomimei);
+			param.put("roomdeviceid", roomdeviceid);
+			param.put("timeout", timeout);
+			param.put("callbackurl", callbackurl);
+			SendResult sr=StringTools.check(param);
+			if("0".equals(sr.getResultCode())) {
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateDevice", secret, param);
+				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
+			}
+			return sr;
+		}
+
+		@Override
+		public SendResult delDevice(String roomdeviceid,String roomtxtype, Integer timeout, String callbackurl) {
+			// TODO Auto-generated method stub
+			LinkedHashMap param=new LinkedHashMap();
+			param.put("roomdeviceid", roomdeviceid);
+			param.put("roomtxtype", roomtxtype);
+			param.put("timeout", timeout);
+			param.put("callbackurl", callbackurl);
+			SendResult sr=StringTools.check(param);
+			if("0".equals(sr.getResultCode())) {
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"delDevice", secret, param);
+				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
 			}
 			return sr;
 		}
