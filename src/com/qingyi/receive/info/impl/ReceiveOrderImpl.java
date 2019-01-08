@@ -978,6 +978,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	        		r.setSpace(space);
 	    		}
 			}
+			
     		String ret=json.get("result").toString();
     		int failtype = StringTools.getFailtype(ret);
 			r.setFiletype(failtype);
