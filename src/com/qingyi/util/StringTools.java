@@ -3,6 +3,7 @@ package com.qingyi.util;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.security.MessageDigest;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -853,4 +854,66 @@ public class StringTools {
 		 return l;
 	 }
 	 
+	 public static String simpleObjectToJsonStr(Object obj) throws IllegalArgumentException, IllegalAccessException{  
+	        if(obj==null){  
+	            return "null";  
+	        }  
+	        String jsonStr = "{";  
+	        Class<?> cla = obj.getClass();  
+	        Field fields[] = cla.getDeclaredFields();  
+	        for (Field field : fields) {  
+	            field.setAccessible(true);  
+	            if(field.getType() == long.class){  
+	                jsonStr += "\""+field.getName()+"\":"+field.getLong(obj)+",";  
+	            }else if(field.getType() == double.class){  
+	                jsonStr += "\""+field.getName()+"\":"+field.getDouble(obj)+",";  
+	            }else if(field.getType() == Timestamp.class){  
+	                jsonStr += "\""+field.getName()+"\":"+"\""+field.get(obj)+"\""+",";  
+	            }else if(field.getType() == float.class){  
+	                jsonStr += "\""+field.getName()+"\":"+field.getFloat(obj)+",";  
+	            }else if(field.getType() == int.class){  
+	                jsonStr += "\""+field.getName()+"\":"+field.getInt(obj)+",";  
+	            }else if(field.getType() == boolean.class){  
+	                jsonStr += "\""+field.getName()+"\":"+field.getBoolean(obj)+",";  
+	            }else if(field.getType() == Integer.class||field.getType() == Boolean.class  
+	                    ||field.getType() == Double.class||field.getType() == Float.class                     
+	                    ||field.getType() == Long.class){                 
+	                jsonStr += "\""+field.getName()+"\":"+field.get(obj)+",";  
+	            }else if(field.getType() == String.class){  
+	                jsonStr += "\""+field.getName()+"\":\""+field.get(obj)+"\",";  
+	            }                  
+	        }  
+	        jsonStr = jsonStr.substring(0,jsonStr.length()-1);  
+	        jsonStr += "}";  
+	            return jsonStr;       
+	    }  
+	 
+	 /**
+	  * 每两位十六进制字符串转成二进制8位字符串
+	  * @param hexString
+	  * @return
+	  */
+	 public static String hexToBinary(String hexString) {
+		 int i = Integer.parseInt(hexString, 16);
+		 String binaryString = Integer.toBinaryString(i);
+		 int len = binaryString.length();
+		 for(int j=hexString.length()*4;j>len;j--) {
+			 binaryString = "0"+binaryString;
+		 }
+		 return binaryString;
+	 }
+	 
+	 public static String mapToString(Map params) {
+		 String json="{";
+		  Set<Map.Entry<String, Object>> paramsSet = params.entrySet();
+		  for (Map.Entry<String, Object> paramEntry : paramsSet) {
+			String key= paramEntry.getKey();
+			String vaule=paramEntry.getValue().toString();
+			json+="\""+key +"\""+":"+"\""+vaule+"\""+",";
+		  }
+		  json=json.substring(0, json.length()-1);
+		  json+="}";
+		  System.out.println(json);
+		  return json;
+	 }
 }

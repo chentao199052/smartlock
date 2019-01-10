@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.qingyi.model.Card;
 import com.qingyi.model.Command;
 import com.qingyi.model.NBUnlockPsw;
 import com.qingyi.model.RegistNb;
@@ -12,6 +13,7 @@ import com.qingyi.model.RoomCard;
 import com.qingyi.model.RoomCardxzsx;
 import com.qingyi.model.RoomFinger;
 import com.qingyi.model.RoomFingerxzsx;
+import com.qingyi.model.RoomNB;
 import com.qingyi.model.SendResult;
 import com.qingyi.model.UnlockPsw;
 import com.qingyi.nbsend.info.NBSendOrderInfo;
@@ -407,4 +409,152 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			return sr;
 		}
 
+		@Override
+		public SendResult saveDeviceDataHw(String body,RoomNB room,String valueSleep,String valueSpace,String itstateisopen,String itstatereset,Card card,Card card1,Integer rccount,Integer timeout,String callbackurl) {
+			// TODO Auto-generated method stub
+			LinkedHashMap param=new LinkedHashMap();
+			String room2="";
+			String card_1="";
+			String card_2="";
+			try {
+				 room2=StringTools.simpleObjectToJsonStr(room);
+				 card_1=StringTools.simpleObjectToJsonStr(card);
+				 card_2=StringTools.simpleObjectToJsonStr(card1);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			param.put("body", body);
+			param.put("room", room2);
+			param.put("valueSleep", valueSleep);
+			param.put("valueSpace", valueSpace);
+			param.put("itstateisopen", itstateisopen);
+			param.put("itstatereset", itstatereset);
+			param.put("card", card_1);
+			param.put("card1", card_2);
+			param.put("rccount", rccount);
+			param.put("timeout", timeout);
+			param.put("callbackurl", callbackurl);
+			SendResult sr=StringTools.check(param);
+			if("0".equals(sr.getResultCode())) {
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"saveDeviceDataHw", secret, param);
+				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
+			}
+			return sr;
+		}
+
+		@Override
+		public SendResult updateCommandHw(String body, Integer timeout, String callbackurl) {
+			// TODO Auto-generated method stub
+			LinkedHashMap param=new LinkedHashMap();
+			param.put("body", body);
+			param.put("timeout", timeout);
+			param.put("callbackurl", callbackurl);
+			SendResult sr=StringTools.check(param);
+			if("0".equals(sr.getResultCode())) {
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateCommandHw", secret, param);
+				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
+			}
+			return sr;
+		}
+
+		@Override
+		public SendResult saveDeviceDataDx(String body,RoomNB room,String valueSleep,String valueSpace,String itstateisopen,String itstatereset,Card card,Card card1,Integer rccount,Integer timeout,String callbackurl) {
+			LinkedHashMap param=new LinkedHashMap();
+			String room2="";
+			String card_1="";
+			String card_2="";
+			try {
+				 room2=StringTools.simpleObjectToJsonStr(room);
+				 card_1=StringTools.simpleObjectToJsonStr(card);
+				 card_2=StringTools.simpleObjectToJsonStr(card1);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			param.put("body", body);
+			param.put("room", room2);
+			param.put("valueSleep", valueSleep);
+			param.put("valueSpace", valueSpace);
+			param.put("itstateisopen", itstateisopen);
+			param.put("itstatereset", itstatereset);
+			param.put("card", card_1);
+			param.put("card1", card_2);
+			param.put("rccount", rccount);
+			param.put("timeout", timeout);
+			param.put("callbackurl", callbackurl);
+			SendResult sr=StringTools.check(param);
+			if("0".equals(sr.getResultCode())) {
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"saveDeviceDataDx", secret, param);
+				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
+			}
+			return sr;
+		}
+		
+		@Override
+		public SendResult updateCommandDx(String body, Integer timeout, String callbackurl) {
+			// TODO Auto-generated method stub
+			LinkedHashMap param=new LinkedHashMap();
+			param.put("body", body);
+			param.put("timeout", timeout);
+			param.put("callbackurl", callbackurl);
+			SendResult sr=StringTools.check(param);
+			if("0".equals(sr.getResultCode())) {
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateCommandDx", secret, param);
+				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
+			}
+			return sr;
+		}
+
+
+		@Override
+		public SendResult saveDeviceDataYd(String retmsg, String body, RoomNB room, String valueSleep,
+				String valueSpace, String itstateisopen, String itstatereset, Card card, Card card1, Integer rccount,
+				Integer timeout, String callbackurl) {
+			// TODO Auto-generated method stub
+			LinkedHashMap param=new LinkedHashMap();
+			String room2="";
+			String card_1="";
+			String card_2="";
+			try {
+				 room2=StringTools.simpleObjectToJsonStr(room);
+				 card_1=StringTools.simpleObjectToJsonStr(card);
+				 card_2=StringTools.simpleObjectToJsonStr(card1);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			param.put("retmsg", retmsg);
+			param.put("body", body);
+			param.put("room", room2);
+			param.put("valueSleep", valueSleep);
+			param.put("valueSpace", valueSpace);
+			param.put("itstateisopen", itstateisopen);
+			param.put("itstatereset", itstatereset);
+			param.put("card", card_1);
+			param.put("card1", card_2);
+			param.put("rccount", rccount);
+			param.put("timeout", timeout);
+			param.put("callbackurl", callbackurl);
+			SendResult sr=StringTools.check(param);
+			if("0".equals(sr.getResultCode())) {
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"saveDeviceDataYd", secret, param);
+				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
+			}
+			return sr;
+		}
+
+		@Override
+		public SendResult updateCommandYd(String body, Integer timeout, String callbackurl) {
+			// TODO Auto-generated method stub
+			LinkedHashMap param=new LinkedHashMap();
+			param.put("body", body);
+			param.put("timeout", timeout);
+			param.put("callbackurl", callbackurl);
+			SendResult sr=StringTools.check(param);
+			if("0".equals(sr.getResultCode())) {
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateCommandYd", secret, param);
+				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
+			}
+			return sr;
+		}
+
+		
 }

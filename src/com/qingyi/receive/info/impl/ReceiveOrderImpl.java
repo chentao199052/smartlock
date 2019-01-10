@@ -85,81 +85,85 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 		// TODO Auto-generated method stub
 		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
-			Map json=StringTools.stringToMap2(content);
-			String itid=json.get("itid").toString();
-			LockStatusResult r=new LockStatusResult();
-			r.setOrderid(itid);
-			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
-			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
-			if(json.get("status").toString().equals("1")){
-				String resultorder = json.get("result").toString();
-				//生命周期
-				String lca = resultorder.substring(30,31);
-				
-				//开关门状态
-				String status =  resultorder.substring(31,32);
-				String bet = resultorder.substring(32,34);
-				//门锁功率等级默认为最大功率A3
-				String powerlev = resultorder.substring(46,48);
-				if(powerlev.toUpperCase().equals("A0")){
-					powerlev = "A0";
-				}else if(powerlev.toUpperCase().equals("A1")){
-					powerlev = "A1";
-				}else if(powerlev.toUpperCase().equals("A2")){
-					powerlev = "A2";
-				}else{
-					powerlev = "A3";
+			try {
+				Map json=StringTools.stringToMap2(content);
+				String itid=json.get("itid").toString();
+				LockStatusResult r=new LockStatusResult();
+				r.setOrderid(itid);
+				r.setResultstatus(Integer.parseInt(json.get("status").toString()));
+				if(json.get("status").toString().equals("1")){
+					String resultorder = json.get("result").toString();
+					//生命周期
+					String lca = resultorder.substring(30,31);
+					//开关门状态
+					String status =  resultorder.substring(31,32);
+					String bet = resultorder.substring(32,34);
+					//门锁功率等级默认为最大功率A3
+					String powerlev = resultorder.substring(46,48);
+					if(powerlev.toUpperCase().equals("A0")){
+						powerlev = "A0";
+					}else if(powerlev.toUpperCase().equals("A1")){
+						powerlev = "A1";
+					}else if(powerlev.toUpperCase().equals("A2")){
+						powerlev = "A2";
+					}else{
+						powerlev = "A3";
+					}
+					String recordnum = resultorder.substring(50,54);
+					String ver = resultorder.substring(54,62);
+					String channelid = resultorder.substring(62,66);
+					String channel = resultorder.substring(66,68);
+					String networkmode = resultorder.substring(78,79);
+					String workmode = resultorder.substring(79,80);
+					String locktype = resultorder.substring(81,82);
+					String figernum = resultorder.substring(82,84);
+					int bettery  = Integer.valueOf(bet,16);
+					if(lca.equals("1")){
+						r.setLocklca(-1);
+					}else if(lca.equals("2")){
+						r.setLocklca(1);
+					}else if(lca.equals("4")){
+						r.setLocklca(2);
+					}
+					String[] type = StringTools.getlockstatus(status);
+					//更新状态
+					r.setLockstatus(Integer.valueOf(type[0]));
+					r.setLockstatus2(Integer.valueOf(type[1]));
+					r.setChannelid(channelid);
+					r.setChannel(Integer.valueOf(channel,16)+"");
+					r.setPowerlev(powerlev);
+					r.setNetworkmode(Integer.valueOf(networkmode));
+					r.setWorkmode(Integer.valueOf(workmode));
+					r.setLocktype(Integer.valueOf(locktype));
+					r.setFigernum(Integer.valueOf(figernum,16));
+					r.setLockver(ver);
+					r.setLockcharge(bettery);
+					if(recordnum.equals("0000")){
+						r.setRecordnum(0);
+					}else{
+						r.setRecordnum(Integer.valueOf(recordnum,16));
+					}
 				}
-				String recordnum = resultorder.substring(50,54);
-				String ver = resultorder.substring(54,62);
-				String channelid = resultorder.substring(62,66);
-				String channel = resultorder.substring(66,68);
-				String networkmode = resultorder.substring(78,79);
-				String workmode = resultorder.substring(79,80);
-				String locktype = resultorder.substring(81,82);
-				String figernum = resultorder.substring(82,84);
-				
-				int bettery  = Integer.valueOf(bet,16);
-				if(lca.equals("1")){
-					r.setLocklca(-1);
-				}else if(lca.equals("2")){
-					r.setLocklca(1);
-				}else if(lca.equals("4")){
-					r.setLocklca(2);
+				String order=json.get("order").toString();
+				String no=json.get("no").toString();
+				String space=json.get("space").toString();
+				String ret = json.get("result").toString();
+				r.setOrder(order);
+				if(null!=no&&no.matches("^[0-9]{1,}$")) {
+					r.setNo(Integer.parseInt(no));
 				}
-				
-				String[] type = StringTools.getlockstatus(status);
-				//更新状态
-				r.setLockstatus(Integer.valueOf(type[0]));
-				r.setLockstatus2(Integer.valueOf(type[1]));
-				r.setChannelid(channelid);
-				r.setChannel(Integer.valueOf(channel,16)+"");
-				r.setPowerlev(powerlev);
-				r.setNetworkmode(Integer.valueOf(networkmode));
-				r.setWorkmode(Integer.valueOf(workmode));
-				r.setLocktype(Integer.valueOf(locktype));
-				r.setFigernum(Integer.valueOf(figernum,16));
-				r.setLockver(ver);
-				r.setLockcharge(bettery);
-				if(recordnum.equals("0000")){
-					r.setRecordnum(0);
-				}else{
-					r.setRecordnum(Integer.valueOf(recordnum,16));
-				}
+				r.setResult(ret);
+				r.setSpace(space);
+				int failtype = StringTools.getFailtype(ret);
+				r.setFiletype(failtype);
+				result.setResult(r);
+				result.setResultstatus(1);
+			} catch (Exception e) {
+				e.printStackTrace();
+				result.setResultstatus(0);
 			}
-			String order=json.get("order").toString();
-			String no=json.get("no").toString();
-			String space=json.get("space").toString();
-			String ret = json.get("result").toString();
-			r.setOrder(order);
-			if(null!=no&&no.matches("^[0-9]{1,}$")) {
-				r.setNo(Integer.parseInt(no));
-			}
-			r.setResult(ret);
-			r.setSpace(space);
-			int failtype = StringTools.getFailtype(ret);
-			r.setFiletype(failtype);
-			result.setResult(r);
+		}else {
+				result.setResultstatus(0);
 		}
 		return result;
 	}
@@ -1266,7 +1270,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	@Override
 	public ReceiveResult getSyncFailResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, sysdate, verify);
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);;
 		if(result.getResultCode().equals("0")) {
 			Map json = StringTools.stringToMap2(content);
 			String num = json.get("num").toString();
@@ -1298,7 +1302,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	@Override
 	public ReceiveResult getSyncFinishResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);;
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String itid = json.get("itid").toString();
@@ -1324,7 +1328,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	@Override
 	public ReceiveResult getSyncSuccessResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, sysdate, verify);
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String itid = json.get("itid").toString();
@@ -1345,7 +1349,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	@Override
 	public ReceiveResult getFingerfailResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json= StringTools.stringToMap2(content);
 			FingerfailResult r=new FingerfailResult();
@@ -1386,7 +1390,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	@Override
 	public ReceiveResult getFingerfinishResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			FingerfinishResult r=new FingerfinishResult();
@@ -1417,7 +1421,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	@Override
 	public ReceiveResult getFingersuccessResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			FingersuccessResult r=new FingersuccessResult();

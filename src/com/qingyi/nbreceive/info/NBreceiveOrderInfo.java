@@ -1,6 +1,7 @@
 package com.qingyi.nbreceive.info;
 
 import com.qingyi.model.ReceiveResult;
+import com.qingyi.model.SlRoomParamas;
 
 public interface NBreceiveOrderInfo {
 		//C1back*  DC1back*   YC1back*
@@ -38,4 +39,17 @@ public interface NBreceiveOrderInfo {
 		 * @return
 		 */
 		public ReceiveResult getNBrecordsResult(String content,String sysdate,String verify);
+		/**
+		 * 解析NB锁房间的信息（post过来的信息）
+		 * @param content
+		 * @return
+		 */
+		public SlRoomParamas getSlRoomParamas(String content);
+		/**
+		 * 解析NB锁房间的信息（post过来的信息）
+		 * @param content
+		 * @return
+		 */
+		public SlRoomParamas getSlRoomParamasYd(String content);
+		
 }
