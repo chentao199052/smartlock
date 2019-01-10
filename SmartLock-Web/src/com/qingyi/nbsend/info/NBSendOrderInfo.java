@@ -2,6 +2,7 @@ package com.qingyi.nbsend.info;
 
 import java.util.List;
 
+import com.qingyi.model.Card;
 import com.qingyi.model.Command;
 import com.qingyi.model.NBUnlockPsw;
 import com.qingyi.model.Room;
@@ -9,6 +10,7 @@ import com.qingyi.model.RoomCard;
 import com.qingyi.model.RoomCardxzsx;
 import com.qingyi.model.RoomFinger;
 import com.qingyi.model.RoomFingerxzsx;
+import com.qingyi.model.RoomNB;
 import com.qingyi.model.SendResult;
 import com.qingyi.model.UnlockPsw;
 
@@ -186,5 +188,91 @@ public interface NBSendOrderInfo {
 		 * @return
 		 */
 		public SendResult delDevice(String roomdeviceid,String roomtxtype,Integer timeout ,String callbackurl); 
+	
+		/**
+		 * 华为NB心跳（接收）
+		 * @param body  推送的主体内容
+		 * @param room  房间实体 
+		 * @param valueSleep  NB锁间隔时间
+		 * @param valueSpace  NB锁睡眠时间	
+		 * @param itstateisopen  该房间最后一条远程开门指令下发状态
+		 * @param itstatereset   该房间最后一条门锁复位指令下发状态
+		 * @param card  被授权卡实体类
+		 * @param card1   授权卡实体类
+		 * @param rccount     被授权卡实体类与房间 Slroomcard记录条数
+		 * @param timeout
+		 * @param callbackurl
+		 * @return
+		 */
+		public SendResult saveDeviceDataHw(String body,RoomNB room,String valueSleep,String valueSpace,String itstateisopen,String itstatereset,Card card,Card card1,Integer rccount,Integer timeout,String callbackurl);
+		/**
+		 * 华为（修改）
+		 * @param body
+		 * @param room
+		 * @param card
+		 * @param card2
+		 * @param rccount
+		 * @param timeout
+		 * @param callbackurl
+		 * @return
+		 */
+		public SendResult updateCommandHw(String body,Integer timeout ,String callbackurl);
 		
+		/**
+		 * 电信NB心跳（接收）
+		 * @param body  推送的主体内容
+		 * @param room  房间实体 
+		 * @param valueSleep  NB锁间隔时间
+		 * @param valueSpace  NB锁睡眠时间	
+		 * @param itstateisopen  该房间最后一条远程开门指令下发状态
+		 * @param itstatereset   该房间最后一条门锁复位指令下发状态
+		 * @param card  被授权卡实体类
+		 * @param card1   授权卡实体类
+		 * @param rccount     被授权卡实体类与房间 Slroomcard记录条数
+		 * @param timeout
+		 * @param callbackurl
+		 * @return
+		 */
+		public SendResult saveDeviceDataDx(String body,RoomNB room,String valueSleep,String valueSpace,String itstateisopen,String itstatereset,Card card,Card card1,Integer rccount,Integer timeout,String callbackurl);
+		/**
+		 * 电信（修改）
+		 * @param body
+		 * @param room
+		 * @param card
+		 * @param card2
+		 * @param rccount
+		 * @param timeout
+		 * @param callbackurl
+		 * @return
+		 */
+		public SendResult updateCommandDx(String body,Integer timeout ,String callbackurl);
+		/**
+		 * 移动NB心跳（接收）
+		 * @param retmsg
+		 * @param body  推送的主体内容
+		 * @param room  房间实体 
+		 * @param valueSleep  NB锁间隔时间
+		 * @param valueSpace  NB锁睡眠时间	
+		 * @param itstateisopen  该房间最后一条远程开门指令下发状态
+		 * @param itstatereset   该房间最后一条门锁复位指令下发状态
+		 * @param card  被授权卡实体类
+		 * @param card1   授权卡实体类
+		 * @param rccount     被授权卡实体类与房间 Slroomcard记录条数
+		 * @param timeout
+		 * @param callbackurl
+		 * @return
+		 */
+		public SendResult saveDeviceDataYd(String retmsg,String body,RoomNB room,String valueSleep,String valueSpace,String itstateisopen,String itstatereset,Card card,Card card1,Integer rccount,Integer timeout,String callbackurl);
+		/**
+		 * 移动（修改）
+		 * @param body
+		 * @param room
+		 * @param card
+		 * @param card2
+		 * @param rccount
+		 * @param timeout
+		 * @param callbackurl
+		 * @return
+		 */
+		public SendResult updateCommandYd(String body,Integer timeout ,String callbackurl);
 }

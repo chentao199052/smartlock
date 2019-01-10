@@ -1,6 +1,8 @@
 package com.qingyi.nbreceive.info.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,10 +22,13 @@ import com.qingyi.model.NBorderResult7;
 import com.qingyi.model.NBrecords;
 import com.qingyi.model.NBrecordsResult;
 import com.qingyi.model.ReceiveResult;
+import com.qingyi.model.SlRoomParamas;
 import com.qingyi.nbreceive.info.NBreceiveOrderInfo;
 import com.qingyi.util.Constant;
 import com.qingyi.util.StringTools;
 import com.qingyi.util.Verify;
+
+
 
 public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 	private String timeout;
@@ -46,7 +51,7 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 	    @Override
 		public ReceiveResult getNBbackorderResult(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBbackorderResult r=new NBbackorderResult();
@@ -100,7 +105,7 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		@Override
 		public ReceiveResult getNBbackorderResult2(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBbackorderResult2 r =new NBbackorderResult2();
@@ -127,7 +132,7 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		@Override
 		public ReceiveResult getNBbackorderResult3(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBbackorderResult3 r =new NBbackorderResult3();
@@ -154,7 +159,7 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		@Override
 		public ReceiveResult getNBbackorderResult4(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBbackorderResult4 r =new NBbackorderResult4();
@@ -174,7 +179,7 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		@Override
 		public ReceiveResult getNBbackorderResult5(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				String id = json.get("id").toString();
@@ -197,7 +202,7 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		//门锁返回结果的json
 		public ReceiveResult getNBorderResult(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBorderResult r=new NBorderResult();
@@ -222,7 +227,7 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		@Override
 		public ReceiveResult getNBorderResult2(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBorderResult2 r=new NBorderResult2();
@@ -243,7 +248,7 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		@Override
 		public ReceiveResult getNBorderResult3(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result =Verify.verify(content, sysdate, verify, sysdate, verify);
+			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBorderResult3 r=new NBorderResult3();
@@ -287,7 +292,7 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		@Override
 		public ReceiveResult getNBorderResult4(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result = Verify.verify(content, sysdate, verify, sysdate, verify);
+			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBorderResult4 r=new NBorderResult4();
@@ -307,7 +312,7 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		@Override
 		public ReceiveResult getNBorderResult5(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result = Verify.verify(content, sysdate, verify, sysdate, verify);
+			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBorderResult5 r=new NBorderResult5();
@@ -340,7 +345,7 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		@Override
 		public ReceiveResult getNBorderResult6(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result = Verify.verify(content, sysdate, verify, sysdate, verify);
+			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBorderResult6 r=new NBorderResult6();
@@ -387,7 +392,7 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		@Override
 		public ReceiveResult getNBorderResult7(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result = Verify.verify(content, sysdate, verify, sysdate, verify);
+			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBorderResult7 r=new NBorderResult7();
@@ -417,7 +422,7 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		@Override
 		public ReceiveResult getNBrecordsResult(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result = Verify.verify(content, sysdate, verify, sysdate, verify);
+			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				String successval = content;
 				String[] p = successval.split("-");
@@ -447,4 +452,139 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 			}
 			return result;
 		}
+
+		@Override
+		public SlRoomParamas getSlRoomParamas(String content) {
+			// TODO Auto-generated method stub
+			SlRoomParamas sr=new SlRoomParamas();
+			Map json=StringTools.stringToMap2(content);
+			 String battery = json.get("batteryLevel").toString();
+			 sr.setRoomcharge(Integer.valueOf(battery,16));
+			 //信号强度
+			 String signalStrength = json.get("signalStrength").toString();
+			 int st = Integer.valueOf(signalStrength,16)-Integer.valueOf("ffff",16)-1;
+			 //信号等级
+			 String signalECL = json.get("signalECL").toString();
+			 int rcl = Integer.valueOf(signalECL,16);
+			 sr.setRoomecl(rcl+"");
+			 //信噪比
+			 String signalSNR = json.get("signalSNR").toString();
+			 int snr = Integer.valueOf(signalSNR,16);
+			 if(snr>30) {
+				 snr = snr - Integer.valueOf("ffff",16)-1;
+			 }
+			 sr.setRoomsnr(snr+"");
+			 //版本号
+			 String softwareVer = json.get("softwareVer").toString();
+			 sr.setLockver(softwareVer);
+			 //生命周期
+			 String lifeState = json.get("lifeState").toString();
+			 sr.setLocklca(Integer.valueOf(lifeState));
+			 //总复位次数
+			 String resetCnt = json.get("resetCnt").toString();
+			 sr.setRoomreset(Integer.valueOf(resetCnt,16));
+			 //功能配置
+			 String doorConfigInfo =StringTools.hexToBinary(json.get("doorConfigInfo").toString());
+			 String isfinger = doorConfigInfo.substring(0, 1);
+			 String isbluetooth = doorConfigInfo.substring(1, 2);
+			 String isscanner = doorConfigInfo.substring(2, 3);
+			 String islockswith = doorConfigInfo.substring(4, 5);
+			 String islatchswith = doorConfigInfo.substring(5, 6);
+			 String iskeyswith = doorConfigInfo.substring(6, 7);
+			 String iscontactswith = doorConfigInfo.substring(7, 8);
+			 LinkedHashMap config=new LinkedHashMap();
+			 config.put("isfinger", isfinger.equals("0")?"无":"有");
+			 config.put("isbluetooth", isbluetooth.equals("0")?"无":"有");
+			 config.put("isscanner", isscanner.equals("0")?"无":"有");
+			 config.put("islockswith", islockswith.equals("0")?"无":"有");
+			 config.put("islatchswith", islatchswith.equals("0")?"无":"有");
+			 config.put("iskeyswith", iskeyswith.equals("0")?"无":"有");
+			 config.put("iscontactswith", iscontactswith.equals("0")?"无":"有");
+			 config.put("signalStrength", signalStrength);
+			 sr.setRoomconfig(StringTools.mapToString(config));
+			 
+			 //门锁反锁及开关门状态
+			 String doorWorkSta = StringTools.hexToBinary(json.get("doorWorkSta").toString());
+			 sr.setRoomstatus2(Integer.valueOf(doorWorkSta.substring(4, 5)));
+			 sr.setRoomstatus(Integer.valueOf(doorWorkSta.substring(7, 8)));
+			 
+			 //工作模式
+			 String doorWorkMode = StringTools.hexToBinary(json.get("doorWorkMode").toString());
+			 //sr.setForcelock(Integer.valueOf(doorWorkMode.substring(5, 6)));
+			 //sr.setNetworkmode(Integer.valueOf(doorWorkMode.substring(6, 7))+1);
+			 //sr.setWorkmode(Integer.valueOf(doorWorkMode.substring(7, 8))+1);
+			 
+			 //记录条数
+			 String numberOfRecords = json.get("numberOfRecords").toString();
+			 sr.setRecordcount(Integer.valueOf(numberOfRecords,16));
+			return sr;
+		}
+
+		@Override
+		public SlRoomParamas getSlRoomParamasYd(String content) {
+			// TODO Auto-generated method stub
+			 SlRoomParamas sr=new SlRoomParamas();
+			 LinkedHashMap config = new LinkedHashMap();
+			 String battery = content.substring(46,48);
+			 sr.setRoomcharge(Integer.valueOf(battery,16));
+			 //信号强度
+			 String signalStrength = content.substring(48, 52);
+			 int st = Integer.valueOf(signalStrength,16)-Integer.valueOf("ffff",16)-1;
+			 //信号等级
+			 String signalECL = content.substring(52, 54);
+			 int rcl = Integer.valueOf(signalECL,16);
+			 sr.setRoomecl(rcl+"");
+			 //信噪比
+			 String signalSNR = content.substring(66,70);
+			 int snr = Integer.valueOf(signalSNR,16);
+			 if(snr>30) {
+				 snr = snr - Integer.valueOf("ffff",16)-1;
+			 }
+			 sr.setRoomsnr(snr+"");
+			 //版本号
+			 String softwareVer = content.substring(92,102);
+			 sr.setLockver(softwareVer);
+			 //生命周期
+			 String lifeState = content.substring(102,104);
+			 sr.setLocklca(Integer.valueOf(lifeState));
+			 //总复位次数
+			 String resetCnt = content.substring(104,108);
+			 sr.setRoomreset(Integer.valueOf(resetCnt,16));
+			 //功能配置
+			 String doorConfigInfo =StringTools.hexToBinary(content.substring(108,110));
+			 String isfinger = doorConfigInfo.substring(0, 1);
+			 String isbluetooth = doorConfigInfo.substring(1, 2);
+			 String isscanner = doorConfigInfo.substring(2, 3);
+			 String islockswith = doorConfigInfo.substring(4, 5);
+			 String islatchswith = doorConfigInfo.substring(5, 6);
+			 String iskeyswith = doorConfigInfo.substring(6, 7);
+			 String iscontactswith = doorConfigInfo.substring(7, 8);
+			 config.put("isfinger", isfinger.equals("0")?"无":"有");
+			 config.put("isbluetooth", isbluetooth.equals("0")?"无":"有");
+			 config.put("isscanner", isscanner.equals("0")?"无":"有");
+			 config.put("islockswith", islockswith.equals("0")?"无":"有");
+			 config.put("islatchswith", islatchswith.equals("0")?"无":"有");
+			 config.put("iskeyswith", iskeyswith.equals("0")?"无":"有");
+			 config.put("iscontactswith", iscontactswith.equals("0")?"无":"有");
+			 config.put("signalStrength", signalStrength);
+			 sr.setRoomconfig(config.toString());
+			 
+			 //门锁反锁及开关门状态
+			 String doorWorkSta = StringTools.hexToBinary(content.substring(112,114));
+			 sr.setRoomstatus2(Integer.valueOf(doorWorkSta.substring(4, 5)));
+			 sr.setRoomstatus(Integer.valueOf(doorWorkSta.substring(7, 8)));
+			 
+			 //工作模式
+			 String doorWorkMode = StringTools.hexToBinary(content.substring(114,116));
+			 //sr.setForcelock(Integer.valueOf(doorWorkMode.substring(5, 6)));
+			 //sr.setNetworkmode(Integer.valueOf(doorWorkMode.substring(6, 7))+1);
+			 //sr.setWorkmode(Integer.valueOf(doorWorkMode.substring(7, 8))+1);
+			 
+			 //记录条数
+			 String numberOfRecords = content.substring(116,120);
+			 sr.setRecordcount(Integer.valueOf(numberOfRecords,16));
+			 return sr;
+		 
+		}
+
 }
