@@ -172,7 +172,8 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				result.setResultstatus(1);
 			} catch (Exception e) {
 				e.printStackTrace();
-				result.setResultstatus(0);
+				result.setResultCode("100005");
+				result.setResultMsg("解析失败");
 			}
 		}else {
 				result.setResultstatus(0);
@@ -346,6 +347,8 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String no=json.get("no").toString();
 			String space=json.get("space").toString();
 			String ret = json.get("result").toString();
+			String type = json.get("type").toString();
+			r.setType(type);
 			String oscontent=json.get("oscontent").toString();
 			String osdate=json.get("osdate").toString();
 			String osresult=json.get("osresult").toString();

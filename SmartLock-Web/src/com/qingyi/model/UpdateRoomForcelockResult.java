@@ -8,7 +8,7 @@ public class UpdateRoomForcelockResult {
 	private String order;
 	private String result;
 	private String space;
-	
+	private String type;
 	private String oscontent; // 下发指令
 	private String osdate; // 下发时间
 	private String osresult;//结果
@@ -19,7 +19,7 @@ public class UpdateRoomForcelockResult {
 		super();
 	}
 	public UpdateRoomForcelockResult(String orderid, Integer filetype, Integer resultstatus, Integer no, String order,
-			String result, String space, String oscontent, String osdate, String osresult, Integer oscount,
+			String result, String space, String type, String oscontent, String osdate, String osresult, Integer oscount,
 			String osstatus, String osspace) {
 		super();
 		this.orderid = orderid;
@@ -29,6 +29,7 @@ public class UpdateRoomForcelockResult {
 		this.order = order;
 		this.result = result;
 		this.space = space;
+		this.type = type;
 		this.oscontent = oscontent;
 		this.osdate = osdate;
 		this.osresult = osresult;
@@ -78,6 +79,12 @@ public class UpdateRoomForcelockResult {
 	public void setSpace(String space) {
 		this.space = space;
 	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	public String getOscontent() {
 		return oscontent;
 	}
@@ -114,6 +121,6 @@ public class UpdateRoomForcelockResult {
 	public void setOsspace(String osspace) {
 		this.osspace = osspace;
 	}
-
+	
 	
 }
