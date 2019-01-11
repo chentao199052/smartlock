@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.qingyi.model.Card;
 import com.qingyi.model.Command;
+import com.qingyi.model.DelRoomCardxzsx;
 import com.qingyi.model.NBUnlockPsw;
 import com.qingyi.model.RegistNb;
 import com.qingyi.model.Room;
@@ -227,22 +228,17 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 		}
 
 		@Override
-		public SendResult delRoomCardNB(String roomcode2, String roomimei, String roomtxtype, String rcid, RoomCardxzsx rc,
+		public SendResult delRoomCardNB(String roomcode2, String roomimei, String roomtxtype, DelRoomCardxzsx rc,
 				Integer timeout, String callbackurl) {
 			// TODO Auto-generated method stub
 			LinkedHashMap param=new LinkedHashMap();
 			param.put("roomcode2", roomcode2);
 			param.put("roomimei",roomimei);
 			param.put("roomtxtype",roomtxtype);
-			param.put("rcid",rcid);
+			param.put("rcid",rc.getRcid());
 			param.put("cardtype",rc.getCardtype());
 			param.put("cardcode",rc.getCardcode());
 			param.put("cardedate",rc.getCardedate());
-			param.put("cardunlocktype",rc.getCardunlocktype());
-			param.put("cardpass",rc.getCardpass());
-			param.put("empedate",rc.getEmpedate());
-			param.put("personcode",rc.getPersoncode());
-			param.put("personname",rc.getPersonname());
 			param.put("openstime",rc.getOpenstime());
 			param.put("openetime",rc.getOpenetime());
 			param.put("rcusecount",rc.getRcusecount());

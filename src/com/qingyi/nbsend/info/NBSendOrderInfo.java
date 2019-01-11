@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.qingyi.model.Card;
 import com.qingyi.model.Command;
+import com.qingyi.model.DelRoomCardxzsx;
 import com.qingyi.model.NBUnlockPsw;
 import com.qingyi.model.Room;
 import com.qingyi.model.RoomCard;
@@ -115,7 +116,7 @@ public interface NBSendOrderInfo {
 		 * @param callbackurl
 		 * @return
 		 */
-		public SendResult delRoomCardNB(String roomcode2,String roomimei,String roomtxtype,String rcid,RoomCardxzsx rc,Integer timeout,String callbackurl);
+		public SendResult delRoomCardNB(String roomcode2,String roomimei,String roomtxtype,DelRoomCardxzsx rc,Integer timeout,String callbackurl);
 		/**
 		 * 远程开门   门锁复位
 		 * @param room

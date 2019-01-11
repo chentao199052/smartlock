@@ -6,6 +6,7 @@ public class ReadLockRecordResult {
 	private String orderid;
 	private Integer filetype;
 	private Integer resultstatus;
+	private Integer Recordcount;
 	private String no;
 	private String order;
 	private String result;
@@ -20,13 +21,14 @@ public class ReadLockRecordResult {
 	public ReadLockRecordResult() {
 		super();
 	}
-	public ReadLockRecordResult(String orderid, Integer filetype, Integer resultstatus, String no, String order,
-			String result, String space, String oscontent, String osdate, String osresult, Integer oscount,
-			String osstatus, String osspace, List<ReadLockRecord> lockRecords) {
+	public ReadLockRecordResult(String orderid, Integer filetype, Integer resultstatus, Integer recordcount, String no,
+			String order, String result, String space, String oscontent, String osdate, String osresult,
+			Integer oscount, String osstatus, String osspace, List<ReadLockRecord> lockRecords) {
 		super();
 		this.orderid = orderid;
 		this.filetype = filetype;
 		this.resultstatus = resultstatus;
+		Recordcount = recordcount;
 		this.no = no;
 		this.order = order;
 		this.result = result;
@@ -56,6 +58,12 @@ public class ReadLockRecordResult {
 	}
 	public void setResultstatus(Integer resultstatus) {
 		this.resultstatus = resultstatus;
+	}
+	public Integer getRecordcount() {
+		return Recordcount;
+	}
+	public void setRecordcount(Integer recordcount) {
+		Recordcount = recordcount;
 	}
 	public String getNo() {
 		return no;
@@ -123,6 +131,5 @@ public class ReadLockRecordResult {
 	public void setLockRecords(List<ReadLockRecord> lockRecords) {
 		this.lockRecords = lockRecords;
 	}
-	
 	
 }
