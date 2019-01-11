@@ -14,13 +14,13 @@ public class RoomCardxzsx {
 	private String cardedate; //yyMMddHHmm  -1无
 	private String openstime;
 	private String openetime;
-	private String orderid;
+	private String rcid;
 	public RoomCardxzsx() {
 		super();
 	}
 	public RoomCardxzsx(String cardtype, String cardcode, String personcode, String personname, String rcusecount,
 			String cardunlocktype, String cardpass, String empedate, String cardedate, String openstime,
-			String openetime, String orderid) {
+			String openetime, String rcid) {
 		super();
 		this.cardtype = cardtype;
 		this.cardcode = cardcode;
@@ -33,7 +33,7 @@ public class RoomCardxzsx {
 		this.cardedate = cardedate;
 		this.openstime = openstime;
 		this.openetime = openetime;
-		this.orderid = orderid;
+		this.rcid = rcid;
 	}
 	public String getCardtype() {
 		return cardtype;
@@ -101,11 +101,12 @@ public class RoomCardxzsx {
 	public void setOpenetime(String openetime) {
 		this.openetime = openetime;
 	}
-	public String getOrderid() {
-		return orderid;
+	public String getRcid() {
+		return rcid;
 	}
-	public void setOrderid(String orderid) {
-		this.orderid = orderid;
+	public void setRcid(String rcid) {
+		this.rcid = rcid;
 	}
+	
 	
 }
