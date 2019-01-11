@@ -100,7 +100,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("rcusecount",xzsx.getRcusecount());
 			param.put("openstime",xzsx.getOpenstime());
 			param.put("openetime",xzsx.getOpenetime());
-			param.put("orderid",xzsx.getOrderid());
+			param.put("orderid",xzsx.getRcid());
 			param.put("cardpass",xzsx.getCardpass());
 			param.put("timeout", timeout);
 			param.put("callbackurl", callbackurl);
@@ -142,7 +142,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("roomtxtype",roomtxtype);
 			param.put("fingercode",rf.getFingercode());
 			param.put("fingerseq",rf.getFingerseq());
-			param.put("orderid",rf.getOrderid());
+			param.put("orderid",rf.getRfid());
 			param.put("empedate",rf.getEmpedate());
 			param.put("openstime",rf.getOpenstime());
 			param.put("openetime",rf.getOpenetime());

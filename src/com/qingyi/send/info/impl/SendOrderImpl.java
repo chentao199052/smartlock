@@ -517,7 +517,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("cardedate", xzsx.getCardedate());
 		param.put("openstime", xzsx.getOpenstime());
 		param.put("openetime", xzsx.getOpenetime());
-		param.put("orderid", xzsx.getOrderid());
+		param.put("rcid", xzsx.getRcid());
 		param.put("timeout", timeout);
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
@@ -538,7 +538,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("fingercontent", xzsx.getFingercontent());
 		param.put("fingerseq", xzsx.getFingerseq());
 		param.put("count", xzsx.getCount());
-		param.put("orderid", xzsx.getOrderid());
+		param.put("rfid", xzsx.getRfid());
 		param.put("openstime", xzsx.getOpenstime());
 		param.put("openetime", xzsx.getOpenetime());
 		param.put("empedate", xzsx.getEmpedate());

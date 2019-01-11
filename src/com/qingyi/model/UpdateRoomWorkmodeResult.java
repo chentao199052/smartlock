@@ -40,13 +40,21 @@ public class UpdateRoomWorkmodeResult {
 	private String result;
 	
 	private String space;
+	
+	private String oscontent; // 下发指令
+	private String osdate; // 下发时间
+	private String osresult;//结果
+	private Integer oscount;//次数
+	private String osstatus;//指令状态
+	private String osspace;//
 	public UpdateRoomWorkmodeResult() {
 		super();
 	}
 	public UpdateRoomWorkmodeResult(String orderid, Integer resultstatus, Integer filetype, Integer locklca,
 			Integer lockstatus, Integer lockstatus2, String channelid, String channel, String powerlev,
 			Integer networkmode, Integer workmode, Integer locktype, Integer figernum, Integer recordnum,
-			String lockver, Integer lockcharge, Integer no, String order, String result, String space) {
+			String lockver, Integer lockcharge, Integer no, String order, String result, String space, String oscontent,
+			String osdate, String osresult, Integer oscount, String osstatus, String osspace) {
 		super();
 		this.orderid = orderid;
 		this.resultstatus = resultstatus;
@@ -68,6 +76,12 @@ public class UpdateRoomWorkmodeResult {
 		this.order = order;
 		this.result = result;
 		this.space = space;
+		this.oscontent = oscontent;
+		this.osdate = osdate;
+		this.osresult = osresult;
+		this.oscount = oscount;
+		this.osstatus = osstatus;
+		this.osspace = osspace;
 	}
 	public String getOrderid() {
 		return orderid;
@@ -189,6 +203,42 @@ public class UpdateRoomWorkmodeResult {
 	public void setSpace(String space) {
 		this.space = space;
 	}
-
+	public String getOscontent() {
+		return oscontent;
+	}
+	public void setOscontent(String oscontent) {
+		this.oscontent = oscontent;
+	}
+	public String getOsdate() {
+		return osdate;
+	}
+	public void setOsdate(String osdate) {
+		this.osdate = osdate;
+	}
+	public String getOsresult() {
+		return osresult;
+	}
+	public void setOsresult(String osresult) {
+		this.osresult = osresult;
+	}
+	public Integer getOscount() {
+		return oscount;
+	}
+	public void setOscount(Integer oscount) {
+		this.oscount = oscount;
+	}
+	public String getOsstatus() {
+		return osstatus;
+	}
+	public void setOsstatus(String osstatus) {
+		this.osstatus = osstatus;
+	}
+	public String getOsspace() {
+		return osspace;
+	}
+	public void setOsspace(String osspace) {
+		this.osspace = osspace;
+	}
+	
 	
 }

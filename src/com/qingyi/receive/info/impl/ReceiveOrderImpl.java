@@ -148,6 +148,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				String no=json.get("no").toString();
 				String space=json.get("space").toString();
 				String ret = json.get("result").toString();
+				String oscontent=json.get("oscontent").toString();
+				String osdate=json.get("osdate").toString();
+				String osresult=json.get("osresult").toString();
+				String oscount=json.get("oscount").toString();
+				String osstatus=json.get("osstatus").toString();
+				String osspace=json.get("osspace").toString();
+				r.setOscontent(oscontent);
+				r.setOsdate(osdate);
+				r.setOsresult(osresult);
+				r.setOscount(Integer.parseInt(oscount));
+				r.setOsstatus(osstatus);
+				r.setOsspace(osspace);
 				r.setOrder(order);
 				if(null!=no&&no.matches("^[0-9]{1,}$")) {
 					r.setNo(Integer.parseInt(no));
@@ -183,6 +195,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String no=json.get("no").toString();
 			String space=json.get("space").toString();
 			String ret = json.get("result").toString();
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			r.setOrder(order);
 			if(null!=no&&no.matches("^[0-9]{1,}$")) {
 				r.setNo(Integer.parseInt(no));
@@ -201,25 +225,44 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 		// TODO Auto-generated method stub
 		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
-			Map json=StringTools.stringToMap2(content);
-			String itid=json.get("itid").toString();
-			LockRemoteOpenResult r=new LockRemoteOpenResult();
-			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
-			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
-			r.setOrderid(itid);
-			String order=json.get("order").toString();
-			String no=json.get("no").toString();
-			String space=json.get("space").toString();
-			String ret = json.get("result").toString();
-			r.setOrder(order);
-			if(null!=no&&no.matches("^[0-9]{1,}$")) {
-				r.setNo(Integer.parseInt(no));
+			try {
+				Map json=StringTools.stringToMap2(content);
+				String itid=json.get("itid").toString();
+				LockRemoteOpenResult r=new LockRemoteOpenResult();
+				r.setResultstatus(Integer.parseInt(json.get("status").toString()));
+				result.setResultstatus(Integer.parseInt(json.get("status").toString()));
+				r.setOrderid(itid);
+				String order=json.get("order").toString();
+				String no=json.get("no").toString();
+				String space=json.get("space").toString();
+				String ret = json.get("result").toString();
+				String oscontent=json.get("oscontent").toString();
+				String osdate=json.get("osdate").toString();
+				String osresult=json.get("osresult").toString();
+				String oscount=json.get("oscount").toString();
+				String osstatus=json.get("osstatus").toString();
+				String osspace=json.get("osspace").toString();
+				r.setOscontent(oscontent);
+				r.setOsdate(osdate);
+				r.setOsresult(osresult);
+				r.setOscount(Integer.parseInt(oscount));
+				r.setOsstatus(osstatus);
+				r.setOsspace(osspace);
+				r.setOrder(order);
+				if(null!=no&&no.matches("^[0-9]{1,}$")) {
+					r.setNo(Integer.parseInt(no));
+				}
+				r.setResult(ret);
+				r.setSpace(space);
+				int failtype = StringTools.getFailtype(ret);
+				r.setFiletype(failtype);
+				result.setResult(r);
+			} catch (Exception e) {
+				e.printStackTrace();
+				result.setResultCode("100005");
+				result.setResultMsg("解析失败");
 			}
-			r.setResult(ret);
-			r.setSpace(space);
-			int failtype = StringTools.getFailtype(ret);
-			r.setFiletype(failtype);
-			result.setResult(r);
+		
 		}
 		return result;
 	}
@@ -266,6 +309,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String ret = json.get("result").toString();
 			String order=json.get("order").toString();
 			String space=json.get("space").toString();
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			recordresult.setOscontent(oscontent);
+			recordresult.setOsdate(osdate);
+			recordresult.setOsresult(osresult);
+			recordresult.setOscount(Integer.parseInt(oscount));
+			recordresult.setOsstatus(osstatus);
+			recordresult.setOsspace(osspace);
 			recordresult.setOrder(order);
 			recordresult.setResult(ret);
 			recordresult.setSpace(space);
@@ -291,6 +346,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String no=json.get("no").toString();
 			String space=json.get("space").toString();
 			String ret = json.get("result").toString();
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			r.setOrder(order);
 			if(null!=no&&no.matches("^[0-9]{1,}$")) {
 				r.setNo(Integer.parseInt(no));
@@ -375,6 +442,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String no=json.get("no").toString();
 			String space=json.get("space").toString();
 			String ret = json.get("result").toString();
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			r.setOrder(order);
 			if(null!=no&&no.matches("^[0-9]{1,}$")) {
 				r.setNo(Integer.parseInt(no));
@@ -459,6 +538,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String no=json.get("no").toString();
 			String space=json.get("space").toString();
 			String ret = json.get("result").toString();
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			r.setOrder(order);
 			if(null!=no&&no.matches("^[0-9]{1,}$")) {
 				r.setNo(Integer.parseInt(no));
@@ -543,6 +634,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String no=json.get("no").toString();
 			String space=json.get("space").toString();
 			String ret = json.get("result").toString();
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			r.setOrder(order);
 			if(null!=no&&no.matches("^[0-9]{1,}$")) {
 				r.setNo(Integer.parseInt(no));
@@ -571,6 +674,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			r.setOrder(order);
 			String ret = json.get("result").toString();
 			int failtype = StringTools.getFailtype(ret);
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			r.setResult(ret);
 			r.setFiletype(failtype);
 			result.setResult(r);
@@ -654,6 +769,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String no=json.get("no").toString();
 			String space=json.get("space").toString();
 			String ret = json.get("result").toString();
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			r.setBegin(begin);
 			if(null!=no&&no.matches("^[0-9]{1,}$")) {
 				r.setNo(Integer.parseInt(no));
@@ -743,6 +870,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String no=json.get("no").toString();
 			String space=json.get("space").toString();
 			String ret = json.get("result").toString();
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			r.setBegin(begin);
 			if(null!=no&&no.matches("^[0-9]{1,}$")) {
 				r.setNo(Integer.parseInt(no));
@@ -832,6 +971,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String no=json.get("no").toString();
 			String space=json.get("space").toString();
 			String ret = json.get("result").toString();
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			r.setBegin(begin);
 			if(null!=no&&no.matches("^[0-9]{1,}$")) {
 				r.setNo(Integer.parseInt(no));
@@ -860,6 +1011,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String ret = json.get("result").toString();
 			String no=json.get("no").toString();
 			String space=json.get("space").toString();
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			if(null!=no&&no.matches("^[0-9]{1,}$")) {
 				r.setNo(Integer.parseInt(no));
 			}
@@ -947,6 +1110,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String ret=json.get("result").toString();
 			String no=json.get("no").toString();
 			String space=json.get("space").toString();
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			r.setOrder(order);
 			r.setResult(ret);
 			r.setNo(no);
@@ -982,7 +1157,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	        		r.setSpace(space);
 	    		}
 			}
-			
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
     		String ret=json.get("result").toString();
     		int failtype = StringTools.getFailtype(ret);
 			r.setFiletype(failtype);
@@ -1013,6 +1199,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
         		String space=json.get("space").toString();
         		r.setSpace(space);
     		}
+    		String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
     		String ret=json.get("result").toString();
     		int failtype = StringTools.getFailtype(ret);
 			r.setFiletype(failtype);
@@ -1091,6 +1289,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			r.setOrder(json.get("order").toString());
 			r.setNo(json.get("no").toString());
 			r.setSpace(json.get("space").toString());
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			r.setResult(ret);
 			int failtype = StringTools.getFailtype(ret);
 			r.setFiletype(failtype);
@@ -1124,6 +1334,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 					r.setSpace(space);
 				}
 			}
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			String ret=json.get("result").toString();
 			r.setResult(ret);
 			int failtype = StringTools.getFailtype(ret);
@@ -1156,6 +1378,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 						r.setFingercodes(fingercodes);
 					}
 			}
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			Object object = json.get("result");
     		if(null!=object) {
     			String ret =(String)object;
@@ -1190,6 +1424,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				r.setFiletype(failtype);
 				r.setResult(ret);
 			}
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			r.setResultstatus(1);
 			result.setResultstatus(1);
 			result.setResult(r);
@@ -1223,6 +1469,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 					}
 				}
 			}
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			Object object = json.get("result");
 			if(null!=object) {
 				String ret =(String)object;
@@ -1260,6 +1518,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
     				r.setSpace(space);
     			}
     		}
+    		String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
     		String ret=json.get("result").toString();
     		Integer failtype = StringTools.getFailtype(ret);
     		r.setFiletype(failtype);
@@ -1288,6 +1558,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				r.setFail(fail);
 				r.setCardcodes(cardcodes);
 			}
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			Object object = json.get("result");
 			if(object!=null) {
 				String ret=(String)object;
@@ -1314,6 +1596,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			r.setResultstatus(Integer.parseInt(status));
 			result.setResultstatus(Integer.parseInt(status));
 			r.setCardcodes(cardcodes);
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			Object object = json.get("result");
 			if(object!=null) {
 				String ret=(String)object;
@@ -1336,6 +1630,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String ret = json.get("result").toString();
 			SyncSuccessResult r=new SyncSuccessResult();
 			r.setOrderid(itid);
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			r.setResultstatus(Integer.parseInt(status));
 			result.setResultstatus(Integer.parseInt(status));
 			Integer failtype = StringTools.getFailtype(ret);
@@ -1376,6 +1682,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				}
 				
 			}
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			Object object = json.get("result");
 			if(object!=null) {
 				String ret=(String)object;
@@ -1409,6 +1727,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				String fingercodes = StringTools.getFingercodesByOrders(new String[] {order});
 				r.setFingercodes(fingercodes);
 			}
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			String ret=json.get("result").toString();
 			Integer failtype = StringTools.getFailtype(ret);
 			r.setFiletype(failtype);
@@ -1439,6 +1769,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				String fingercodes = StringTools.getFingercodeByOrder(failorder);
 				r.setFingercodes(fingercodes);
 			}
+			String oscontent=json.get("oscontent").toString();
+			String osdate=json.get("osdate").toString();
+			String osresult=json.get("osresult").toString();
+			String oscount=json.get("oscount").toString();
+			String osstatus=json.get("osstatus").toString();
+			String osspace=json.get("osspace").toString();
+			r.setOscontent(oscontent);
+			r.setOsdate(osdate);
+			r.setOsresult(osresult);
+			r.setOscount(Integer.parseInt(oscount));
+			r.setOsstatus(osstatus);
+			r.setOsspace(osspace);
 			String order=json.get("order").toString();
 			Integer failtype = StringTools.getFailtype(ret);
 			r.setFiletype(failtype);

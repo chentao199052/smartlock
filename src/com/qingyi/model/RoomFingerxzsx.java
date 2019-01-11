@@ -1,7 +1,7 @@
 package com.qingyi.model;
 
 public class RoomFingerxzsx {
-	private String orderid;
+	private String rfid;
 	private String fingercode;
 	private String fingercontent;
 	private String empedate;
@@ -13,10 +13,10 @@ public class RoomFingerxzsx {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public RoomFingerxzsx(String orderid, String fingercode, String fingercontent, String empedate, String fingerseq,
+	public RoomFingerxzsx(String rfid, String fingercode, String fingercontent, String empedate, String fingerseq,
 			String openstime, String openetime, String count) {
 		super();
-		this.orderid = orderid;
+		this.rfid = rfid;
 		this.fingercode = fingercode;
 		this.fingercontent = fingercontent;
 		this.empedate = empedate;
@@ -25,11 +25,11 @@ public class RoomFingerxzsx {
 		this.openetime = openetime;
 		this.count = count;
 	}
-	public String getOrderid() {
-		return orderid;
+	public String getRfid() {
+		return rfid;
 	}
-	public void setOrderid(String orderid) {
-		this.orderid = orderid;
+	public void setRfid(String rfid) {
+		this.rfid = rfid;
 	}
 	public String getFingercode() {
 		return fingercode;
@@ -73,5 +73,6 @@ public class RoomFingerxzsx {
 	public void setCount(String count) {
 		this.count = count;
 	}
+	
 	
 }
