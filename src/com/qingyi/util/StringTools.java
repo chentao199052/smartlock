@@ -193,7 +193,7 @@ public class StringTools {
 					sr.setResultCode("-10007");
 					sr.setResultMsg("有效时间不允许为空");
 					return sr;
-				}else if(!val.toString().matches("\\d+")) {
+				}else if(!val.toString().matches("[0-9]+")) {
 					sr.setResultCode("-10021");
 					sr.setResultMsg("有效时间必须为10进制数字");
 					return sr;
@@ -203,7 +203,7 @@ public class StringTools {
 					sr.setResultCode("-10008");
 					sr.setResultMsg("授权密码不允许为空");
 					return sr;
-				}else if(val.toString().length()!=6||!val.toString().matches("\\d+")) {
+				}else if(val.toString().length()!=6||!val.toString().matches("[0-9]+")) {
 					sr.setResultCode("-10009");
 					sr.setResultMsg("授权密码必须是长度为6的10进制字符串");
 					return sr;
@@ -213,7 +213,7 @@ public class StringTools {
 					sr.setResultCode("-10010");
 					sr.setResultMsg("可开门次数不允许为空");
 					return sr;
-				}else if(!val.toString().matches("\\d+|(-1)")) {
+				}else if(!val.toString().matches("[0-9]+|(-1)")) {
 					sr.setResultCode("-10011");
 					sr.setResultMsg("可开门次数必须为10进制数字");
 					return sr;
@@ -242,7 +242,7 @@ public class StringTools {
 					sr.setResultCode("-10015");
 					sr.setResultMsg("可开门时间段开始时间格式错误，格式必须为XX:XX，例如00:00");
 					return sr;
-				}else if(val2.length()!=4||!val2.matches("\\d+")) {
+				}else if(val2.length()!=4||!val2.matches("[0-9]+")) {
 					sr.setResultCode("-10015");
 					sr.setResultMsg("可开门时间段开始时间格式错误，格式必须为XX:XX，例如00:00");
 					return sr;
@@ -261,7 +261,7 @@ public class StringTools {
 					sr.setResultCode("-10017");
 					sr.setResultMsg("可开门时间段结束时间格式错误，格式必须为XX:XX，例如00:00");
 					return sr;
-				}else if(val2.length()!=4||!val2.matches("\\d+")) {
+				}else if(val2.length()!=4||!val2.matches("[0-9]+")) {
 					sr.setResultCode("-10017");
 					sr.setResultMsg("可开门时间段结束时间格式错误，格式必须为XX:XX，例如00:00");
 					return sr;
@@ -315,7 +315,7 @@ public class StringTools {
 					sr.setResultCode("-10025");
 					sr.setResultMsg("可开门时间段结束时间格式错误，格式必须为XX:XX，例如00:00");
 					return sr;
-				}else if(val2.length()!=4||!val2.matches("\\d+")) {
+				}else if(val2.length()!=4||!val2.matches("[0-9]+")) {
 					sr.setResultCode("-10025");
 					sr.setResultMsg("可开门时间段结束时间格式错误，格式必须为XX:XX，例如00:00");
 					return sr;
@@ -363,7 +363,7 @@ public class StringTools {
 					sr.setResultCode("-10033");
 					sr.setResultMsg("可开门次数不允许为空");
 					return sr;
-				}else if(val.toString().matches("\\d+")) {
+				}else if(val.toString().matches("[0-9]+|(-1)")) {
 					sr.setResultCode("-10034");
 					sr.setResultMsg("可开门次数必须为数字");
 					return sr;
@@ -393,7 +393,7 @@ public class StringTools {
 					sr.setResultCode("-10039");
 					sr.setResultMsg("开门需按指纹次数不允许为空");
 					return sr;
-				}else if(val.toString().matches("\\d+")) {
+				}else if(val.toString().matches("[0-9]+|(-1)")) {
 					sr.setResultCode("-10040");
 					sr.setResultMsg("开门需按指纹次数必须为数字");
 					return sr;
@@ -915,5 +915,28 @@ public class StringTools {
 		  json+="}";
 		  System.out.println(json);
 		  return json;
+	 }
+	 
+	 /**
+	  * 获取实时查询门锁记录所得返回记录总数
+	  * @param result
+	  * @return
+	  */
+	 public static Integer getRecordcount(String result){
+		 String[] res = result.split("-");
+		 int recordcount = 0;
+		 for(int i=0;i<res.length;i++){
+			 String r = res[i];
+			 if(r.length()>46){
+				 String num = r.substring(44,46);
+				 try {
+					recordcount = recordcount + Integer.valueOf(num, 16);
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					recordcount = recordcount + 0;
+				}
+			 }
+		 }
+		 return recordcount;
 	 }
 }
