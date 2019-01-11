@@ -7,12 +7,13 @@ public class ReadLockRecord {
 	private String type;
 	private String cardcode2;
 	private String password;
+	private Integer number;
 	public ReadLockRecord() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public ReadLockRecord(String cardcode, String packageNo, String time, String type, String cardcode2,
-			String password) {
+			String password, Integer number) {
 		super();
 		this.cardcode = cardcode;
 		this.packageNo = packageNo;
@@ -20,6 +21,7 @@ public class ReadLockRecord {
 		this.type = type;
 		this.cardcode2 = cardcode2;
 		this.password = password;
+		this.number = number;
 	}
 	public String getCardcode() {
 		return cardcode;
@@ -56,6 +58,12 @@ public class ReadLockRecord {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public Integer getNumber() {
+		return number;
+	}
+	public void setNumber(Integer number) {
+		this.number = number;
 	}
 	
 }

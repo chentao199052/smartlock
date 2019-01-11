@@ -3,6 +3,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.qingyi.model.Command;
+import com.qingyi.model.DelRoomFinger;
 import com.qingyi.model.DelUnlockPsw;
 import com.qingyi.model.NBUnlockPsw;
 import com.qingyi.model.Room;
@@ -240,14 +241,15 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult delRoomFinger(String gatewaycode, String gatewaycode2, String roomcode, 
-			String fingercode, Integer timeout, String callbackurl) {
+	public SendResult delRoomFinger(String gatewaycode, String gatewaycode2,String roomid,String roomcode, 
+			DelRoomFinger rflist, Integer timeout, String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
 		param.put("gatewaycode", gatewaycode);
 		param.put("gatewaycode2", gatewaycode2);
+		param.put("roomid", roomid);
 		param.put("roomcode", roomcode);
-		param.put("fingercode", fingercode);
+		param.put("rflist", rflist);
 		param.put("timeout", timeout);
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);

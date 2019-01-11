@@ -3,6 +3,7 @@ package com.qingyi.send.info;
 import java.util.List;
 
 import com.qingyi.model.Command;
+import com.qingyi.model.DelRoomFinger;
 import com.qingyi.model.DelUnlockPsw;
 import com.qingyi.model.NBUnlockPsw;
 import com.qingyi.model.Room;
@@ -258,7 +259,7 @@ public interface SendOrderInfo {
 	 * @param callbackurl 回调地址（接收指令发送结果）
 	 * @return 指令发送结果SendResult
 	 */
-	public SendResult delRoomFinger(String gatewaycode,String gatewaycode2,String roomcode,String fingercode,Integer timeout,String callbackurl);
+	public SendResult delRoomFinger(String gatewaycode,String gatewaycode2,String roomid,String roomcode,DelRoomFinger rflist,Integer timeout,String callbackurl);
 	
 	/**
 	 * 发送房间卡片/密码授权同步指令

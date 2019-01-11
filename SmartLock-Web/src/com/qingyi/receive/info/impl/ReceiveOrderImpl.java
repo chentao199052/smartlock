@@ -279,8 +279,10 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			recordresult.setResultstatus(Integer.parseInt(json.get("status").toString()));
 			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
 			recordresult.setOrderid(itid);
+			String ret = json.get("result").toString();
 			if(json.get("status").equals("1")){
-				String[] res = json.get("result").toString().split("-");
+				String[] res = ret.split("-");
+				recordresult.setRecordcount(StringTools.getRecordcount(ret));
 				if(res!=null&&res.length>0) {
 					List<ReadLockRecord> lockRecords=new ArrayList<ReadLockRecord>();
 					for(int x=0;x<res.length;x++) {
@@ -293,8 +295,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 							String type=map.get("type").toString();
 							String cardcode2=map.get("cardcode2").toString();
 							String password=map.get("password").toString();
-							ReadLockRecord record=new ReadLockRecord(cardcode, packageNo, time, type, cardcode2, password);
+							ReadLockRecord record=new ReadLockRecord(cardcode, packageNo, time, type, cardcode2, password,h+1);
 							lockRecords.add(record);
+							
 					    }
 		         }
 					recordresult.setLockRecords(lockRecords);
@@ -307,7 +310,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				no ="3";
 			}
 			recordresult.setNo(no);
-			String ret = json.get("result").toString();
+			
 			String order=json.get("order").toString();
 			String space=json.get("space").toString();
 			String oscontent=json.get("oscontent").toString();
