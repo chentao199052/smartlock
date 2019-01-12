@@ -732,7 +732,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 					String xindao = resultorder.substring(46,48);
 					xindao = Integer.valueOf(xindao,16)+"";
 					String information = xindaoID + "-" + xindao + "-" + powerlev;
-					
+					r.setInformation(information);
 					//门锁数量
 					String locknum = "";
 					String locks = "";
@@ -1011,12 +1011,75 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String itid=json.get("itid").toString();
 			UpdateGatewayRoomsResult r=new UpdateGatewayRoomsResult();
 			r.setOrderid(itid);
-			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
-			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
+			Integer status=Integer.parseInt(json.get("status").toString());
+			r.setResultstatus(status);
+			result.setResultstatus(status);
 			String order =json.get("order").toString();
 			String ret = json.get("result").toString();
+			if(status==1) {
+				if(null!=ret && ret.length()>50){
+					String recordnum = ret.substring(30,34);
+					String version = ret.substring(34,42);
+					String beforever = version.substring(0,4);
+					//网关功率等级
+					String powerlev = ret.substring(48,50);
+					if(powerlev.toUpperCase().equals("A3")){
+						powerlev = "A3";
+					}else if(powerlev.toUpperCase().equals("A1")){
+						powerlev = "A1";
+					}else if(powerlev.toUpperCase().equals("A2")){
+						powerlev = "A2";
+					}else{
+						powerlev = "A0";
+					}
+					//网关更新信道id-信道-功率
+					String xindaoID = ret.substring(42,46);
+					String xindao = ret.substring(46,48);
+					xindao = Integer.valueOf(xindao,16)+"";
+					String information = xindaoID + "-" + xindao + "-" + powerlev;
+					r.setInformation(information);
+					//门锁数量
+					String locknum = "";
+					String locks = "";
+					String wid = null;
+					if(Integer.valueOf(beforever)>100){
+						//老版本(无唯一id)
+						if(ret.substring(20, 24).equals("017a") || ret.substring(20, 24).equals("017A")) {
+							locknum = ret.substring(62,64);
+							locks = ret.substring(64,ret.length()-4);
+						}else {
+							locknum = ret.substring(86,88);
+							locks = ret.substring(88,ret.length()-4);
+							wid = ret.substring(54,64);
+						}
+					}
+					
+					if(recordnum.equals("0000")){
+						r.setRecordnum(0);
+					}else{
+						String n = Long.valueOf(recordnum,16) + "";
+						r.setRecordnum(Integer.parseInt(n));
+					}
+					if(locknum.equals("00")){
+						r.setLocknum(0);
+						r.setLocks("");
+					}else{
+						String n = Long.valueOf(locknum,16) + "";
+						r.setLocknum(Integer.parseInt(n));
+						r.setLocks(StringTools.getAlllocks(locks));
+					}
+					r.setVersion(version);
+					if(null!=wid) {
+						r.setWid(wid);
+					}
+					r.setPowerlev(powerlev.toUpperCase());
+				}
+			
+			}
 			String no=json.get("no").toString();
 			String space=json.get("space").toString();
+			String begin=json.get("begin").toString();
+			r.setBegin(begin);
 			String oscontent=json.get("oscontent").toString();
 			String osdate=json.get("osdate").toString();
 			String osresult=json.get("osresult").toString();
@@ -1130,7 +1193,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			r.setOsspace(osspace);
 			r.setOrder(order);
 			r.setResult(ret);
-			r.setNo(no);
+			r.setNo(Integer.parseInt(no));
 			r.setSpace(space);
 			int failtype = StringTools.getFailtype(ret);
 			r.setFiletype(failtype);

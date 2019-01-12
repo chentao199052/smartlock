@@ -10,6 +10,7 @@ public class GatewaystatusResult {
 	private String powerlev;
 	private String xindaoID ;
 	private Integer xindao;
+	private String  information;
 	private Integer locknum;
 	private String locks;
 	private String wid;
@@ -27,9 +28,9 @@ public class GatewaystatusResult {
 		super();
 	}
 	public GatewaystatusResult(String orderid, Integer resultstatus, Integer filetype, Integer recordnum,
-			String version, String beforever, String powerlev, String xindaoID, Integer xindao, Integer locknum,
-			String locks, String wid, Integer no, String begin, String result, String space, String oscontent,
-			String osdate, String osresult, Integer oscount, String osstatus, String osspace) {
+			String version, String beforever, String powerlev, String xindaoID, Integer xindao, String information,
+			Integer locknum, String locks, String wid, Integer no, String begin, String result, String space,
+			String oscontent, String osdate, String osresult, Integer oscount, String osstatus, String osspace) {
 		super();
 		this.orderid = orderid;
 		this.resultstatus = resultstatus;
@@ -40,6 +41,7 @@ public class GatewaystatusResult {
 		this.powerlev = powerlev;
 		this.xindaoID = xindaoID;
 		this.xindao = xindao;
+		this.information = information;
 		this.locknum = locknum;
 		this.locks = locks;
 		this.wid = wid;
@@ -107,6 +109,12 @@ public class GatewaystatusResult {
 	}
 	public void setXindao(Integer xindao) {
 		this.xindao = xindao;
+	}
+	public String getInformation() {
+		return information;
+	}
+	public void setInformation(String information) {
+		this.information = information;
 	}
 	public Integer getLocknum() {
 		return locknum;
