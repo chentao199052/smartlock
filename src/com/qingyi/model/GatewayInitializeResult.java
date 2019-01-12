@@ -6,7 +6,7 @@ public class GatewayInitializeResult {
 	private Integer resultstatus;
 	private String order;
 	private String result;
-	private String no;
+	private Integer no;
 	private String space;
 	private String oscontent; // 下发指令
 	private String osdate; // 下发时间
@@ -18,8 +18,8 @@ public class GatewayInitializeResult {
 		super();
 	}
 	public GatewayInitializeResult(String orderid, Integer filetype, Integer resultstatus, String order, String result,
-			String no, String space, String oscontent, String osdate, String osresult, Integer oscount, String osstatus,
-			String osspace) {
+			Integer no, String space, String oscontent, String osdate, String osresult, Integer oscount,
+			String osstatus, String osspace) {
 		super();
 		this.orderid = orderid;
 		this.filetype = filetype;
@@ -65,10 +65,10 @@ public class GatewayInitializeResult {
 	public void setResult(String result) {
 		this.result = result;
 	}
-	public String getNo() {
+	public Integer getNo() {
 		return no;
 	}
-	public void setNo(String no) {
+	public void setNo(Integer no) {
 		this.no = no;
 	}
 	public String getSpace() {
