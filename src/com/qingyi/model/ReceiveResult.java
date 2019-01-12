@@ -1,6 +1,6 @@
 package com.qingyi.model;
 
-public class ReceiveResult {
+public class ReceiveResult<T> {
 	
 	private String resultCode;
 	
@@ -8,7 +8,7 @@ public class ReceiveResult {
 	
 	private Integer resultstatus;
 	
-	private Object result;
+	private T result;
 	
 
 	public ReceiveResult() {
@@ -16,7 +16,7 @@ public class ReceiveResult {
 	}
 
 
-	public ReceiveResult(String resultCode, String resultMsg, Integer resultstatus, Object result) {
+	public ReceiveResult(String resultCode, String resultMsg, Integer resultstatus, T result) {
 		super();
 		this.resultCode = resultCode;
 		this.resultMsg = resultMsg;
@@ -55,13 +55,16 @@ public class ReceiveResult {
 	}
 
 
-	public Object getResult() {
+	public T getResult() {
 		return result;
 	}
 
 
-	public void setResult(Object result) {
+	public void setResult(T result) {
 		this.result = result;
 	}
+
+
+	
 	
 }

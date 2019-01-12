@@ -49,9 +49,9 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 	
 	
 	    @Override
-		public ReceiveResult getNBbackorderResult(String content, String sysdate, String verify) {
+		public ReceiveResult<NBbackorderResult> getNBbackorderResult(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
+			ReceiveResult<NBbackorderResult> result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBbackorderResult r=new NBbackorderResult();
@@ -103,9 +103,9 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		}
 
 		@Override
-		public ReceiveResult getNBbackorderResult2(String content, String sysdate, String verify) {
+		public ReceiveResult<NBbackorderResult2> getNBbackorderResult2(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
+			ReceiveResult<NBbackorderResult2> result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBbackorderResult2 r =new NBbackorderResult2();
@@ -130,9 +130,9 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		}
 
 		@Override
-		public ReceiveResult getNBbackorderResult3(String content, String sysdate, String verify) {
+		public ReceiveResult<NBbackorderResult3> getNBbackorderResult3(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
+			ReceiveResult<NBbackorderResult3> result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBbackorderResult3 r =new NBbackorderResult3();
@@ -157,9 +157,9 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		}
 
 		@Override
-		public ReceiveResult getNBbackorderResult4(String content, String sysdate, String verify) {
+		public ReceiveResult<NBbackorderResult4> getNBbackorderResult4(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
+			ReceiveResult<NBbackorderResult4> result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBbackorderResult4 r =new NBbackorderResult4();
@@ -177,9 +177,9 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		}
 		
 		@Override
-		public ReceiveResult getNBbackorderResult5(String content, String sysdate, String verify) {
+		public ReceiveResult<NBbackorderResult5> getNBbackorderResult5(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
+			ReceiveResult<NBbackorderResult5> result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				String id = json.get("id").toString();
@@ -200,9 +200,9 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		
 		@Override
 		//门锁返回结果的json
-		public ReceiveResult getNBorderResult(String content, String sysdate, String verify) {
+		public ReceiveResult<NBorderResult> getNBorderResult(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
+			ReceiveResult<NBorderResult> result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBorderResult r=new NBorderResult();
@@ -225,9 +225,9 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		}
 
 		@Override
-		public ReceiveResult getNBorderResult2(String content, String sysdate, String verify) {
+		public ReceiveResult<NBorderResult2> getNBorderResult2(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
+			ReceiveResult<NBorderResult2> result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBorderResult2 r=new NBorderResult2();
@@ -246,9 +246,9 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		}
 
 		@Override
-		public ReceiveResult getNBorderResult3(String content, String sysdate, String verify) {
+		public ReceiveResult<NBorderResult3> getNBorderResult3(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
+			ReceiveResult<NBorderResult3> result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBorderResult3 r=new NBorderResult3();
@@ -290,9 +290,9 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		}
 
 		@Override
-		public ReceiveResult getNBorderResult4(String content, String sysdate, String verify) {
+		public ReceiveResult<NBorderResult4> getNBorderResult4(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
+			ReceiveResult<NBorderResult4> result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBorderResult4 r=new NBorderResult4();
@@ -310,9 +310,9 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		}
 
 		@Override
-		public ReceiveResult getNBorderResult5(String content, String sysdate, String verify) {
+		public ReceiveResult<NBorderResult5> getNBorderResult5(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
+			ReceiveResult<NBorderResult5> result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBorderResult5 r=new NBorderResult5();
@@ -343,9 +343,9 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		}
 
 		@Override
-		public ReceiveResult getNBorderResult6(String content, String sysdate, String verify) {
+		public ReceiveResult<NBorderResult6> getNBorderResult6(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
+			ReceiveResult<NBorderResult6> result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBorderResult6 r=new NBorderResult6();
@@ -390,9 +390,9 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		}
 
 		@Override
-		public ReceiveResult getNBorderResult7(String content, String sysdate, String verify) {
+		public ReceiveResult<NBorderResult7> getNBorderResult7(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
+			ReceiveResult<NBorderResult7> result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				Map json=StringTools.stringToMap2(content);
 				NBorderResult7 r=new NBorderResult7();
@@ -420,9 +420,9 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 		}
 
 		@Override
-		public ReceiveResult getNBrecordsResult(String content, String sysdate, String verify) {
+		public ReceiveResult<NBrecordsResult> getNBrecordsResult(String content, String sysdate, String verify) {
 			// TODO Auto-generated method stub
-			ReceiveResult result =Verify.verify(content, sysdate, verify, secret, timeout);
+			ReceiveResult<NBrecordsResult> result =Verify.verify(content, sysdate, verify, secret, timeout);
 			if(result.getResultCode().equals("0")) {
 				String successval = content;
 				String[] p = successval.split("-");
