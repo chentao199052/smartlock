@@ -1,6 +1,35 @@
 package com.qingyi.receive.info;
 
+import com.qingyi.model.ClearsGatewaytatusResult;
+import com.qingyi.model.DelRoomCardResult;
+import com.qingyi.model.DelUnlockpswResult;
+import com.qingyi.model.FingerfailResult;
+import com.qingyi.model.FingerfinishResult;
+import com.qingyi.model.FingersuccessResult;
+import com.qingyi.model.GatewayInitializeResult;
+import com.qingyi.model.GatewaystatusResult;
+import com.qingyi.model.LockInitializeResult;
+import com.qingyi.model.LockRemoteOpenResult;
+import com.qingyi.model.LockResetResult;
+import com.qingyi.model.LockStatusResult;
+import com.qingyi.model.ReadGatewayRecordResult;
+import com.qingyi.model.ReadLockRecordResult;
 import com.qingyi.model.ReceiveResult;
+import com.qingyi.model.SaveFingerReagyResult;
+import com.qingyi.model.SaveRoomCardResult;
+import com.qingyi.model.SaveRoomFingerResult;
+import com.qingyi.model.SaveRoomFingerResult2;
+import com.qingyi.model.SaveRoomFingerResult3;
+import com.qingyi.model.SaveUnlockPswResult;
+import com.qingyi.model.SyncFailResult;
+import com.qingyi.model.SyncFinishResult;
+import com.qingyi.model.SyncSuccessResult;
+import com.qingyi.model.UpdateGatewayRoomsResult;
+import com.qingyi.model.UpdateGatewaypowResult;
+import com.qingyi.model.UpdateRoomForcelockResult;
+import com.qingyi.model.UpdateRoomNetmodeResult;
+import com.qingyi.model.UpdateRoomWorkmodeResult;
+import com.qingyi.model.UpdateRoompowResult;
 
 public interface ReceiveOrderInfo {
 	/**
@@ -10,7 +39,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getLockStatusResult(String content,String sysdate,String verify);
+	public ReceiveResult<LockStatusResult> getLockStatusResult(String content,String sysdate,String verify);
 	/**
 	 * 解析查询门锁复位指令结果
 	 * @param content 结果内容
@@ -18,7 +47,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getLockResetResult(String content,String sysdate,String verify);
+	public ReceiveResult<LockResetResult> getLockResetResult(String content,String sysdate,String verify);
 	/**
 	 * 解析门锁远程开门指令
 	 * @param content 结果内容
@@ -26,7 +55,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getLockRemoteOpenResult(String content,String sysdate,String verify);
+	public ReceiveResult<LockRemoteOpenResult> getLockRemoteOpenResult(String content,String sysdate,String verify);
 	/**
 	 * 解析门锁记录读取指令
 	 * @param content 结果内容
@@ -34,7 +63,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getReadLockRecordResult(String content,String sysdate,String verify);
+	public ReceiveResult<ReadLockRecordResult> getReadLockRecordResult(String content,String sysdate,String verify);
 	/**
 	 * 解析修改门锁强锁/非强锁模式指令
 	 * @param content 结果内容
@@ -42,7 +71,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getUpdateRoomForcelockResult(String content,String sysdate,String verify);
+	public ReceiveResult<UpdateRoomForcelockResult> getUpdateRoomForcelockResult(String content,String sysdate,String verify);
 	/**
 	 * 解析修改门锁功率等级指令
 	 * @param content 结果内容
@@ -50,7 +79,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getUpdateRoompowResult(String content,String sysdate,String verify);
+	public ReceiveResult<UpdateRoompowResult> getUpdateRoompowResult(String content,String sysdate,String verify);
 	/**
 	 * 解析修改门锁常开/常闭模式指令
 	 * @param content 结果内容
@@ -58,7 +87,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getUpdateRoomWorkmodeResult(String content,String sysdate,String verify);
+	public ReceiveResult<UpdateRoomWorkmodeResult> getUpdateRoomWorkmodeResult(String content,String sysdate,String verify);
 	/**
 	 * 解析修改门锁联网模式指令
 	 * @param content 结果内容
@@ -66,7 +95,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getUpdateRoomNetmodeResult(String content,String sysdate,String verify);
+	public ReceiveResult<UpdateRoomNetmodeResult> getUpdateRoomNetmodeResult(String content,String sysdate,String verify);
 	/**
 	 * 解析指纹机录入准备指令
 	 * @param content 结果内容
@@ -74,7 +103,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getSaveFingerReagyResult(String content,String sysdate,String verify);
+	public ReceiveResult<SaveFingerReagyResult> getSaveFingerReagyResult(String content,String sysdate,String verify);
 	/**
 	 * 解析网关状态查询指令
 	 * @param content 结果内容
@@ -82,7 +111,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getGatewaystatusResult(String content,String sysdate,String verify);
+	public ReceiveResult<GatewaystatusResult> getGatewaystatusResult(String content,String sysdate,String verify);
 	/**
 	 * 解析修改网关功率等级指令
 	 * @param content 结果内容
@@ -90,7 +119,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getUpdateGatewaypowResult(String content,String sysdate,String verify);
+	public ReceiveResult<UpdateGatewaypowResult> getUpdateGatewaypowResult(String content,String sysdate,String verify);
 	/**
 	 * 解析清除网关异常数据指令
 	 * @param content 结果内容
@@ -98,7 +127,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getClearsGatewaytatusResult(String content,String sysdate,String verify);
+	public ReceiveResult<ClearsGatewaytatusResult> getClearsGatewaytatusResult(String content,String sysdate,String verify);
 	/**
 	 * 解析网关路由表更新指令
 	 * @param content 结果内容
@@ -106,7 +135,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getUpdateGatewayRoomsResult(String content,String sysdate,String verify);
+	public ReceiveResult<UpdateGatewayRoomsResult> getUpdateGatewayRoomsResult(String content,String sysdate,String verify);
 	/**
 	 * 解析读取网关记录指令
 	 * @param content 结果内容
@@ -114,7 +143,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getReadGatewayRecordResult(String content,String sysdate,String verify);
+	public ReceiveResult<ReadGatewayRecordResult> getReadGatewayRecordResult(String content,String sysdate,String verify);
 	/**
 	 * 解析初始化网关ID指令
 	 * @param content 结果内容
@@ -122,7 +151,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getGatewayInitializeResult(String content,String sysdate,String verify);
+	public ReceiveResult<GatewayInitializeResult> getGatewayInitializeResult(String content,String sysdate,String verify);
 	/**
 	 * 解析发送密码授权指令
 	 * @param content 结果内容
@@ -130,7 +159,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getSaveUnlockPswResult(String content,String sysdate,String verify);
+	public ReceiveResult<SaveUnlockPswResult> getSaveUnlockPswResult(String content,String sysdate,String verify);
 	/**
 	 * 解析取消密码授权指令
 	 * @param content 结果内容
@@ -138,7 +167,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getDelUnlockpswResult(String content,String sysdate,String verify);
+	public ReceiveResult<DelUnlockpswResult> getDelUnlockpswResult(String content,String sysdate,String verify);
 	/**
 	 * 解析发送初始化房间编号指令
 	 * @param content 结果内容
@@ -146,7 +175,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getLockInitializeResult(String content,String sysdate,String verify);
+	public ReceiveResult<LockInitializeResult> getLockInitializeResult(String content,String sysdate,String verify);
 	/**
 	 * 解析发送卡片授权指令
 	 * @param content 结果内容
@@ -154,7 +183,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getSaveRoomCardResult(String content,String sysdate,String verify);
+	public ReceiveResult<SaveRoomCardResult> getSaveRoomCardResult(String content,String sysdate,String verify);
 	/**
 	 * 解析发送/取消指纹授权指令(失败)
 	 * @param content 结果内容
@@ -162,7 +191,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getSaveRoomFingerResult(String content,String sysdate,String verify);
+	public ReceiveResult<SaveRoomFingerResult> getSaveRoomFingerResult(String content,String sysdate,String verify);
 	/**
 	 * 解析发送/取消指纹授权指令(分包)
 	 * @param content 结果内容
@@ -170,7 +199,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getSaveRoomFingerResult2(String content,String sysdate,String verify);
+	public ReceiveResult<SaveRoomFingerResult2> getSaveRoomFingerResult2(String content,String sysdate,String verify);
 	/**
 	 * 解析发送/取消指纹授权指令(总结果)
 	 * @param content 结果内容
@@ -178,7 +207,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getSaveRoomFingerResult3(String content,String sysdate,String verify);
+	public ReceiveResult<SaveRoomFingerResult3> getSaveRoomFingerResult3(String content,String sysdate,String verify);
 	/**
 	 * 解析删除卡片授权指令
 	 * @param content 结果内容
@@ -186,7 +215,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getDelRoomCardResult(String content,String sysdate,String verify);
+	public ReceiveResult<DelRoomCardResult> getDelRoomCardResult(String content,String sysdate,String verify);
 	
 	/**
 	 * 解析卡片授权同步失败指令
@@ -195,7 +224,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getSyncFailResult(String content,String sysdate,String verify);
+	public ReceiveResult<SyncFailResult> getSyncFailResult(String content,String sysdate,String verify);
 	/**
 	 * 解析卡片授权同步的分包结果
 	 * @param content 结果内容
@@ -203,7 +232,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getSyncFinishResult(String content,String sysdate,String verify);
+	public ReceiveResult<SyncFinishResult> getSyncFinishResult(String content,String sysdate,String verify);
 	/**
 	 * 解析卡片授权同步的总结果
 	 * @param content 结果内容
@@ -211,7 +240,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getSyncSuccessResult(String content,String sysdate,String verify);
+	public ReceiveResult<SyncSuccessResult> getSyncSuccessResult(String content,String sysdate,String verify);
 	/**
 	 * 解析指纹授权同步失败指令
 	 * @param content 结果内容
@@ -219,7 +248,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getFingerfailResult(String content,String sysdate,String verify);
+	public ReceiveResult<FingerfailResult> getFingerfailResult(String content,String sysdate,String verify);
 	/**
 	 * 解析指纹指令分包成功结果
 	 * @param content 结果内容
@@ -227,7 +256,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getFingerfinishResult(String content,String sysdate,String verify);
+	public ReceiveResult<FingerfinishResult> getFingerfinishResult(String content,String sysdate,String verify);
 	/**
 	 * 解析指纹指令总结果
 	 * @param content 结果内容
@@ -235,7 +264,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult getFingersuccessResult(String content,String sysdate,String verify);
+	public ReceiveResult<FingersuccessResult> getFingersuccessResult(String content,String sysdate,String verify);
 	
 	
 }

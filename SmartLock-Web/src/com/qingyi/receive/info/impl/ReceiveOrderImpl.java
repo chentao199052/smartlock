@@ -81,9 +81,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 	
 	@Override
-	public ReceiveResult getLockStatusResult(String content, String sysdate, String verify) {
+	public ReceiveResult<LockStatusResult> getLockStatusResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<LockStatusResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			try {
 				Map json=StringTools.stringToMap2(content);
@@ -182,9 +182,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getLockResetResult(String content, String sysdate, String verify) {
+	public ReceiveResult<LockResetResult> getLockResetResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<LockResetResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String itid=json.get("itid").toString();
@@ -222,9 +222,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getLockRemoteOpenResult(String content, String sysdate, String verify) {
+	public ReceiveResult<LockRemoteOpenResult> getLockRemoteOpenResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<LockRemoteOpenResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			try {
 				Map json=StringTools.stringToMap2(content);
@@ -269,9 +269,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getReadLockRecordResult(String content, String sysdate, String verify) {
+	public ReceiveResult<ReadLockRecordResult> getReadLockRecordResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<ReadLockRecordResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String itid=json.get("itid").toString();
@@ -336,9 +336,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getUpdateRoomForcelockResult(String content, String sysdate, String verify) {
+	public ReceiveResult<UpdateRoomForcelockResult> getUpdateRoomForcelockResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<UpdateRoomForcelockResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String itid=json.get("itid").toString();
@@ -378,9 +378,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getUpdateRoompowResult(String content, String sysdate, String verify) {
+	public ReceiveResult<UpdateRoompowResult> getUpdateRoompowResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<UpdateRoompowResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String itid=json.get("itid").toString();
@@ -474,9 +474,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getUpdateRoomWorkmodeResult(String content, String sysdate, String verify) {
+	public ReceiveResult<UpdateRoomWorkmodeResult> getUpdateRoomWorkmodeResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<UpdateRoomWorkmodeResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String itid=json.get("itid").toString();
@@ -570,9 +570,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getUpdateRoomNetmodeResult(String content, String sysdate, String verify) {
+	public ReceiveResult<UpdateRoomNetmodeResult> getUpdateRoomNetmodeResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<UpdateRoomNetmodeResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String itid=json.get("itid").toString();
@@ -666,9 +666,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getSaveFingerReagyResult(String content, String sysdate, String verify) {
+	public ReceiveResult<SaveFingerReagyResult> getSaveFingerReagyResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<SaveFingerReagyResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String itid=json.get("itid").toString();
@@ -700,9 +700,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getGatewaystatusResult(String content, String sysdate, String verify) {
+	public ReceiveResult<GatewaystatusResult> getGatewaystatusResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<GatewaystatusResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String itid=json.get("itid").toString();
@@ -801,9 +801,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getUpdateGatewaypowResult(String content, String sysdate, String verify) {
+	public ReceiveResult<UpdateGatewaypowResult> getUpdateGatewaypowResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<UpdateGatewaypowResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String itid=json.get("itid").toString();
@@ -902,9 +902,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getClearsGatewaytatusResult(String content, String sysdate, String verify) {
+	public ReceiveResult<ClearsGatewaytatusResult> getClearsGatewaytatusResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<ClearsGatewaytatusResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String itid=json.get("itid").toString();
@@ -1003,9 +1003,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getUpdateGatewayRoomsResult(String content, String sysdate, String verify) {
+	public ReceiveResult<UpdateGatewayRoomsResult> getUpdateGatewayRoomsResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<UpdateGatewayRoomsResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String itid=json.get("itid").toString();
@@ -1043,9 +1043,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getReadGatewayRecordResult(String content, String sysdate, String verify) {
+	public ReceiveResult<ReadGatewayRecordResult> getReadGatewayRecordResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<ReadGatewayRecordResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Integer status=null;
 			try {
@@ -1102,9 +1102,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getGatewayInitializeResult(String content, String sysdate, String verify) {
+	public ReceiveResult<GatewayInitializeResult> getGatewayInitializeResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<GatewayInitializeResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String itid=json.get("itid").toString();
@@ -1140,9 +1140,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getSaveUnlockPswResult(String content, String sysdate, String verify) {
+	public ReceiveResult<SaveUnlockPswResult> getSaveUnlockPswResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<SaveUnlockPswResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String rcid=json.get("rcid").toString();
@@ -1184,9 +1184,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getDelUnlockpswResult(String content, String sysdate, String verify) {
+	public ReceiveResult<DelUnlockpswResult> getDelUnlockpswResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<DelUnlockpswResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String rcid=json.get("rcid").toString();
@@ -1226,9 +1226,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getLockInitializeResult(String content, String sysdate, String verify) {
+	public ReceiveResult<LockInitializeResult> getLockInitializeResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<LockInitializeResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String itid = json.get("itid").toString();
@@ -1317,9 +1317,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 
 	@Override
 	//??
-	public ReceiveResult getSaveRoomCardResult(String content, String sysdate, String verify) {
+	public ReceiveResult<SaveRoomCardResult> getSaveRoomCardResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<SaveRoomCardResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String rcid = json.get("rcid").toString();
@@ -1363,9 +1363,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 
 	@Override
 	//??
-	public ReceiveResult getSaveRoomFingerResult(String content, String sysdate, String verify) {
+	public ReceiveResult<SaveRoomFingerResult> getSaveRoomFingerResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<SaveRoomFingerResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json = StringTools.stringToMap2(content);
 			String type = json.get("type").toString();
@@ -1408,9 +1408,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 	@Override
 	//??
-	public ReceiveResult getSaveRoomFingerResult2(String content, String sysdate, String verify) {
+	public ReceiveResult<SaveRoomFingerResult2> getSaveRoomFingerResult2(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<SaveRoomFingerResult2> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json = StringTools.stringToMap2(content);
 			SaveRoomFingerResult2 r=new SaveRoomFingerResult2();
@@ -1450,9 +1450,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 	@Override
 	//??
-	public ReceiveResult getSaveRoomFingerResult3(String content, String sysdate, String verify) {
+	public ReceiveResult<SaveRoomFingerResult3> getSaveRoomFingerResult3(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<SaveRoomFingerResult3> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json = StringTools.stringToMap2(content);
 			SaveRoomFingerResult3 r=new SaveRoomFingerResult3();
@@ -1501,9 +1501,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 
 	@Override
 	//??
-	public ReceiveResult getDelRoomCardResult(String content, String sysdate, String verify) {
+	public ReceiveResult<DelRoomCardResult> getDelRoomCardResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<DelRoomCardResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json = StringTools.stringToMap2(content);
 			DelRoomCardResult r=new DelRoomCardResult();
@@ -1544,9 +1544,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 		return result;
 	}
 	@Override
-	public ReceiveResult getSyncFailResult(String content, String sysdate, String verify) {
+	public ReceiveResult<SyncFailResult> getSyncFailResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);;
+		ReceiveResult<SyncFailResult> result=Verify.verify(content, sysdate, verify, secret, timeout);;
 		if(result.getResultCode().equals("0")) {
 			Map json = StringTools.stringToMap2(content);
 			String num = json.get("num").toString();
@@ -1588,9 +1588,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getSyncFinishResult(String content, String sysdate, String verify) {
+	public ReceiveResult<SyncFinishResult> getSyncFinishResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);;
+		ReceiveResult<SyncFinishResult> result=Verify.verify(content, sysdate, verify, secret, timeout);;
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String itid = json.get("itid").toString();
@@ -1626,9 +1626,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getSyncSuccessResult(String content, String sysdate, String verify) {
+	public ReceiveResult<SyncSuccessResult> getSyncSuccessResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<SyncSuccessResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String itid = json.get("itid").toString();
@@ -1659,9 +1659,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getFingerfailResult(String content, String sysdate, String verify) {
+	public ReceiveResult<FingerfailResult> getFingerfailResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<FingerfailResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json= StringTools.stringToMap2(content);
 			FingerfailResult r=new FingerfailResult();
@@ -1712,9 +1712,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getFingerfinishResult(String content, String sysdate, String verify) {
+	public ReceiveResult<FingerfinishResult> getFingerfinishResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<FingerfinishResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			FingerfinishResult r=new FingerfinishResult();
@@ -1755,9 +1755,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult getFingersuccessResult(String content, String sysdate, String verify) {
+	public ReceiveResult<FingersuccessResult> getFingersuccessResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<FingersuccessResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			FingersuccessResult r=new FingersuccessResult();
