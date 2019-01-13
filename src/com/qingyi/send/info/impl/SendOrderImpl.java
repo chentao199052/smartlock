@@ -35,7 +35,22 @@ public class SendOrderImpl implements SendOrderInfo{
 		this.baseurl = baseurl;
 		this.secret = secret;
 	}
+	
+	public String getBaseurl() {
+		return baseurl;
+	}
 
+	public void setBaseurl(String baseurl) {
+		this.baseurl = baseurl;
+	}
+
+	public String getSecret() {
+		return secret;
+	}
+
+	public void setSecret(String secret) {
+		this.secret = secret;
+	}
 
 	@Override
 	public SendResult getLockStatus(String gatewaycode, String gatewaycode2, String roomcode, Integer timeout, String callbackurl) {
