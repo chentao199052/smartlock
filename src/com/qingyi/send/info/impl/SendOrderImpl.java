@@ -570,4 +570,32 @@ public class SendOrderImpl implements SendOrderInfo{
 		return sr;
 	}
 
+	@Override
+	public SendResult clearFingerMachine(String fpcode, String type) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("fpcode", fpcode);
+		param.put("type", type);
+		SendResult sr=StringTools.check(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"clearFingerMachine", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		}
+		return sr;
+		
+	}
+
+	@Override
+	public SendResult readFingerMachine(String fpcode, String type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SendResult fingerMachineState(String fpcode, String sifid, Integer timeout, String callbackurl) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 }

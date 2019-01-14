@@ -115,6 +115,37 @@ public interface SendOrderInfo {
 	 * @return 指令发送结果SendResult
 	 */
 	public SendResult saveFingerReagy(String fpcode,Integer timeout,String callbackurl);
+	/**
+	 * 指纹机清空
+	 * @param fpcode  指纹机唯一ID
+	 * @param type  类型  0指纹 1身份证 2卡号
+	 * @param timeout
+	 * @param callbackurl
+	 * @return
+	 */
+	public SendResult clearFingerMachine(String fpcode,String type);
+	
+	/**
+	 * 指纹机读取
+	 * @param fpcode  指纹机唯一ID
+	 * @param type  类型  0指纹 1身份证 2卡号
+	 * @param timeout
+	 * @param callbackurl
+	 * @return
+	 */
+	public SendResult readFingerMachine(String fpcode,String type);
+	
+	
+	
+	/**
+	 * 指纹机状态(查询是否可录入指纹)
+	 * @param fpcode  指纹机唯一ID
+	 * @param sifid  SlIntimefingerprint 的Id  
+	 * @param timeout
+	 * @param callbackurl
+	 * @return
+	 */
+	public SendResult fingerMachineState(String fpcode,String sifid,Integer timeout,String callbackurl);
 	
 	/**
 	 * 网关状态查询
