@@ -60,6 +60,18 @@ public interface NBSendOrderInfo {
 		 */
 		public SendResult updateRoomFingerxzsxNB(String roomcode2,String roomimei,String roomtxtype,String fingercode,String fingercontent,String orderid,Integer timeout,String callbackurl); 
 		/**
+		 * 指纹授权 NB
+		 * @param roomcode2
+		 * @param roomimei
+		 * @param roomtxtype
+		 * @param fingercode
+		 * @param content
+		 * @param timeout
+		 * @param callbackurl
+		 * @return
+		 */
+		public SendResult saveRoomFingerNB(String roomcode2,String roomimei,String roomtxtype,String fingercode,String content,Integer timeout,String callbackurl);
+		/**
 		 * 删除指纹授权 NB
 		 * @param roomcode2
 		 * @param roomimei
@@ -81,6 +93,9 @@ public interface NBSendOrderInfo {
 		 * @return
 		 */
 		public SendResult syscFingerNB(String roomcode2,String roomimei,String roomtxtype,List<RoomFinger> rflist,Integer timeout,String callbackurl); 
+		
+		
+		
 		/**
 		 * 集群卡片同步NB
 		 * @param roomcode2
