@@ -588,13 +588,30 @@ public class SendOrderImpl implements SendOrderInfo{
 	@Override
 	public SendResult readFingerMachine(String fpcode, String type) {
 		// TODO Auto-generated method stub
-		return null;
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("fpcode", fpcode);
+		param.put("type", type);
+		SendResult sr=StringTools.check(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"readFingerMachine", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		}
+		return sr;
 	}
 
 	@Override
-	public SendResult fingerMachineState(String fpcode, String sifid, Integer timeout, String callbackurl) {
+	public SendResult fingerMachineState(String fpcode, Integer timeout, String callbackurl) {
 		// TODO Auto-generated method stub
-		return null;
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("fpcode", fpcode);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr=StringTools.check(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"fingerMachineState", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		}
+		return sr;
 	}
 
 	
