@@ -1,4 +1,5 @@
 package com.qingyi.send.info.impl;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -257,8 +258,8 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult delRoomFinger(String gatewaycode, String gatewaycode2,String roomid,String roomcode, 
-			DelRoomFinger rflist, Integer timeout, String callbackurl) {
+	public List<SendResult> delRoomFinger(String gatewaycode, String gatewaycode2,String roomid,String roomcode, 
+			List<DelRoomFinger> rflist, Integer timeout, String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
 		param.put("gatewaycode", gatewaycode);
@@ -269,11 +270,22 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("timeout", timeout);
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
+		List<SendResult> result=null;
 		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "delroomfinger", secret, param);
-			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+			String ss=HttpsUtil.httpURLConnectionPOST(baseurl, "delroomfinger", secret, param);
+			if(ss.length()>1) {
+				result=new ArrayList<SendResult>();
+				String sss=ss.substring(1,ss.length()-1);
+				System.out.println(sss);
+				while (!(sss.indexOf("{")==-1)) {
+					String s1=sss.substring(sss.indexOf("{"),sss.indexOf("}")+1);
+					sss=sss.substring(sss.indexOf("}")+1);
+					sr=(SendResult) StringTools.getResultObject(s1,SendResult.class);
+					result.add(sr);
+				}
+			}
 		}
-		return sr;
+		return result;
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package com.qingyi.model;
 
 public class DelRoomFinger {
+	public  String  rfid;
 	private String fingercode;
 	private String empedate;//yyMMddHHmm
 	private String fingerseq;//指纹序列号
@@ -11,15 +12,22 @@ public class DelRoomFinger {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public DelRoomFinger(String fingercode, String empedate, String fingerseq, String openstime, String openetime,
-			String rfusecount) {
+	public DelRoomFinger(String rfid, String fingercode, String empedate, String fingerseq, String openstime,
+			String openetime, String rfusecount) {
 		super();
+		this.rfid = rfid;
 		this.fingercode = fingercode;
 		this.empedate = empedate;
 		this.fingerseq = fingerseq;
 		this.openstime = openstime;
 		this.openetime = openetime;
 		this.rfusecount = rfusecount;
+	}
+	public String getRfid() {
+		return rfid;
+	}
+	public void setRfid(String rfid) {
+		this.rfid = rfid;
 	}
 	public String getFingercode() {
 		return fingercode;

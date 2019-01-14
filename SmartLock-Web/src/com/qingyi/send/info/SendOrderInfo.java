@@ -281,6 +281,8 @@ public interface SendOrderInfo {
 	 */
 	public SendResult delRoomCard(String gatewaycode,String gatewaycode2,String roomcode,String cardtype,String cardcode,Integer timeout,String callbackurl);
 	
+	
+	
 	/**
 	 * 删除指纹授权指令
 	 * @param gatewaycode 门锁归属网关通讯ID
@@ -290,8 +292,10 @@ public interface SendOrderInfo {
 	 * @param timeout 有效时间（单位s）
 	 * @param callbackurl 回调地址（接收指令发送结果）
 	 * @return 指令发送结果SendResult
+	 * 
+	 * orderId 为 XXXX(orderId)-XXX(rfid)   
 	 */
-	public SendResult delRoomFinger(String gatewaycode,String gatewaycode2,String roomid,String roomcode,DelRoomFinger rflist,Integer timeout,String callbackurl);
+	public List<SendResult> delRoomFinger(String gatewaycode,String gatewaycode2,String roomid,String roomcode,List<DelRoomFinger> rflist,Integer timeout,String callbackurl);
 	
 	/**
 	 * 发送房间卡片/密码授权同步指令

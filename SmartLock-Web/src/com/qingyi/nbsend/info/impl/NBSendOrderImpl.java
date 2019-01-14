@@ -552,5 +552,25 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			return sr;
 		}
 
+		@Override
+		public SendResult saveRoomFingerNB(String roomcode2, String roomimei, String roomtxtype, String fingercode,
+				String content, Integer timeout, String callbackurl) {
+			// TODO Auto-generated method stub
+			LinkedHashMap param=new LinkedHashMap();
+			param.put("roomcode2", roomcode2);
+			param.put("roomimei", roomimei);
+			param.put("roomtxtype", roomtxtype);
+			param.put("fingercode", fingercode);
+			param.put("content", content);
+			param.put("timeout", timeout);
+			param.put("callbackurl", callbackurl);
+			SendResult sr=StringTools.check(param);
+			if("0".equals(sr.getResultCode())) {
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"saveRoomFingerNB", secret, param);
+				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
+			}
+			return sr;
+		}
+
 		
 }
