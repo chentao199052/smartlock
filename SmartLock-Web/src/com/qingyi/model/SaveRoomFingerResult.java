@@ -3,10 +3,11 @@ package com.qingyi.model;
 public class SaveRoomFingerResult {
 	private String orderid;
 	private Integer resultstatus;
-	private Integer filetype;
+	private Integer failtype;
 	private String type;
 	private String num;
-	private String fingercodes;
+	private String fingercodes; 
+	private String order; 
 	private String oscontent; // 下发指令
 	private String osdate; // 下发时间
 	private String osresult;//结果
@@ -19,16 +20,18 @@ public class SaveRoomFingerResult {
 		// TODO Auto-generated constructor stub
 	}
 
-	public SaveRoomFingerResult(String orderid, Integer resultstatus, Integer filetype, String type, String num,
-			String fingercodes, String oscontent, String osdate, String osresult, Integer oscount, String osstatus,
-			String osspace) {
+	
+	public SaveRoomFingerResult(String orderid, Integer resultstatus, Integer failtype, String type, String num,
+			String fingercodes, String order, String oscontent, String osdate, String osresult, Integer oscount,
+			String osstatus, String osspace) {
 		super();
 		this.orderid = orderid;
 		this.resultstatus = resultstatus;
-		this.filetype = filetype;
+		this.failtype = failtype;
 		this.type = type;
 		this.num = num;
 		this.fingercodes = fingercodes;
+		this.order = order;
 		this.oscontent = oscontent;
 		this.osdate = osdate;
 		this.osresult = osresult;
@@ -36,6 +39,7 @@ public class SaveRoomFingerResult {
 		this.osstatus = osstatus;
 		this.osspace = osspace;
 	}
+
 
 	public String getOrderid() {
 		return orderid;
@@ -53,12 +57,12 @@ public class SaveRoomFingerResult {
 		this.resultstatus = resultstatus;
 	}
 
-	public Integer getFiletype() {
-		return filetype;
+	public Integer getFailtype() {
+		return failtype;
 	}
 
-	public void setFiletype(Integer filetype) {
-		this.filetype = filetype;
+	public void setFailtype(Integer failtype) {
+		this.failtype = failtype;
 	}
 
 	public String getType() {
@@ -132,6 +136,16 @@ public class SaveRoomFingerResult {
 	public void setOsspace(String osspace) {
 		this.osspace = osspace;
 	}
-	
+
+
+	public String getOrder() {
+		return order;
+	}
+
+
+	public void setOrder(String order) {
+		this.order = order;
+	}
+
 	
 }

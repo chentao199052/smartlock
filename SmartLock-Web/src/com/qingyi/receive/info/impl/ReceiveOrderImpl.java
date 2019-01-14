@@ -2,6 +2,7 @@ package com.qingyi.receive.info.impl;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,21 +21,6 @@ import com.qingyi.model.LockInitializeResult;
 import com.qingyi.model.LockRemoteOpenResult;
 import com.qingyi.model.LockResetResult;
 import com.qingyi.model.LockStatusResult;
-import com.qingyi.model.NBbackorder;
-import com.qingyi.model.NBbackorderResult;
-import com.qingyi.model.NBbackorderResult2;
-import com.qingyi.model.NBbackorderResult3;
-import com.qingyi.model.NBbackorderResult4;
-import com.qingyi.model.NBbackorderResult5;
-import com.qingyi.model.NBorderResult;
-import com.qingyi.model.NBorderResult2;
-import com.qingyi.model.NBorderResult3;
-import com.qingyi.model.NBorderResult4;
-import com.qingyi.model.NBorderResult5;
-import com.qingyi.model.NBorderResult6;
-import com.qingyi.model.NBorderResult7;
-import com.qingyi.model.NBrecords;
-import com.qingyi.model.NBrecordsResult;
 import com.qingyi.model.ReadGatewayRecordResult;
 import com.qingyi.model.ReadLockRecord;
 import com.qingyi.model.ReadLockRecordResult;
@@ -1431,22 +1417,35 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 		ReceiveResult<SaveRoomFingerResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json = StringTools.stringToMap2(content);
-			String type = json.get("type").toString();
-			String num= json.get("num").toString();
 			SaveRoomFingerResult r=new SaveRoomFingerResult();
-			r.setNum(num);
-			r.setType(type);
-			if(num.equals("1") || num.equals("2")) {
+			String type = json.get("type").toString();
+			String no = json.get("num").toString();
+				if(no.equals("1") || no.equals("2")) {
 					String rcid = json.get("itid").toString();
 					r.setOrderid(rcid);
-					r.setResultstatus(1);
-					result.setResultstatus(1);
-					if(type.equals("2")) {
-						String order = json.get("fail").toString();
+					String order = json.get("fail").toString();
+					r.setOrder(order);
+					//授权
+					if(type.equals("1")) {
+						if(no.equals("1")) {
+							r.setFailtype(42);
+						}else {
+							r.setFailtype(43);
+						}
+						
+					}
+					//取消授权
+					else if(type.equals("2")){
+						//取消授权的rcid为房间id
 						String fingercodes = StringTools.getFingercodeByOrder(order);
 						r.setFingercodes(fingercodes);
+					}else {
+						//查询order
+						String fcodes = StringTools.getFingercodesByOrders(new String[] {order});
+						r.setFingercodes(fcodes);
 					}
-			}
+					
+				}
 			String oscontent=json.get("oscontent").toString();
 			String osdate=json.get("osdate").toString();
 			String osresult=json.get("osresult").toString();
@@ -1459,12 +1458,6 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			r.setOscount(Integer.parseInt(oscount));
 			r.setOsstatus(osstatus);
 			r.setOsspace(osspace);
-			Object object = json.get("result");
-    		if(null!=object) {
-    			String ret =(String)object;
-    			int failtype = StringTools.getFailtype(ret);
-    			r.setFiletype(failtype);
-    		}
     		result.setResult(r);
 		}
 		return result;
@@ -1482,7 +1475,11 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
     		String order = json.get("finish").toString();
     		r.setType(type);
     		r.setOrderid(rcid);
-			if(type.equals("2")) {
+    		if(type.equals("1")) {}
+    		else if(type.equals("2")) {
+				String fingercodes = StringTools.getFingercodeByOrder(order);
+				r.setFingercodes(fingercodes);
+			}else {
 				String fingercodes = StringTools.getFingercodeByOrder(order);
 				r.setFingercodes(fingercodes);
 			}
@@ -1532,6 +1529,8 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 					r.setOrder(order);
 				}else if(type.equals("2")) {
 					String failorder = json.get("fail").toString();
+					String order=json.get("order").toString();
+					r.setOrder(order);
 					if(!"".equals(failorder)) {
 						String fingercodes = StringTools.getFingercodeByOrder(failorder);
 						r.setFingercodes(fingercodes);
