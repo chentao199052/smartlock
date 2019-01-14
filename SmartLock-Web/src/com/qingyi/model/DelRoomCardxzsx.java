@@ -8,6 +8,12 @@ public class DelRoomCardxzsx {
 	private String openstime;
 	private String openetime;
 	private String rcusecount;
+	
+	
+	public DelRoomCardxzsx() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public DelRoomCardxzsx(String rcid, String cardtype, String cardedate, String cardcode, String openstime,
 			String openetime, String rcusecount) {
 		super();
