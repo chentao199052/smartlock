@@ -145,7 +145,7 @@ public interface SendOrderInfo {
 	 * @param callbackurl
 	 * @return
 	 */
-	public SendResult fingerMachineState(String fpcode,String sifid,Integer timeout,String callbackurl);
+	public SendResult fingerMachineState(String fpcode,Integer timeout,String callbackurl);
 	
 	/**
 	 * 网关状态查询
