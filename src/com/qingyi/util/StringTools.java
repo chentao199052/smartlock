@@ -76,7 +76,11 @@ public class StringTools {
 	}
 	
 	public static String beanToString(List<Object> list) {
+		
 		String json="[";
+		if(list==null || list.size()==0){
+			return "";
+		}
 		for(int j=0;j<list.size();j++) {
 			Object obj=list.get(j);
 			json+="{";
