@@ -11,6 +11,7 @@ import com.qingyi.model.ClearsGatewaytatusResult;
 import com.qingyi.model.DelRoomCardResult;
 import com.qingyi.model.DelRoomFingerResult;
 import com.qingyi.model.DelUnlockpswResult;
+import com.qingyi.model.FingerMachineStateResult;
 import com.qingyi.model.FingerfailResult;
 import com.qingyi.model.FingerfinishResult;
 import com.qingyi.model.FingersuccessResult;
@@ -1857,6 +1858,18 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			result.setResult(r);
 		}
 		return result;
+	}
+
+	@Override
+	public ReceiveResult<FingerMachineStateResult> getFingerMachineStateResult(String content, String sysdate,
+			String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult<FingerMachineStateResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if("0".equals(result.getResultCode())) {
+			Map json=StringTools.stringToMap2(content);
+			FingerMachineStateResult r=new FingerMachineStateResult();
+		}
+		return null;
 	}
 	
 
