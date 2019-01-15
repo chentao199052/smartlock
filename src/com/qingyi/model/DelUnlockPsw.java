@@ -13,9 +13,6 @@ public class DelUnlockPsw {
 	
 	private String edate;
 	
-//	private String unlockstime;
-//	
-//	private String unlocketime;
 
 	public DelUnlockPsw() {
 		super();
