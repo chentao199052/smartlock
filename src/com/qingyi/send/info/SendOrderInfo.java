@@ -56,7 +56,7 @@ public interface SendOrderInfo {
 	 * @param callbackurl 回调地址（接收指令发送结果）
 	 * @return 指令发送结果SendResult
 	 */
-	public SendResult readLockRecord(String gatewaycode,String gatewaycode2,String itid,String roomcode,Integer timeout,String callbackurl);
+	public SendResult readLockRecord(String gatewaycode,String gatewaycode2,String roomcode,Integer timeout,String callbackurl);
 	
 	/**
 	 * 修改门锁强锁/非强锁模式

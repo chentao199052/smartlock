@@ -3,6 +3,7 @@ package com.qingyi.receive.info;
 import com.qingyi.model.ClearsGatewaytatusResult;
 import com.qingyi.model.DelRoomCardResult;
 import com.qingyi.model.DelUnlockpswResult;
+import com.qingyi.model.FingerMachineStateResult;
 import com.qingyi.model.FingerfailResult;
 import com.qingyi.model.FingerfinishResult;
 import com.qingyi.model.FingersuccessResult;
@@ -265,6 +266,15 @@ public interface ReceiveOrderInfo {
 	 * @return 解析结果ReceiveResult
 	 */
 	public ReceiveResult<FingersuccessResult> getFingersuccessResult(String content,String sysdate,String verify);
+	
+	/**
+	 * 解析指纹机状态
+	 * @param content 结果内容
+	 * @param sysdate 时间戳
+	 * @param verify 校验
+	 * @return 解析结果ReceiveResult
+	 */
+	public ReceiveResult<FingerMachineStateResult> getFingerMachineStateResult(String content,String sysdate,String verify);
 	
 	
 }

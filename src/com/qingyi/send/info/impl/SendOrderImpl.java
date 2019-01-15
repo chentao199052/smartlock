@@ -106,13 +106,12 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult readLockRecord(String gatewaycode, String gatewaycode2,String itid, String roomcode, Integer timeout,
+	public SendResult readLockRecord(String gatewaycode, String gatewaycode2, String roomcode, Integer timeout,
 			String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
 		param.put("gatewaycode", gatewaycode);
 		param.put("gatewaycode2", gatewaycode2);
-		param.put("itid", itid);
 		param.put("roomcode", roomcode);
 		param.put("timeout", timeout);
 		param.put("callbackurl", callbackurl);
