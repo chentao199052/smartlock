@@ -6,7 +6,6 @@ package com.qingyi.model;
  */
 public class RoomCard {
 	
-	private String rcid;
 	
 	private String cardtype;//中文标识
 	
@@ -43,24 +42,8 @@ public class RoomCard {
 		this.openetime = openetime;
 		this.opencount = opencount;
 	}
-	public RoomCard(String rcid, String cardtype, String cardcode, String edate, String empedate, String openstime,
-			String openetime, String opencount) {
-		super();
-		this.rcid = rcid;
-		this.cardtype = cardtype;
-		this.cardcode = cardcode;
-		this.edate = edate;
-		this.empedate = empedate;
-		this.openstime = openstime;
-		this.openetime = openetime;
-		this.opencount = opencount;
-	}
-	public String getRcid() {
-		return rcid;
-	}
-	public void setRcid(String rcid) {
-		this.rcid = rcid;
-	}
+	
+	
 	public String getCardtype() {
 		return cardtype;
 	}

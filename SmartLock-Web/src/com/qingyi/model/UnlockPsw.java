@@ -6,8 +6,6 @@ package com.qingyi.model;
  */
 public class UnlockPsw {
 	
-	private String puid;//密码开锁id
-	
 	private String pass;
 	
 	private String count;
@@ -38,23 +36,6 @@ public class UnlockPsw {
 		this.unlocketime = unlocketime;
 	}
 	
-	public UnlockPsw(String puid, String pass, String count, String edate, String unlockstime, String unlocketime) {
-		super();
-		this.puid = puid;
-		this.pass = pass;
-		this.count = count;
-		this.edate = edate;
-		this.unlockstime = unlockstime;
-		this.unlocketime = unlocketime;
-	}
-	
-	
-	public String getPuid() {
-		return puid;
-	}
-	public void setPuid(String puid) {
-		this.puid = puid;
-	}
 	public String getPass() {
 		return pass;
 	}

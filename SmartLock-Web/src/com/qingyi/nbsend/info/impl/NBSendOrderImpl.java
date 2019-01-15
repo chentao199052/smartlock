@@ -1,5 +1,6 @@
 package com.qingyi.nbsend.info.impl;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,7 +8,7 @@ import java.util.Map;
 import com.qingyi.model.Card;
 import com.qingyi.model.Command;
 import com.qingyi.model.DelRoomCardxzsx;
-import com.qingyi.model.NBUnlockPsw;
+import com.qingyi.model.DelRoomFinger;
 import com.qingyi.model.RegistNb;
 import com.qingyi.model.Room;
 import com.qingyi.model.RoomCard;
@@ -41,15 +42,15 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 
 	
 		@Override
-		public SendResult saveUnlockPswNB(String roomcode2, NBUnlockPsw psw, Integer timeout, String callbackurl) {
+		public SendResult saveUnlockPswNB(String roomcode2,String roomtxtype,String roomimei,UnlockPsw psw, Integer timeout, String callbackurl) {
 			// TODO Auto-generated method stub
 			LinkedHashMap param=new LinkedHashMap();
 			param.put("roomcode2", roomcode2);
-			param.put("roomimei",psw.getRoomimei());
+			param.put("roomimei",roomimei);
 			param.put("pass", psw.getPass());
 			param.put("count",psw.getCount());
 			param.put("edate", psw.getEdate());
-			param.put("roomtxtype",psw.getRoomtxtype());
+			param.put("roomtxtype",roomtxtype);
 			param.put("unlockstime", psw.getUnlockstime());
 			param.put("unlocketime", psw.getUnlocketime());
 			param.put("timeout", timeout);
@@ -62,15 +63,13 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			return sr;
 		}
 		@Override
-		public SendResult delUnlockpswNB(String roomcode2, NBUnlockPsw psw, Integer timeout, String callbackurl) {
+		public SendResult delUnlockpswNB(String roomcode2,String roomimei,String roomtxtype, UnlockPsw psw, Integer timeout, String callbackurl) {
 			// TODO Auto-generated method stub
 			LinkedHashMap param=new LinkedHashMap();
 			param.put("roomcode2", roomcode2);
-			param.put("roomimei",psw.getRoomimei());
 			param.put("pass", psw.getPass());
 			param.put("count",psw.getCount());
 			param.put("edate", psw.getEdate());
-			param.put("roomtxtype",psw.getRoomtxtype());
 			param.put("unlockstime", psw.getUnlockstime());
 			param.put("unlocketime", psw.getUnlocketime());
 			param.put("timeout", timeout);
@@ -134,28 +133,32 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 		}
 
 		@Override
-		public SendResult delRoomFingerNB(String roomcode2, String roomimei, String roomtxtype, RoomFingerxzsx rf,
-				Integer timeout, String callbackurl) {
+		public List<SendResult> delRoomFingerNB(String roomcode2,String roomimei,String roomtxtype,List<DelRoomFinger> rflist,Integer timeout,String callbackurl) {
 			// TODO Auto-generated method stub
 			LinkedHashMap param=new LinkedHashMap();
 			param.put("roomcode2", roomcode2);
 			param.put("roomimei",roomimei);
 			param.put("roomtxtype",roomtxtype);
-			param.put("fingercode",rf.getFingercode());
-			param.put("fingerseq",rf.getFingerseq());
-			param.put("orderid",rf.getRfid());
-			param.put("empedate",rf.getEmpedate());
-			param.put("openstime",rf.getOpenstime());
-			param.put("openetime",rf.getOpenetime());
-			param.put("count",rf.getCount());
+			param.put("rflist",rflist);
 			param.put("timeout", timeout);
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
-			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"delRoomFingerNB", secret, param);
-				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+			List<SendResult> result=null;
+			if(sr.getResultCode().equals("0")) {
+				String ss=HttpsUtil.httpURLConnectionPOST(baseurl, "delroomfinger", secret, param);
+				if(ss.length()>1) {
+					result=new ArrayList<SendResult>();
+					String sss=ss.substring(1,ss.length()-1);
+					System.out.println(sss);
+					while (!(sss.indexOf("{")==-1)) {
+						String s1=sss.substring(sss.indexOf("{"),sss.indexOf("}")+1);
+						sss=sss.substring(sss.indexOf("}")+1);
+						sr=(SendResult) StringTools.getResultObject(s1,SendResult.class);
+						result.add(sr);
+					}
+				}
 			}
-			return sr;
+			return result;
 		}
 
 		@Override

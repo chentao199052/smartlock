@@ -5,7 +5,7 @@ import java.util.List;
 import com.qingyi.model.Card;
 import com.qingyi.model.Command;
 import com.qingyi.model.DelRoomCardxzsx;
-import com.qingyi.model.NBUnlockPsw;
+import com.qingyi.model.DelRoomFinger;
 import com.qingyi.model.Room;
 import com.qingyi.model.RoomCard;
 import com.qingyi.model.RoomCardxzsx;
@@ -24,7 +24,7 @@ public interface NBSendOrderInfo {
 		 * @param callbackurl 回调地址（接收指令发送结果）
 		 * @return 指令发送结果SendResult
 		 */
-		public SendResult saveUnlockPswNB(String roomcode2,NBUnlockPsw psw,Integer timeout,String callbackurl);
+		public SendResult saveUnlockPswNB(String roomcode2,String roomtxtype,String roomimei,UnlockPsw psw,Integer timeout,String callbackurl);
 		/**
 		 * 取消密码授权指令
 		 * @param roomcode 门锁唯一ID
@@ -33,7 +33,7 @@ public interface NBSendOrderInfo {
 		 * @param callbackurl 回调地址（接收指令发送结果）
 		 * @return
 		 */
-		public SendResult delUnlockpswNB(String roomcode2,NBUnlockPsw psw,Integer timeout,String callbackurl);
+		public SendResult delUnlockpswNB(String roomcode2,String roomimei,String roomtxtype, UnlockPsw psw,Integer timeout,String callbackurl);
 
 		/**
 		 * 重载卡片白名单 NB
@@ -81,7 +81,7 @@ public interface NBSendOrderInfo {
 		 * @param callbackurl
 		 * @return
 		 */
-		public SendResult delRoomFingerNB(String roomcode2,String roomimei,String roomtxtype,RoomFingerxzsx rf,Integer timeout,String callbackurl); 
+		public List<SendResult> delRoomFingerNB(String roomcode2,String roomimei,String roomtxtype,List<DelRoomFinger> rflist,Integer timeout,String callbackurl); 
 		/**
 		 * 集群指纹同步NB
 		 * @param roomcode2

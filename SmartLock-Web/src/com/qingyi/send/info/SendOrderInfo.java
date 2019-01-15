@@ -5,7 +5,6 @@ import java.util.List;
 import com.qingyi.model.Command;
 import com.qingyi.model.DelRoomFinger;
 import com.qingyi.model.DelUnlockPsw;
-import com.qingyi.model.NBUnlockPsw;
 import com.qingyi.model.Room;
 import com.qingyi.model.RoomCard;
 import com.qingyi.model.RoomCardxzsx;
