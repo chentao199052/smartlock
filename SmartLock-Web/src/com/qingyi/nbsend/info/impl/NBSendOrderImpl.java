@@ -206,6 +206,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("cardtype",rc.getCardtype());
 			param.put("cardcode",rc.getCardcode());
 			param.put("empedate",rc.getEmpedate());
+			param.put("cardedate",rc.getEdate());
 			param.put("personcode",rc.getPersoncode());
 			param.put("personname",rc.getPersonname());
 			param.put("openstime",rc.getOpenstime());

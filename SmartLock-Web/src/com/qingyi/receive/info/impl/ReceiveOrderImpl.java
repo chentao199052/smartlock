@@ -13,6 +13,7 @@ import com.qingyi.model.DelRoomCardResult;
 import com.qingyi.model.DelRoomFingerResult;
 import com.qingyi.model.DelUnlockpswResult;
 import com.qingyi.model.FingerMachineStateResult;
+import com.qingyi.model.FingerResult;
 import com.qingyi.model.FingerfailResult;
 import com.qingyi.model.FingerfinishResult;
 import com.qingyi.model.FingersuccessResult;
@@ -1965,6 +1966,90 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String space=json.get("space")==null?"":json.get("space").toString();
 			r.setSpace(space);
 			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult<FingerResult> getFingerResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult<FingerResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if("0".equals(result.getResultCode())) {
+			Map json=StringTools.stringToMap2(content);
+			String orderType=json.get("orderType").toString();
+			if("fail".equals(orderType)) {
+				FingerfailResult r=new FingerfailResult();
+				String type = json.get("type").toString();
+				String num = json.get("num").toString();
+				r.setType(type);
+				r.setNum(num);
+				r.setResultstatus(Integer.parseInt(json.get("status").toString()));
+				result.setResultstatus(Integer.parseInt(json.get("status").toString()));
+				if(num.equals("1") || num.equals("2")) {
+					String rcid = json.get("itid").toString();
+					String order = json.get("fail").toString();
+					r.setOrderid(rcid);
+					r.setOrder(order);
+					if(type.equals("1")) {
+						
+					}
+					else if(type.equals("2")) {
+						String fingercodes = StringTools.getFingercodeByOrder(order);
+						r.setFingercodes(fingercodes);
+					}else {
+						String fingercodes = StringTools.getFingercodesByOrders(new String[] {order});
+						r.setFingercodes(fingercodes);
+					}
+				}
+				Object object = json.get("result");
+				if(object!=null) {
+					String ret=(String)object;
+		    		Integer failtype = StringTools.getFailtype(ret);
+		    		r.setFiletype(failtype);
+				}
+			}else if("finish".equals(orderType)) {
+				FingerfinishResult r=new FingerfinishResult();
+				String type = json.get("type").toString();
+				String itid = json.get("itid").toString();
+				String order = json.get("finish").toString();
+				r.setOrderid(itid);
+				r.setType(type);
+				r.setOrder(order);
+				if(type.equals("1")) {
+					
+				}else if(type.equals("2")) {
+					String fingercodes = StringTools.getFingercodeByOrder(order);
+					r.setFingercodes(fingercodes);
+				}else {
+					String fingercodes = StringTools.getFingercodesByOrders(new String[] {order});
+					r.setFingercodes(fingercodes);
+				}
+				String ret=json.get("result").toString();
+				Integer failtype = StringTools.getFailtype(ret);
+				r.setFiletype(failtype);
+				r.setResult(ret);
+			}else if("success".equals("orderType")) {
+				FingersuccessResult r=new FingersuccessResult();
+				String type = json.get("type").toString();
+				String itid = json.get("itid").toString();
+				String status = json.get("status").toString();
+				String ret=json.get("result").toString();
+				r.setOrderid(itid);
+				r.setType(type);
+				r.setResult(ret);
+				r.setResultstatus(Integer.parseInt(status));
+				result.setResultstatus(Integer.parseInt(status));
+				if(type.equals("2")) {
+					String failorder = json.get("fail").toString();
+					String fingercodes = StringTools.getFingercodeByOrder(failorder);
+					r.setFingercodes(fingercodes);
+				}
+				String order=json.get("order").toString();
+				Integer failtype = StringTools.getFailtype(ret);
+				r.setFiletype(failtype);
+				r.setOrder(order);
+				r.setResult(ret);
+			}
 		}
 		return result;
 	}

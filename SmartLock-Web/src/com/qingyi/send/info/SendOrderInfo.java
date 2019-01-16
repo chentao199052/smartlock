@@ -48,7 +48,6 @@ public interface SendOrderInfo {
 	 * 发送门锁记录读取指令
 	 * @param gatewaycode 门锁归属网关通讯ID
 	 * @param gatewaycode2 门锁归属网关唯一ID
-	 * @param itid  slIntimeorder
 	 * @param roomcode 房间编号
 	 * @param timeout 有效时间（单位s）
 	 * @param callbackurl 回调地址（接收指令发送结果）
