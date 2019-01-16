@@ -15,7 +15,9 @@ public class RoomCard {
 	
 	private String personname;
 	
-	private String empedate;
+	private String empedate;//授权截止日期
+	
+	private String edate;
 	
 	private String openstime;
 	
@@ -38,19 +40,6 @@ public class RoomCard {
 	 * @param opencount 可开门次数（-1为不限次数）
 	 */
 
-	public RoomCard(String rcid, String cardtype, String cardcode, String personcode, String personname,
-			String empedate, String openstime, String openetime, String opencount) {
-		super();
-		this.rcid = rcid;
-		this.cardtype = cardtype;
-		this.cardcode = cardcode;
-		this.personcode = personcode;
-		this.personname = personname;
-		this.empedate = empedate;
-		this.openstime = openstime;
-		this.openetime = openetime;
-		this.opencount = opencount;
-	}
 	
 	
 	public RoomCard(String cardtype, String cardcode, String personcode, String personname, String empedate,
@@ -61,6 +50,20 @@ public class RoomCard {
 		this.personcode = personcode;
 		this.personname = personname;
 		this.empedate = empedate;
+		this.openstime = openstime;
+		this.openetime = openetime;
+		this.opencount = opencount;
+	}
+	public RoomCard(String rcid, String cardtype, String cardcode, String personcode, String personname,
+			String empedate, String edate, String openstime, String openetime, String opencount) {
+		super();
+		this.rcid = rcid;
+		this.cardtype = cardtype;
+		this.cardcode = cardcode;
+		this.personcode = personcode;
+		this.personname = personname;
+		this.empedate = empedate;
+		this.edate = edate;
 		this.openstime = openstime;
 		this.openetime = openetime;
 		this.opencount = opencount;
@@ -101,6 +104,12 @@ public class RoomCard {
 	public void setEmpedate(String empedate) {
 		this.empedate = empedate;
 	}
+	public String getEdate() {
+		return edate;
+	}
+	public void setEdate(String edate) {
+		this.edate = edate;
+	}
 	public String getOpenstime() {
 		return openstime;
 	}
@@ -120,6 +129,7 @@ public class RoomCard {
 		this.opencount = opencount;
 	}
 
+	
 	
 
 }

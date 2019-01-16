@@ -194,7 +194,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("roomcode", roomcode);
 		param.put("cardtype", rc.getCardtype());
 		param.put("cardcode", rc.getCardcode());
-		param.put("cardedate", rc.getEmpedate());
+		param.put("cardedate", rc.getEdate());
 		param.put("openstime", rc.getOpenstime());
 		param.put("openetime", rc.getOpenetime());
 		param.put("opencount", rc.getOpencount());
@@ -539,6 +539,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("personname", card.getPersonname());
 		param.put("rcusecount", card.getOpencount());
 		param.put("empedate", card.getEmpedate());
+		param.put("cardedate", card.getEdate());
 		param.put("openstime", card.getOpenstime());
 		param.put("openetime", card.getOpenetime());
 		param.put("rcid", card.getRcid());
