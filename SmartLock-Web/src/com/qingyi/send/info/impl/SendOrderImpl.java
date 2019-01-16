@@ -234,13 +234,14 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult delRoomCard(String gatewaycode, String gatewaycode2, String roomcode, String cardtype,
+	public SendResult delRoomCard(String gatewaycode, String gatewaycode2, String roomcode,String rcid, String cardtype,
 			String cardcode, Integer timeout, String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
 		param.put("gatewaycode", gatewaycode);
 		param.put("gatewaycode2", gatewaycode2);
 		param.put("roomcode", roomcode);
+		param.put("rcid", rcid);
 		param.put("cardtype", cardtype);
 		param.put("cardcode", cardcode);
 		param.put("timeout", timeout);

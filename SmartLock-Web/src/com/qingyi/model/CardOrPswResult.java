@@ -1,7 +1,8 @@
 package com.qingyi.model;
 
-public class SaveRoomCardResult {
+public class CardOrPswResult {
 	private String orderid;
+	private String rcid;
 	private Integer resultstatus;
 	private Integer filetype;
 	private String order;
@@ -15,14 +16,15 @@ public class SaveRoomCardResult {
 	private Integer oscount;//次数
 	private String osstatus;//指令状态
 	private String osspace;//
-	public SaveRoomCardResult() {
+	public CardOrPswResult() {
 		super();
 	}
-	public SaveRoomCardResult(String orderid, Integer resultstatus, Integer filetype, String order, String result,
-			String cardtype, String no, String space, String oscontent, String osdate, String osresult, Integer oscount,
-			String osstatus, String osspace) {
+	public CardOrPswResult(String orderid, String rcid, Integer resultstatus, Integer filetype, String order,
+			String result, String cardtype, String no, String space, String oscontent, String osdate, String osresult,
+			Integer oscount, String osstatus, String osspace) {
 		super();
 		this.orderid = orderid;
+		this.rcid = rcid;
 		this.resultstatus = resultstatus;
 		this.filetype = filetype;
 		this.order = order;
@@ -42,6 +44,12 @@ public class SaveRoomCardResult {
 	}
 	public void setOrderid(String orderid) {
 		this.orderid = orderid;
+	}
+	public String getRcid() {
+		return rcid;
+	}
+	public void setRcid(String rcid) {
+		this.rcid = rcid;
 	}
 	public Integer getResultstatus() {
 		return resultstatus;
@@ -121,5 +129,6 @@ public class SaveRoomCardResult {
 	public void setOsspace(String osspace) {
 		this.osspace = osspace;
 	}
+	
 	
 }

@@ -276,7 +276,7 @@ public interface SendOrderInfo {
 	 * @param callbackurl 回调地址（接收指令发送结果）
 	 * @return 指令发送结果SendResult
 	 */
-	public SendResult delRoomCard(String gatewaycode,String gatewaycode2,String roomcode,String cardtype,String cardcode,Integer timeout,String callbackurl);
+	public SendResult delRoomCard(String gatewaycode,String gatewaycode2,String roomcode,String rcid,String cardtype,String cardcode,Integer timeout,String callbackurl);
 	
 	
 	
