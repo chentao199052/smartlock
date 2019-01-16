@@ -8,9 +8,7 @@ import com.qingyi.model.DelRoomFinger;
 import com.qingyi.model.DelUnlockPsw;
 import com.qingyi.model.Room;
 import com.qingyi.model.RoomCard;
-import com.qingyi.model.RoomCardxzsx;
 import com.qingyi.model.RoomFinger;
-import com.qingyi.model.RoomFingerxzsx;
 import com.qingyi.model.SendResult;
 import com.qingyi.model.UnlockPsw;
 import com.qingyi.send.info.SendOrderInfo;
@@ -196,7 +194,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("roomcode", roomcode);
 		param.put("cardtype", rc.getCardtype());
 		param.put("cardcode", rc.getCardcode());
-		param.put("cardedate", rc.getEdate());
+		param.put("cardedate", rc.getEmpedate());
 		param.put("openstime", rc.getOpenstime());
 		param.put("openetime", rc.getOpenetime());
 		param.put("opencount", rc.getOpencount());
@@ -527,25 +525,22 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult updateRoomCardxzsx(String gatewaycode, String gatewaycode2, String roomcode, RoomCardxzsx xzsx,
+	public SendResult updateRoomCardxzsx(String gatewaycode, String gatewaycode2, String roomcode, RoomCard card,
 			Integer timeout, String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
 		param.put("gatewaycode", gatewaycode);
 		param.put("gatewaycode2", gatewaycode2);
 		param.put("roomcode", roomcode);
-		param.put("cardtype", xzsx.getCardtype());
-		param.put("cardcode", xzsx.getCardcode());
-		param.put("personcode", xzsx.getPersoncode());
-		param.put("personname", xzsx.getPersonname());
-		param.put("rcusecount", xzsx.getRcusecount());
-		param.put("cardunlocktype", xzsx.getCardunlocktype());
-		param.put("cardpass", xzsx.getCardpass());
-		param.put("empedate", xzsx.getEmpedate());
-		param.put("cardedate", xzsx.getCardedate());
-		param.put("openstime", xzsx.getOpenstime());
-		param.put("openetime", xzsx.getOpenetime());
-		param.put("rcid", xzsx.getRcid());
+		param.put("cardtype", card.getCardtype());
+		param.put("cardcode", card.getCardcode());
+		param.put("personcode", card.getPersoncode());
+		param.put("personname", card.getPersonname());
+		param.put("rcusecount", card.getOpencount());
+		param.put("empedate", card.getEmpedate());
+		param.put("openstime", card.getOpenstime());
+		param.put("openetime", card.getOpenetime());
+		param.put("rcid", card.getRcid());
 		param.put("timeout", timeout);
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
@@ -556,20 +551,20 @@ public class SendOrderImpl implements SendOrderInfo{
 		return sr;
 	}
 	@Override
-	public SendResult updateRoomFingerxzsx(String gatewaycode,String gatewaycode2,String roomcode,RoomFingerxzsx xzsx,Integer timeout,String callbackurl) {
+	public SendResult updateRoomFingerxzsx(String gatewaycode,String gatewaycode2,String roomcode,RoomFinger finger,Integer timeout,String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
 		param.put("gatewaycode", gatewaycode);
 		param.put("gatewaycode2", gatewaycode2);
 		param.put("roomcode", roomcode);
-		param.put("fingercode", xzsx.getFingercode());
-		param.put("fingercontent", xzsx.getFingercontent());
-		param.put("fingerseq", xzsx.getFingerseq());
-		param.put("count", xzsx.getCount());
-		param.put("rfid", xzsx.getRfid());
-		param.put("openstime", xzsx.getOpenstime());
-		param.put("openetime", xzsx.getOpenetime());
-		param.put("empedate", xzsx.getEmpedate());
+		param.put("fingercode", finger.getFingercode());
+		param.put("fingercontent", finger.getFingercontent());
+		param.put("fingerseq", finger.getFingerseq());
+		param.put("count", finger.getOpencount());
+		param.put("rfid", finger.getRfid());
+		param.put("openstime", finger.getOpenstime());
+		param.put("openetime", finger.getOpenetime());
+		param.put("empedate", finger.getEdate());
 		param.put("timeout", timeout);
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
