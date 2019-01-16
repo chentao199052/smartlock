@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.qingyi.model.CardOrPswResult;
 import com.qingyi.model.ClearsGatewaytatusResult;
 import com.qingyi.model.DelRoomCardResult;
 import com.qingyi.model.DelRoomFingerResult;
@@ -27,11 +28,11 @@ import com.qingyi.model.ReadLockRecord;
 import com.qingyi.model.ReadLockRecordResult;
 import com.qingyi.model.ReceiveResult;
 import com.qingyi.model.SaveFingerReagyResult;
-import com.qingyi.model.SaveRoomCardResult;
 import com.qingyi.model.SaveRoomFingerResult;
 import com.qingyi.model.SaveRoomFingerResult2;
 import com.qingyi.model.SaveRoomFingerResult3;
 import com.qingyi.model.SaveUnlockPswResult;
+import com.qingyi.model.SyncCardResult;
 import com.qingyi.model.SyncFailResult;
 import com.qingyi.model.SyncFinishResult;
 import com.qingyi.model.SyncSuccessResult;
@@ -1368,41 +1369,36 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 
 	@Override
 	//??
-	public ReceiveResult<SaveRoomCardResult> getSaveRoomCardResult(String content, String sysdate, String verify) {
+	public ReceiveResult<CardOrPswResult> getCardOrPswResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult<SaveRoomCardResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<CardOrPswResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
-			String rcid = json.get("rcid").toString();
-			SaveRoomCardResult r=new SaveRoomCardResult();
-			r.setOrderid(rcid);
+			String orderid=json.get("itid").toString();
+			String rcid="";
+			try {
+				 rcid = json.get("rcid").toString();
+			} catch (Exception e) {
+				// TODO: handle exception
+				rcid=orderid;
+			}
+			
+			CardOrPswResult r=new CardOrPswResult();
+			r.setOrderid(orderid);
+			r.setRcid(rcid);
 			String status = json.get("status").toString();
 			r.setResultstatus(Integer.parseInt(status));
 			result.setResultstatus(Integer.parseInt(status));
 			String cardtype=json.get("cardtype").toString();
 			r.setCardtype(cardtype);
-			if("0".equals(status)) {
-				if(!"20".equals(cardtype)&&!"40".equals(cardtype)) {
-					String order=json.get("order").toString();
-					String no=json.get("no").toString();
-					String space=json.get("space").toString();
-					r.setOrder(order);
-					r.setNo(no);
-					r.setSpace(space);
-				}
-			}
-			String oscontent=json.get("oscontent").toString();
+			String order=json.get("order").toString();
+			String no=json.get("no").toString();
+			String space=json.get("space").toString();
+			r.setOrder(order);
+			r.setNo(no);
+			r.setSpace(space);
 			String osdate=json.get("osdate").toString();
-			String osresult=json.get("osresult").toString();
-			String oscount=json.get("oscount").toString();
-			String osstatus=json.get("osstatus").toString();
-			String osspace=json.get("osspace").toString();
-			r.setOscontent(oscontent);
 			r.setOsdate(osdate);
-			r.setOsresult(osresult);
-			r.setOscount(Integer.parseInt(oscount));
-			r.setOsstatus(osstatus);
-			r.setOsspace(osspace);
 			String ret=json.get("result").toString();
 			r.setResult(ret);
 			int failtype = StringTools.getFailtype(ret);
@@ -1607,6 +1603,81 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 		}
 		return result;
 	}
+	
+
+	@Override
+	public ReceiveResult<SyncCardResult> getSyncCardResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult<SyncCardResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if("0".equals(result.getResultCode())) {
+			Map json=StringTools.stringToMap2(content);
+			String orderType=json.get("orderType").toString();
+			SyncCardResult res=new SyncCardResult();
+			res.setOrderType(orderType);
+			if("fail".equals(orderType)) {
+				String num = json.get("num").toString();
+				SyncFailResult r=new SyncFailResult();
+				String status = json.get("status").toString();
+				r.setResultstatus(Integer.parseInt(status));
+				r.setNum(num);
+				result.setResultstatus(Integer.parseInt(status));
+				if(num.equals("1") || num.equals("2")) {
+					String itid = json.get("itid").toString();
+					String fail = json.get("fail").toString();
+					String cards = json.get("finish").toString();
+					String cardcodes = StringTools.getAllFailRoomcardByFailorder(new String[] {cards});
+					r.setOrderid(itid);
+					r.setFail(fail);
+					r.setCardcodes(cardcodes);
+				}
+				String osdate=json.get("osdate").toString();
+				r.setOsdate(osdate);
+				Object object = json.get("result");
+				if(object!=null) {
+					String ret=(String)object;
+		    		Integer failtype = StringTools.getFailtype(ret);
+		    		r.setFiletype(failtype);
+				}
+				res.setFailResult(r);
+			}else if("finish".equals(orderType)) {
+				String itid = json.get("itid").toString();
+				String status = json.get("status").toString();
+				String cards = json.get("finish").toString();
+				String cardcodes = StringTools.getAllFailRoomcardByFailorder(new String[] {cards});
+				SyncFinishResult r=new SyncFinishResult();
+				r.setOrderid(itid);
+				r.setResultstatus(Integer.parseInt(status));
+				result.setResultstatus(Integer.parseInt(status));
+				r.setCardcodes(cardcodes);
+				String osdate=json.get("osdate").toString();
+				r.setOsdate(osdate);
+				Object object = json.get("result");
+				if(object!=null) {
+					String ret=(String)object;
+		    		Integer failtype = StringTools.getFailtype(ret);
+		    		r.setFiletype(failtype);
+				}
+				res.setFinishResult(r);
+			}else if("success".equals(orderType)) {
+				String itid = json.get("itid").toString();
+				String status = json.get("status").toString();
+				String ret = json.get("result").toString();
+				SyncSuccessResult r=new SyncSuccessResult();
+				r.setOrderid(itid);
+				String osdate=json.get("osdate").toString();
+				r.setOsdate(osdate);
+				r.setResultstatus(Integer.parseInt(status));
+				result.setResultstatus(Integer.parseInt(status));
+				Integer failtype = StringTools.getFailtype(ret);
+	    		r.setFiletype(failtype);
+	    		r.setResult(ret);
+	    		res.setSuccessResult(r);
+			}
+			result.setResult(res);
+		}
+		return result;
+	}
+	
 	@Override
 	public ReceiveResult<SyncFailResult> getSyncFailResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
@@ -1897,5 +1968,6 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 		}
 		return result;
 	}
+
 	
 }

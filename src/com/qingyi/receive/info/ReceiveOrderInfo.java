@@ -1,5 +1,6 @@
 package com.qingyi.receive.info;
 
+import com.qingyi.model.CardOrPswResult;
 import com.qingyi.model.ClearsGatewaytatusResult;
 import com.qingyi.model.DelRoomCardResult;
 import com.qingyi.model.DelUnlockpswResult;
@@ -17,11 +18,11 @@ import com.qingyi.model.ReadGatewayRecordResult;
 import com.qingyi.model.ReadLockRecordResult;
 import com.qingyi.model.ReceiveResult;
 import com.qingyi.model.SaveFingerReagyResult;
-import com.qingyi.model.SaveRoomCardResult;
 import com.qingyi.model.SaveRoomFingerResult;
 import com.qingyi.model.SaveRoomFingerResult2;
 import com.qingyi.model.SaveRoomFingerResult3;
 import com.qingyi.model.SaveUnlockPswResult;
+import com.qingyi.model.SyncCardResult;
 import com.qingyi.model.SyncFailResult;
 import com.qingyi.model.SyncFinishResult;
 import com.qingyi.model.SyncSuccessResult;
@@ -178,13 +179,13 @@ public interface ReceiveOrderInfo {
 	 */
 	public ReceiveResult<LockInitializeResult> getLockInitializeResult(String content,String sysdate,String verify);
 	/**
-	 * 解析发送卡片授权指令
+	 * 解析发送卡片/密码授权指令
 	 * @param content 结果内容
 	 * @param sysdate 时间戳
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult<SaveRoomCardResult> getSaveRoomCardResult(String content,String sysdate,String verify);
+	public ReceiveResult<CardOrPswResult> getCardOrPswResult(String content,String sysdate,String verify);
 	/**
 	 * 解析发送/取消指纹授权指令(失败)
 	 * @param content 结果内容
@@ -217,6 +218,15 @@ public interface ReceiveOrderInfo {
 	 * @return 解析结果ReceiveResult
 	 */
 	public ReceiveResult<DelRoomCardResult> getDelRoomCardResult(String content,String sysdate,String verify);
+	/**
+	 * 解析卡片授权同步指令
+	 * @param content
+	 * @param sysdate
+	 * @param verify
+	 * @return
+	 */
+	
+	public ReceiveResult<SyncCardResult> getSyncCardResult(String content,String sysdate,String verify);
 	
 	/**
 	 * 解析卡片授权同步失败指令
@@ -275,6 +285,4 @@ public interface ReceiveOrderInfo {
 	 * @return 解析结果ReceiveResult
 	 */
 	public ReceiveResult<FingerMachineStateResult> getFingerMachineStateResult(String content,String sysdate,String verify);
-	
-	
 }
