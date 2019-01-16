@@ -7,9 +7,7 @@ import com.qingyi.model.DelRoomFinger;
 import com.qingyi.model.DelUnlockPsw;
 import com.qingyi.model.Room;
 import com.qingyi.model.RoomCard;
-import com.qingyi.model.RoomCardxzsx;
 import com.qingyi.model.RoomFinger;
-import com.qingyi.model.RoomFingerxzsx;
 import com.qingyi.model.SendResult;
 import com.qingyi.model.UnlockPsw;
 
@@ -332,7 +330,7 @@ public interface SendOrderInfo {
 	 * @param callbackurl
 	 * @return
 	 */
-	public SendResult updateRoomCardxzsx(String gatewaycode,String gatewaycode2,String roomcode,RoomCardxzsx xzsx,Integer timeout,String callbackurl); 
+	public SendResult updateRoomCardxzsx(String gatewaycode,String gatewaycode2,String roomcode,RoomCard card,Integer timeout,String callbackurl); 
 	
 	/**
 	 * 重载指纹白名单
@@ -345,6 +343,6 @@ public interface SendOrderInfo {
 	 * @param callbackurl
 	 * @return
 	 */
-	public SendResult updateRoomFingerxzsx(String gatewaycode,String gatewaycode2,String roomcode,RoomFingerxzsx xzsx,Integer timeout,String callbackurl);
+	public SendResult updateRoomFingerxzsx(String gatewaycode,String gatewaycode2,String roomcode,RoomFinger finger,Integer timeout,String callbackurl);
 	
 }

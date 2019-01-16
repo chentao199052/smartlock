@@ -49,6 +49,7 @@ import com.qingyi.util.Verify;
 
 
 
+
 public class ReceiveOrderImpl implements ReceiveOrderInfo{
 
 	private String timeout;
@@ -1868,11 +1869,33 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 		if("0".equals(result.getResultCode())) {
 			Map json=StringTools.stringToMap2(content);
 			FingerMachineStateResult r=new FingerMachineStateResult();
+			String resultorder = json.get("result").toString();
+			r.setResult(resultorder);
+			String orderid=json.get("itid").toString();
+			r.setOrderid(orderid);
+			Integer status=Integer.parseInt(json.get("status").toString());
+			r.setResultstatus(status);
+			result.setResultstatus(status);
+			if(status==1){
+				if(null!=resultorder && resultorder.length()>50){
+					String version = resultorder.substring(34,42);
+					r.setVersion(version);
+				}
+			}else{
+				if(null==resultorder || "".equals(resultorder)) {
+				}
+			}
+			String od = json.get("order").toString();
+			r.setOrder(od);
+			int failtype = StringTools.getFailtype(resultorder);
+			r.setFiletype(failtype);
+			String osdate=json.get("osdate").toString();
+			r.setOsdate(osdate);
+			String space=json.get("space")==null?"":json.get("space").toString();
+			r.setSpace(space);
+			result.setResult(r);
 		}
-		return null;
+		return result;
 	}
 	
-
-	
-
 }

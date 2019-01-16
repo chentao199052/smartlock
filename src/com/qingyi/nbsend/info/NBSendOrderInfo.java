@@ -8,9 +8,7 @@ import com.qingyi.model.DelRoomCardxzsx;
 import com.qingyi.model.DelRoomFinger;
 import com.qingyi.model.Room;
 import com.qingyi.model.RoomCard;
-import com.qingyi.model.RoomCardxzsx;
 import com.qingyi.model.RoomFinger;
-import com.qingyi.model.RoomFingerxzsx;
 import com.qingyi.model.RoomNB;
 import com.qingyi.model.SendResult;
 import com.qingyi.model.UnlockPsw;
@@ -45,7 +43,7 @@ public interface NBSendOrderInfo {
 		 * @param callbackurl
 		 * @return
 		 */
-		public SendResult updateRoomCardxzsxNB(String roomcode2,String roomimei,String roomtxtype,RoomCardxzsx xzsx,Integer timeout,String callbackurl); 
+		public SendResult updateRoomCardxzsxNB(String roomcode2,String roomimei,String roomtxtype,RoomCard card,Integer timeout,String callbackurl); 
 		/**
 		    * 重载指纹白名单 NB
 		 * @param roomcode2 门锁唯一ID
@@ -53,12 +51,12 @@ public interface NBSendOrderInfo {
 		 * @param roomtxtype 锁的种类 2华为 3电信 4移动
 		 * @param fingercode 指纹编号
 		 * @param fingercontent 指纹内容
-		 * @param orderid SlRoomfinger类的ID 
+		 * @param rfid SlRoomfinger类的ID 
 		 * @param timeout
 		 * @param callbackurl
 		 * @return
 		 */
-		public SendResult updateRoomFingerxzsxNB(String roomcode2,String roomimei,String roomtxtype,String fingercode,String fingercontent,String orderid,Integer timeout,String callbackurl); 
+		public SendResult updateRoomFingerxzsxNB(String roomcode2,String roomimei,String roomtxtype,String fingercode,String fingercontent,String rfid,Integer timeout,String callbackurl); 
 		/**
 		 * 指纹授权 NB
 		 * @param roomcode2
@@ -119,7 +117,7 @@ public interface NBSendOrderInfo {
 		 * @param callbackurl
 		 * @return
 		 */
-		public SendResult saveRoomCardNB(String roomcode2,String roomimei,String roomtxtype,String rcid,RoomCardxzsx rc,Integer timeout,String callbackurl);
+		public SendResult saveRoomCardNB(String roomcode2,String roomimei,String roomtxtype,RoomCard rc,Integer timeout,String callbackurl);
 		/**
 		 * 删除卡片授权
 		 * @param roomcode2
