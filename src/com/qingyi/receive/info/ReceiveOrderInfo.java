@@ -19,9 +19,6 @@ import com.qingyi.model.ReadGatewayRecordResult;
 import com.qingyi.model.ReadLockRecordResult;
 import com.qingyi.model.ReceiveResult;
 import com.qingyi.model.SaveFingerReagyResult;
-import com.qingyi.model.SaveRoomFingerResult;
-import com.qingyi.model.SaveRoomFingerResult2;
-import com.qingyi.model.SaveRoomFingerResult3;
 import com.qingyi.model.SaveUnlockPswResult;
 import com.qingyi.model.SyncCardResult;
 import com.qingyi.model.SyncFailResult;
@@ -194,7 +191,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult<SaveRoomFingerResult> getSaveRoomFingerResult(String content,String sysdate,String verify);
+	public ReceiveResult<FingerfailResult> getSaveRoomFingerResult(String content,String sysdate,String verify);
 	/**
 	 * 解析发送/取消指纹授权指令(分包)
 	 * @param content 结果内容
@@ -202,7 +199,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult<SaveRoomFingerResult2> getSaveRoomFingerResult2(String content,String sysdate,String verify);
+	public ReceiveResult<FingerfinishResult> getSaveRoomFingerResult2(String content,String sysdate,String verify);
 	/**
 	 * 解析发送/取消指纹授权指令(总结果)
 	 * @param content 结果内容
@@ -210,7 +207,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult<SaveRoomFingerResult3> getSaveRoomFingerResult3(String content,String sysdate,String verify);
+	public ReceiveResult<FingersuccessResult> getSaveRoomFingerResult3(String content,String sysdate,String verify);
 	/**
 	 * 解析删除卡片授权指令
 	 * @param content 结果内容
