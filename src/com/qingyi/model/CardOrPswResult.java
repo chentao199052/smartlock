@@ -4,7 +4,7 @@ public class CardOrPswResult {
 	private String orderid;
 	private String rcid;
 	private Integer resultstatus;
-	private Integer filetype;
+	private Integer failtype;
 	private String order;
 	private String orderType;
 	private String result;
@@ -14,6 +14,21 @@ public class CardOrPswResult {
 	private String osdate; // 下发时间
 	public CardOrPswResult() {
 		super();
+	}
+	public CardOrPswResult(String orderid, String rcid, Integer resultstatus, Integer failtype, String order,
+			String orderType, String result, String cardtype, String no, String space, String osdate) {
+		super();
+		this.orderid = orderid;
+		this.rcid = rcid;
+		this.resultstatus = resultstatus;
+		this.failtype = failtype;
+		this.order = order;
+		this.orderType = orderType;
+		this.result = result;
+		this.cardtype = cardtype;
+		this.no = no;
+		this.space = space;
+		this.osdate = osdate;
 	}
 	public String getOrderid() {
 		return orderid;
@@ -33,11 +48,11 @@ public class CardOrPswResult {
 	public void setResultstatus(Integer resultstatus) {
 		this.resultstatus = resultstatus;
 	}
-	public Integer getFiletype() {
-		return filetype;
+	public Integer getFailtype() {
+		return failtype;
 	}
-	public void setFiletype(Integer filetype) {
-		this.filetype = filetype;
+	public void setFailtype(Integer failtype) {
+		this.failtype = failtype;
 	}
 	public String getOrder() {
 		return order;
@@ -81,4 +96,5 @@ public class CardOrPswResult {
 	public void setOsdate(String osdate) {
 		this.osdate = osdate;
 	}
+	
 }

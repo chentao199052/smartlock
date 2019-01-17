@@ -1,7 +1,8 @@
 package com.qingyi.model;
 
 public class FingerfailResult {
-	private String orderid;
+	private String orderid;// 分布式ID
+	private String rcid;//删除指纹授权时为roomid  授权同步/授权为分布式ID 重载白名单为SlRoomfinger id
 	private Integer resultstatus;
 	private Integer failtype;
 	private String type;
@@ -21,10 +22,11 @@ public class FingerfailResult {
 
 
 
-	public FingerfailResult(String orderid, Integer resultstatus, Integer failtype, String type, String num,
-			String order, String fingercodes, String osdate, String result, String space) {
+	public FingerfailResult(String orderid, String rcid, Integer resultstatus, Integer failtype, String type,
+			String num, String order, String fingercodes, String osdate, String result, String space) {
 		super();
 		this.orderid = orderid;
+		this.rcid = rcid;
 		this.resultstatus = resultstatus;
 		this.failtype = failtype;
 		this.type = type;
@@ -46,6 +48,18 @@ public class FingerfailResult {
 
 	public void setOrderid(String orderid) {
 		this.orderid = orderid;
+	}
+
+
+
+	public String getRcid() {
+		return rcid;
+	}
+
+
+
+	public void setRcid(String rcid) {
+		this.rcid = rcid;
 	}
 
 
@@ -157,6 +171,5 @@ public class FingerfailResult {
 	}
 
 	
-	
-	
+
 }
