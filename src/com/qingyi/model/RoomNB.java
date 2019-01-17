@@ -3,25 +3,25 @@ package com.qingyi.model;
 public class RoomNB {
 	private Integer roombdcard;
 	private Integer roommaxcard;
-	private String  roomid;
+	private Long  roomid;
 	private String  roomcode2;
-	private String  roomlocatio;
+	private String  roomlocation;
 	private String  roomname;
-	private String  forcelock;
-	private String  networkmode;
-	private String  workmode;
+	private Integer  forcelock;
+	private Integer  networkmode;
+	private Integer  workmode;
 	public RoomNB() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public RoomNB(Integer roombdcard, Integer roommaxcard, String roomid, String roomcode2, String roomlocatio,
-			String roomname, String forcelock, String networkmode, String workmode) {
+	public RoomNB(Integer roombdcard, Integer roommaxcard, Long roomid, String roomcode2, String roomlocation,
+			String roomname, Integer forcelock, Integer networkmode, Integer workmode) {
 		super();
 		this.roombdcard = roombdcard;
 		this.roommaxcard = roommaxcard;
 		this.roomid = roomid;
 		this.roomcode2 = roomcode2;
-		this.roomlocatio = roomlocatio;
+		this.roomlocation = roomlocation;
 		this.roomname = roomname;
 		this.forcelock = forcelock;
 		this.networkmode = networkmode;
@@ -39,10 +39,10 @@ public class RoomNB {
 	public void setRoommaxcard(Integer roommaxcard) {
 		this.roommaxcard = roommaxcard;
 	}
-	public String getRoomid() {
+	public Long getRoomid() {
 		return roomid;
 	}
-	public void setRoomid(String roomid) {
+	public void setRoomid(Long roomid) {
 		this.roomid = roomid;
 	}
 	public String getRoomcode2() {
@@ -51,11 +51,11 @@ public class RoomNB {
 	public void setRoomcode2(String roomcode2) {
 		this.roomcode2 = roomcode2;
 	}
-	public String getRoomlocatio() {
-		return roomlocatio;
+	public String getRoomlocation() {
+		return roomlocation;
 	}
-	public void setRoomlocatio(String roomlocatio) {
-		this.roomlocatio = roomlocatio;
+	public void setRoomlocation(String roomlocation) {
+		this.roomlocation = roomlocation;
 	}
 	public String getRoomname() {
 		return roomname;
@@ -63,22 +63,22 @@ public class RoomNB {
 	public void setRoomname(String roomname) {
 		this.roomname = roomname;
 	}
-	public String getForcelock() {
+	public Integer getForcelock() {
 		return forcelock;
 	}
-	public void setForcelock(String forcelock) {
+	public void setForcelock(Integer forcelock) {
 		this.forcelock = forcelock;
 	}
-	public String getNetworkmode() {
+	public Integer getNetworkmode() {
 		return networkmode;
 	}
-	public void setNetworkmode(String networkmode) {
+	public void setNetworkmode(Integer networkmode) {
 		this.networkmode = networkmode;
 	}
-	public String getWorkmode() {
+	public Integer getWorkmode() {
 		return workmode;
 	}
-	public void setWorkmode(String workmode) {
+	public void setWorkmode(Integer workmode) {
 		this.workmode = workmode;
 	}
 	

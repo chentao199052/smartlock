@@ -207,12 +207,12 @@ public interface NBSendOrderInfo {
 		 * 华为NB心跳（接收）
 		 * @param body  推送的主体内容
 		 * @param room  房间实体 
-		 * @param valueSleep  NB锁间隔时间
-		 * @param valueSpace  NB锁睡眠时间	
+		 * @param valueSleep  NB锁睡眠时间	
+		 * @param valueSpace  NB锁间隔时间
 		 * @param itstateisopen  该房间最后一条远程开门指令下发状态
 		 * @param itstatereset   该房间最后一条门锁复位指令下发状态
-		 * @param card  被授权卡实体类
-		 * @param card1   授权卡实体类
+		 * @param card  被授权卡实体类  command   cardcode2
+		 * @param card1   授权卡实体类       command   cardcode
 		 * @param rccount     被授权卡实体类与房间 Slroomcard记录条数
 		 * @param timeout
 		 * @param callbackurl
