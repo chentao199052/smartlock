@@ -29,9 +29,6 @@ import com.qingyi.model.ReadLockRecord;
 import com.qingyi.model.ReadLockRecordResult;
 import com.qingyi.model.ReceiveResult;
 import com.qingyi.model.SaveFingerReagyResult;
-import com.qingyi.model.SaveRoomFingerResult;
-import com.qingyi.model.SaveRoomFingerResult2;
-import com.qingyi.model.SaveRoomFingerResult3;
 import com.qingyi.model.SaveUnlockPswResult;
 import com.qingyi.model.SyncCardResult;
 import com.qingyi.model.SyncFailResult;
@@ -1369,54 +1366,48 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	//??
 	public ReceiveResult<CardOrPswResult> getCardOrPswResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
 		ReceiveResult<CardOrPswResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
-			String orderid=json.get("itid").toString();
-			String rcid="";
-			try {
-				 rcid = json.get("rcid").toString();
-			} catch (Exception e) {
-				// TODO: handle exception
-				rcid=orderid;
-			}
 			
 			CardOrPswResult r=new CardOrPswResult();
-			r.setOrderid(orderid);
-			r.setRcid(rcid);
+			String rcid = json.get("rcid").toString();
+			String orderid=json.get("itid").toString();
 			String status = json.get("status").toString();
-			r.setResultstatus(Integer.parseInt(status));
-			result.setResultstatus(Integer.parseInt(status));
 			String cardtype=json.get("cardtype").toString();
-			r.setCardtype(cardtype);
 			String order=json.get("order").toString();
 			String no=json.get("no").toString();
 			String space=json.get("space").toString();
+			String ret=json.get("result").toString();
+			String osdate=json.get("osdate").toString();
+			String orderType=json.get("orderType").toString();
+			r.setOrderid(orderid);
+			r.setRcid(rcid);
+			r.setResultstatus(Integer.parseInt(status));
+			result.setResultstatus(Integer.parseInt(status));
+			r.setCardtype(cardtype);
 			r.setOrder(order);
 			r.setNo(no);
 			r.setSpace(space);
-			String osdate=json.get("osdate").toString();
 			r.setOsdate(osdate);
-			String ret=json.get("result").toString();
 			r.setResult(ret);
 			int failtype = StringTools.getFailtype(ret);
 			r.setFiletype(failtype);
+			r.setOrderType(orderType);
 			result.setResult(r);
 		}
 		return result;
 	}
 
 	@Override
-	//??
-	public ReceiveResult<SaveRoomFingerResult> getSaveRoomFingerResult(String content, String sysdate, String verify) {
+	public ReceiveResult<FingerfailResult> getSaveRoomFingerResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult<SaveRoomFingerResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<FingerfailResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json = StringTools.stringToMap2(content);
-			SaveRoomFingerResult r=new SaveRoomFingerResult();
+			FingerfailResult r=new FingerfailResult();
 			String type = json.get("type").toString();
 			String no = json.get("num").toString();
 				if(no.equals("1") || no.equals("2")) {
@@ -1445,30 +1436,22 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 					}
 					
 				}
-			String oscontent=json.get("oscontent").toString();
-			String osdate=json.get("osdate").toString();
-			String osresult=json.get("osresult").toString();
-			String oscount=json.get("oscount").toString();
-			String osstatus=json.get("osstatus").toString();
-			String osspace=json.get("osspace").toString();
-			r.setOscontent(oscontent);
-			r.setOsdate(osdate);
-			r.setOsresult(osresult);
-			r.setOscount(Integer.parseInt(oscount));
-			r.setOsstatus(osstatus);
-			r.setOsspace(osspace);
+			String ret=json.get("result").toString();
+			r.setResult(ret);
+			String space=json.get("space").toString();
+			r.setSpace(space);
     		result.setResult(r);
 		}
 		return result;
 	}
 	@Override
 	//??
-	public ReceiveResult<SaveRoomFingerResult2> getSaveRoomFingerResult2(String content, String sysdate, String verify) {
+	public ReceiveResult<FingerfinishResult> getSaveRoomFingerResult2(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult<SaveRoomFingerResult2> result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<FingerfinishResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json = StringTools.stringToMap2(content);
-			SaveRoomFingerResult2 r=new SaveRoomFingerResult2();
+			FingerfinishResult r=new FingerfinishResult();
 			String type = json.get("type").toString();
 			String rcid = json.get("itid").toString();
     		String order = json.get("finish").toString();
@@ -1489,18 +1472,8 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				r.setFiletype(failtype);
 				r.setResult(ret);
 			}
-			String oscontent=json.get("oscontent").toString();
-			String osdate=json.get("osdate").toString();
-			String osresult=json.get("osresult").toString();
-			String oscount=json.get("oscount").toString();
-			String osstatus=json.get("osstatus").toString();
-			String osspace=json.get("osspace").toString();
-			r.setOscontent(oscontent);
-			r.setOsdate(osdate);
-			r.setOsresult(osresult);
-			r.setOscount(Integer.parseInt(oscount));
-			r.setOsstatus(osstatus);
-			r.setOsspace(osspace);
+			String space=json.get("space").toString();
+			r.setSpace(space);
 			r.setResultstatus(1);
 			result.setResultstatus(1);
 			result.setResult(r);
@@ -1509,12 +1482,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 	@Override
 	//??
-	public ReceiveResult<SaveRoomFingerResult3> getSaveRoomFingerResult3(String content, String sysdate, String verify) {
+	public ReceiveResult<FingersuccessResult> getSaveRoomFingerResult3(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult<SaveRoomFingerResult3> result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<FingersuccessResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json = StringTools.stringToMap2(content);
-			SaveRoomFingerResult3 r=new SaveRoomFingerResult3();
+			FingersuccessResult r=new FingersuccessResult();
 			String rfid = json.get("itid").toString();
 			String type = json.get("type").toString();
 			String status = json.get("status").toString();
@@ -1824,23 +1797,17 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				}
 				
 			}
-			String oscontent=json.get("oscontent").toString();
 			String osdate=json.get("osdate").toString();
-			String osresult=json.get("osresult").toString();
-			String oscount=json.get("oscount").toString();
-			String osstatus=json.get("osstatus").toString();
-			String osspace=json.get("osspace").toString();
-			r.setOscontent(oscontent);
+			String osresult=json.get("result").toString();
+			String space=json.get("osspace").toString();
+			r.setResult(osresult);
 			r.setOsdate(osdate);
-			r.setOsresult(osresult);
-			r.setOscount(Integer.parseInt(oscount));
-			r.setOsstatus(osstatus);
-			r.setOsspace(osspace);
+			r.setSpace(space);
 			Object object = json.get("result");
 			if(object!=null) {
 				String ret=(String)object;
 	    		Integer failtype = StringTools.getFailtype(ret);
-	    		r.setFiletype(failtype);
+	    		r.setFailtype(failtype);
 			}
 			result.setResult(r);
 		}
@@ -1869,18 +1836,10 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				String fingercodes = StringTools.getFingercodesByOrders(new String[] {order});
 				r.setFingercodes(fingercodes);
 			}
-			String oscontent=json.get("oscontent").toString();
 			String osdate=json.get("osdate").toString();
-			String osresult=json.get("osresult").toString();
-			String oscount=json.get("oscount").toString();
-			String osstatus=json.get("osstatus").toString();
-			String osspace=json.get("osspace").toString();
-			r.setOscontent(oscontent);
+			String space=json.get("space").toString();
 			r.setOsdate(osdate);
-			r.setOsresult(osresult);
-			r.setOscount(Integer.parseInt(oscount));
-			r.setOsstatus(osstatus);
-			r.setOsspace(osspace);
+			r.setSpace(space);
 			String ret=json.get("result").toString();
 			Integer failtype = StringTools.getFailtype(ret);
 			r.setFiletype(failtype);
@@ -1977,6 +1936,8 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 		if("0".equals(result.getResultCode())) {
 			Map json=StringTools.stringToMap2(content);
 			String orderType=json.get("orderType").toString();
+			FingerResult res=new FingerResult();
+			res.setOrderType(orderType);
 			if("fail".equals(orderType)) {
 				FingerfailResult r=new FingerfailResult();
 				String type = json.get("type").toString();
@@ -2005,8 +1966,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				if(object!=null) {
 					String ret=(String)object;
 		    		Integer failtype = StringTools.getFailtype(ret);
-		    		r.setFiletype(failtype);
+		    		r.setFailtype(failtype);
 				}
+				res.setFailResult(r);
 			}else if("finish".equals(orderType)) {
 				FingerfinishResult r=new FingerfinishResult();
 				String type = json.get("type").toString();
@@ -2028,6 +1990,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				Integer failtype = StringTools.getFailtype(ret);
 				r.setFiletype(failtype);
 				r.setResult(ret);
+				res.setFinishResult(r);
 			}else if("success".equals("orderType")) {
 				FingersuccessResult r=new FingersuccessResult();
 				String type = json.get("type").toString();
@@ -2049,6 +2012,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				r.setFiletype(failtype);
 				r.setOrder(order);
 				r.setResult(ret);
+				res.setSuccessResult(r);
 			}
 		}
 		return result;

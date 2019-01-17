@@ -6,38 +6,14 @@ public class CardOrPswResult {
 	private Integer resultstatus;
 	private Integer filetype;
 	private String order;
+	private String orderType;
 	private String result;
 	private String cardtype;
 	private String no;
 	private String space;
-	private String oscontent; // 下发指令
 	private String osdate; // 下发时间
-	private String osresult;//结果
-	private Integer oscount;//次数
-	private String osstatus;//指令状态
-	private String osspace;//
 	public CardOrPswResult() {
 		super();
-	}
-	public CardOrPswResult(String orderid, String rcid, Integer resultstatus, Integer filetype, String order,
-			String result, String cardtype, String no, String space, String oscontent, String osdate, String osresult,
-			Integer oscount, String osstatus, String osspace) {
-		super();
-		this.orderid = orderid;
-		this.rcid = rcid;
-		this.resultstatus = resultstatus;
-		this.filetype = filetype;
-		this.order = order;
-		this.result = result;
-		this.cardtype = cardtype;
-		this.no = no;
-		this.space = space;
-		this.oscontent = oscontent;
-		this.osdate = osdate;
-		this.osresult = osresult;
-		this.oscount = oscount;
-		this.osstatus = osstatus;
-		this.osspace = osspace;
 	}
 	public String getOrderid() {
 		return orderid;
@@ -69,6 +45,12 @@ public class CardOrPswResult {
 	public void setOrder(String order) {
 		this.order = order;
 	}
+	public String getOrderType() {
+		return orderType;
+	}
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
+	}
 	public String getResult() {
 		return result;
 	}
@@ -93,42 +75,10 @@ public class CardOrPswResult {
 	public void setSpace(String space) {
 		this.space = space;
 	}
-	public String getOscontent() {
-		return oscontent;
-	}
-	public void setOscontent(String oscontent) {
-		this.oscontent = oscontent;
-	}
 	public String getOsdate() {
 		return osdate;
 	}
 	public void setOsdate(String osdate) {
 		this.osdate = osdate;
 	}
-	public String getOsresult() {
-		return osresult;
-	}
-	public void setOsresult(String osresult) {
-		this.osresult = osresult;
-	}
-	public Integer getOscount() {
-		return oscount;
-	}
-	public void setOscount(Integer oscount) {
-		this.oscount = oscount;
-	}
-	public String getOsstatus() {
-		return osstatus;
-	}
-	public void setOsstatus(String osstatus) {
-		this.osstatus = osstatus;
-	}
-	public String getOsspace() {
-		return osspace;
-	}
-	public void setOsspace(String osspace) {
-		this.osspace = osspace;
-	}
-	
-	
 }

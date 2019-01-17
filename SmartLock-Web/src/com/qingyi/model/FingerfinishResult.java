@@ -8,19 +8,14 @@ public class FingerfinishResult {
 	private String order;
 	private String fingercodes;
 	private String result;
-	private String oscontent; // 下发指令
 	private String osdate; // 下发时间
-	private String osresult;//结果
-	private Integer oscount;//次数
-	private String osstatus;//指令状态
-	private String osspace;//
+	private String space;//
 	public FingerfinishResult() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public FingerfinishResult(String orderid, Integer resultstatus, Integer filetype, String type, String order,
-			String fingercodes, String result, String oscontent, String osdate, String osresult, Integer oscount,
-			String osstatus, String osspace) {
+			String fingercodes, String result, String osdate, String space) {
 		super();
 		this.orderid = orderid;
 		this.resultstatus = resultstatus;
@@ -29,12 +24,8 @@ public class FingerfinishResult {
 		this.order = order;
 		this.fingercodes = fingercodes;
 		this.result = result;
-		this.oscontent = oscontent;
 		this.osdate = osdate;
-		this.osresult = osresult;
-		this.oscount = oscount;
-		this.osstatus = osstatus;
-		this.osspace = osspace;
+		this.space = space;
 	}
 	public String getOrderid() {
 		return orderid;
@@ -78,41 +69,18 @@ public class FingerfinishResult {
 	public void setResult(String result) {
 		this.result = result;
 	}
-	public String getOscontent() {
-		return oscontent;
-	}
-	public void setOscontent(String oscontent) {
-		this.oscontent = oscontent;
-	}
 	public String getOsdate() {
 		return osdate;
 	}
 	public void setOsdate(String osdate) {
 		this.osdate = osdate;
 	}
-	public String getOsresult() {
-		return osresult;
+	public String getSpace() {
+		return space;
 	}
-	public void setOsresult(String osresult) {
-		this.osresult = osresult;
+	public void setSpace(String space) {
+		this.space = space;
 	}
-	public Integer getOscount() {
-		return oscount;
-	}
-	public void setOscount(Integer oscount) {
-		this.oscount = oscount;
-	}
-	public String getOsstatus() {
-		return osstatus;
-	}
-	public void setOsstatus(String osstatus) {
-		this.osstatus = osstatus;
-	}
-	public String getOsspace() {
-		return osspace;
-	}
-	public void setOsspace(String osspace) {
-		this.osspace = osspace;
-	}
+	
 	
 }
