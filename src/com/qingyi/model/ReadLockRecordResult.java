@@ -4,6 +4,7 @@ import java.util.List;
 
 public class ReadLockRecordResult {
 	private String orderid;
+	private String itid;//slIntimeorder 的主键
 	private Integer filetype;
 	private Integer resultstatus;
 	private Integer Recordcount;
@@ -21,11 +22,12 @@ public class ReadLockRecordResult {
 	public ReadLockRecordResult() {
 		super();
 	}
-	public ReadLockRecordResult(String orderid, Integer filetype, Integer resultstatus, Integer recordcount, String no,
-			String order, String result, String space, String oscontent, String osdate, String osresult,
-			Integer oscount, String osstatus, String osspace, List<ReadLockRecord> lockRecords) {
+	public ReadLockRecordResult(String orderid, String itid, Integer filetype, Integer resultstatus,
+			Integer recordcount, String no, String order, String result, String space, String oscontent, String osdate,
+			String osresult, Integer oscount, String osstatus, String osspace, List<ReadLockRecord> lockRecords) {
 		super();
 		this.orderid = orderid;
+		this.itid = itid;
 		this.filetype = filetype;
 		this.resultstatus = resultstatus;
 		Recordcount = recordcount;
@@ -46,6 +48,12 @@ public class ReadLockRecordResult {
 	}
 	public void setOrderid(String orderid) {
 		this.orderid = orderid;
+	}
+	public String getItid() {
+		return itid;
+	}
+	public void setItid(String itid) {
+		this.itid = itid;
 	}
 	public Integer getFiletype() {
 		return filetype;
@@ -131,5 +139,6 @@ public class ReadLockRecordResult {
 	public void setLockRecords(List<ReadLockRecord> lockRecords) {
 		this.lockRecords = lockRecords;
 	}
+	
 	
 }
