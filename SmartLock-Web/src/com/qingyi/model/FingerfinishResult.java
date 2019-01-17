@@ -2,6 +2,7 @@ package com.qingyi.model;
 
 public class FingerfinishResult {
 	private String orderid;
+	private String rcid;
 	private Integer resultstatus;
 	private Integer filetype;
 	private String type;
@@ -14,10 +15,11 @@ public class FingerfinishResult {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public FingerfinishResult(String orderid, Integer resultstatus, Integer filetype, String type, String order,
-			String fingercodes, String result, String osdate, String space) {
+	public FingerfinishResult(String orderid, String rcid, Integer resultstatus, Integer filetype, String type,
+			String order, String fingercodes, String result, String osdate, String space) {
 		super();
 		this.orderid = orderid;
+		this.rcid = rcid;
 		this.resultstatus = resultstatus;
 		this.filetype = filetype;
 		this.type = type;
@@ -32,6 +34,12 @@ public class FingerfinishResult {
 	}
 	public void setOrderid(String orderid) {
 		this.orderid = orderid;
+	}
+	public String getRcid() {
+		return rcid;
+	}
+	public void setRcid(String rcid) {
+		this.rcid = rcid;
 	}
 	public Integer getResultstatus() {
 		return resultstatus;
@@ -81,6 +89,5 @@ public class FingerfinishResult {
 	public void setSpace(String space) {
 		this.space = space;
 	}
-	
 	
 }

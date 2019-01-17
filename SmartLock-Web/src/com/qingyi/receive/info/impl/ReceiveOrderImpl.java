@@ -1396,7 +1396,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			r.setOsdate(osdate);
 			r.setResult(ret);
 			int failtype = StringTools.getFailtype(ret);
-			r.setFiletype(failtype);
+			r.setFailtype(failtype);
 			r.setOrderType(orderType);
 			result.setResult(r);
 		}
@@ -1413,8 +1413,9 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String type = json.get("type").toString();
 			String no = json.get("num").toString();
 				if(no.equals("1") || no.equals("2")) {
-					String rcid = json.get("itid").toString();
-					r.setOrderid(rcid);
+					String itid = json.get("itid").toString();
+					r.setOrderid(itid);
+					r.setRcid(json.get("rcid").toString());
 					String order = json.get("fail").toString();
 					r.setOrder(order);
 					//授权
@@ -1455,10 +1456,11 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			Map json = StringTools.stringToMap2(content);
 			FingerfinishResult r=new FingerfinishResult();
 			String type = json.get("type").toString();
-			String rcid = json.get("itid").toString();
+			String itid = json.get("itid").toString();
     		String order = json.get("finish").toString();
     		r.setType(type);
-    		r.setOrderid(rcid);
+    		r.setOrderid(itid);
+    		r.setRcid(json.get("rcid").toString());
     		if(type.equals("1")) {}
     		else if(type.equals("2")) {
 				String fingercodes = StringTools.getFingercodeByOrder(order);
@@ -1490,10 +1492,11 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 		if(result.getResultCode().equals("0")) {
 			Map json = StringTools.stringToMap2(content);
 			FingersuccessResult r=new FingersuccessResult();
-			String rfid = json.get("itid").toString();
+			String itid = json.get("itid").toString();
 			String type = json.get("type").toString();
 			String status = json.get("status").toString();
-			r.setOrderid(rfid);
+			r.setOrderid(itid);
+			r.setRcid(json.get("rcid").toString());
 			r.setType(type);
 			r.setResultstatus(Integer.parseInt(status));
 			result.setResultstatus(Integer.parseInt(status));
@@ -1949,9 +1952,10 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				r.setResultstatus(Integer.parseInt(json.get("status").toString()));
 				result.setResultstatus(Integer.parseInt(json.get("status").toString()));
 				if(num.equals("1") || num.equals("2")) {
-					String rcid = json.get("itid").toString();
+					String rcid = json.get("rcid").toString();
 					String order = json.get("fail").toString();
-					r.setOrderid(rcid);
+					r.setOrderid(json.get("itid").toString());
+					r.setRcid(rcid);
 					r.setOrder(order);
 					if(type.equals("1")) {
 						
@@ -1977,6 +1981,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				String itid = json.get("itid").toString();
 				String order = json.get("finish").toString();
 				r.setOrderid(itid);
+				r.setRcid(json.get("rcid").toString());;
 				r.setType(type);
 				r.setOrder(order);
 				if(type.equals("1")) {
@@ -2000,6 +2005,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				String status = json.get("status").toString();
 				String ret=json.get("result").toString();
 				r.setOrderid(itid);
+				r.setRcid(json.get("rcid").toString());
 				r.setType(type);
 				r.setResult(ret);
 				r.setResultstatus(Integer.parseInt(status));
