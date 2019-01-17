@@ -55,7 +55,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"saveUnlockPswNB", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"saveunlockpswnb", secret, param);
 				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 			}
 			return sr;
@@ -74,7 +74,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"delUnlockpswNB", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"delunlockpswnb", secret, param);
 				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 			}
 			return sr;
@@ -101,7 +101,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateRoomCardxzsxNB", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateroomcardxzsxnb", secret, param);
 				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 			}
 			return sr;
@@ -121,7 +121,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateRoomFingerxzsxNB", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateroomfingerxzsxnb", secret, param);
 				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 			}
 			return sr;
@@ -140,7 +140,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			SendResult sr=StringTools.check(param);
 			List<SendResult> result=null;
 			if(sr.getResultCode().equals("0")) {
-				String ss=HttpsUtil.httpURLConnectionPOST(baseurl, "delroomfinger", secret, param);
+				String ss=HttpsUtil.httpURLConnectionPOST(baseurl, "delroomfingernb", secret, param);
 				if(ss.length()>1) {
 					result=new ArrayList<SendResult>();
 					String sss=ss.substring(1,ss.length()-1);
@@ -169,7 +169,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"syscFingerNB", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"syscfingernb", secret, param);
 				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 			}
 			return sr;
@@ -189,7 +189,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"syscCardNB", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"sysccardnb", secret, param);
 				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 			}
 			return sr;
@@ -216,7 +216,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"saveRoomCardNB", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"saveroomcardnb", secret, param);
 				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 			}
 			return sr;
@@ -241,7 +241,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"delRoomCardNB", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"delroomcardnb", secret, param);
 				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 			}
 			return sr;
@@ -268,7 +268,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"saveNblog", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"savenblog", secret, param);
 				System.out.println(result);
 				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 			}
@@ -285,7 +285,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"saveNblog1", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"savenblog1", secret, param);
 				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 			}
 			return sr;
@@ -302,7 +302,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"recordsNB", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"recordsnb", secret, param);
 				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 			}
 			return sr;
@@ -318,7 +318,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"addDXOnline", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"adddxonline", secret, param);
 				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 			}
 			return sr;
@@ -337,7 +337,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"registerDevice", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"registerdevice", secret, param);
 				Map map=StringTools.stringToMap2(result);
 				if(map!=null) {
 					String resultCode=map.get("resultCode")==null?"":map.get("resultCode").toString();
@@ -378,7 +378,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateDevice", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updatedevice", secret, param);
 				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
 			}
 			return sr;
@@ -394,7 +394,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"delDevice", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"deldevice", secret, param);
 				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
 			}
 			return sr;
@@ -427,7 +427,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"saveDeviceDataHw", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"savedevicedatahw", secret, param);
 				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
 			}
 			return sr;
@@ -442,7 +442,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateCommandHw", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updatecommandhw", secret, param);
 				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
 			}
 			return sr;
@@ -474,7 +474,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"saveDeviceDataDx", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"savedevicedatadx", secret, param);
 				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
 			}
 			return sr;
@@ -489,7 +489,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateCommandDx", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updatecommanddx", secret, param);
 				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
 			}
 			return sr;
@@ -526,7 +526,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"saveDeviceDataYd", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"savedevicedatayd", secret, param);
 				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
 			}
 			return sr;
@@ -541,7 +541,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateCommandYd", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updatecommandyd", secret, param);
 				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
 			}
 			return sr;
@@ -561,7 +561,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"saveRoomFingerNB", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"saveroomfingernb", secret, param);
 				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
 			}
 			return sr;

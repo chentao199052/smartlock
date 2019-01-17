@@ -262,10 +262,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String itid=json.get("itid").toString();
+			String itid2=json.get("itid2").toString();
 			ReadLockRecordResult recordresult=new ReadLockRecordResult();
 			recordresult.setResultstatus(Integer.parseInt(json.get("status").toString()));
 			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
 			recordresult.setOrderid(itid);
+			recordresult.setItid(itid2);
 			String ret = json.get("result").toString();
 			if(json.get("status").equals("1")){
 				String[] res = ret.split("-");

@@ -139,7 +139,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
 		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "saveUnlockPsw", secret, param);
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "saveunlockpsw", secret, param);
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		}
 		return sr;
@@ -318,7 +318,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
 		try {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateRoomFiger", secret, param);
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateroomfiger", secret, param);
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		} catch (Exception e) {
 			
@@ -341,7 +341,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
 		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateRoomForcelock", secret, param);
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateroomforcelock", secret, param);
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		}
 		return sr;
@@ -360,7 +360,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
 		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateRoompow", secret, param);
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateroompow", secret, param);
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		}
 		return sr;
@@ -379,7 +379,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
 		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateRoomWorkmode", secret, param);
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateroomworkmode", secret, param);
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		}
 		return sr;
@@ -398,7 +398,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
 		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateRoomNetmode", secret, param);
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateroomnetmode", secret, param);
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		}
 		return sr;
@@ -413,7 +413,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
 		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "saveFingerReagy", secret, param);
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "savefingerreagy", secret, param);
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		}
 		return sr;
@@ -430,7 +430,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
 		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "getGatewaystatus", secret, param);
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "getgatewaystatus", secret, param);
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		}
 		return sr;
@@ -448,7 +448,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
 		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateGatewayRooms", secret, param);
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updategatewayrooms", secret, param);
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		}
 		return sr;
@@ -464,7 +464,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
 		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "readGatewayRecord", secret, param);
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "readgatewayrecord", secret, param);
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		}
 		return sr;
@@ -482,7 +482,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
 		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "gatewayInitialize", secret, param);
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "gatewayinitialize", secret, param);
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		}
 		return sr;
@@ -504,7 +504,7 @@ public class SendOrderImpl implements SendOrderInfo{
 			sr.setResultMsg("功率等级错误");
 		}
 		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateGatewaypow", secret, param);
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updategatewaypow", secret, param);
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		}
 		return sr;
@@ -520,7 +520,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
 		if("0".equals(sr.getResultCode())) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"clearsGatewaytatus", secret, param);
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"clearsgatewaytatus", secret, param);
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		}
 		return sr;
@@ -548,7 +548,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
 		if("0".equals(sr.getResultCode())) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateRoomCardxzsx", secret, param);
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateroomcardxzsx", secret, param);
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		}
 		return sr;
@@ -572,7 +572,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
 		if("0".equals(sr.getResultCode())) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateRoomFingerxzsx", secret, param);
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateroomfingerxzsx", secret, param);
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		}
 		return sr;
@@ -586,7 +586,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("type", type);
 		SendResult sr=StringTools.check(param);
 		if("0".equals(sr.getResultCode())) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"clearFingerMachine", secret, param);
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"clearfingermachine", secret, param);
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		}
 		return sr;
@@ -601,7 +601,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("type", type);
 		SendResult sr=StringTools.check(param);
 		if("0".equals(sr.getResultCode())) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"readFingerMachine", secret, param);
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"readfingermachine", secret, param);
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		}
 		return sr;
@@ -616,7 +616,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
 		if("0".equals(sr.getResultCode())) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"fingerMachineState", secret, param);
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"fingermachinestate", secret, param);
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		}
 		return sr;
