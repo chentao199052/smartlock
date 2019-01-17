@@ -367,7 +367,7 @@ public class StringTools {
 					sr.setResultCode("-10033");
 					sr.setResultMsg("可开门次数不允许为空");
 					return sr;
-				}else if(val.toString().matches("[0-9]+|(-1)")) {
+				}else if(!val.toString().matches("[0-9]+|(-1)")) {
 					sr.setResultCode("-10034");
 					sr.setResultMsg("可开门次数必须为数字");
 					return sr;
@@ -397,7 +397,7 @@ public class StringTools {
 					sr.setResultCode("-10039");
 					sr.setResultMsg("开门需按指纹次数不允许为空");
 					return sr;
-				}else if(val.toString().matches("[0-9]+|(-1)")) {
+				}else if(!val.toString().matches("[0-9]+|(-1)")) {
 					sr.setResultCode("-10040");
 					sr.setResultMsg("开门需按指纹次数必须为数字");
 					return sr;
