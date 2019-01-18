@@ -1,6 +1,6 @@
 package com.qingyi.model;
 
-public class SendResult {
+public class SendResult<T> {
 	
 	private String resultCode;
 	
@@ -8,7 +8,7 @@ public class SendResult {
 	
 	private String orderId;
 	
-	private Object result;
+	private T result;
 
 	public SendResult() {
 		super();
@@ -23,7 +23,7 @@ public class SendResult {
 	}
 
 
-	public SendResult(String resultCode, String resultMsg, String orderId, Object result) {
+	public SendResult(String resultCode, String resultMsg, String orderId, T result) {
 		super();
 		this.resultCode = resultCode;
 		this.resultMsg = resultMsg;
@@ -55,11 +55,11 @@ public class SendResult {
 		this.orderId = orderId;
 	}
 
-	public Object getResult() {
+	public T getResult() {
 		return result;
 	}
 
-	public void setResult(Object result) {
+	public void setResult(T result) {
 		this.result = result;
 	}
 
