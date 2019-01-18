@@ -46,11 +46,11 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("roomcode2", roomcode2);
 			param.put("roomimei",roomimei);
 			param.put("pass", psw.getPass());
-			param.put("count",psw.getCount());
+			param.put("count",psw.getOpencount());
 			param.put("edate", psw.getEdate());
 			param.put("roomtxtype",roomtxtype);
-			param.put("unlockstime", psw.getUnlockstime());
-			param.put("unlocketime", psw.getUnlocketime());
+			param.put("unlockstime", psw.getOpenstime());
+			param.put("unlocketime", psw.getOpenetime());
 			param.put("timeout", timeout);
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
@@ -66,10 +66,10 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			LinkedHashMap param=new LinkedHashMap();
 			param.put("roomcode2", roomcode2);
 			param.put("pass", psw.getPass());
-			param.put("count",psw.getCount());
+			param.put("count",psw.getOpencount());
 			param.put("edate", psw.getEdate());
-			param.put("unlockstime", psw.getUnlockstime());
-			param.put("unlocketime", psw.getUnlocketime());
+			param.put("unlockstime", psw.getOpenstime());
+			param.put("unlocketime", psw.getOpenetime());
 			param.put("timeout", timeout);
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
