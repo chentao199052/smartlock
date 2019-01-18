@@ -8,13 +8,13 @@ public class UnlockPsw {
 	
 	private String pass;
 	
-	private String count;
+	private String opencount;
 	
 	private String edate;
 	
-	private String unlockstime;
+	private String openstime;
 	
-	private String unlocketime;
+	private String openetime;
 
 	public UnlockPsw() {
 		super();
@@ -27,29 +27,29 @@ public class UnlockPsw {
 	 * @param unlockstime 可开门时间段开始时间（格式为XX:XX）
 	 * @param unlocketime 可开门时间段结束时间（格式为XX:XX）
 	 */
-	public UnlockPsw(String pass, String count, String edate, String unlockstime, String unlocketime) {
-		super();
-		this.pass = pass;
-		this.count = count;
-		this.edate = edate;
-		this.unlockstime = unlockstime;
-		this.unlocketime = unlocketime;
-	}
 	
 	public String getPass() {
 		return pass;
 	}
 
+	public UnlockPsw(String pass, String opencount, String edate, String openstime, String openetime) {
+		super();
+		this.pass = pass;
+		this.opencount = opencount;
+		this.edate = edate;
+		this.openstime = openstime;
+		this.openetime = openetime;
+	}
 	public void setPass(String pass) {
 		this.pass = pass;
 	}
 
-	public String getCount() {
-		return count;
+	public String getOpencount() {
+		return opencount;
 	}
 
-	public void setCount(String count) {
-		this.count = count;
+	public void setOpencount(String opencount) {
+		this.opencount = opencount;
 	}
 
 	public String getEdate() {
@@ -60,20 +60,21 @@ public class UnlockPsw {
 		this.edate = edate;
 	}
 
-	public String getUnlockstime() {
-		return unlockstime;
+	public String getOpenstime() {
+		return openstime;
 	}
 
-	public void setUnlockstime(String unlockstime) {
-		this.unlockstime = unlockstime;
+	public void setOpenstime(String openstime) {
+		this.openstime = openstime;
 	}
 
-	public String getUnlocketime() {
-		return unlocketime;
+	public String getOpenetime() {
+		return openetime;
 	}
 
-	public void setUnlocketime(String unlocketime) {
-		this.unlocketime = unlocketime;
+	public void setOpenetime(String openetime) {
+		this.openetime = openetime;
 	}
 
+		
 }
