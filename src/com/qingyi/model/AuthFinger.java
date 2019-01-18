@@ -43,11 +43,11 @@ public class AuthFinger {
 	 * @param locktype 门锁类型（必填），1为无线联网锁，2为华为NB锁，3为电信NB锁，4为移动NB锁
 	 * @param roomcode2 门锁唯一ID（必填）
 	 * @param roomcode 房间编号（无线联网锁必填）
+	 * @param imei NB锁imei（NB锁必填）
 	 * @param gatewaycode2 网关唯一ID（无线联网锁必填）
 	 * @param gatewaycode 网关通信ID（无线联网锁必填）
 	 * @param fingercode 指纹号（必填）
 	 * @param fingercontent 指纹特征码（必填）
-	 * @param password 6位数字密码（必填）
 	 * @param openstime 可开门起始时间（必填，格式为HH:mm）
 	 * @param openetime 可开门结束时间（必填，格式为HH:mm）
 	 * @param edate 授权到期时间（必填，-1表示永久，格式为yyMMddHHmm）
@@ -55,11 +55,10 @@ public class AuthFinger {
 	 * @param actioncount 开门需按指纹次数（必填）
 	 * @param timeout 超时秒数（网关或门锁离线超时秒数后，指令超时，必填）
 	 * @param callbackurl 回调地址（指令结果回调地址，必填）
-	 * @param imei NB锁imei（NB锁必填）
 	 */
-	public AuthFinger(Integer locktype, String roomcode2, String roomcode, String gatewaycode2, String gatewaycode,
+	public AuthFinger(Integer locktype, String roomcode2, String roomcode,String imei, String gatewaycode2, String gatewaycode,
 			String fingercode, String fingercontent, String openstime, String openetime, String edate, String opencount,
-			String actioncount, Integer timeout, String callbackurl,String imei) {
+			String actioncount, Integer timeout, String callbackurl) {
 		super();
 		this.locktype = locktype;
 		this.roomcode2 = roomcode2;
