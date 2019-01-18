@@ -10,7 +10,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import com.qingyi.model.Auth;
 import com.qingyi.model.RoomCard;
 import com.qingyi.model.SendResult;
 import com.qingyi.model.UnlockPsw;
@@ -153,6 +156,192 @@ public class StringTools {
             e.printStackTrace();  
             return null;  
         }  
+	}
+	
+	public static SendResult checkList(List<Auth> authlist) {
+		SendResult sr=new SendResult("0","","");
+		if(null!=authlist && authlist.size()<=0) {
+			sr.setResultCode("-20001");
+			sr.setResultMsg("授权列表不允许为空");
+			return sr;
+		}
+		for(int i=0;i<authlist.size();i++) {
+			Auth au = authlist.get(i);
+			if(null==au.getLocktype()) {
+				sr.setResultCode("-20002");
+				sr.setResultMsg("门锁类型不能为空");
+				return sr;
+			}
+			if(au.getLocktype()<1 || au.getLocktype()>4) {
+				sr.setResultCode("-20003");
+				sr.setResultMsg("门锁类型不存在");
+				return sr;
+			}
+			if(null==au.getEmptype()) {
+				sr.setResultCode("-20004");
+				sr.setResultMsg("授权类型不能为空");
+				return sr;
+			}
+			if(au.getEmptype()<1 || au.getEmptype()>6) {
+				sr.setResultCode("-20005");
+				sr.setResultMsg("授权类型不存在");
+				return sr;
+			}
+			if(null==au.getRoomcode2()||au.getRoomcode2().equals("")||au.getRoomcode2().equals("null")) {
+				sr.setResultCode("-10019");
+				sr.setResultMsg("门锁唯一ID不允许为空");
+				return sr;
+			}else if(au.getRoomcode2().length()!=10||au.getRoomcode2().toUpperCase().matches(".*[G-Z].*")) {
+				sr.setResultCode("-10020");
+				sr.setResultMsg("门锁唯一ID必须是长度为10的16进制字符串");
+				return sr;
+			}
+			if(au.getLocktype()==1) {
+				if(null==au.getRoomcode()||au.getRoomcode().equals("")||au.getRoomcode().equals("null")) {
+					sr.setResultCode("-10005");
+					sr.setResultMsg("房间编号不允许为空");
+					return sr;
+				}else if(au.getRoomcode().length()!=4||au.getRoomcode().toUpperCase().matches(".*[G-Z].*")) {
+					sr.setResultCode("-10006");
+					sr.setResultMsg("房间编号必须是长度为4的16进制字符串");
+					return sr;
+				}
+				if(null==au.getGatewaycode()||au.getGatewaycode().equals("")||au.getGatewaycode().equals("null")) {
+					sr.setResultCode("-10001");
+					sr.setResultMsg("网关通讯ID不允许为空");
+					return sr;
+				}else if(au.getGatewaycode().length()!=10||au.getGatewaycode().toUpperCase().matches(".*[G-Z].*")) {
+					sr.setResultCode("-10002");
+					sr.setResultMsg("网关通讯ID必须是长度为10的16进制字符串");
+					return sr;
+				}
+				if(null==au.getGatewaycode2()||au.getGatewaycode2().equals("")||au.getGatewaycode2().equals("null")) {
+					sr.setResultCode("-10003");
+					sr.setResultMsg("网关唯一ID不允许为空");
+					return sr;
+				}else if(au.getGatewaycode2().length()!=10||au.getGatewaycode2().toUpperCase().matches(".*[G-Z].*")) {
+					sr.setResultCode("-10004");
+					sr.setResultMsg("网关唯一ID必须是长度为10的16进制字符串");
+					return sr;
+				}
+			}
+			if(au.getEmptype()==1 || au.getEmptype()==2) {
+				if(null==au.getCardcode()||au.getCardcode().equals("")||au.getCardcode().equals("null")) {
+					sr.setResultCode("-10028");
+					sr.setResultMsg("卡号不允许为空");
+					return sr;
+				}
+				if(au.getEmptype()==1) {
+					if(null==au.getCardtype()||au.getCardtype().equals("")||au.getCardtype().equals("null")) {
+						sr.setResultCode("-20006");
+						sr.setResultMsg("卡类型不允许为空");
+						return sr;
+					}
+					
+					if(au.getCardtype().equals("开门卡")||au.getCardtype().equals("管理卡")||au.getCardtype().equals("授权卡")) {
+						if(au.getCardtype().length()!=8||au.getCardtype().toUpperCase().matches(".*[G-Z].*")) {
+							sr.setResultCode("-10029");
+							sr.setResultMsg("开门卡/管理卡/授权卡卡号必须是长度为10的16进制字符串");
+							return sr;
+						}
+					}else if(au.getCardtype().equals("身份证")) {
+						if(au.getCardtype().length()!=16||au.getCardtype().toUpperCase().matches(".*[G-Z].*")) {
+							sr.setResultCode("-10030");
+							sr.setResultMsg("开门卡/管理卡/授权卡卡号必须是长度为16的16进制字符串");
+							return sr;
+						}
+					}
+				}
+			}else if(au.getEmptype()==3 || au.getEmptype()==4) {
+				if(null==au.getFingercode()||au.getFingercode().equals("")||au.getFingercode().equals("null")) {
+					sr.setResultCode("-10035");
+					sr.setResultMsg("指纹编号不允许为空");
+					return sr;
+				}else if(au.getFingercode().length()!=8||au.getFingercode().toUpperCase().matches(".*[G-Z].*")) {
+					sr.setResultCode("-10036");
+					sr.setResultMsg("指纹编号必须是长度为10的16进制字符串");
+					return sr;
+				}
+				
+				if(null==au.getActioncount()||au.getActioncount().equals("")||au.getActioncount().equals("null")) {
+					sr.setResultCode("-10039");
+					sr.setResultMsg("开门需按指纹次数不允许为空");
+					return sr;
+				}else if(au.getActioncount().matches("[0-9]*")) {
+					sr.setResultCode("-10040");
+					sr.setResultMsg("开门需按指纹次数必须为数字");
+					return sr;
+				}
+			}else if(au.getEmptype()==5 || au.getEmptype()==6) {
+				if(null==au.getPassword()||au.getPassword().equals("")||au.getPassword().equals("null")) {
+					sr.setResultCode("-10008");
+					sr.setResultMsg("授权密码不允许为空");
+					return sr;
+				}
+				Pattern pattern = Pattern.compile("[0-9]*");
+				Matcher isNum = pattern.matcher(au.getPassword());
+				if (!isNum.matches() || au.getPassword().length()!=6) {
+					sr.setResultCode("-10009");
+					sr.setResultMsg("授权密码必须是长度为6的10进制字符串");
+					return sr;
+				}
+			}
+			
+			if(null==au.getOpenstime()||au.getOpenstime().equals("")||au.getOpenstime().equals("null")) {
+				sr.setResultCode("-10022");
+				sr.setResultMsg("可开门时间段开始时间不允许为空");
+				return sr;
+			}else if(au.getOpenstime().length()!=5) {
+				sr.setResultCode("-10023");
+				sr.setResultMsg("可开门时间段开始时间格式错误，格式必须为XX:XX，例如00:00");
+				return sr;
+			}else if(!au.getOpenstime().contains(":")) {
+				sr.setResultCode("-10023");
+				sr.setResultMsg("可开门时间段开始时间格式错误，格式必须为XX:XX，例如00:00");
+				return sr;
+			}else if(au.getOpenstime().length()!=4||!au.getOpenstime().matches("\\d+")) {
+				sr.setResultCode("-10023");
+				sr.setResultMsg("可开门时间段开始时间格式错误，格式必须为XX:XX，例如00:00");
+				return sr;
+			}
+			if(null==au.getOpenetime()||au.getOpenetime().equals("")||au.getOpenetime().equals("null")) {
+				sr.setResultCode("-10024");
+				sr.setResultMsg("可开门时间段结束时间不允许为空");
+				return sr;
+			}else if(au.getOpenetime().length()!=5) {
+				sr.setResultCode("-10025");
+				sr.setResultMsg("可开门时间段结束时间格式错误，格式必须为XX:XX，例如00:00");
+				return sr;
+			}else if(!au.getOpenetime().contains(":")) {
+				sr.setResultCode("-10025");
+				sr.setResultMsg("可开门时间段结束时间格式错误，格式必须为XX:XX，例如00:00");
+				return sr;
+			}else if(au.getOpenetime().length()!=4||!au.getOpenetime().matches("[0-9]+")) {
+				sr.setResultCode("-10025");
+				sr.setResultMsg("可开门时间段结束时间格式错误，格式必须为XX:XX，例如00:00");
+				return sr;
+			}
+			if(null==au.getEdate()||au.getEdate().equals("")||au.getEdate().equals("null")) {
+				sr.setResultCode("-10012");
+				sr.setResultMsg("有效结束日期不允许为空");
+				return sr;
+			}else if(!au.getEdate().equals("-1")&&(au.getEdate().length()!=10||!au.getEdate().matches("\\d+"))) {
+				sr.setResultCode("-10013");
+				sr.setResultMsg("有效结束日期格式必须为yyMMddHHmm");
+				return sr;
+			}
+			
+			if(null==au.getOpencount()||au.getOpencount().equals("")||au.getOpencount().equals("null")) {
+				sr.setResultCode("-10010");
+				sr.setResultMsg("可开门次数不允许为空");
+				return sr;
+			}else if(!au.getOpencount().matches("[0-9]+|(-1)")) {
+				sr.setResultCode("-10011");
+				sr.setResultMsg("可开门次数必须为10进制数字");
+				return sr;
+			}
+		}
+		return sr;
 	}
 
 	public static SendResult check(LinkedHashMap param) {
@@ -419,6 +608,8 @@ public class StringTools {
 		}
 		return sr;
 	}
+	
+	
 	
 	/**
 	  * 切割指令获取failtype
