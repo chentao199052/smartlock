@@ -633,12 +633,12 @@ public class SendOrderImpl implements SendOrderInfo{
 	public SendResult<AuthResult> saveLotAuth(List<AuthCard> clist,List<AuthDelCard> dclist,List<AuthFinger> flist,List<AuthDelFinger> dflist,List<AuthPsw> plist,List<AuthDelPsw> dplist) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
-		param.put("cardlist", clist);
-		param.put("delcardlist", dclist);
-		param.put("finlist", flist);
-		param.put("delfinlist", dflist);
-		param.put("pswlist", plist);
-		param.put("delpswlist", dplist);
+		param.put("cardlist", (null==clist||clist.size()<0)?"":clist);
+		param.put("delcardlist", (null==dclist||dclist.size()<0)?"":dclist);
+		param.put("finlist", (null==flist||flist.size()<0)?"":flist);
+		param.put("delfinlist", (null==dflist||dflist.size()<0)?"":dflist);
+		param.put("pswlist", (null==plist||plist.size()<0)?"":plist);
+		param.put("delpswlist", (null==dplist||dplist.size()<0)?"":dplist);
 		//判断
 		SendResult sr = StringTools.checkCardList(clist);
 		if("0".equals(sr.getResultCode())) {

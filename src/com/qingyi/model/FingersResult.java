@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class FingersResult {
 	
-private String orderId;
+	private String orderId;
 	
 	private String fingercode;
 	
