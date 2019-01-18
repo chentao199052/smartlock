@@ -55,8 +55,8 @@ public class AuthCard {
 	 * @param timeout 超时秒数（网关或门锁离线超时秒数后，指令超时，必填）
 	 * @param callbackurl 回调地址（指令结果回调地址，必填）
 	 */
-	public AuthCard(Integer locktype, String roomcode2, String roomcode,String imei, String gatewaycode2, String gatewaycode,
-			String cardcode, String openstime, String openetime, String edate, String opencount, String cardtype,
+	public AuthCard(Integer locktype, String roomcode2, String roomcode,String imei, String gatewaycode2, String gatewaycode, String cardtype,
+			String cardcode, String openstime, String openetime, String edate, String opencount,
 			Integer timeout, String callbackurl) {
 		super();
 		this.locktype = locktype;
