@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import com.qingyi.model.Auth;
 import com.qingyi.model.Command;
 import com.qingyi.model.DelRoomFinger;
 import com.qingyi.model.DelUnlockPsw;
@@ -617,6 +618,20 @@ public class SendOrderImpl implements SendOrderInfo{
 		SendResult sr=StringTools.check(param);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"fingermachinestate", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult saveLotAuth(List<Auth> authlist, String callbackurl) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("authlist", authlist);
+		param.put("callbackurl", callbackurl);
+		SendResult sr = StringTools.checkList(authlist);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"savelotauth", secret, param);
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		}
 		return sr;

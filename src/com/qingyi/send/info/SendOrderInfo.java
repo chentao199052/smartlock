@@ -2,6 +2,7 @@ package com.qingyi.send.info;
 
 import java.util.List;
 
+import com.qingyi.model.Auth;
 import com.qingyi.model.Command;
 import com.qingyi.model.DelRoomFinger;
 import com.qingyi.model.DelUnlockPsw;
@@ -344,5 +345,13 @@ public interface SendOrderInfo {
 	 * @return
 	 */
 	public SendResult updateRoomFingerxzsx(String gatewaycode,String gatewaycode2,String roomcode,RoomFinger finger,Integer timeout,String callbackurl);
+	
+	/**
+	 * 根据授权列表生成网关锁与NB锁的授权与取消授权指令
+	 * @param authlist
+	 * @param callbackurl
+	 * @return
+	 */
+	public SendResult saveLotAuth(List<Auth> authlist,String callbackurl);
 	
 }
