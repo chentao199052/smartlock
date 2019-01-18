@@ -239,13 +239,13 @@ public class StringTools {
 					}
 					
 					if(au.getCardtype().equals("开门卡")||au.getCardtype().equals("管理卡")||au.getCardtype().equals("授权卡")) {
-						if(au.getCardtype().length()!=8||au.getCardtype().toUpperCase().matches(".*[G-Z].*")) {
+						if(au.getCardcode().length()!=8||au.getCardcode().toUpperCase().matches(".*[G-Z].*")) {
 							sr.setResultCode("-10029");
-							sr.setResultMsg("开门卡/管理卡/授权卡卡号必须是长度为10的16进制字符串");
+							sr.setResultMsg("开门卡/管理卡/授权卡卡号必须是长度为8的16进制字符串");
 							return sr;
 						}
 					}else if(au.getCardtype().equals("身份证")) {
-						if(au.getCardtype().length()!=16||au.getCardtype().toUpperCase().matches(".*[G-Z].*")) {
+						if(au.getCardcode().length()!=16||au.getCardcode().toUpperCase().matches(".*[G-Z].*")) {
 							sr.setResultCode("-10030");
 							sr.setResultMsg("开门卡/管理卡/授权卡卡号必须是长度为16的16进制字符串");
 							return sr;
@@ -299,11 +299,15 @@ public class StringTools {
 				sr.setResultCode("-10023");
 				sr.setResultMsg("可开门时间段开始时间格式错误，格式必须为XX:XX，例如00:00");
 				return sr;
-			}else if(au.getOpenstime().length()!=4||!au.getOpenstime().matches("\\d+")) {
-				sr.setResultCode("-10023");
-				sr.setResultMsg("可开门时间段开始时间格式错误，格式必须为XX:XX，例如00:00");
-				return sr;
+			}else {
+				String t = au.getOpenstime().replace(":", "");
+				if(t.length()!=4||!t.matches("\\d+")) {
+					sr.setResultCode("-10023");
+					sr.setResultMsg("可开门时间段开始时间格式错误，格式必须为XX:XX，例如00:00");
+					return sr;
+				}
 			}
+				
 			if(null==au.getOpenetime()||au.getOpenetime().equals("")||au.getOpenetime().equals("null")) {
 				sr.setResultCode("-10024");
 				sr.setResultMsg("可开门时间段结束时间不允许为空");
@@ -316,11 +320,15 @@ public class StringTools {
 				sr.setResultCode("-10025");
 				sr.setResultMsg("可开门时间段结束时间格式错误，格式必须为XX:XX，例如00:00");
 				return sr;
-			}else if(au.getOpenetime().length()!=4||!au.getOpenetime().matches("[0-9]+")) {
-				sr.setResultCode("-10025");
-				sr.setResultMsg("可开门时间段结束时间格式错误，格式必须为XX:XX，例如00:00");
-				return sr;
+			}else {
+				String t = au.getOpenetime().replace(":", "");
+				if(t.length()!=4||!t.matches("[0-9]+")) {
+					sr.setResultCode("-10025");
+					sr.setResultMsg("可开门时间段结束时间格式错误，格式必须为XX:XX，例如00:00");
+					return sr;
+				}
 			}
+			
 			if(null==au.getEdate()||au.getEdate().equals("")||au.getEdate().equals("null")) {
 				sr.setResultCode("-10012");
 				sr.setResultMsg("有效结束日期不允许为空");
@@ -1134,4 +1142,26 @@ public class StringTools {
 		 }
 		 return recordcount;
 	 }
+	 
+	 public static void main(String[] args) {
+		SendOrderInfo sio = new SendOrderImpl();
+		List<Auth> aulist = new ArrayList<Auth>();
+		Auth au = new Auth();
+		au.setLocktype(1);
+		au.setEmptype(1);
+		au.setCardcode("00010001");
+		au.setEdate("-1");
+		au.setGatewaycode("002a010101");
+		au.setGatewaycode2("1901010001");
+		au.setOpencount("0");
+		au.setOpenstime("00:00");
+		au.setOpenetime("23:59");
+		au.setRoomcode("0101");
+		au.setRoomcode2("1901000001");
+		au.setCardtype("开门卡");
+		aulist.add(au);
+		
+		SendResult ret = sio.saveLotAuth(aulist, "1");
+		System.out.println(ret.getResultMsg());
+	}
 }
