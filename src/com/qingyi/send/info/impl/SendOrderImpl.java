@@ -138,10 +138,10 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("gatewaycode2", gatewaycode2);
 		param.put("roomcode", roomcode);
 		param.put("pass", psw.getPass());
-		param.put("count", psw.getCount());
+		param.put("opencount", psw.getOpencount());
 		param.put("edate", psw.getEdate());
-		param.put("unlockstime", psw.getUnlockstime());
-		param.put("unlocketime", psw.getUnlocketime());
+		param.put("openstime", psw.getOpenstime());
+		param.put("openetime", psw.getOpenetime());
 		param.put("timeout", timeout);
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);

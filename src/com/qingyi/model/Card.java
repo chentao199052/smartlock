@@ -116,7 +116,4 @@ public class Card {
 	public void setCardusecount(Integer cardusecount) {
 		this.cardusecount = cardusecount;
 	}
-	
-	
-	
 }
