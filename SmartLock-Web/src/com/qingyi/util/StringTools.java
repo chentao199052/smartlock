@@ -393,6 +393,18 @@ public class StringTools {
 				}
 			}
 			
+			if(null==au.getCardcode()||au.getCardcode().equals("")||au.getCardcode().equals("null")) {
+				sr.setResultCode("-10028");
+				sr.setResultMsg("卡号不允许为空");
+				return sr;
+			}
+			
+			if((au.getCardcode().length()!=8 && au.getCardcode().length()!=16)||au.getCardcode().toUpperCase().matches(".*[G-Z].*")) {
+				sr.setResultCode("-10029");
+				sr.setResultMsg("开门卡/管理卡/授权卡卡号必须是长度为8（身份证长度16）的16进制字符串");
+				return sr;
+			}
+			
 			if(null==au.getCallbackurl() || au.getCallbackurl().equals("") || au.getCallbackurl().equals("null")) {
 				sr.setResultCode("-20004");
 				sr.setResultMsg("回调地址不能为空");
