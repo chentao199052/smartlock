@@ -2,11 +2,9 @@ package com.qingyi.model;
 
 import java.sql.Timestamp;
 
-public class Auth {
+public class AuthFinger {
 	
 	private Integer locktype;
-	
-	private Integer emptype;
 	
 	private String roomcode2;
 	
@@ -16,11 +14,9 @@ public class Auth {
 	
 	private String gatewaycode;
 	
-	private String cardcode;
-	
 	private String fingercode;
 	
-	private String password;
+	private String fingercontent;
 	
 	private String openstime;
 	
@@ -32,57 +28,54 @@ public class Auth {
 	
 	private String actioncount;
 	
-	private String cardtype;
-
-	public Auth() {
+	private Integer timeout;
+	
+	private String callbackurl;
+	
+	private String imei;
+	
+	public AuthFinger() {
 		super();
 	}
 
 	/**
-	 * 授权构造方法
+	 *指纹 授权构造方法
 	 * @param locktype 门锁类型（必填），1为无线联网锁，2为华为NB锁，3为电信NB锁，4为移动NB锁
-	 * @param emptype 授权类型（必填），1为卡片授权，2为卡片删除授权，3为指纹授权，4为指纹删除授权，5为密码授权，6为密码删除授权
 	 * @param roomcode2 门锁唯一ID（必填）
 	 * @param roomcode 房间编号（无线联网锁必填）
 	 * @param gatewaycode2 网关唯一ID（无线联网锁必填）
 	 * @param gatewaycode 网关通信ID（无线联网锁必填）
-	 * @param cardtype 卡类型：开门卡/管理卡/授权卡为8位16进制字符串，身份证为16位16进制字符串（emptype=1时必填）
-	 * @param cardcode 卡号（emptype=1,2时必填）
-	 * @param fingercode 指纹号（emptype=3,4时必填）
-	 * @param password 6位数字密码（emptype=5,6时必填）
+	 * @param fingercode 指纹号（必填）
+	 * @param fingercontent 指纹特征码（必填）
+	 * @param password 6位数字密码（必填）
 	 * @param openstime 可开门起始时间（必填，格式为HH:mm）
 	 * @param openetime 可开门结束时间（必填，格式为HH:mm）
 	 * @param edate 授权到期时间（必填，-1表示永久，格式为yyMMddHHmm）
 	 * @param opencount 可开门次数（必填，0表示永久，非永久次数范围1-254）
-	 * @param actioncount 开门需按指纹次数（emptype=3,4时必填）
+	 * @param actioncount 开门需按指纹次数（必填）
+	 * @param timeout 超时秒数（网关或门锁离线超时秒数后，指令超时，必填）
+	 * @param callbackurl 回调地址（指令结果回调地址，必填）
+	 * @param imei NB锁imei（NB锁必填）
 	 */
-	public Auth(Integer locktype, Integer emptype, String roomcode2, String roomcode, String gatewaycode2,
-			String gatewaycode,String cardtype, String cardcode, String fingercode, String password, String openstime, String openetime,
-			String edate, String opencount, String actioncount) {
+	public AuthFinger(Integer locktype, String roomcode2, String roomcode, String gatewaycode2, String gatewaycode,
+			String fingercode, String fingercontent, String openstime, String openetime, String edate, String opencount,
+			String actioncount, Integer timeout, String callbackurl,String imei) {
 		super();
 		this.locktype = locktype;
-		this.emptype = emptype;
 		this.roomcode2 = roomcode2;
 		this.roomcode = roomcode;
 		this.gatewaycode2 = gatewaycode2;
 		this.gatewaycode = gatewaycode;
-		this.cardcode = cardcode;
 		this.fingercode = fingercode;
-		this.password = password;
+		this.fingercontent = fingercontent;
 		this.openstime = openstime;
 		this.openetime = openetime;
 		this.edate = edate;
 		this.opencount = opencount;
 		this.actioncount = actioncount;
-		this.cardtype = cardtype;
-	}
-
-	public String getCardtype() {
-		return cardtype;
-	}
-
-	public void setCardtype(String cardtype) {
-		this.cardtype = cardtype;
+		this.timeout = timeout;
+		this.callbackurl = callbackurl;
+		this.imei = imei;
 	}
 
 	public Integer getLocktype() {
@@ -91,14 +84,6 @@ public class Auth {
 
 	public void setLocktype(Integer locktype) {
 		this.locktype = locktype;
-	}
-
-	public Integer getEmptype() {
-		return emptype;
-	}
-
-	public void setEmptype(Integer emptype) {
-		this.emptype = emptype;
 	}
 
 	public String getRoomcode2() {
@@ -133,14 +118,6 @@ public class Auth {
 		this.gatewaycode = gatewaycode;
 	}
 
-	public String getCardcode() {
-		return cardcode;
-	}
-
-	public void setCardcode(String cardcode) {
-		this.cardcode = cardcode;
-	}
-
 	public String getFingercode() {
 		return fingercode;
 	}
@@ -149,15 +126,14 @@ public class Auth {
 		this.fingercode = fingercode;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getFingercontent() {
+		return fingercontent;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setFingercontent(String fingercontent) {
+		this.fingercontent = fingercontent;
 	}
 
-	
 	public String getOpenstime() {
 		return openstime;
 	}
@@ -197,6 +173,30 @@ public class Auth {
 	public void setActioncount(String actioncount) {
 		this.actioncount = actioncount;
 	}
-	
+
+	public Integer getTimeout() {
+		return timeout;
+	}
+
+	public void setTimeout(Integer timeout) {
+		this.timeout = timeout;
+	}
+
+	public String getCallbackurl() {
+		return callbackurl;
+	}
+
+	public void setCallbackurl(String callbackurl) {
+		this.callbackurl = callbackurl;
+	}
+
+	public String getImei() {
+		return imei;
+	}
+
+	public void setImei(String imei) {
+		this.imei = imei;
+	}
+
 	
 }
