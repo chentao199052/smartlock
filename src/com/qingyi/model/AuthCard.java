@@ -43,6 +43,7 @@ public class AuthCard {
 	 * @param locktype 门锁类型（必填），1为无线联网锁，2为华为NB锁，3为电信NB锁，4为移动NB锁
 	 * @param roomcode2 门锁唯一ID（必填）
 	 * @param roomcode 房间编号（无线联网锁必填）
+	 * @param imei NB锁imei（NB锁必填）
 	 * @param gatewaycode2 网关唯一ID（无线联网锁必填）
 	 * @param gatewaycode 网关通信ID（无线联网锁必填）
 	 * @param cardtype 卡类型：开门卡/管理卡/授权卡为8位16进制字符串，身份证为16位16进制字符串
@@ -53,11 +54,10 @@ public class AuthCard {
 	 * @param opencount 可开门次数（必填，0表示永久，非永久次数范围1-254）
 	 * @param timeout 超时秒数（网关或门锁离线超时秒数后，指令超时，必填）
 	 * @param callbackurl 回调地址（指令结果回调地址，必填）
-	 * @param imei NB锁imei（NB锁必填）
 	 */
-	public AuthCard(Integer locktype, String roomcode2, String roomcode, String gatewaycode2, String gatewaycode,
+	public AuthCard(Integer locktype, String roomcode2, String roomcode,String imei, String gatewaycode2, String gatewaycode,
 			String cardcode, String openstime, String openetime, String edate, String opencount, String cardtype,
-			Integer timeout, String callbackurl,String imei) {
+			Integer timeout, String callbackurl) {
 		super();
 		this.locktype = locktype;
 		this.roomcode2 = roomcode2;
