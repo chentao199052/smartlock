@@ -5,6 +5,8 @@ package com.qingyi.model;
  *
  */
 public class RoomCard {
+	
+	
 	private String rcid;
 	
 	private String cardtype;//中文标识
