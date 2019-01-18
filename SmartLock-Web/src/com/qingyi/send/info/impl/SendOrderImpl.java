@@ -3,7 +3,13 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import com.qingyi.model.Auth;
+import com.qingyi.model.AuthCard;
+import com.qingyi.model.AuthDelCard;
+import com.qingyi.model.AuthDelFinger;
+import com.qingyi.model.AuthDelPsw;
+import com.qingyi.model.AuthFinger;
+import com.qingyi.model.AuthPsw;
+import com.qingyi.model.AuthResult;
 import com.qingyi.model.Command;
 import com.qingyi.model.DelRoomFinger;
 import com.qingyi.model.DelUnlockPsw;
@@ -624,16 +630,48 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult saveLotAuth(List<Auth> authlist, String callbackurl) {
+	public SendResult<AuthResult> saveLotAuth(List<AuthCard> clist,List<AuthDelCard> dclist,List<AuthFinger> flist,List<AuthDelFinger> dflist,List<AuthPsw> plist,List<AuthDelPsw> dplist) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
-		param.put("authlist", authlist);
-		param.put("callbackurl", callbackurl);
-		SendResult sr = StringTools.checkList(authlist);
+		param.put("cardlist", clist);
+		param.put("delcardlist", dclist);
+		param.put("finlist", flist);
+		param.put("delfinlist", dflist);
+		param.put("finlist", flist);
+		param.put("delfinlist", dflist);
+		//判断
+		SendResult sr = StringTools.checkCardList(clist);
 		if("0".equals(sr.getResultCode())) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"savelotauth", secret, param);
-			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+			sr = StringTools.checkDelCardList(dclist);
+			if("0".equals(sr.getResultCode())) {
+				sr = StringTools.checkFingerList(flist);
+				if("0".equals(sr.getResultCode())) {
+					sr = StringTools.checkDelFingerList(dflist);
+					if("0".equals(sr.getResultCode())) {
+						sr = StringTools.checkPswList(plist);
+						if("0".equals(sr.getResultCode())) {
+							sr = StringTools.checkDelPswList(dplist);
+							if(!"0".equals(sr.getResultCode())) {
+								return sr;
+							}
+						}else {
+							return sr;
+						}
+					}else {
+						return sr;
+					}
+				}else {
+					return sr;
+				}
+			}else {
+				return sr;
+			}
+		}else {
+			return sr;
 		}
+		
+		String result=HttpsUtil.httpURLConnectionPOST(baseurl,"savelotauth", secret, param);
+		sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		return sr;
 	}
 

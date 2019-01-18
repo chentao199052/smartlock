@@ -2,7 +2,12 @@ package com.qingyi.send.info;
 
 import java.util.List;
 
-import com.qingyi.model.Auth;
+import com.qingyi.model.AuthCard;
+import com.qingyi.model.AuthDelCard;
+import com.qingyi.model.AuthDelFinger;
+import com.qingyi.model.AuthDelPsw;
+import com.qingyi.model.AuthFinger;
+import com.qingyi.model.AuthPsw;
 import com.qingyi.model.Command;
 import com.qingyi.model.DelRoomFinger;
 import com.qingyi.model.DelUnlockPsw;
@@ -352,6 +357,6 @@ public interface SendOrderInfo {
 	 * @param callbackurl
 	 * @return
 	 */
-	public SendResult saveLotAuth(List<Auth> authlist,String callbackurl);
+	public SendResult saveLotAuth(List<AuthCard> clist,List<AuthDelCard> dclist,List<AuthFinger> flist,List<AuthDelFinger> dflist,List<AuthPsw> plist,List<AuthDelPsw> dplist);
 	
 }
