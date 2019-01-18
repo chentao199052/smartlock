@@ -637,8 +637,8 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("delcardlist", dclist);
 		param.put("finlist", flist);
 		param.put("delfinlist", dflist);
-		param.put("finlist", flist);
-		param.put("delfinlist", dflist);
+		param.put("pswlist", plist);
+		param.put("delpswlist", dplist);
 		//判断
 		SendResult sr = StringTools.checkCardList(clist);
 		if("0".equals(sr.getResultCode())) {
