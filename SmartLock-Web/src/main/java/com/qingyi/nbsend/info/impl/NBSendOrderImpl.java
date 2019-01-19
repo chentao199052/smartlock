@@ -22,6 +22,8 @@ import com.qingyi.util.Constant;
 import com.qingyi.util.HttpsUtil;
 import com.qingyi.util.StringTools;
 
+import net.sf.json.JSONObject;
+
 public class NBSendOrderImpl implements NBSendOrderInfo {
 	private String baseurl;
 	
@@ -57,7 +59,8 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
 				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"saveunlockpswnb", secret, param);
-				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+				//sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+				sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 			}
 			return sr;
 		}
@@ -76,7 +79,8 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
 				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"delunlockpswnb", secret, param);
-				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+				//sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+				sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 			}
 			return sr;
 		}
@@ -103,7 +107,8 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
 				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateroomcardxzsxnb", secret, param);
-				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+				//sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+				sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 			}
 			return sr;
 		}
@@ -123,7 +128,8 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
 				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateroomfingerxzsxnb", secret, param);
-				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+				//sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+				sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 			}
 			return sr;
 		}
@@ -149,7 +155,8 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 					while (!(sss.indexOf("{")==-1)) {
 						String s1=sss.substring(sss.indexOf("{"),sss.indexOf("}")+1);
 						sss=sss.substring(sss.indexOf("}")+1);
-						sr=(SendResult) StringTools.getResultObject(s1,SendResult.class);
+						//sr=(SendResult) StringTools.getResultObject(s1,SendResult.class);
+						sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(s1), SendResult.class);
 						result.add(sr);
 					}
 				}
@@ -171,7 +178,8 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
 				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"syscfingernb", secret, param);
-				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+				//sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+				sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 			}
 			return sr;
 		}
@@ -191,7 +199,8 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
 				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"sysccardnb", secret, param);
-				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+				//sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+				sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 			}
 			return sr;
 		}
@@ -218,7 +227,8 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
 				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"saveroomcardnb", secret, param);
-				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+				//sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+				sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 			}
 			return sr;
 		}
@@ -243,7 +253,8 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
 				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"delroomcardnb", secret, param);
-				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+				//sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+				sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 			}
 			return sr;
 		}
@@ -286,7 +297,8 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
 				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"savenblog1", secret, param);
-				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+				//sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+				sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 			}
 			return sr;
 		}
@@ -303,7 +315,8 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
 				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"recordsnb", secret, param);
-				sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+				//sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+				sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 			}
 			return sr;
 		}
@@ -379,7 +392,8 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
 				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updatedevice", secret, param);
-				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
+				//sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
+				sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 			}
 			return sr;
 		}
@@ -395,7 +409,8 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
 				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"deldevice", secret, param);
-				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
+				//sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
+				sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 			}
 			return sr;
 		}
@@ -562,7 +577,8 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
 				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"saveroomfingernb", secret, param);
-				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
+				//sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
+				sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 			}
 			return sr;
 		}
@@ -584,7 +600,8 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
 				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"saveroomfingernb", secret, param);
-				sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
+				//sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
+				sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 			}
 			return sr;
 		}
