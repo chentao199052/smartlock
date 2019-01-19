@@ -210,157 +210,157 @@ public class StringTools {
 			AuthCard au = authlist.get(i);
 			if(null==au.getLocktype()) {
 				sr.setResultCode("-20002");
-				sr.setResultMsg("闂ㄩ攣绫诲瀷涓嶈兘涓虹┖");
+				sr.setResultMsg("门锁类型不能为空");
 				return sr;
 			}
 			if(au.getLocktype()<1 || au.getLocktype()>4) {
 				sr.setResultCode("-20003");
-				sr.setResultMsg("闂ㄩ攣绫诲瀷涓嶅瓨鍦�");
+				sr.setResultMsg("门锁类型不存在");
 				return sr;
 			}
 			
 			if(null==au.getRoomcode2()||au.getRoomcode2().equals("")||au.getRoomcode2().equals("null")) {
 				sr.setResultCode("-10019");
-				sr.setResultMsg("闂ㄩ攣鍞竴ID涓嶅厑璁镐负绌�");
+				sr.setResultMsg("门锁唯一ID不能为空");
 				return sr;
 			}else if(au.getRoomcode2().length()!=10||au.getRoomcode2().toUpperCase().matches(".*[G-Z].*")) {
 				sr.setResultCode("-10020");
-				sr.setResultMsg("闂ㄩ攣鍞竴ID蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+				sr.setResultMsg("门锁唯一ID必须为10位十六进制字符串");
 				return sr;
 			}
 			if(au.getLocktype()==1) {
 				if(null==au.getRoomcode()||au.getRoomcode().equals("")||au.getRoomcode().equals("null")) {
 					sr.setResultCode("-10005");
-					sr.setResultMsg("鎴块棿缂栧彿涓嶅厑璁镐负绌�");
+					sr.setResultMsg("无线联网锁门锁编号不能为空");
 					return sr;
 				}else if(au.getRoomcode().length()!=4||au.getRoomcode().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10006");
-					sr.setResultMsg("鎴块棿缂栧彿蹇呴』鏄暱搴︿负4鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("门锁编号必须为4位十六进制字符串");
 					return sr;
 				}
 				if(null==au.getGatewaycode()||au.getGatewaycode().equals("")||au.getGatewaycode().equals("null")) {
 					sr.setResultCode("-10001");
-					sr.setResultMsg("缃戝叧閫氳ID涓嶅厑璁镐负绌�");
+					sr.setResultMsg("无线联网锁网关通讯ID不能为空");
 					return sr;
 				}else if(au.getGatewaycode().length()!=10||au.getGatewaycode().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10002");
-					sr.setResultMsg("缃戝叧閫氳ID蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("网关通讯ID必须为10位十六进制字符串");
 					return sr;
 				}
 				if(null==au.getGatewaycode2()||au.getGatewaycode2().equals("")||au.getGatewaycode2().equals("null")) {
 					sr.setResultCode("-10003");
-					sr.setResultMsg("缃戝叧鍞竴ID涓嶅厑璁镐负绌�");
+					sr.setResultMsg("无线联网锁网关唯一ID不能为空");
 					return sr;
 				}else if(au.getGatewaycode2().length()!=10||au.getGatewaycode2().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10004");
-					sr.setResultMsg("缃戝叧鍞竴ID蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("网关唯一ID必须为10位十六进制字符串");
 					return sr;
 				}
 			}else {
 				if(null==au.getImei()||au.getImei().equals("")||au.getImei().equals("null")) {
 					sr.setResultCode("-10042");
-					sr.setResultMsg("IMEI涓嶅厑璁镐负绌�");
+					sr.setResultMsg("IMEI不能为空");
 					return sr;
 				}
 			}
 			
 			if(null==au.getCardcode()||au.getCardcode().equals("")||au.getCardcode().equals("null")) {
 				sr.setResultCode("-10028");
-				sr.setResultMsg("鍗″彿涓嶅厑璁镐负绌�");
+				sr.setResultMsg("卡号不能为空");
 				return sr;
 			}
 			
 			if(null==au.getCardtype()||au.getCardtype().equals("")||au.getCardtype().equals("null")) {
 				sr.setResultCode("-20006");
-				sr.setResultMsg("鍗＄被鍨嬩笉鍏佽涓虹┖");
+				sr.setResultMsg("卡片类型不能为空");
 				return sr;
 			}
 			
-			if(au.getCardtype().equals("寮�闂ㄥ崱")||au.getCardtype().equals("绠＄悊鍗�")||au.getCardtype().equals("鎺堟潈鍗�")) {
+			if(au.getCardtype().equals("开门卡")||au.getCardtype().equals("管理卡")||au.getCardtype().equals("授权卡")) {
 				if(au.getCardcode().length()!=8||au.getCardcode().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10029");
-					sr.setResultMsg("寮�闂ㄥ崱/绠＄悊鍗�/鎺堟潈鍗″崱鍙峰繀椤绘槸闀垮害涓�8鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("开门卡/管理卡/授权卡必须为8位十六进制字符串");
 					return sr;
 				}
-			}else if(au.getCardtype().equals("韬唤璇�")) {
+			}else if(au.getCardtype().equals("身份证")) {
 				if(au.getCardcode().length()!=16||au.getCardcode().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10030");
-					sr.setResultMsg("寮�闂ㄥ崱/绠＄悊鍗�/鎺堟潈鍗″崱鍙峰繀椤绘槸闀垮害涓�16鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("身份证必须为16位十六进制字符串");
 					return sr;
 				}
 			}
 				
 			if(null==au.getOpenstime()||au.getOpenstime().equals("")||au.getOpenstime().equals("null")) {
 				sr.setResultCode("-10022");
-				sr.setResultMsg("鍙紑闂ㄦ椂闂存寮�濮嬫椂闂翠笉鍏佽涓虹┖");
+				sr.setResultMsg("可开门时间段开始时间不能为空");
 				return sr;
 			}else if(au.getOpenstime().length()!=5) {
 				sr.setResultCode("-10023");
-				sr.setResultMsg("鍙紑闂ㄦ椂闂存寮�濮嬫椂闂存牸寮忛敊璇紝鏍煎紡蹇呴』涓篨X:XX锛屼緥濡�00:00");
+				sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
 				return sr;
 			}else if(!au.getOpenstime().contains(":")) {
 				sr.setResultCode("-10023");
-				sr.setResultMsg("鍙紑闂ㄦ椂闂存寮�濮嬫椂闂存牸寮忛敊璇紝鏍煎紡蹇呴』涓篨X:XX锛屼緥濡�00:00");
+				sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
 				return sr;
 			}else {
 				String t = au.getOpenstime().replace(":", "");
 				if(t.length()!=4||!t.matches("\\d+")) {
 					sr.setResultCode("-10023");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存寮�濮嬫椂闂存牸寮忛敊璇紝鏍煎紡蹇呴』涓篨X:XX锛屼緥濡�00:00");
+					sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
 					return sr;
 				}
 			}
 				
 			if(null==au.getOpenetime()||au.getOpenetime().equals("")||au.getOpenetime().equals("null")) {
 				sr.setResultCode("-10024");
-				sr.setResultMsg("鍙紑闂ㄦ椂闂存缁撴潫鏃堕棿涓嶅厑璁镐负绌�");
+				sr.setResultMsg("可开门时间段结束时间不能为空");
 				return sr;
 			}else if(au.getOpenetime().length()!=5) {
 				sr.setResultCode("-10025");
-				sr.setResultMsg("鍙紑闂ㄦ椂闂存缁撴潫鏃堕棿鏍煎紡閿欒锛屾牸寮忓繀椤讳负XX:XX锛屼緥濡�00:00");
+				sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
 				return sr;
 			}else if(!au.getOpenetime().contains(":")) {
 				sr.setResultCode("-10025");
-				sr.setResultMsg("鍙紑闂ㄦ椂闂存缁撴潫鏃堕棿鏍煎紡閿欒锛屾牸寮忓繀椤讳负XX:XX锛屼緥濡�00:00");
+				sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
 				return sr;
 			}else {
 				String t = au.getOpenetime().replace(":", "");
 				if(t.length()!=4||!t.matches("[0-9]+")) {
 					sr.setResultCode("-10025");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存缁撴潫鏃堕棿鏍煎紡閿欒锛屾牸寮忓繀椤讳负XX:XX锛屼緥濡�00:00");
+					sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
 					return sr;
 				}
 			}
 			
 			if(null==au.getEdate()||au.getEdate().equals("")||au.getEdate().equals("null")) {
 				sr.setResultCode("-10012");
-				sr.setResultMsg("鏈夋晥缁撴潫鏃ユ湡涓嶅厑璁镐负绌�");
+				sr.setResultMsg("授权结束时间不能为空");
 				return sr;
 			}else if(!au.getEdate().equals("-1")&&(au.getEdate().length()!=10||!au.getEdate().matches("\\d+"))) {
 				sr.setResultCode("-10013");
-				sr.setResultMsg("鏈夋晥缁撴潫鏃ユ湡鏍煎紡蹇呴』涓簓yMMddHHmm");
+				sr.setResultMsg("授权结束时间格式为yyMMddHHmm");
 				return sr;
 			}
 			
 			if(null==au.getOpencount()||au.getOpencount().equals("")||au.getOpencount().equals("null")) {
 				sr.setResultCode("-10010");
-				sr.setResultMsg("鍙紑闂ㄦ鏁颁笉鍏佽涓虹┖");
+				sr.setResultMsg("可开门次数不能为空");
 				return sr;
 			}else if(!au.getOpencount().matches("[0-9]+|(-1)")) {
 				sr.setResultCode("-10011");
-				sr.setResultMsg("鍙紑闂ㄦ鏁板繀椤讳负10杩涘埗鏁板瓧");
+				sr.setResultMsg("可开门次数必须为0-254数字,0表示不限次数");
 				return sr;
 			}
 			
 			if(null==au.getCallbackurl() || au.getCallbackurl().equals("") || au.getCallbackurl().equals("null")) {
 				sr.setResultCode("-20004");
-				sr.setResultMsg("鍥炶皟鍦板潃涓嶈兘涓虹┖");
+				sr.setResultMsg("回调地址不能为空");
 				return sr;
 			}
 			
 			if(null==au.getTimeout() || au.getTimeout()<0) {
 				sr.setResultCode("-20005");
-				sr.setResultMsg("鎸囦护瓒呮椂鏃堕棿涓嶈兘涓虹┖鎴栧皬浜�0");
+				sr.setResultMsg("指令超时时间不能为空");
 				return sr;
 			}
 		}
@@ -376,81 +376,81 @@ public class StringTools {
 			AuthDelCard au = authlist.get(i);
 			if(null==au.getLocktype()) {
 				sr.setResultCode("-20002");
-				sr.setResultMsg("闂ㄩ攣绫诲瀷涓嶈兘涓虹┖");
+				sr.setResultMsg("门锁类型不能为空");
 				return sr;
 			}
 			if(au.getLocktype()<1 || au.getLocktype()>4) {
 				sr.setResultCode("-20003");
-				sr.setResultMsg("闂ㄩ攣绫诲瀷涓嶅瓨鍦�");
+				sr.setResultMsg("门锁类型不存在");
 				return sr;
 			}
 			
 			if(null==au.getRoomcode2()||au.getRoomcode2().equals("")||au.getRoomcode2().equals("null")) {
 				sr.setResultCode("-10019");
-				sr.setResultMsg("闂ㄩ攣鍞竴ID涓嶅厑璁镐负绌�");
+				sr.setResultMsg("门锁唯一ID不能为空");
 				return sr;
 			}else if(au.getRoomcode2().length()!=10||au.getRoomcode2().toUpperCase().matches(".*[G-Z].*")) {
 				sr.setResultCode("-10020");
-				sr.setResultMsg("闂ㄩ攣鍞竴ID蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+				sr.setResultMsg("门锁唯一ID必须为10位十六进制字符串");
 				return sr;
 			}
 			if(au.getLocktype()==1) {
 				if(null==au.getRoomcode()||au.getRoomcode().equals("")||au.getRoomcode().equals("null")) {
 					sr.setResultCode("-10005");
-					sr.setResultMsg("鎴块棿缂栧彿涓嶅厑璁镐负绌�");
+					sr.setResultMsg("无线联网锁门锁编号不能为空");
 					return sr;
 				}else if(au.getRoomcode().length()!=4||au.getRoomcode().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10006");
-					sr.setResultMsg("鎴块棿缂栧彿蹇呴』鏄暱搴︿负4鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("门锁编号必须为4位十六进制字符串");
 					return sr;
 				}
 				if(null==au.getGatewaycode()||au.getGatewaycode().equals("")||au.getGatewaycode().equals("null")) {
 					sr.setResultCode("-10001");
-					sr.setResultMsg("缃戝叧閫氳ID涓嶅厑璁镐负绌�");
+					sr.setResultMsg("无线联网锁网关通讯ID不能为空");
 					return sr;
 				}else if(au.getGatewaycode().length()!=10||au.getGatewaycode().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10002");
-					sr.setResultMsg("缃戝叧閫氳ID蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("网关通讯ID必须为10位十六进制字符串");
 					return sr;
 				}
 				if(null==au.getGatewaycode2()||au.getGatewaycode2().equals("")||au.getGatewaycode2().equals("null")) {
 					sr.setResultCode("-10003");
-					sr.setResultMsg("缃戝叧鍞竴ID涓嶅厑璁镐负绌�");
+					sr.setResultMsg("无线联网锁网关唯一ID不能为空");
 					return sr;
 				}else if(au.getGatewaycode2().length()!=10||au.getGatewaycode2().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10004");
-					sr.setResultMsg("缃戝叧鍞竴ID蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("网关唯一ID必须为10位十六进制字符串");
 					return sr;
 				}
 			}else {
 				if(null==au.getImei()||au.getImei().equals("")||au.getImei().equals("null")) {
 					sr.setResultCode("-10042");
-					sr.setResultMsg("IMEI涓嶅厑璁镐负绌�");
+					sr.setResultMsg("IMEI不能为空");
 					return sr;
 				}
 			}
 			
 			if(null==au.getCardcode()||au.getCardcode().equals("")||au.getCardcode().equals("null")) {
 				sr.setResultCode("-10028");
-				sr.setResultMsg("鍗″彿涓嶅厑璁镐负绌�");
+				sr.setResultMsg("卡号不能为空");
 				return sr;
 			}
 			
 			if((au.getCardcode().length()!=8 && au.getCardcode().length()!=16)||au.getCardcode().toUpperCase().matches(".*[G-Z].*")) {
 				sr.setResultCode("-10029");
-				sr.setResultMsg("寮�闂ㄥ崱/绠＄悊鍗�/鎺堟潈鍗″崱鍙峰繀椤绘槸闀垮害涓�8锛堣韩浠借瘉闀垮害16锛夌殑16杩涘埗瀛楃涓�");
+				sr.setResultMsg("开门卡，管理卡，授权卡卡号必须为8位（身份证16位）十六进制字符串");
 				return sr;
 			}
 			
 			if(null==au.getCallbackurl() || au.getCallbackurl().equals("") || au.getCallbackurl().equals("null")) {
 				sr.setResultCode("-20004");
-				sr.setResultMsg("鍥炶皟鍦板潃涓嶈兘涓虹┖");
+				sr.setResultMsg("回调地址不能为空");
 				return sr;
 			}
 			
 			if(null==au.getTimeout() || au.getTimeout()<0) {
 				sr.setResultCode("-20005");
-				sr.setResultMsg("鎸囦护瓒呮椂鏃堕棿涓嶈兘涓虹┖鎴栧皬浜�0");
+				sr.setResultMsg("指令超时时间不能为空");
 				return sr;
 			}
 		}
@@ -466,161 +466,161 @@ public class StringTools {
 			AuthFinger au = authlist.get(i);
 			if(null==au.getLocktype()) {
 				sr.setResultCode("-20002");
-				sr.setResultMsg("闂ㄩ攣绫诲瀷涓嶈兘涓虹┖");
+				sr.setResultMsg("门锁类型不能为空");
 				return sr;
 			}
 			if(au.getLocktype()<1 || au.getLocktype()>4) {
 				sr.setResultCode("-20003");
-				sr.setResultMsg("闂ㄩ攣绫诲瀷涓嶅瓨鍦�");
+				sr.setResultMsg("门锁类型不存在");
 				return sr;
 			}
 			
 			if(null==au.getRoomcode2()||au.getRoomcode2().equals("")||au.getRoomcode2().equals("null")) {
 				sr.setResultCode("-10019");
-				sr.setResultMsg("闂ㄩ攣鍞竴ID涓嶅厑璁镐负绌�");
+				sr.setResultMsg("门锁唯一ID不能为空");
 				return sr;
 			}else if(au.getRoomcode2().length()!=10||au.getRoomcode2().toUpperCase().matches(".*[G-Z].*")) {
 				sr.setResultCode("-10020");
-				sr.setResultMsg("闂ㄩ攣鍞竴ID蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+				sr.setResultMsg("门锁唯一ID必须为10位十六进制字符串");
 				return sr;
 			}
 			if(au.getLocktype()==1) {
 				if(null==au.getRoomcode()||au.getRoomcode().equals("")||au.getRoomcode().equals("null")) {
 					sr.setResultCode("-10005");
-					sr.setResultMsg("鎴块棿缂栧彿涓嶅厑璁镐负绌�");
+					sr.setResultMsg("无线联网锁门锁编号不能为空");
 					return sr;
 				}else if(au.getRoomcode().length()!=4||au.getRoomcode().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10006");
-					sr.setResultMsg("鎴块棿缂栧彿蹇呴』鏄暱搴︿负4鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("门锁编号必须为4位十六进制字符串");
 					return sr;
 				}
 				if(null==au.getGatewaycode()||au.getGatewaycode().equals("")||au.getGatewaycode().equals("null")) {
 					sr.setResultCode("-10001");
-					sr.setResultMsg("缃戝叧閫氳ID涓嶅厑璁镐负绌�");
+					sr.setResultMsg("无线联网锁网关通讯ID不能为空");
 					return sr;
 				}else if(au.getGatewaycode().length()!=10||au.getGatewaycode().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10002");
-					sr.setResultMsg("缃戝叧閫氳ID蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("网关通讯ID必须为10位十六进制字符串");
 					return sr;
 				}
 				if(null==au.getGatewaycode2()||au.getGatewaycode2().equals("")||au.getGatewaycode2().equals("null")) {
 					sr.setResultCode("-10003");
-					sr.setResultMsg("缃戝叧鍞竴ID涓嶅厑璁镐负绌�");
+					sr.setResultMsg("无线联网锁网关唯一ID不能为空");
 					return sr;
 				}else if(au.getGatewaycode2().length()!=10||au.getGatewaycode2().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10004");
-					sr.setResultMsg("缃戝叧鍞竴ID蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("网关唯一ID必须为10位十六进制字符串");
 					return sr;
 				}
 			}else {
 				if(null==au.getImei()||au.getImei().equals("")||au.getImei().equals("null")) {
 					sr.setResultCode("-10042");
-					sr.setResultMsg("IMEI涓嶅厑璁镐负绌�");
+					sr.setResultMsg("IMEI不能为空");
 					return sr;
 				}
 			}
 			
 			if(null==au.getActioncount()||au.getActioncount().equals("")||au.getActioncount().equals("null")) {
 				sr.setResultCode("-10039");
-				sr.setResultMsg("寮�闂ㄩ渶鎸夋寚绾规鏁颁笉鍏佽涓虹┖");
+				sr.setResultMsg("开门需按指纹次数不能为空");
 				return sr;
 			}else if(!au.getActioncount().matches("[0-9]*")) {
 				sr.setResultCode("-10040");
-				sr.setResultMsg("寮�闂ㄩ渶鎸夋寚绾规鏁板繀椤讳负鏁板瓧");
+				sr.setResultMsg("开门需按指纹次数必须为数字");
 				return sr;
 			}
 			
 			if(null==au.getFingercode()||au.getFingercode().equals("")||au.getFingercode().equals("null")) {
 				sr.setResultCode("-10035");
-				sr.setResultMsg("鎸囩汗缂栧彿涓嶅厑璁镐负绌�");
+				sr.setResultMsg("指纹编号不能为空");
 				return sr;
 			}else if(au.getFingercode().length()!=8||au.getFingercode().toUpperCase().matches(".*[G-Z].*")) {
 				sr.setResultCode("-10036");
-				sr.setResultMsg("鎸囩汗缂栧彿蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+				sr.setResultMsg("指纹编号必须为8位十六进制字符串");
 				return sr;
 			}
 			if(null==au.getFingercontent()||au.getFingercontent().equals("")||au.getFingercontent().equals("null")) {
 				sr.setResultCode("-10037");
-				sr.setResultMsg("鎸囩汗鐗瑰緛鐮佷笉鍏佽涓虹┖");
+				sr.setResultMsg("指纹特征码不能为空");
 				return sr;
 			}else if(au.getFingercontent().length()!=988||au.getFingercontent().toUpperCase().matches(".*[G-Z].*")) {
 				sr.setResultCode("-10038");
-				sr.setResultMsg("鎸囩汗鐗瑰緛鐮佸繀椤绘槸闀垮害涓�988鐨�16杩涘埗瀛楃涓�");
+				sr.setResultMsg("指纹特征码必须为988位十六进制字符串");
 				return sr;
 			}
 			
 			
 			if(null==au.getOpenstime()||au.getOpenstime().equals("")||au.getOpenstime().equals("null")) {
 				sr.setResultCode("-10022");
-				sr.setResultMsg("鍙紑闂ㄦ椂闂存寮�濮嬫椂闂翠笉鍏佽涓虹┖");
+				sr.setResultMsg("可开门时间段开始时间不能为空");
 				return sr;
 			}else if(au.getOpenstime().length()!=5) {
 				sr.setResultCode("-10023");
-				sr.setResultMsg("鍙紑闂ㄦ椂闂存寮�濮嬫椂闂存牸寮忛敊璇紝鏍煎紡蹇呴』涓篨X:XX锛屼緥濡�00:00");
+				sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
 				return sr;
 			}else if(!au.getOpenstime().contains(":")) {
 				sr.setResultCode("-10023");
-				sr.setResultMsg("鍙紑闂ㄦ椂闂存寮�濮嬫椂闂存牸寮忛敊璇紝鏍煎紡蹇呴』涓篨X:XX锛屼緥濡�00:00");
+				sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
 				return sr;
 			}else {
 				String t = au.getOpenstime().replace(":", "");
 				if(t.length()!=4||!t.matches("\\d+")) {
 					sr.setResultCode("-10023");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存寮�濮嬫椂闂存牸寮忛敊璇紝鏍煎紡蹇呴』涓篨X:XX锛屼緥濡�00:00");
+					sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
 					return sr;
 				}
 			}
 				
 			if(null==au.getOpenetime()||au.getOpenetime().equals("")||au.getOpenetime().equals("null")) {
 				sr.setResultCode("-10024");
-				sr.setResultMsg("鍙紑闂ㄦ椂闂存缁撴潫鏃堕棿涓嶅厑璁镐负绌�");
+				sr.setResultMsg("可开门时间段结束时间不能为空");
 				return sr;
 			}else if(au.getOpenetime().length()!=5) {
 				sr.setResultCode("-10025");
-				sr.setResultMsg("鍙紑闂ㄦ椂闂存缁撴潫鏃堕棿鏍煎紡閿欒锛屾牸寮忓繀椤讳负XX:XX锛屼緥濡�00:00");
+				sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
 				return sr;
 			}else if(!au.getOpenetime().contains(":")) {
 				sr.setResultCode("-10025");
-				sr.setResultMsg("鍙紑闂ㄦ椂闂存缁撴潫鏃堕棿鏍煎紡閿欒锛屾牸寮忓繀椤讳负XX:XX锛屼緥濡�00:00");
+				sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
 				return sr;
 			}else {
 				String t = au.getOpenetime().replace(":", "");
 				if(t.length()!=4||!t.matches("[0-9]+")) {
 					sr.setResultCode("-10025");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存缁撴潫鏃堕棿鏍煎紡閿欒锛屾牸寮忓繀椤讳负XX:XX锛屼緥濡�00:00");
+					sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
 					return sr;
 				}
 			}
 			
 			if(null==au.getEdate()||au.getEdate().equals("")||au.getEdate().equals("null")) {
 				sr.setResultCode("-10012");
-				sr.setResultMsg("鏈夋晥缁撴潫鏃ユ湡涓嶅厑璁镐负绌�");
+				sr.setResultMsg("授权结束时间不能为空");
 				return sr;
 			}else if(!au.getEdate().equals("-1")&&(au.getEdate().length()!=10||!au.getEdate().matches("\\d+"))) {
 				sr.setResultCode("-10013");
-				sr.setResultMsg("鏈夋晥缁撴潫鏃ユ湡鏍煎紡蹇呴』涓簓yMMddHHmm");
+				sr.setResultMsg("授权结束时间格式为yyMMddHHmm");
 				return sr;
 			}
 			
 			if(null==au.getOpencount()||au.getOpencount().equals("")||au.getOpencount().equals("null")) {
 				sr.setResultCode("-10010");
-				sr.setResultMsg("鍙紑闂ㄦ鏁颁笉鍏佽涓虹┖");
+				sr.setResultMsg("可开门次数不能为空");
 				return sr;
-			}else if(!au.getOpencount().matches("[0-9]*")) {
+			}else if(!au.getOpencount().matches("[0-9]+|(-1)")) {
 				sr.setResultCode("-10011");
-				sr.setResultMsg("鍙紑闂ㄦ鏁板繀椤讳负10杩涘埗鏁板瓧");
+				sr.setResultMsg("可开门次数必须为0-254数字,0表示不限次数");
 				return sr;
 			}
 			
 			if(null==au.getCallbackurl() || au.getCallbackurl().equals("") || au.getCallbackurl().equals("null")) {
 				sr.setResultCode("-20004");
-				sr.setResultMsg("鍥炶皟鍦板潃涓嶈兘涓虹┖");
+				sr.setResultMsg("回调地址不能为空");
 				return sr;
 			}
 			
 			if(null==au.getTimeout() || au.getTimeout()<0) {
 				sr.setResultCode("-20005");
-				sr.setResultMsg("鎸囦护瓒呮椂鏃堕棿涓嶈兘涓虹┖鎴栧皬浜�0");
+				sr.setResultMsg("指令超时时间不能为空");
 				return sr;
 			}
 		}
@@ -637,254 +637,254 @@ public class StringTools {
 			if(key.equals("gatewaycode")) {
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10001");
-					sr.setResultMsg("缃戝叧閫氳ID涓嶅厑璁镐负绌�");
+					sr.setResultMsg("网关通讯ID不能为空");
 					return sr;
 				}else if(val.toString().length()!=10||val.toString().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10002");
-					sr.setResultMsg("缃戝叧閫氳ID蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("网关通讯ID必须为10位十六进制字符串");
 					return sr;
 				}
 			}else if(key.equals("gatewaycode2")) {
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10003");
-					sr.setResultMsg("缃戝叧鍞竴ID涓嶅厑璁镐负绌�");
+					sr.setResultMsg("网关唯一ID不能为空");
 					return sr;
 				}else if(val.toString().length()!=10||val.toString().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10004");
-					sr.setResultMsg("缃戝叧鍞竴ID蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("网关唯一ID必须为10位十六进制字符串");
 					return sr;
 				}
 			}else if(key.equals("roomcode")) {
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10005");
-					sr.setResultMsg("鎴块棿缂栧彿涓嶅厑璁镐负绌�");
+					sr.setResultMsg("门锁编号不能为空");
 					return sr;
 				}else if(val.toString().length()!=4||val.toString().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10006");
-					sr.setResultMsg("鎴块棿缂栧彿蹇呴』鏄暱搴︿负4鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("门锁编号必须为4位十六进制字符串");
 					return sr;
 				}
 			}else if(key.equals("timeout")) {
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10007");
-					sr.setResultMsg("鏈夋晥鏃堕棿涓嶅厑璁镐负绌�");
+					sr.setResultMsg("指令超时时间不能为空");
 					return sr;
 				}else if(!val.toString().matches("[0-9]+")) {
 					sr.setResultCode("-10021");
-					sr.setResultMsg("鏈夋晥鏃堕棿蹇呴』涓�10杩涘埗鏁板瓧");
+					sr.setResultMsg("指令超时时间必须为数字");
 					return sr;
 				}
 			}else if(key.equals("pass")) {
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10008");
-					sr.setResultMsg("鎺堟潈瀵嗙爜涓嶅厑璁镐负绌�");
+					sr.setResultMsg("密码不能为空");
 					return sr;
 				}else if(val.toString().length()!=6||!val.toString().matches("[0-9]+")) {
 					sr.setResultCode("-10009");
-					sr.setResultMsg("鎺堟潈瀵嗙爜蹇呴』鏄暱搴︿负6鐨�10杩涘埗瀛楃涓�");
+					sr.setResultMsg("密码必须为6位数字");
 					return sr;
 				}
 			}else if(key.equals("count")) {
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10010");
-					sr.setResultMsg("鍙紑闂ㄦ鏁颁笉鍏佽涓虹┖");
+					sr.setResultMsg("可开门次数不能为空");
 					return sr;
 				}else if(!val.toString().matches("[0-9]+|(-1)")) {
 					sr.setResultCode("-10011");
-					sr.setResultMsg("鍙紑闂ㄦ鏁板繀椤讳负10杩涘埗鏁板瓧");
+					sr.setResultMsg("可开门次数必须为0-254数字,0表示不限次数");
 					return sr;
 				}
 			}else if(key.equals("edate")) {
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10012");
-					sr.setResultMsg("鏈夋晥缁撴潫鏃ユ湡涓嶅厑璁镐负绌�");
+					sr.setResultMsg("授权结束时间不能为空");
 					return sr;
 				}else if(!val.toString().equals("-1")&&(val.toString().length()!=10||!val.toString().matches("\\d+"))) {
 					sr.setResultCode("-10013");
-					sr.setResultMsg("鏈夋晥缁撴潫鏃ユ湡鏍煎紡蹇呴』涓簓yMMddHHmm");
+					sr.setResultMsg("授权结束时间格式为yyMMddHHmm");
 					return sr;
 				}
 			}else if(key.equals("unlockstime")) {
 				String val2=val.toString().replace(":", "");
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10014");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存寮�濮嬫椂闂翠笉鍏佽涓虹┖");
+					sr.setResultMsg("可开门时间段开始时间不能为空");
 					return sr;
 				}else if(val.toString().length()!=5) {
 					sr.setResultCode("-10015");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存寮�濮嬫椂闂存牸寮忛敊璇紝鏍煎紡蹇呴』涓篨X:XX锛屼緥濡�00:00");
+					sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
 					return sr;
 				}else if(!val.toString().contains(":")) {
 					sr.setResultCode("-10015");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存寮�濮嬫椂闂存牸寮忛敊璇紝鏍煎紡蹇呴』涓篨X:XX锛屼緥濡�00:00");
+					sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
 					return sr;
 				}else if(val2.length()!=4||!val2.matches("[0-9]+")) {
 					sr.setResultCode("-10015");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存寮�濮嬫椂闂存牸寮忛敊璇紝鏍煎紡蹇呴』涓篨X:XX锛屼緥濡�00:00");
+					sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
 					return sr;
 				}
 			}else if(key.equals("unlocketime")) {
 				String val2=val.toString().replace(":", "");
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10016");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存缁撴潫鏃堕棿涓嶅厑璁镐负绌�");
+					sr.setResultMsg("可开门时间段结束时间不能为空");
 					return sr;
 				}else if(val.toString().length()!=5) {
 					sr.setResultCode("-10017");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存缁撴潫鏃堕棿鏍煎紡閿欒锛屾牸寮忓繀椤讳负XX:XX锛屼緥濡�00:00");
+					sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
 					return sr;
 				}else if(!val.toString().contains(":")) {
 					sr.setResultCode("-10017");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存缁撴潫鏃堕棿鏍煎紡閿欒锛屾牸寮忓繀椤讳负XX:XX锛屼緥濡�00:00");
+					sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
 					return sr;
 				}else if(val2.length()!=4||!val2.matches("[0-9]+")) {
 					sr.setResultCode("-10017");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存缁撴潫鏃堕棿鏍煎紡閿欒锛屾牸寮忓繀椤讳负XX:XX锛屼緥濡�00:00");
+					sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
 					return sr;
 				}
 			}else if(key.equals("callbackurl")) {
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10018");
-					sr.setResultMsg("鍥炶皟鍦板潃涓嶅厑璁镐负绌�");
+					sr.setResultMsg("回调地址不能为空");
 					return sr;
 				}
 			}else if(key.equals("roomcode2")) {
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10019");
-					sr.setResultMsg("闂ㄩ攣鍞竴ID涓嶅厑璁镐负绌�");
+					sr.setResultMsg("门锁唯一ID不能为空");
 					return sr;
 				}else if(val.toString().length()!=10||val.toString().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10020");
-					sr.setResultMsg("闂ㄩ攣鍞竴ID蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("门锁唯一ID必须为10位十六进制字符串");
 					return sr;
 				}
 			}else if(key.equals("openstime")) {
 				String val2=val.toString().replace(":", "");
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10022");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存寮�濮嬫椂闂翠笉鍏佽涓虹┖");
+					sr.setResultMsg("可开门时间段开始时间不能为空");
 					return sr;
 				}else if(val.toString().length()!=5) {
 					sr.setResultCode("-10023");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存寮�濮嬫椂闂存牸寮忛敊璇紝鏍煎紡蹇呴』涓篨X:XX锛屼緥濡�00:00");
+					sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
 					return sr;
 				}else if(!val.toString().contains(":")) {
 					sr.setResultCode("-10023");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存寮�濮嬫椂闂存牸寮忛敊璇紝鏍煎紡蹇呴』涓篨X:XX锛屼緥濡�00:00");
+					sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
 					return sr;
 				}else if(val2.length()!=4||!val2.matches("\\d+")) {
 					sr.setResultCode("-10023");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存寮�濮嬫椂闂存牸寮忛敊璇紝鏍煎紡蹇呴』涓篨X:XX锛屼緥濡�00:00");
+					sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
 					return sr;
 				}
 			}else if(key.equals("openetime")) {
 				String val2=val.toString().replace(":", "");
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10024");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存缁撴潫鏃堕棿涓嶅厑璁镐负绌�");
+					sr.setResultMsg("可开门时间段结束时间不能为空");
 					return sr;
 				}else if(val.toString().length()!=5) {
 					sr.setResultCode("-10025");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存缁撴潫鏃堕棿鏍煎紡閿欒锛屾牸寮忓繀椤讳负XX:XX锛屼緥濡�00:00");
+					sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
 					return sr;
 				}else if(!val.toString().contains(":")) {
 					sr.setResultCode("-10025");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存缁撴潫鏃堕棿鏍煎紡閿欒锛屾牸寮忓繀椤讳负XX:XX锛屼緥濡�00:00");
+					sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
 					return sr;
 				}else if(val2.length()!=4||!val2.matches("[0-9]+")) {
 					sr.setResultCode("-10025");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存缁撴潫鏃堕棿鏍煎紡閿欒锛屾牸寮忓繀椤讳负XX:XX锛屼緥濡�00:00");
+					sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
 					return sr;
 				}
 			}else if(key.equals("cardtype")) {
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10026");
-					sr.setResultMsg("鍗＄墖绫诲瀷涓嶅厑璁镐负绌�");
+					sr.setResultMsg("卡片类型不能为空");
 					return sr;
-				}else if(!val.toString().equals("寮�闂ㄥ崱")&&!val.toString().equals("绠＄悊鍗�")&&!val.toString().equals("鎺堟潈鍗�")&&!val.toString().equals("韬唤璇�")) {
+				}else if(!val.toString().equals("开门卡")&&!val.toString().equals("管理卡")&&!val.toString().equals("授权卡")&&!val.toString().equals("身份证")) {
 					sr.setResultCode("-10027");
-					sr.setResultMsg("鍗＄墖绫诲瀷蹇呴』涓哄紑闂ㄥ崱/绠＄悊鍗�/鎺堟潈鍗�/韬唤璇�");
+					sr.setResultMsg("卡片类型必须为开门卡/管理卡/授权卡/身份证");
 					return sr;
 				}
 			}else if(key.equals("cardcode")) {
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10028");
-					sr.setResultMsg("鍗″彿涓嶅厑璁镐负绌�");
+					sr.setResultMsg("卡号不能为空");
 					return sr;
-				}else if(val.toString().equals("寮�闂ㄥ崱")||val.toString().equals("绠＄悊鍗�")||val.toString().equals("鎺堟潈鍗�")) {
+				}else if(val.toString().equals("开门卡")||val.toString().equals("管理卡")||val.toString().equals("授权卡")) {
 					if(val.toString().length()!=8||val.toString().toUpperCase().matches(".*[G-Z].*")) {
 						sr.setResultCode("-10029");
-						sr.setResultMsg("寮�闂ㄥ崱/绠＄悊鍗�/鎺堟潈鍗″崱鍙峰繀椤绘槸闀垮害涓�10鐨�16杩涘埗瀛楃涓�");
+						sr.setResultMsg("开门卡/管理卡/授权卡必须为8位十六进制字符串");
 						return sr;
 					}
-				}else if(val.toString().equals("韬唤璇�")) {
+				}else if(val.toString().equals("身份证")) {
 					if(val.toString().length()!=16||val.toString().toUpperCase().matches(".*[G-Z].*")) {
 						sr.setResultCode("-10030");
-						sr.setResultMsg("寮�闂ㄥ崱/绠＄悊鍗�/鎺堟潈鍗″崱鍙峰繀椤绘槸闀垮害涓�16鐨�16杩涘埗瀛楃涓�");
+						sr.setResultMsg("身份证必须为16位十六进制字符串");
 						return sr;
 					}
 				}
 			}else if(key.equals("cardedate")) {
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10031");
-					sr.setResultMsg("鍗＄墖鏈夋晥缁撴潫鏃ユ湡涓嶅厑璁镐负绌�");
+					sr.setResultMsg("授权结束时间不能为空");
 					return sr;
 				}else if(!val.toString().equals("-1")&&(val.toString().length()!=10||!val.toString().matches("\\d+"))) {
 					sr.setResultCode("-10032");
-					sr.setResultMsg("鍗＄墖鏈夋晥缁撴潫鏃ユ湡鏍煎紡蹇呴』涓簓yMMddHHmm");
+					sr.setResultMsg("授权结束时间格式为yyMMddHHmm");
 					return sr;
 				}
 			}else if(key.equals("opencount")) {
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10033");
-					sr.setResultMsg("鍙紑闂ㄦ鏁颁笉鍏佽涓虹┖");
+					sr.setResultMsg("可开门次数不能为空");
 					return sr;
 				}else if(!val.toString().matches("[0-9]+|(-1)")) {
 					sr.setResultCode("-10034");
-					sr.setResultMsg("鍙紑闂ㄦ鏁板繀椤讳负鏁板瓧");
+					sr.setResultMsg("可开门次数必须为0-254数字,0表示不限次数");
 					return sr;
 				}
 			}else if(key.equals("fingercode")) {
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10035");
-					sr.setResultMsg("鎸囩汗缂栧彿涓嶅厑璁镐负绌�");
+					sr.setResultMsg("指纹编号不能为空");
 					return sr;
 				}else if(val.toString().length()!=8||val.toString().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10036");
-					sr.setResultMsg("鎸囩汗缂栧彿蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("指纹编号必须为8位十六进制字符串");
 					return sr;
 				}
 			}else if(key.equals("fingercontent")) {
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10037");
-					sr.setResultMsg("鎸囩汗鐗瑰緛鐮佷笉鍏佽涓虹┖");
+					sr.setResultMsg("指纹特征码不能为空");
 					return sr;
 				}else if(val.toString().length()!=988||val.toString().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10038");
-					sr.setResultMsg("鎸囩汗鐗瑰緛鐮佸繀椤绘槸闀垮害涓�988鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("指纹特征码必须为988位十六进制字符串");
 					return sr;
 				}
 			}else if(key.equals("actioncount")) {
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10039");
-					sr.setResultMsg("寮�闂ㄩ渶鎸夋寚绾规鏁颁笉鍏佽涓虹┖");
+					sr.setResultMsg("开门需按指纹次数不能为空");
 					return sr;
 				}else if(!val.toString().matches("[0-9]+|(-1)")) {
 					sr.setResultCode("-10040");
-					sr.setResultMsg("寮�闂ㄩ渶鎸夋寚绾规鏁板繀椤讳负鏁板瓧");
+					sr.setResultMsg("开门需按指纹次数必须为数字");
 					return sr;
 				}
 			}else if(key.equals("rclist")) {
 			}else if(key.equals("fpcode")) {
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10041");
-					sr.setResultMsg("鎸囩汗鏈哄敮涓�ID涓嶅厑璁镐负绌�");
+					sr.setResultMsg("指纹机唯一ID不能为空");
 					return sr;
 				}
 			}else if(key.equals("roomimei")) {
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10042");
-					sr.setResultMsg("IMEI涓嶅厑璁镐负绌�");
+					sr.setResultMsg("IMEI不能为空");
 					return sr;
 				}
 			}
@@ -901,79 +901,79 @@ public class StringTools {
 			AuthDelFinger au = authlist.get(i);
 			if(null==au.getLocktype()) {
 				sr.setResultCode("-20002");
-				sr.setResultMsg("闂ㄩ攣绫诲瀷涓嶈兘涓虹┖");
+				sr.setResultMsg("门锁类型不能为空");
 				return sr;
 			}
 			if(au.getLocktype()<1 || au.getLocktype()>4) {
 				sr.setResultCode("-20003");
-				sr.setResultMsg("闂ㄩ攣绫诲瀷涓嶅瓨鍦�");
+				sr.setResultMsg("门锁类型不存在");
 				return sr;
 			}
 			
 			if(null==au.getRoomcode2()||au.getRoomcode2().equals("")||au.getRoomcode2().equals("null")) {
 				sr.setResultCode("-10019");
-				sr.setResultMsg("闂ㄩ攣鍞竴ID涓嶅厑璁镐负绌�");
+				sr.setResultMsg("门锁唯一ID不能为空");
 				return sr;
 			}else if(au.getRoomcode2().length()!=10||au.getRoomcode2().toUpperCase().matches(".*[G-Z].*")) {
 				sr.setResultCode("-10020");
-				sr.setResultMsg("闂ㄩ攣鍞竴ID蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+				sr.setResultMsg("门锁唯一ID必须为10位十六进制字符串");
 				return sr;
 			}
 			if(au.getLocktype()==1) {
 				if(null==au.getRoomcode()||au.getRoomcode().equals("")||au.getRoomcode().equals("null")) {
 					sr.setResultCode("-10005");
-					sr.setResultMsg("鎴块棿缂栧彿涓嶅厑璁镐负绌�");
+					sr.setResultMsg("无线联网锁门锁编号不能为空");
 					return sr;
 				}else if(au.getRoomcode().length()!=4||au.getRoomcode().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10006");
-					sr.setResultMsg("鎴块棿缂栧彿蹇呴』鏄暱搴︿负4鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("门锁编号必须为4位十六进制字符串");
 					return sr;
 				}
 				if(null==au.getGatewaycode()||au.getGatewaycode().equals("")||au.getGatewaycode().equals("null")) {
 					sr.setResultCode("-10001");
-					sr.setResultMsg("缃戝叧閫氳ID涓嶅厑璁镐负绌�");
+					sr.setResultMsg("无线联网锁网关通讯ID不能为空");
 					return sr;
 				}else if(au.getGatewaycode().length()!=10||au.getGatewaycode().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10002");
-					sr.setResultMsg("缃戝叧閫氳ID蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("网关通讯ID必须为10位十六进制字符串");
 					return sr;
 				}
 				if(null==au.getGatewaycode2()||au.getGatewaycode2().equals("")||au.getGatewaycode2().equals("null")) {
 					sr.setResultCode("-10003");
-					sr.setResultMsg("缃戝叧鍞竴ID涓嶅厑璁镐负绌�");
+					sr.setResultMsg("无线联网锁网关唯一ID不能为空");
 					return sr;
 				}else if(au.getGatewaycode2().length()!=10||au.getGatewaycode2().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10004");
-					sr.setResultMsg("缃戝叧鍞竴ID蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("网关唯一ID必须为10位十六进制字符串");
 					return sr;
 				}
 			}else {
 				if(null==au.getImei()||au.getImei().equals("")||au.getImei().equals("null")) {
 					sr.setResultCode("-10042");
-					sr.setResultMsg("IMEI涓嶅厑璁镐负绌�");
+					sr.setResultMsg("IMEI不能为空");
 					return sr;
 				}
 			}
 			
 			if(null==au.getFingercode()||au.getFingercode().equals("")||au.getFingercode().equals("null")) {
 				sr.setResultCode("-10035");
-				sr.setResultMsg("鎸囩汗缂栧彿涓嶅厑璁镐负绌�");
+				sr.setResultMsg("指纹编号不能为空");
 				return sr;
 			}else if(au.getFingercode().length()!=8||au.getFingercode().toUpperCase().matches(".*[G-Z].*")) {
 				sr.setResultCode("-10036");
-				sr.setResultMsg("鎸囩汗缂栧彿蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+				sr.setResultMsg("指纹编号必须为8位十六进制字符串");
 				return sr;
 			}
 			
 			if(null==au.getCallbackurl() || au.getCallbackurl().equals("") || au.getCallbackurl().equals("null")) {
 				sr.setResultCode("-20004");
-				sr.setResultMsg("鍥炶皟鍦板潃涓嶈兘涓虹┖");
+				sr.setResultMsg("回调地址不能为空");
 				return sr;
 			}
 			
 			if(null==au.getTimeout() || au.getTimeout()<0) {
 				sr.setResultCode("-20005");
-				sr.setResultMsg("鎸囦护瓒呮椂鏃堕棿涓嶈兘涓虹┖鎴栧皬浜�0");
+				sr.setResultMsg("指令超时时间不能为空");
 				return sr;
 			}
 				
@@ -990,143 +990,143 @@ public class StringTools {
 			AuthPsw au = authlist.get(i);
 			if(null==au.getLocktype()) {
 				sr.setResultCode("-20002");
-				sr.setResultMsg("闂ㄩ攣绫诲瀷涓嶈兘涓虹┖");
+				sr.setResultMsg("门锁类型不能为空");
 				return sr;
 			}
 			if(au.getLocktype()<1 || au.getLocktype()>4) {
 				sr.setResultCode("-20003");
-				sr.setResultMsg("闂ㄩ攣绫诲瀷涓嶅瓨鍦�");
+				sr.setResultMsg("门锁类型不存在");
 				return sr;
 			}
 			
 			if(null==au.getRoomcode2()||au.getRoomcode2().equals("")||au.getRoomcode2().equals("null")) {
 				sr.setResultCode("-10019");
-				sr.setResultMsg("闂ㄩ攣鍞竴ID涓嶅厑璁镐负绌�");
+				sr.setResultMsg("门锁唯一ID不能为空");
 				return sr;
 			}else if(au.getRoomcode2().length()!=10||au.getRoomcode2().toUpperCase().matches(".*[G-Z].*")) {
 				sr.setResultCode("-10020");
-				sr.setResultMsg("闂ㄩ攣鍞竴ID蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+				sr.setResultMsg("门锁唯一ID必须为10位十六进制字符串");
 				return sr;
 			}
 			if(au.getLocktype()==1) {
 				if(null==au.getRoomcode()||au.getRoomcode().equals("")||au.getRoomcode().equals("null")) {
 					sr.setResultCode("-10005");
-					sr.setResultMsg("鎴块棿缂栧彿涓嶅厑璁镐负绌�");
+					sr.setResultMsg("无线联网锁门锁编号不能为空");
 					return sr;
 				}else if(au.getRoomcode().length()!=4||au.getRoomcode().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10006");
-					sr.setResultMsg("鎴块棿缂栧彿蹇呴』鏄暱搴︿负4鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("门锁编号必须为4位十六进制字符串");
 					return sr;
 				}
 				if(null==au.getGatewaycode()||au.getGatewaycode().equals("")||au.getGatewaycode().equals("null")) {
 					sr.setResultCode("-10001");
-					sr.setResultMsg("缃戝叧閫氳ID涓嶅厑璁镐负绌�");
+					sr.setResultMsg("无线联网锁网关通讯ID不能为空");
 					return sr;
 				}else if(au.getGatewaycode().length()!=10||au.getGatewaycode().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10002");
-					sr.setResultMsg("缃戝叧閫氳ID蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("网关通讯ID必须为10位十六进制字符串");
 					return sr;
 				}
 				if(null==au.getGatewaycode2()||au.getGatewaycode2().equals("")||au.getGatewaycode2().equals("null")) {
 					sr.setResultCode("-10003");
-					sr.setResultMsg("缃戝叧鍞竴ID涓嶅厑璁镐负绌�");
+					sr.setResultMsg("无线联网锁网关唯一ID不能为空");
 					return sr;
 				}else if(au.getGatewaycode2().length()!=10||au.getGatewaycode2().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10004");
-					sr.setResultMsg("缃戝叧鍞竴ID蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("网关唯一ID必须为10位十六进制字符串");
 					return sr;
 				}
 			}else {
 				if(null==au.getImei()||au.getImei().equals("")||au.getImei().equals("null")) {
 					sr.setResultCode("-10042");
-					sr.setResultMsg("IMEI涓嶅厑璁镐负绌�");
+					sr.setResultMsg("IMEI不能为空");
 					return sr;
 				}
 			}
 			if(null==au.getPassword()||au.getPassword().equals("")||au.getPassword().equals("null")) {
 				sr.setResultCode("-10008");
-				sr.setResultMsg("鎺堟潈瀵嗙爜涓嶅厑璁镐负绌�");
+				sr.setResultMsg("密码不能为空");
 				return sr;
 			}
 			Pattern pattern = Pattern.compile("[0-9]*");
 			Matcher isNum = pattern.matcher(au.getPassword());
 			if (!isNum.matches() || au.getPassword().length()!=6) {
 				sr.setResultCode("-10009");
-				sr.setResultMsg("鎺堟潈瀵嗙爜蹇呴』鏄暱搴︿负6鐨�10杩涘埗瀛楃涓�");
+				sr.setResultMsg("密码必须为6位数字");
 				return sr;
 			}
 			
 			if(null==au.getOpenstime()||au.getOpenstime().equals("")||au.getOpenstime().equals("null")) {
 				sr.setResultCode("-10022");
-				sr.setResultMsg("鍙紑闂ㄦ椂闂存寮�濮嬫椂闂翠笉鍏佽涓虹┖");
+				sr.setResultMsg("可开门时间段开始时间不能为空");
 				return sr;
 			}else if(au.getOpenstime().length()!=5) {
 				sr.setResultCode("-10023");
-				sr.setResultMsg("鍙紑闂ㄦ椂闂存寮�濮嬫椂闂存牸寮忛敊璇紝鏍煎紡蹇呴』涓篨X:XX锛屼緥濡�00:00");
+				sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
 				return sr;
 			}else if(!au.getOpenstime().contains(":")) {
 				sr.setResultCode("-10023");
-				sr.setResultMsg("鍙紑闂ㄦ椂闂存寮�濮嬫椂闂存牸寮忛敊璇紝鏍煎紡蹇呴』涓篨X:XX锛屼緥濡�00:00");
+				sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
 				return sr;
 			}else {
 				String t = au.getOpenstime().replace(":", "");
 				if(t.length()!=4||!t.matches("\\d+")) {
 					sr.setResultCode("-10023");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存寮�濮嬫椂闂存牸寮忛敊璇紝鏍煎紡蹇呴』涓篨X:XX锛屼緥濡�00:00");
+					sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
 					return sr;
 				}
 			}
 				
 			if(null==au.getOpenetime()||au.getOpenetime().equals("")||au.getOpenetime().equals("null")) {
 				sr.setResultCode("-10024");
-				sr.setResultMsg("鍙紑闂ㄦ椂闂存缁撴潫鏃堕棿涓嶅厑璁镐负绌�");
+				sr.setResultMsg("可开门时间段结束时间不能为空");
 				return sr;
 			}else if(au.getOpenetime().length()!=5) {
 				sr.setResultCode("-10025");
-				sr.setResultMsg("鍙紑闂ㄦ椂闂存缁撴潫鏃堕棿鏍煎紡閿欒锛屾牸寮忓繀椤讳负XX:XX锛屼緥濡�00:00");
+				sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
 				return sr;
 			}else if(!au.getOpenetime().contains(":")) {
 				sr.setResultCode("-10025");
-				sr.setResultMsg("鍙紑闂ㄦ椂闂存缁撴潫鏃堕棿鏍煎紡閿欒锛屾牸寮忓繀椤讳负XX:XX锛屼緥濡�00:00");
+				sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
 				return sr;
 			}else {
 				String t = au.getOpenetime().replace(":", "");
 				if(t.length()!=4||!t.matches("[0-9]+")) {
 					sr.setResultCode("-10025");
-					sr.setResultMsg("鍙紑闂ㄦ椂闂存缁撴潫鏃堕棿鏍煎紡閿欒锛屾牸寮忓繀椤讳负XX:XX锛屼緥濡�00:00");
+					sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
 					return sr;
 				}
 			}
 			
 			if(null==au.getEdate()||au.getEdate().equals("")||au.getEdate().equals("null")) {
 				sr.setResultCode("-10012");
-				sr.setResultMsg("鏈夋晥缁撴潫鏃ユ湡涓嶅厑璁镐负绌�");
+				sr.setResultMsg("授权结束时间不能为空");
 				return sr;
 			}else if(!au.getEdate().equals("-1")&&(au.getEdate().length()!=10||!au.getEdate().matches("\\d+"))) {
 				sr.setResultCode("-10013");
-				sr.setResultMsg("鏈夋晥缁撴潫鏃ユ湡鏍煎紡蹇呴』涓簓yMMddHHmm");
+				sr.setResultMsg("授权结束时间格式为yyMMddHHmm");
 				return sr;
 			}
 			
 			if(null==au.getOpencount()||au.getOpencount().equals("")||au.getOpencount().equals("null")) {
 				sr.setResultCode("-10010");
-				sr.setResultMsg("鍙紑闂ㄦ鏁颁笉鍏佽涓虹┖");
+				sr.setResultMsg("可开门次数不能为空");
 				return sr;
 			}else if(!au.getOpencount().matches("[0-9]+|(-1)")) {
 				sr.setResultCode("-10011");
-				sr.setResultMsg("鍙紑闂ㄦ鏁板繀椤讳负10杩涘埗鏁板瓧");
+				sr.setResultMsg("可开门次数必须为0-254数字,0表示不限次数");
 				return sr;
 			}
 			
 			if(null==au.getCallbackurl() || au.getCallbackurl().equals("") || au.getCallbackurl().equals("null")) {
 				sr.setResultCode("-20004");
-				sr.setResultMsg("鍥炶皟鍦板潃涓嶈兘涓虹┖");
+				sr.setResultMsg("回调地址不能为空");
 				return sr;
 			}
 			
 			if(null==au.getTimeout() || au.getTimeout()<0) {
 				sr.setResultCode("-20005");
-				sr.setResultMsg("鎸囦护瓒呮椂鏃堕棿涓嶈兘涓虹┖鎴栧皬浜�0");
+				sr.setResultMsg("指令超时时间不能为空");
 				return sr;
 			}
 		}
@@ -1142,82 +1142,82 @@ public class StringTools {
 			AuthDelPsw au = authlist.get(i);
 			if(null==au.getLocktype()) {
 				sr.setResultCode("-20002");
-				sr.setResultMsg("闂ㄩ攣绫诲瀷涓嶈兘涓虹┖");
+				sr.setResultMsg("门锁类型不能为空");
 				return sr;
 			}
 			if(au.getLocktype()<1 || au.getLocktype()>4) {
 				sr.setResultCode("-20003");
-				sr.setResultMsg("闂ㄩ攣绫诲瀷涓嶅瓨鍦�");
+				sr.setResultMsg("门锁类型不存在");
 				return sr;
 			}
 			
 			if(null==au.getRoomcode2()||au.getRoomcode2().equals("")||au.getRoomcode2().equals("null")) {
 				sr.setResultCode("-10019");
-				sr.setResultMsg("闂ㄩ攣鍞竴ID涓嶅厑璁镐负绌�");
+				sr.setResultMsg("门锁唯一ID不能为空");
 				return sr;
 			}else if(au.getRoomcode2().length()!=10||au.getRoomcode2().toUpperCase().matches(".*[G-Z].*")) {
 				sr.setResultCode("-10020");
-				sr.setResultMsg("闂ㄩ攣鍞竴ID蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+				sr.setResultMsg("门锁唯一ID必须为10位十六进制字符串");
 				return sr;
 			}
 			if(au.getLocktype()==1) {
 				if(null==au.getRoomcode()||au.getRoomcode().equals("")||au.getRoomcode().equals("null")) {
 					sr.setResultCode("-10005");
-					sr.setResultMsg("鎴块棿缂栧彿涓嶅厑璁镐负绌�");
+					sr.setResultMsg("无线联网锁门锁编号不能为空");
 					return sr;
 				}else if(au.getRoomcode().length()!=4||au.getRoomcode().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10006");
-					sr.setResultMsg("鎴块棿缂栧彿蹇呴』鏄暱搴︿负4鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("门锁编号必须为4位十六进制字符串");
 					return sr;
 				}
 				if(null==au.getGatewaycode()||au.getGatewaycode().equals("")||au.getGatewaycode().equals("null")) {
 					sr.setResultCode("-10001");
-					sr.setResultMsg("缃戝叧閫氳ID涓嶅厑璁镐负绌�");
+					sr.setResultMsg("无线联网锁网关通讯ID不能为空");
 					return sr;
 				}else if(au.getGatewaycode().length()!=10||au.getGatewaycode().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10002");
-					sr.setResultMsg("缃戝叧閫氳ID蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("网关通讯ID必须为10位十六进制字符串");
 					return sr;
 				}
 				if(null==au.getGatewaycode2()||au.getGatewaycode2().equals("")||au.getGatewaycode2().equals("null")) {
 					sr.setResultCode("-10003");
-					sr.setResultMsg("缃戝叧鍞竴ID涓嶅厑璁镐负绌�");
+					sr.setResultMsg("无线联网锁网关唯一ID不能为空");
 					return sr;
 				}else if(au.getGatewaycode2().length()!=10||au.getGatewaycode2().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10004");
-					sr.setResultMsg("缃戝叧鍞竴ID蹇呴』鏄暱搴︿负10鐨�16杩涘埗瀛楃涓�");
+					sr.setResultMsg("网关唯一ID必须为10位十六进制字符串");
 					return sr;
 				}
 			}else {
 				if(null==au.getImei()||au.getImei().equals("")||au.getImei().equals("null")) {
 					sr.setResultCode("-10042");
-					sr.setResultMsg("IMEI涓嶅厑璁镐负绌�");
+					sr.setResultMsg("IMEI不能为空");
 					return sr;
 				}
 			}
 			
 			if(null==au.getPassword()||au.getPassword().equals("")||au.getPassword().equals("null")) {
 				sr.setResultCode("-10008");
-				sr.setResultMsg("鎺堟潈瀵嗙爜涓嶅厑璁镐负绌�");
+				sr.setResultMsg("密码不能为空");
 				return sr;
 			}
 			Pattern pattern = Pattern.compile("[0-9]*");
 			Matcher isNum = pattern.matcher(au.getPassword());
 			if (!isNum.matches() || au.getPassword().length()!=6) {
 				sr.setResultCode("-10009");
-				sr.setResultMsg("鎺堟潈瀵嗙爜蹇呴』鏄暱搴︿负6鐨�10杩涘埗瀛楃涓�");
+				sr.setResultMsg("密码必须为6位数字");
 				return sr;
 			}
 			
 			if(null==au.getCallbackurl() || au.getCallbackurl().equals("") || au.getCallbackurl().equals("null")) {
 				sr.setResultCode("-20004");
-				sr.setResultMsg("鍥炶皟鍦板潃涓嶈兘涓虹┖");
+				sr.setResultMsg("回调地址不能为空");
 				return sr;
 			}
 			
 			if(null==au.getTimeout() || au.getTimeout()<0) {
 				sr.setResultCode("-20005");
-				sr.setResultMsg("鎸囦护瓒呮椂鏃堕棿涓嶈兘涓虹┖鎴栧皬浜�0");
+				sr.setResultMsg("指令超时时间不能为空");
 				return sr;
 			}
 		}
