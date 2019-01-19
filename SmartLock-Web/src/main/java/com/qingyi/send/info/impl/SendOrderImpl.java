@@ -10,9 +10,15 @@ import com.qingyi.model.AuthDelPsw;
 import com.qingyi.model.AuthFinger;
 import com.qingyi.model.AuthPsw;
 import com.qingyi.model.AuthResult;
+import com.qingyi.model.CardsResult;
 import com.qingyi.model.Command;
+import com.qingyi.model.DelCardsResult;
+import com.qingyi.model.DelFingersResult;
+import com.qingyi.model.DelPswsResult;
 import com.qingyi.model.DelRoomFinger;
 import com.qingyi.model.DelUnlockPsw;
+import com.qingyi.model.FingersResult;
+import com.qingyi.model.PswsResult;
 import com.qingyi.model.Room;
 import com.qingyi.model.RoomCard;
 import com.qingyi.model.RoomFinger;
@@ -22,10 +28,7 @@ import com.qingyi.send.info.SendOrderInfo;
 import com.qingyi.util.Constant;
 import com.qingyi.util.HttpsUtil;
 import com.qingyi.util.StringTools;
-
-import javafx.print.JobSettings;
 import net.sf.json.JSONObject;
-
 public class SendOrderImpl implements SendOrderInfo{
 	
 	private String baseurl;
@@ -654,14 +657,29 @@ public class SendOrderImpl implements SendOrderInfo{
 	public SendResult<AuthResult> saveLotAuth(List<AuthCard> clist,List<AuthDelCard> dclist,List<AuthFinger> flist,List<AuthDelFinger> dflist,List<AuthPsw> plist,List<AuthDelPsw> dplist) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
-		param.put("cardlist", (null==clist||clist.size()<=0)?"":clist);
-		param.put("delcardlist", (null==dclist||dclist.size()<=0)?"":dclist);
-		param.put("finlist", (null==flist||flist.size()<=0)?"":flist);
-		param.put("delfinlist", (null==dflist||dflist.size()<=0)?"":dflist);
-		param.put("pswlist", (null==plist||plist.size()<=0)?"":plist);
-		param.put("delpswlist", (null==dplist||dplist.size()<=0)?"":dplist);
+		if(null!=clist&&clist.size()>0){
+			param.put("cardlist", clist);
+		}
+		if(null!=dclist&&dclist.size()>0) {
+			param.put("delcardlist", dclist);
+		}
+		if(null!=flist&&flist.size()>0) {
+			param.put("finlist", flist);
+		}
+		if(null!=dflist&&dflist.size()>0) {
+			param.put("delfinlist", dflist);
+		}
+		if(null!=plist&&plist.size()>0) {
+			param.put("pswlist", plist);
+		}
+		if(null!=dplist&&dplist.size()>0) {
+			param.put("delpswlist", dplist);
+		}
+		if(param.isEmpty()) {
+			return new SendResult("-2003","参数不能全部为空","");
+		}
 		//判断
-		SendResult sr = StringTools.checkCardList(clist);
+		SendResult<AuthResult> sr = StringTools.checkCardList(clist);
 		if("0".equals(sr.getResultCode())) {
 			sr = StringTools.checkDelCardList(dclist);
 			if("0".equals(sr.getResultCode())) {
@@ -692,8 +710,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		}
 		
 		String result=HttpsUtil.httpURLConnectionPOST(baseurl,"savelotauth", secret, param);
-		System.out.println(result);
-		sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		sr = StringTools.getSendResultByJson(result);
 		return sr;
 	}
 
