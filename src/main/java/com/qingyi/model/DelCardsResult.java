@@ -9,6 +9,10 @@ private String orderId;
 	private String cardcode;
 	
 	private String roomcode2;
+	
+	public DelCardsResult() {
+		super();
+	}
 
 	public DelCardsResult(String orderId, String cardcode, String roomcode2) {
 		super();

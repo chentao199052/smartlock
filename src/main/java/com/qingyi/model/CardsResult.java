@@ -9,6 +9,10 @@ public class CardsResult {
 	private String cardcode;
 	
 	private String roomcode2;
+	
+	public CardsResult() {
+		super();
+	}
 
 	public CardsResult(String orderId, String cardcode, String roomcode2) {
 		super();
@@ -39,6 +43,11 @@ public class CardsResult {
 
 	public void setRoomcode2(String roomcode2) {
 		this.roomcode2 = roomcode2;
+	}
+
+	@Override
+	public String toString() {
+		return "CardsResult [orderId=" + orderId + ", cardcode=" + cardcode + ", roomcode2=" + roomcode2 + "]";
 	}
 	
 	

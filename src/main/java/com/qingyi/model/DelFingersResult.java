@@ -10,6 +10,10 @@ public class DelFingersResult {
 	
 	private String roomcode2;
 
+	public DelFingersResult() {
+		super();
+	}
+
 	public DelFingersResult(String orderId, String fingercode, String roomcode2) {
 		super();
 		this.orderId = orderId;
