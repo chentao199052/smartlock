@@ -303,23 +303,6 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			return sr;
 		}
 
-		@Override
-		public SendResult NBrecords(String roomid, String recordNum,String records, Integer timeout, String callbackurl) {
-			// TODO Auto-generated method stub
-			LinkedHashMap param=new LinkedHashMap();
-			param.put("roomid", roomid);
-			param.put("recordNum", recordNum);
-			param.put("records", records);
-			param.put("timeout", timeout);
-			param.put("callbackurl", callbackurl);
-			SendResult sr=StringTools.check(param);
-			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"recordsnb", secret, param);
-				//sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
-				sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
-			}
-			return sr;
-		}
 
 		//@Override
 //		public SendResult addDXOnline(String id, String deviceId, Integer timeout, String callbackurl) {
