@@ -41,5 +41,8 @@ public class DelFingersResult {
 		this.roomcode2 = roomcode2;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "DelFingersResult [orderId=" + orderId + ", fingercode=" + fingercode + ", roomcode2=" + roomcode2 + "]";
+	}
 }
