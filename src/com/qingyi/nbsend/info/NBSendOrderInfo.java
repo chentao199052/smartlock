@@ -6,6 +6,7 @@ import com.qingyi.model.Card;
 import com.qingyi.model.Command;
 import com.qingyi.model.DelRoomCardxzsx;
 import com.qingyi.model.DelRoomFinger;
+import com.qingyi.model.Intimeorder;
 import com.qingyi.model.Room;
 import com.qingyi.model.RoomCard;
 import com.qingyi.model.RoomFinger;
@@ -111,7 +112,6 @@ public interface NBSendOrderInfo {
 		 * @param roomcode2
 		 * @param roomimei
 		 * @param roomtxtype
-		 * @param rcid slRoomcard 主键
 		 * @param rc  卡片类型（开门卡/管理卡/授权卡/身份证)
 		 * @param timeout
 		 * @param callbackurl
@@ -131,18 +131,9 @@ public interface NBSendOrderInfo {
 		 */
 		public SendResult delRoomCardNB(String roomcode2,String roomimei,String roomtxtype,DelRoomCardxzsx rc,Integer timeout,String callbackurl);
 		/**
-		 * 远程开门   门锁复位
-		 * @param room
-		 * @param paramvalue  SlSystemparam spa = (SlSystemparam)dxDao.getObjectByStringid("sleeptime", SlSystemparam.class);  spa.getParamvalue()
-		 * @param duedate_1  yyyy-MM-dd HH:mm:ss
-		 * @param itstate_isopen
-		 * @param itstate_reset
-		 * @param command
-		 * @param timeout
-		 * @param callbackurl
-		 * @return
+		 * 远程开门   门锁复位   常开，常闭设置   授权模式设置  强锁，解除强锁
 		 */
-		public SendResult saveNblog(Room room,String paramvalue,String duedate_1,String itstate_isopen,String itstate_reset,Command command,Integer timeout, String callbackurl);
+	//	public SendResult saveIntime(Intimeorder order,Integer timeout, String callbackurl);
 		/**
 		 * 
 		 * @param roomcode2
@@ -169,7 +160,7 @@ public interface NBSendOrderInfo {
 		 * @param callbackurl
 		 * @return
 		 */
-		public SendResult addDXOnline(String id ,String deviceId,Integer timeout ,String callbackurl); 
+		//public SendResult addDXOnline(String id ,String deviceId,Integer timeout ,String callbackurl); 
 		/**
 		 * 注册NB锁
 		 * @param roomlocation  移动注册时必传
@@ -218,7 +209,7 @@ public interface NBSendOrderInfo {
 		 * @param callbackurl
 		 * @return
 		 */
-		public SendResult saveDeviceDataHw(String body,RoomNB room,String valueSleep,String valueSpace,String itstateisopen,String itstatereset,Card card,Card card1,Integer rccount,Integer timeout,String callbackurl);
+		//public SendResult saveDeviceDataHw(String body,RoomNB room,String valueSleep,String valueSpace,String itstateisopen,String itstatereset,Card card,Card card1,Integer rccount,Integer timeout,String callbackurl);
 		/**
 		 * 华为（修改）
 		 * @param body
@@ -230,7 +221,7 @@ public interface NBSendOrderInfo {
 		 * @param callbackurl
 		 * @return
 		 */
-		public SendResult updateCommandHw(String body,Integer timeout ,String callbackurl);
+		//public SendResult updateCommandHw(String body,Integer timeout ,String callbackurl);
 		
 		/**
 		 * 电信NB心跳（接收）
@@ -247,7 +238,7 @@ public interface NBSendOrderInfo {
 		 * @param callbackurl
 		 * @return
 		 */
-		public SendResult saveDeviceDataDx(String body,RoomNB room,String valueSleep,String valueSpace,String itstateisopen,String itstatereset,Card card,Card card1,Integer rccount,Integer timeout,String callbackurl);
+		//public SendResult saveDeviceDataDx(String body,RoomNB room,String valueSleep,String valueSpace,String itstateisopen,String itstatereset,Card card,Card card1,Integer rccount,Integer timeout,String callbackurl);
 		/**
 		 * 电信（修改）
 		 * @param body
@@ -259,7 +250,7 @@ public interface NBSendOrderInfo {
 		 * @param callbackurl
 		 * @return
 		 */
-		public SendResult updateCommandDx(String body,Integer timeout ,String callbackurl);
+		//public SendResult updateCommandDx(String body,Integer timeout ,String callbackurl);
 		/**
 		 * 移动NB心跳（接收）
 		 * @param retmsg
@@ -276,7 +267,7 @@ public interface NBSendOrderInfo {
 		 * @param callbackurl
 		 * @return
 		 */
-		public SendResult saveDeviceDataYd(String retmsg,String body,RoomNB room,String valueSleep,String valueSpace,String itstateisopen,String itstatereset,Card card,Card card1,Integer rccount,Integer timeout,String callbackurl);
+		//public SendResult saveDeviceDataYd(String retmsg,String body,RoomNB room,String valueSleep,String valueSpace,String itstateisopen,String itstatereset,Card card,Card card1,Integer rccount,Integer timeout,String callbackurl);
 		/**
 		 * 移动（修改）
 		 * @param body
@@ -288,5 +279,5 @@ public interface NBSendOrderInfo {
 		 * @param callbackurl
 		 * @return
 		 */
-		public SendResult updateCommandYd(String body,Integer timeout ,String callbackurl);
+		//public SendResult updateCommandYd(String body,Integer timeout ,String callbackurl);
 }
