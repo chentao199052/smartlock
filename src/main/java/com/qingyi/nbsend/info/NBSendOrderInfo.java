@@ -137,13 +137,11 @@ public interface NBSendOrderInfo {
 		 * @param roomtxtype 门锁类型
 		 * @param ittype  指令类型
 		 * @param itstate  指令状态
-		 * @param spacetime  指令间隔时间
-		 * @param sleeptime  睡眠时间
 		 * @param timeout
 		 * @param callbackurl
 		 * @return
 		 */
-		public SendResult saveIntimenb(String roomcode2,String roomimei,String roomtxtype,String ittype,String itstate,String timeout, String callbackurl);
+		public SendResult saveIntimenb(String roomcode2,String roomimei,String roomtxtype,String ittype,String itstate,String timeout, String callbackurl, String sysdate, String verify);
 		/**
 		 * 
 		 * @param roomcode2

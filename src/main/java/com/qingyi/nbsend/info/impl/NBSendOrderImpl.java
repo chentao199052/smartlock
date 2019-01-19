@@ -584,8 +584,8 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 		}
 
 		@Override
-		public SendResult saveIntimenb(String roomcode2, String roomimei, String roomtxtype, String ittype,
-				String itstate, String timeout, String callbackurl) {
+		public SendResult saveIntimenb(String roomcode2,String roomimei,String roomtxtype,String ittype,String itstate,
+				String timeout, String callbackurl, String sysdate, String verify) {
 			// TODO Auto-generated method stub
 			LinkedHashMap param=new LinkedHashMap();
 			param.put("roomcode2", roomcode2);
@@ -597,7 +597,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
 			if("0".equals(sr.getResultCode())) {
-				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"saveroomfingernb", secret, param);
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl,"saveIntimenb", secret, param);
 				//sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
 				sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 			}

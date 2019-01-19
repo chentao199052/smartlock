@@ -716,7 +716,7 @@ public class SendOrderImpl implements SendOrderInfo{
 
 	@Override
 	public SendResult saveTotalReset(String gatewaycode, String gatewaycode2, String roomcode, String roomcode2,
-			String roomimei, String locktype, Integer timeout, String callbackurl) {
+			String roomimei,String locktype, Integer timeout, String callbackurl) {
 		LinkedHashMap param=new LinkedHashMap();
 		param.put("gatewaycode", gatewaycode);
 		param.put("gatewaycode2", gatewaycode2);
@@ -729,8 +729,97 @@ public class SendOrderImpl implements SendOrderInfo{
 		SendResult sr = StringTools.checkTotal(param);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"savetotalreset", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		}
-		return null;
+		return sr;
+	}
+
+	@Override
+	public SendResult saveTotalOpen(String gatewaycode, String gatewaycode2, String roomcode, String roomcode2,
+			String roomimei, String locktype, Integer timeout,
+			String callbackurl) {
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("gatewaycode", gatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("roomcode", roomcode);
+		param.put("roomcode2", roomcode2);
+		param.put("roomimei", roomimei);
+		param.put("locktype", locktype);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr = StringTools.checkTotal(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"savetotalopen", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult updateTotalForcelock(Integer type, String gatewaycode, String gatewaycode2, String roomcode,
+			String roomcode2,  String locktype,
+			Integer timeout, String callbackurl) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("type", type);
+		param.put("gatewaycode", gatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("roomcode", roomcode);
+		param.put("roomcode2", roomcode2);
+	//	param.put("forcelock", forcelock);
+		param.put("locktype", locktype);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr = StringTools.checkTotal(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updatetotalforcelock", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult updateTotalRoomWorkmode(Integer type, String gatewaycode, String gatewaycode2, String roomcode,
+			String roomcode2, String locktype, Integer timeout, String callbackurl) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("type", type);
+		param.put("gatewaycode", gatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("roomcode", roomcode);
+		param.put("roomcode2", roomcode2);
+		//param.put("workmode", workmode);
+		param.put("locktype", locktype);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr = StringTools.checkTotal(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"totalroomworkmode", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult updateTotalRoomNetmode(Integer type, String gatewaycode, String gatewaycode2, String roomcode,
+			String roomcode2 , String locktype, Integer timeout, String callbackurl) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("type", type);
+		param.put("gatewaycode", gatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("roomcode", roomcode);
+		param.put("roomcode2", roomcode2);
+		//param.put("networkmode", networkmode);
+		param.put("locktype", locktype);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr = StringTools.checkTotal(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"totalroomnetmode", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
+		}
+		return sr;
 	}
 
 	

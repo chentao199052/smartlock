@@ -358,15 +358,70 @@ public interface SendOrderInfo {
 	 * @return
 	 */
 	public SendResult saveLotAuth(List<AuthCard> clist,List<AuthDelCard> dclist,List<AuthFinger> flist,List<AuthDelFinger> dflist,List<AuthPsw> plist,List<AuthDelPsw> dplist);
-	
 	/**
-	 * 发送门锁复位指令(合集)
+	 * 发送门锁复位指令(合)
+	 * @param gatewaycode
+	 * @param gatewaycode2
+	 * @param roomcode
+	 * @param roomcode2
+	 * @param roomimei
+	 * @param forcelock
+	 * @param networkmode
+	 * @param workmode
+	 * @param locktype
+	 * @param timeout
+	 * @param callbackurl
+	 * @return
+	 */
+	public SendResult saveTotalReset(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String roomimei,String locktype,Integer timeout,String callbackurl);
+
+	/**
+	 * 发送门锁远程开门指令(合)
+	 * @param gatewaycode
+	 * @param gatewaycode2
+	 * @param roomcode
+	 * @param roomcode2
+	 * @param roomimei
+	 * @param forcelock
+	 * @param networkmode
+	 * @param workmode
+	 * @param locktype
+	 * @param timeout
+	 * @param callbackurl
+	 * @return
+	 */
+	public SendResult saveTotalOpen(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String roomimei,String locktype,Integer timeout,String callbackurl);
+	/**
+	 * 修改门锁强锁/非强锁模式（合）
+	 * @param gatewaycode
+	 * @param gatewaycode2
+	 * @param roomcode
+	 * @param type 
+	 * @param timeout
+	 * @param callbackurl
+	 * @return
+	 */
+	public SendResult updateTotalForcelock(Integer type,String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String locktype,Integer timeout,String callbackurl);
+	/**
+	 * 修改门锁常开/常闭模式(he)
+	 * @param gatewaycode
+	 * @param gatewaycode2
+	 * @param roomcode
+	 * @param type 
+	 * @param timeout
+	 * @param callbackurl
+	 * @return
+	 */
+	public SendResult updateTotalRoomWorkmode(Integer type,String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String locktype,Integer timeout,String callbackurl);
+	/**
+	 * 修改门锁授权模式（合）
 	 * @param gatewaycode 门锁归属网关通讯ID
-	 * @param gatewaycode2 门锁归属网关唯一ID
+	 * @param gatewaycode2  门锁归属网关唯一ID
 	 * @param roomcode 房间编号
+	 * @param type 1允许离线授权，2禁止离线授权
 	 * @param timeout 有效时间（单位s）
 	 * @param callbackurl 回调地址（接收指令发送结果）
 	 * @return 指令发送结果SendResult
 	 */
-	public SendResult saveTotalReset(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String roomimei, String locktype,Integer timeout,String callbackurl);
+	public SendResult updateTotalRoomNetmode(Integer type,String gatewaycode,String gatewaycode2,String roomcode,String roomcode2 ,String locktype,Integer timeout,String callbackurl);
 }
