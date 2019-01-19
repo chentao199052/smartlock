@@ -711,6 +711,10 @@ public class SendOrderImpl implements SendOrderInfo{
 		
 		String result=HttpsUtil.httpURLConnectionPOST(baseurl,"savelotauth", secret, param);
 		sr = StringTools.getSendResultByJson(result);
+		System.out.println(null!=sr.getResult().getCardsresult()?sr.getResult().getCardsresult().toString():"无卡");
+		System.out.println(null!=sr.getResult().getDelcardsresult()?sr.getResult().getDelcardsresult().toString():"无删卡");
+		System.out.println(null!=sr.getResult().getFingersresult()?sr.getResult().getFingersresult().toString():"无指");
+		System.out.println(null!=sr.getResult().getDelfingersresult()?sr.getResult().getDelfingersresult().toString():"无删指");
 		return sr;
 	}
 
