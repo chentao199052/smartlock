@@ -140,7 +140,7 @@ public class StringTools {
 		return obj;
 	}
 	
-	public static Object getResultObject(String result,Class<?> clazz) {
+	/*public static Object getResultObject(String result,Class<?> clazz) {
 		Object obj=null;
 		HashMap map=new HashMap();
 		try {
@@ -164,7 +164,7 @@ public class StringTools {
 			e.printStackTrace();
 		}
 		return obj;
-	}
+	}*/
 
 	public static String getMd5(String plainText) {  
         try {  
