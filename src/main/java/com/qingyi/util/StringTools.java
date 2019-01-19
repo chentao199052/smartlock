@@ -138,7 +138,7 @@ public class StringTools {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			map.put("resultCode", "0");
-			map.put("resultMsg", "瑙ｆ瀽缁撴灉鍑洪敊锛�");
+			map.put("resultMsg", "解析失败！");
 		}
 		try {
 			obj=StringTools.mapToBean(clazz, map);
