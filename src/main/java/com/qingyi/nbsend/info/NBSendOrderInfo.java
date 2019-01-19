@@ -152,15 +152,6 @@ public interface NBSendOrderInfo {
 		 */
 		public SendResult saveNblog1(String roomcode2,String json,Integer timeout, String callbackurl);
 		/**
-		 * NB锁记录
-		 * @param roomid
-		 * @param command
-		 * @param timeout
-		 * @param callbackurl
-		 * @return
-		 */
-		public SendResult NBrecords(String roomid,String recordNum,String records,Integer timeout, String callbackurl);
-		/**
 		 * 
 		 * @param id
 		 * @param deviceId

@@ -19,7 +19,7 @@ import com.qingyi.model.UnlockPsw;
 
 public interface SendOrderInfo {
 	/**
-	 * 查询门锁状态指令    
+	 * 查询门锁状态指令    NB锁不支持
 	 * @param gatewaycode 门锁归属网关通讯ID
 	 * @param gatewaycode2 门锁归属网关唯一ID
 	 * @param roomcode 房间编号
@@ -51,7 +51,7 @@ public interface SendOrderInfo {
 	public SendResult saveLockRemoteOpen(String gatewaycode,String gatewaycode2,String roomcode,Integer timeout,String callbackurl);
 	
 	/**
-	 * 发送门锁记录读取指令
+	 * 发送门锁记录读取指令  NB不支持 通过心跳返回
 	 * @param gatewaycode 门锁归属网关通讯ID
 	 * @param gatewaycode2 门锁归属网关唯一ID
 	 * @param itid slIntimeorder
@@ -364,16 +364,12 @@ public interface SendOrderInfo {
 	 * @param gatewaycode2
 	 * @param roomcode
 	 * @param roomcode2
-	 * @param roomimei
-	 * @param forcelock
-	 * @param networkmode
-	 * @param workmode
 	 * @param locktype
 	 * @param timeout
 	 * @param callbackurl
 	 * @return
 	 */
-	public SendResult saveTotalReset(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String roomimei,String locktype,Integer timeout,String callbackurl);
+	public SendResult saveTotalReset(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String locktype,Integer timeout,String callbackurl);
 
 	/**
 	 * 发送门锁远程开门指令(合)
@@ -381,16 +377,12 @@ public interface SendOrderInfo {
 	 * @param gatewaycode2
 	 * @param roomcode
 	 * @param roomcode2
-	 * @param roomimei
-	 * @param forcelock
-	 * @param networkmode
-	 * @param workmode
 	 * @param locktype
 	 * @param timeout
 	 * @param callbackurl
 	 * @return
 	 */
-	public SendResult saveTotalOpen(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String roomimei,String locktype,Integer timeout,String callbackurl);
+	public SendResult saveTotalOpen(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String locktype,Integer timeout,String callbackurl);
 	/**
 	 * 修改门锁强锁/非强锁模式（合）
 	 * @param gatewaycode
@@ -403,7 +395,7 @@ public interface SendOrderInfo {
 	 */
 	public SendResult updateTotalForcelock(Integer type,String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String locktype,Integer timeout,String callbackurl);
 	/**
-	 * 修改门锁常开/常闭模式(he)
+	 * 修改门锁常开/常闭模式(合)
 	 * @param gatewaycode
 	 * @param gatewaycode2
 	 * @param roomcode
