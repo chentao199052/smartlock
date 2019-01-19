@@ -10,6 +10,10 @@ public class DelPswsResult {
 	
 	private String roomcode2;
 
+	public DelPswsResult() {
+		super();
+	}
+
 	public DelPswsResult(String orderId, String password, String roomcode2) {
 		super();
 		this.orderId = orderId;

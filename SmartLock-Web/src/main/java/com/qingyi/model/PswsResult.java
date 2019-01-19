@@ -10,6 +10,10 @@ public class PswsResult {
 	
 	private String roomcode2;
 
+	public PswsResult() {
+		super();
+	}
+
 	public PswsResult(String orderId, String password, String roomcode2) {
 		super();
 		this.orderId = orderId;
