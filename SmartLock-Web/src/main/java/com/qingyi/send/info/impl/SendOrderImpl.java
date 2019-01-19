@@ -714,5 +714,24 @@ public class SendOrderImpl implements SendOrderInfo{
 		return sr;
 	}
 
+	@Override
+	public SendResult saveTotalReset(String gatewaycode, String gatewaycode2, String roomcode, String roomcode2,
+			String roomimei, String locktype, Integer timeout, String callbackurl) {
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("gatewaycode", gatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("roomcode", roomcode);
+		param.put("roomcode2", roomcode2);
+		param.put("roomimei", roomimei);
+		param.put("locktype", locktype);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr = StringTools.checkTotal(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"savetotalreset", secret, param);
+		}
+		return null;
+	}
+
 	
 }
