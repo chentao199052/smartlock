@@ -19,6 +19,7 @@ import com.qingyi.model.AuthDelFinger;
 import com.qingyi.model.AuthDelPsw;
 import com.qingyi.model.AuthFinger;
 import com.qingyi.model.AuthPsw;
+import com.qingyi.model.AuthResult;
 import com.qingyi.model.RoomCard;
 import com.qingyi.model.SendResult;
 import com.qingyi.model.UnlockPsw;
@@ -120,6 +121,33 @@ public class StringTools {
 			String json2=result.substring(1,result.length()-1);
 			String arr[]=json2.split(",");
 			for(int i=0;i<arr.length;i++) {
+				System.out.println(arr[i]);
+				String a[]=arr[i].split(":");
+				map.put(a[0].substring(1, a[0].length()-1), a[1].substring(1, a[1].length()-1));
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			map.put("resultCode", "0");
+			map.put("resultMsg", "解析结果出错！");
+		}
+		try {
+			obj=StringTools.mapToBean(clazz, map);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return obj;
+	}
+	
+	public static Object getResultObject(String result,Class<?> clazz) {
+		Object obj=null;
+		HashMap map=new HashMap();
+		try {
+			String json2=result.substring(1,result.length()-1);
+			String arr[]=json2.split(",");
+			for(int i=0;i<arr.length;i++) {
+				System.out.println(arr[i]);
 				String a[]=arr[i].split(":");
 				map.put(a[0].substring(1, a[0].length()-1), a[1].substring(1, a[1].length()-1));
 			}
@@ -487,7 +515,7 @@ public class StringTools {
 				sr.setResultCode("-10039");
 				sr.setResultMsg("开门需按指纹次数不允许为空");
 				return sr;
-			}else if(au.getActioncount().matches("[0-9]*")) {
+			}else if(!au.getActioncount().matches("[0-9]*")) {
 				sr.setResultCode("-10040");
 				sr.setResultMsg("开门需按指纹次数必须为数字");
 				return sr;
@@ -569,7 +597,7 @@ public class StringTools {
 				sr.setResultCode("-10010");
 				sr.setResultMsg("可开门次数不允许为空");
 				return sr;
-			}else if(!au.getOpencount().matches("[0-9]+|(-1)")) {
+			}else if(!au.getOpencount().matches("[0-9]*")) {
 				sr.setResultCode("-10011");
 				sr.setResultMsg("可开门次数必须为10进制数字");
 				return sr;
@@ -1712,24 +1740,99 @@ public class StringTools {
 	 }
 	 
 	 public static void main(String[] args) {
-		/*SendOrderInfo sio = new SendOrderImpl();
-		List<AuthCard> aulist = new ArrayList<AuthCard>();
+		SendOrderInfo sio = new SendOrderImpl();
+		List<AuthCard> clist = new ArrayList<AuthCard>();
+		List<AuthDelCard> dclist = new ArrayList<AuthDelCard>();
+		List<AuthFinger> flist = new ArrayList<AuthFinger>();
+		List<AuthDelFinger> dflist = new ArrayList<AuthDelFinger>();
+		List<AuthPsw> plist = new ArrayList<AuthPsw>();
+		List<AuthDelPsw> dplist = new ArrayList<AuthDelPsw>();
+		
 		AuthCard au = new AuthCard();
 		au.setLocktype(1);
-		au.setEmptype(1);
 		au.setCardcode("00010001");
-		au.setEdate("-1");
 		au.setGatewaycode("002a010101");
 		au.setGatewaycode2("1901010001");
+		au.setRoomcode("0101");
+		au.setRoomcode2("1901000001");
+		au.setEdate("-1");
 		au.setOpencount("0");
 		au.setOpenstime("00:00");
 		au.setOpenetime("23:59");
-		au.setRoomcode("0101");
-		au.setRoomcode2("1901000001");
 		au.setCardtype("开门卡");
-		aulist.add(au);
+		au.setCallbackurl("1");
+		au.setTimeout(200);
+		clist.add(au);
 		
-		SendResult ret = sio.saveLotAuth(aulist, "1");
-		System.out.println(ret.getResultMsg());*/
-	}
+		AuthDelCard d = new AuthDelCard();
+		d.setLocktype(1);
+		d.setCardcode("00010001");
+		d.setGatewaycode("002a010101");
+		d.setGatewaycode2("1901010001");
+		d.setRoomcode("0101");
+		d.setRoomcode2("1901000001");
+		d.setCallbackurl("1");
+		d.setTimeout(200);
+		dclist.add(d);
+		
+		AuthFinger f = new AuthFinger();
+		f.setLocktype(1);
+		f.setFingercode("00010001");
+		f.setGatewaycode("002a010101");
+		f.setGatewaycode2("1901010001");
+		f.setRoomcode("0101");
+		f.setRoomcode2("1901000001");
+		f.setEdate("-1");
+		f.setOpencount("0");
+		f.setOpenstime("00:00");
+		f.setOpenetime("23:59");
+		f.setActioncount("1");
+		f.setFingercontent("dd0217ff843201c8060b02c30c2908c88c45024f8d8990070cda11140dd213110768141608d7c104143802d2971204669d2008e6a1160a6e4050a40e08f2a74705d8283b0560294e0258c0cc800d04441b2d1a60201c0d6d840f034b5cc91d1605e41e2d0d63a12203e300000000c194000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000dbdfcb79edbebc78867776070000000000000000550053000b0a4347474747474b4b4b524747474747474b4b4b4f4a4a4b4b4b4b4b4b4f4f52524f4f4f4f4f4f4f4f665e5b57535353534f4f6b6b635f5b575353534f6f6f6b63635b5753535373736f6b675f57575353ff77736b67635b575757ff7b736f67635f5b5757ffff736f6b675f5b57ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff209d0000000000000000000000000000808a04700e45e5bf410b00a6");
+		f.setCallbackurl("1");
+		f.setTimeout(200);
+		flist.add(f);
+		
+		AuthDelFinger df = new AuthDelFinger();
+		df.setLocktype(1);
+		df.setFingercode("00010001");
+		df.setGatewaycode("002a010101");
+		df.setGatewaycode2("1901010001");
+		df.setRoomcode("0101");
+		df.setRoomcode2("1901000001");
+		df.setCallbackurl("1");
+		df.setTimeout(200);
+		dflist.add(df);
+		
+		AuthPsw p = new AuthPsw();
+		p.setLocktype(1);
+		p.setPassword("123456");
+		p.setGatewaycode("002a010101");
+		p.setGatewaycode2("1901010001");
+		p.setRoomcode("0101");
+		p.setRoomcode2("1901000001");
+		p.setEdate("-1");
+		p.setOpencount("0");
+		p.setOpenstime("00:00");
+		p.setOpenetime("23:59");
+		p.setCallbackurl("1");
+		p.setTimeout(200);
+		plist.add(p);
+		
+		AuthDelPsw dp = new AuthDelPsw();
+		dp.setLocktype(1);
+		dp.setPassword("123456");
+		dp.setGatewaycode("002a010101");
+		dp.setGatewaycode2("1901010001");
+		dp.setRoomcode("0101");
+		dp.setRoomcode2("1901000001");
+		dp.setCallbackurl("1");
+		dp.setTimeout(200);
+		dplist.add(dp);
+		
+		SendResult ret = sio.saveLotAuth(clist,dclist,flist,dflist,plist,dplist);
+		System.out.println(ret.getResultMsg());
+		
+		AuthResult aret = (AuthResult)getResultObject(ret.getResult().toString(),AuthResult.class);
+		System.out.println(aret.getCardsresult());
+	 }
 }

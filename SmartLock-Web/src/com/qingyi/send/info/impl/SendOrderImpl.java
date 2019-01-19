@@ -671,6 +671,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		}
 		
 		String result=HttpsUtil.httpURLConnectionPOST(baseurl,"savelotauth", secret, param);
+		System.out.println(result);
 		sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		return sr;
 	}

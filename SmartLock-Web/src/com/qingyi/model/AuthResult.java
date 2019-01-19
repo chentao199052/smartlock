@@ -89,5 +89,12 @@ public class AuthResult {
 		this.delpswsresult = delpswsresult;
 	}
 
+	@Override
+	public String toString() {
+		return "AuthResult [cardsresult=" + cardsresult + ", delcardsresult=" + delcardsresult + ", fingersresult="
+				+ fingersresult + ", delfingersresult=" + delfingersresult + ", pswsresult=" + pswsresult
+				+ ", delpswsresult=" + delpswsresult + "]";
+	}
+
 	
 }
