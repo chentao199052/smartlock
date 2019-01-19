@@ -1835,4 +1835,108 @@ public class StringTools {
 		AuthResult aret = (AuthResult)getResultObject(ret.getResult().toString(),AuthResult.class);
 		System.out.println(aret.getCardsresult());
 	 }
+
+	public static SendResult checkTotal(LinkedHashMap param) {
+		// TODO Auto-generated method stub
+		SendResult st=new SendResult<>("0", "", "");
+		String locktype="";
+		if(param.containsKey("locktype")) {
+			locktype=param.get("locktype")==null?"":param.get("locktype").toString();
+			if(locktype==null || locktype.trim().length()<1 || "null".equals(locktype)) {
+				st.setResultCode("10001");
+				st.setResultMsg("门锁类型不能为空");
+				return st;
+			}
+			if(!locktype.matches("[1-4]{1}")) {
+				st.setResultCode("10002");
+				st.setResultMsg("门锁类型必须为1-4的数字");
+				return st;
+			}
+		}else {
+			st.setResultCode("10001");
+			st.setResultMsg("门锁类型为必传参数");
+			return st;
+		}
+		if(locktype.equals("1")) {
+			Set<Map.Entry<String, String>> paramsSet = param.entrySet();
+			for (Map.Entry<String, String> paramEntry : paramsSet) {
+				String key=paramEntry.getKey();
+				Object val=paramEntry.getValue();
+				if("gatewaycode".equals(key)) {
+					if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
+						st.setResultCode("-10001");
+						st.setResultMsg("网关通讯ID不允许为空");
+						return st;
+					}else if(val.toString().length()!=10||val.toString().toUpperCase().matches(".*[G-Z].*")) {
+						st.setResultCode("-10002");
+						st.setResultMsg("网关通讯ID必须是长度为10的16进制字符串");
+						return st;
+					}
+				}
+				if("gatewaycode2".equals(key)) {
+					if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
+						st.setResultCode("-10003");
+						st.setResultMsg("网关唯一ID不允许为空");
+						return st;
+					}else if(val.toString().length()!=10||val.toString().toUpperCase().matches(".*[G-Z].*")) {
+						st.setResultCode("-10004");
+						st.setResultMsg("网关唯一ID必须是长度为10的16进制字符串");
+						return st;
+					}
+				}
+				if("roomcode".equals(key)) {
+					if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
+						st.setResultCode("-10005");
+						st.setResultMsg("房间编号不允许为空");
+						return st;
+					}else if(val.toString().length()!=4||val.toString().toUpperCase().matches(".*[G-Z].*")) {
+						st.setResultCode("-10006");
+						st.setResultMsg("房间编号必须是长度为4的16进制字符串");
+						return st;
+					}
+				}
+//				if() {
+//					
+//				}
+			}	
+		}else {
+			Set<Map.Entry<String, String>> paramsSet = param.entrySet();
+			for (Map.Entry<String, String> paramEntry : paramsSet) {
+				String key=paramEntry.getKey();
+				Object val=paramEntry.getValue();
+				if("roomcode2".equals(key)) {
+					if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
+						st.setResultCode("-10019");
+						st.setResultMsg("门锁唯一ID不允许为空");
+						return st;
+					}else if(val.toString().length()!=10||val.toString().toUpperCase().matches(".*[G-Z].*")) {
+						st.setResultCode("-10020");
+						st.setResultMsg("门锁唯一ID必须是长度为10的16进制字符串");
+						return st;
+					}
+				}
+				if("roomimei".equals(key)) {
+					if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
+						st.setResultCode("-10042");
+						st.setResultMsg("IMEI不允许为空");
+						return st;
+					}
+				}
+				
+			}	
+		}
+		String timeout=param.get("timeout")==null?"":param.get("timeout").toString();
+		if(timeout==null ||!timeout.matches("[1-9]+")) {
+			st.setResultCode("-10042");
+			st.setResultMsg("超时间格式错误");
+			return st;
+		}
+		String callbackurl=param.get("callbackurl")==null?"":param.get("callbackurl").toString();
+		if(callbackurl==null || callbackurl.trim().length()<0) {
+			st.setResultCode("-10042");
+			st.setResultMsg("回调地址不能为空");
+			return st;
+		}
+		return st;
+	}
 }
