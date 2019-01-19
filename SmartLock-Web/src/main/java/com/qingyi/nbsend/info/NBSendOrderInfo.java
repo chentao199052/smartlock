@@ -132,8 +132,18 @@ public interface NBSendOrderInfo {
 		public SendResult delRoomCardNB(String roomcode2,String roomimei,String roomtxtype,DelRoomCardxzsx rc,Integer timeout,String callbackurl);
 		/**
 		 * 远程开门   门锁复位   常开，常闭设置   授权模式设置  强锁，解除强锁
+		 * @param roomcode2 门锁唯一ID
+		 * @param roomimei  IMEI
+		 * @param roomtxtype 门锁类型
+		 * @param ittype  指令类型
+		 * @param itstate  指令状态
+		 * @param spacetime  指令间隔时间
+		 * @param sleeptime  睡眠时间
+		 * @param timeout
+		 * @param callbackurl
+		 * @return
 		 */
-	//	public SendResult saveIntime(Intimeorder order,Integer timeout, String callbackurl);
+		public SendResult saveIntimenb(String roomcode2,String roomimei,String roomtxtype,String ittype,String itstate,String spacetime,String sleeptime,String timeout, String callbackurl);
 		/**
 		 * 
 		 * @param roomcode2
