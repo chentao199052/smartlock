@@ -6,17 +6,22 @@ public class AuthRestAndOpen {
 	private String gatewaycode2;
 	private String roomcode;
 	private String roomcode2;
+	private Integer timeout;
+	private String callbackurl;
 	public AuthRestAndOpen() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public AuthRestAndOpen(String locktype, String gatewaycode, String gatewaycode2, String roomcode, String roomcode2) {
+	public AuthRestAndOpen(String locktype, String gatewaycode, String gatewaycode2, String roomcode, String roomcode2,
+			Integer timeout, String callbackurl) {
 		super();
 		this.locktype = locktype;
 		this.gatewaycode = gatewaycode;
 		this.gatewaycode2 = gatewaycode2;
 		this.roomcode = roomcode;
 		this.roomcode2 = roomcode2;
+		this.timeout = timeout;
+		this.callbackurl = callbackurl;
 	}
 	public String getLocktype() {
 		return locktype;
@@ -47,6 +52,18 @@ public class AuthRestAndOpen {
 	}
 	public void setRoomcode2(String roomcode2) {
 		this.roomcode2 = roomcode2;
+	}
+	public Integer getTimeout() {
+		return timeout;
+	}
+	public void setTimeout(Integer timeout) {
+		this.timeout = timeout;
+	}
+	public String getCallbackurl() {
+		return callbackurl;
+	}
+	public void setCallbackurl(String callbackurl) {
+		this.callbackurl = callbackurl;
 	}
 	
 	
