@@ -18,12 +18,15 @@ import com.qingyi.model.AuthDelFinger;
 import com.qingyi.model.AuthDelPsw;
 import com.qingyi.model.AuthFinger;
 import com.qingyi.model.AuthPsw;
+import com.qingyi.model.AuthRestAndOpen;
 import com.qingyi.model.AuthResult;
+import com.qingyi.model.AuthTotal;
 import com.qingyi.model.CardsResult;
 import com.qingyi.model.DelCardsResult;
 import com.qingyi.model.DelFingersResult;
 import com.qingyi.model.DelPswsResult;
 import com.qingyi.model.FingersResult;
+import com.qingyi.model.LockResult;
 import com.qingyi.model.PswsResult;
 import com.qingyi.model.RoomCard;
 import com.qingyi.model.SendResult;
@@ -1801,6 +1804,28 @@ public class StringTools {
 		retsu.setResult(retau);
 		return retsu;
 	}
+	 /**
+	  * 根据字符串获取混合授权的SendResult对象
+	  * @param result
+	  * @return
+	  */
+	 public static SendResult getSendResultByJson2(String result,Class<?> clazz) {
+		 JSONObject json = JSONObject.fromObject(result);
+		 String ar = json.getString("result");
+		 SendResult retsu=new SendResult(json.getString("resultCode"),json.getString("resultMsg"), "");
+		 if(ar!=null && ar.trim().length()>0) {
+			 JSONArray fromObject = JSONArray.fromObject(ar);
+			 List list = null;
+		try {
+			list = JSONArray.toList(fromObject, clazz.newInstance(),new JsonConfig());
+			} catch (InstantiationException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 retsu.setResult(list);
+		 }
+		 return retsu;
+	 }
 	 
 	 public static void main(String[] args) {
 		SendOrderInfo sio = new SendOrderImpl();
@@ -2033,4 +2058,139 @@ public class StringTools {
 		}
 		return st;
 	}
+
+	public static SendResult checkRestAndOpenList(List<AuthRestAndOpen> rstlist) {
+		SendResult sr=new SendResult("0", "", "");
+		for(AuthRestAndOpen au : rstlist) {
+			if(null==au.getLocktype()) {
+				sr.setResultCode("-20002");
+				sr.setResultMsg("门锁类型不能为空");
+				return sr;
+			}
+			if(!au.getLocktype().matches("^[1-4]{1}$")) {
+				sr.setResultCode("-20003");
+				sr.setResultMsg("门锁类型不存在");
+				return sr;
+			}
+			if("1".equals(au.getLocktype())) {
+				String gatewaycode=au.getGatewaycode();
+				String gatewaycode2=au.getGatewaycode2();
+				String roomcode=au.getRoomcode();
+				if(gatewaycode==null||gatewaycode.equals("")||gatewaycode.equals("null")) {
+					sr.setResultCode("-10001");
+					sr.setResultMsg("网关通讯ID不能为空");
+					return sr;
+				}
+				if(gatewaycode.length()!=10||gatewaycode.toUpperCase().matches(".*[G-Z].*")) {
+					sr.setResultCode("-10002");
+					sr.setResultMsg("网关通讯ID必须为10位十六进制字符串");
+					return sr;
+				}
+				if(gatewaycode2==null||gatewaycode2.equals("")||gatewaycode2.equals("null")) {
+					sr.setResultCode("-10003");
+					sr.setResultMsg("网关唯一ID不能为空");
+					return sr;
+				}
+				if(gatewaycode2.length()!=10||gatewaycode2.toUpperCase().matches(".*[G-Z].*")) {
+					sr.setResultCode("-10004");
+					sr.setResultMsg("网关唯一ID必须为10位十六进制字符串");
+					return sr;
+				}
+				if(roomcode==null||roomcode.equals("")||roomcode.equals("null")) {
+					sr.setResultCode("-10005");
+					sr.setResultMsg("门锁编号不能为空");
+					return sr;
+				}
+				if(roomcode.length()!=4||roomcode.toUpperCase().matches(".*[G-Z].*")) {
+					sr.setResultCode("-10006");
+					sr.setResultMsg("门锁编号必须为4位十六进制字符串");
+					return sr;
+				}
+			}else {
+				String roomcode2 = au.getRoomcode2();
+				if(roomcode2==null||roomcode2.equals("")||roomcode2.equals("null")) {
+					sr.setResultCode("-10005");
+					sr.setResultMsg("门锁编号不能为空");
+					return sr;
+				}
+				if(roomcode2.length()!=10||roomcode2.toUpperCase().matches(".*[G-Z].*")) {
+					sr.setResultCode("-10020");
+					sr.setResultMsg("门锁唯一ID必须为10位十六进制字符串");
+					return sr;
+				}
+			}
+		}
+		return sr;
+	}
+
+	public static SendResult checkAuthTotalList(List<AuthTotal> frlist) {
+		SendResult sr=new SendResult("0", "", "");
+		for(AuthTotal au : frlist) {
+			if(null==au.getType() || "".equals(au.getType())) {
+				sr.setResultCode("-20001");
+				sr.setResultMsg("类型不能为空");
+				return sr;
+			}
+			if(null==au.getLocktype()) {
+				sr.setResultCode("-20002");
+				sr.setResultMsg("门锁类型不能为空");
+				return sr;
+			}
+			if(!au.getLocktype().matches("^[1-4]{1}$")) {
+				sr.setResultCode("-20003");
+				sr.setResultMsg("门锁类型不存在");
+				return sr;
+			}
+			if("1".equals(au.getLocktype())) {
+				String gatewaycode=au.getGatewaycode();
+				String gatewaycode2=au.getGatewaycode2();
+				String roomcode=au.getRoomcode();
+				if(gatewaycode==null||gatewaycode.equals("")||gatewaycode.equals("null")) {
+					sr.setResultCode("-10001");
+					sr.setResultMsg("网关通讯ID不能为空");
+					return sr;
+				}
+				if(gatewaycode.length()!=10||gatewaycode.toUpperCase().matches(".*[G-Z].*")) {
+					sr.setResultCode("-10002");
+					sr.setResultMsg("网关通讯ID必须为10位十六进制字符串");
+					return sr;
+				}
+				if(gatewaycode2==null||gatewaycode2.equals("")||gatewaycode2.equals("null")) {
+					sr.setResultCode("-10003");
+					sr.setResultMsg("网关唯一ID不能为空");
+					return sr;
+				}
+				if(gatewaycode2.length()!=10||gatewaycode2.toUpperCase().matches(".*[G-Z].*")) {
+					sr.setResultCode("-10004");
+					sr.setResultMsg("网关唯一ID必须为10位十六进制字符串");
+					return sr;
+				}
+				if(roomcode==null||roomcode.equals("")||roomcode.equals("null")) {
+					sr.setResultCode("-10005");
+					sr.setResultMsg("门锁编号不能为空");
+					return sr;
+				}
+				if(roomcode.length()!=4||roomcode.toUpperCase().matches(".*[G-Z].*")) {
+					sr.setResultCode("-10006");
+					sr.setResultMsg("门锁编号必须为4位十六进制字符串");
+					return sr;
+				}
+			}else {
+				String roomcode2 = au.getRoomcode2();
+				if(roomcode2==null||roomcode2.equals("")||roomcode2.equals("null")) {
+					sr.setResultCode("-10005");
+					sr.setResultMsg("门锁编号不能为空");
+					return sr;
+				}
+				if(roomcode2.length()!=10||roomcode2.toUpperCase().matches(".*[G-Z].*")) {
+					sr.setResultCode("-10020");
+					sr.setResultMsg("门锁唯一ID必须为10位十六进制字符串");
+					return sr;
+				}
+			}
+		}
+		return sr;
+	}
+
+
 }

@@ -20,6 +20,7 @@ import com.qingyi.model.DelPswsResult;
 import com.qingyi.model.DelRoomFinger;
 import com.qingyi.model.DelUnlockPsw;
 import com.qingyi.model.FingersResult;
+import com.qingyi.model.LockResult;
 import com.qingyi.model.PswsResult;
 import com.qingyi.model.Room;
 import com.qingyi.model.RoomCard;
@@ -855,37 +856,107 @@ public class SendOrderImpl implements SendOrderInfo{
 	@Override
 	public SendResult saveTotalResetList(List<AuthRestAndOpen> rstlist) {
 		// TODO Auto-generated method stub
-		return null;
+		LinkedHashMap param =new LinkedHashMap();
+		if(rstlist==null || rstlist.size()==0) {
+			return new SendResult<>("10007", "参数不能为空","");
+		}else {
+			param.put("rstlist", rstlist);
+		}
+		SendResult sr=StringTools.checkRestAndOpenList( rstlist);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "savetotalresetlist", secret, param);
+			System.out.println(result);
+			sr = StringTools.getSendResultByJson2(result,LockResult.class);
+		}
+		return sr;
 	}
 
 	@Override
 	public SendResult saveTotalOpenList(List<AuthRestAndOpen> oplist) {
 		// TODO Auto-generated method stub
-		return null;
+		LinkedHashMap param =new LinkedHashMap();
+		if(oplist==null || oplist.size()==0) {
+			return new SendResult<>("10007", "参数不能为空","");
+		}else {
+			param.put("oplist", oplist);
+		}
+		SendResult sr=StringTools.checkRestAndOpenList( oplist);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "savetotalopenlist", secret, param);
+			System.out.println(result);
+			sr = StringTools.getSendResultByJson2(result,LockResult.class);
+		}
+		return sr;
 	}
 
 	@Override
 	public SendResult updateTotalForcelockList(List<AuthTotal> frlist) {
 		// TODO Auto-generated method stub
-		return null;
+		LinkedHashMap param =new LinkedHashMap();
+		if(frlist==null || frlist.size()==0) {
+			return new SendResult<>("10007", "参数不能为空","");
+		}else {
+			param.put("frlist", frlist);
+		}
+		SendResult sr=StringTools.checkAuthTotalList(frlist);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updatetotalforcelocklist", secret, param);
+			System.out.println(result);
+			sr = StringTools.getSendResultByJson2(result,LockResult.class);
+		}
+		return sr;
 	}
 
 	@Override
 	public SendResult updateTotalRoomWorkmodeList(List<AuthTotal> wklist) {
 		// TODO Auto-generated method stub
-		return null;
+		LinkedHashMap param =new LinkedHashMap();
+		if(wklist==null || wklist.size()==0) {
+			return new SendResult<>("10007", "参数不能为空","");
+		}else {
+			param.put("wklist", wklist);
+		}
+		SendResult sr=StringTools.checkAuthTotalList(wklist);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updatetotalroomworkmodelist", secret, param);
+			System.out.println(result);
+			sr = StringTools.getSendResultByJson2(result,LockResult.class);
+		}
+		return sr;
 	}
 
 	@Override
 	public SendResult updateTotalRoomNetmodeList(List<AuthTotal> ntlist) {
 		// TODO Auto-generated method stub
-		return null;
+		LinkedHashMap param =new LinkedHashMap();
+		if(ntlist==null || ntlist.size()==0) {
+			return new SendResult<>("10007", "参数不能为空","");
+		}else {
+			param.put("wklist", ntlist);
+		}
+		SendResult sr=StringTools.checkAuthTotalList(ntlist);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updatetotalroomnetmodelist", secret, param);
+			sr = StringTools.getSendResultByJson2(result,LockResult.class);
+		}
+		return sr;
 	}
 
 	@Override
 	public SendResult saveTotalUnlockPswList(List<AuthPsw> plist) {
 		// TODO Auto-generated method stub
-		return null;
+		LinkedHashMap param =new LinkedHashMap();
+		if(plist==null || plist.size()==0) {
+			return new SendResult<>("10007", "参数不能为空","");
+		}else {
+			param.put("plist", plist);
+		}
+		SendResult sr=StringTools.checkPswList(plist);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "savetotalunlockpswlist", secret, param);
+			sr = StringTools.getSendResultByJson2(result,PswsResult.class);
+		}
+		return sr;
 	}
 
 	@Override

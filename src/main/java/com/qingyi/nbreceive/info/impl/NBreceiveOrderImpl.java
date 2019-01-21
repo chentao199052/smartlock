@@ -21,12 +21,18 @@ import com.qingyi.model.NBorderResult6;
 import com.qingyi.model.NBorderResult7;
 import com.qingyi.model.NBrecords;
 import com.qingyi.model.NBrecordsResult;
+import com.qingyi.model.NbForcelockResult;
+import com.qingyi.model.NbOpenResult;
+import com.qingyi.model.NbResetResult;
+import com.qingyi.model.NbWorkmodeResult;
 import com.qingyi.model.ReceiveResult;
 import com.qingyi.model.SlRoomParamas;
 import com.qingyi.nbreceive.info.NBreceiveOrderInfo;
 import com.qingyi.util.Constant;
 import com.qingyi.util.StringTools;
 import com.qingyi.util.Verify;
+
+import net.sf.json.JSONObject;
 
 
 
@@ -585,6 +591,104 @@ public class NBreceiveOrderImpl implements NBreceiveOrderInfo {
 			 sr.setRecordcount(Integer.valueOf(numberOfRecords,16));
 			 return sr;
 		 
+		}
+
+		@Override
+		public ReceiveResult<NbOpenResult> getNbOpenResult(String content, String sysdate, String verify) {
+			// TODO Auto-generated method stub
+			ReceiveResult<NbOpenResult> result =Verify.verify(content, sysdate, verify, secret, timeout);
+			if(result.getResultCode().equals("0")) {
+				Map json=StringTools.stringToMap2(content);
+				NbOpenResult r=new NbOpenResult();
+				String itid=json.get("itid").toString();
+				String status=json.get("status").toString();
+				String roomcode2=json.get("roomcode2").toString();
+				String osdate=json.get("osdate").toString();
+				String roomtxtype=json.get("roomtxtype").toString();
+				r.setItid(itid);
+				r.setRoomtxtype(roomtxtype);
+				r.setStatus(status);
+				r.setRoomcode2(roomcode2);
+				r.setOsdate(osdate);
+				result.setResultstatus(Integer.parseInt(status));
+				result.setResult(r);
+			}
+			return result;
+		}
+
+		@Override
+		public ReceiveResult<NbResetResult> getNbResetResult(String content, String sysdate, String verify) {
+			// TODO Auto-generated method stub
+			ReceiveResult<NbResetResult> result =Verify.verify(content, sysdate, verify, secret, timeout);
+			if(result.getResultCode().equals("0")) {
+				Map json=StringTools.stringToMap2(content);
+				NbResetResult r=new NbResetResult();
+				String itid=json.get("itid").toString();
+				String status=json.get("status").toString();
+				String roomcode2=json.get("roomcode2").toString();
+				String osdate=json.get("osdate").toString();
+				String roomtxtype=json.get("roomtxtype").toString();
+				r.setItid(itid);
+				r.setRoomtxtype(roomtxtype);
+				r.setStatus(status);
+				r.setRoomcode2(roomcode2);
+				r.setOsdate(osdate);
+				result.setResultstatus(Integer.parseInt(status));
+				result.setResult(r);
+			}
+			return result;
+		}
+
+		@Override
+		public ReceiveResult<NbForcelockResult> getNbForcelockResult(String content, String sysdate, String verify) {
+			// TODO Auto-generated method stub
+			ReceiveResult<NbForcelockResult> result =Verify.verify(content, sysdate, verify, secret, timeout);
+			if(result.getResultCode().equals("0")) {
+				//Map json=StringTools.stringToMap2(content);
+				JSONObject json = JSONObject.fromObject(content);
+				NbForcelockResult r=new NbForcelockResult();
+				String itid=json.get("itid").toString();
+				String status=json.get("status").toString();
+				String roomcode2=json.get("roomcode2").toString();
+				String osdate=json.get("osdate").toString();
+				String roomtxtype=json.get("roomtxtype").toString();
+				String order=json.get("order").toString();
+				r.setItid(itid);
+				r.setRoomtxtype(roomtxtype);
+				r.setStatus(status);
+				r.setRoomcode2(roomcode2);
+				r.setOsdate(osdate);
+				r.setOrder(order);
+				result.setResultstatus(Integer.parseInt(status));
+				result.setResult(r);
+			}
+			return result;
+		}
+
+		@Override
+		public ReceiveResult<NbWorkmodeResult> getNbWorkmodeResult(String content, String sysdate, String verify) {
+			// TODO Auto-generated method stub
+			ReceiveResult<NbWorkmodeResult> result =Verify.verify(content, sysdate, verify, secret, timeout);
+			if(result.getResultCode().equals("0")) {
+				//Map json=StringTools.stringToMap2(content);
+				JSONObject json = JSONObject.fromObject(content);
+				NbWorkmodeResult r=new NbWorkmodeResult();
+				String itid=json.get("itid").toString();
+				String status=json.get("status").toString();
+				String roomcode2=json.get("roomcode2").toString();
+				String osdate=json.get("osdate").toString();
+				String roomtxtype=json.get("roomtxtype").toString();
+				String order=json.get("order").toString();
+				r.setItid(itid);
+				r.setRoomtxtype(roomtxtype);
+				r.setStatus(status);
+				r.setRoomcode2(roomcode2);
+				r.setOsdate(osdate);
+				r.setOrder(order);
+				result.setResultstatus(Integer.parseInt(status));
+				result.setResult(r);
+			}
+			return result;
 		}
 
 }

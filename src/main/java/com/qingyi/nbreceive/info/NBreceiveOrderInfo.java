@@ -13,6 +13,10 @@ import com.qingyi.model.NBorderResult5;
 import com.qingyi.model.NBorderResult6;
 import com.qingyi.model.NBorderResult7;
 import com.qingyi.model.NBrecordsResult;
+import com.qingyi.model.NbForcelockResult;
+import com.qingyi.model.NbOpenResult;
+import com.qingyi.model.NbResetResult;
+import com.qingyi.model.NbWorkmodeResult;
 import com.qingyi.model.ReceiveResult;
 import com.qingyi.model.SlRoomParamas;
 
@@ -52,6 +56,41 @@ public interface NBreceiveOrderInfo {
 		 * @return
 		 */
 		public ReceiveResult<NBrecordsResult> getNBrecordsResult(String content,String sysdate,String verify);
+		
+		/**
+		 * 远程开门
+		 * @param content
+		 * @param sysdate
+		 * @param verify
+		 * @return
+		 */
+		public ReceiveResult<NbOpenResult> getNbOpenResult(String content,String sysdate,String verify);
+		/**
+		 * 门锁复位
+		 * @param content
+		 * @param sysdate
+		 * @param verify
+		 * @return
+		 */
+		public ReceiveResult<NbResetResult> getNbResetResult(String content,String sysdate,String verify);
+		
+		/**
+		 * 门锁强锁/非强锁
+		 * @param content
+		 * @param sysdate
+		 * @param verify
+		 * @return
+		 */
+		public ReceiveResult<NbForcelockResult> getNbForcelockResult(String content,String sysdate,String verify);
+		/**
+		 * 常开，常闭设置
+		 * @param content
+		 * @param sysdate
+		 * @param verify
+		 * @return
+		 */
+		public ReceiveResult<NbWorkmodeResult> getNbWorkmodeResult(String content,String sysdate,String verify);
+		
 		/**
 		 * 解析NB锁房间的信息（post过来的信息）
 		 * @param content
@@ -64,5 +103,7 @@ public interface NBreceiveOrderInfo {
 		 * @return
 		 */
 		public SlRoomParamas getSlRoomParamasYd(String content);
+		
+		
 		
 }
