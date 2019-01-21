@@ -9,7 +9,9 @@ import com.qingyi.model.AuthDelFinger;
 import com.qingyi.model.AuthDelPsw;
 import com.qingyi.model.AuthFinger;
 import com.qingyi.model.AuthPsw;
+import com.qingyi.model.AuthRestAndOpen;
 import com.qingyi.model.AuthResult;
+import com.qingyi.model.AuthTotal;
 import com.qingyi.model.CardsResult;
 import com.qingyi.model.Command;
 import com.qingyi.model.DelCardsResult;
@@ -822,6 +824,129 @@ public class SendOrderImpl implements SendOrderInfo{
 			sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		}
 		return sr;
+	}
+
+	@Override
+	public SendResult saveTotalUnlockPsw(String gatewaycode, String gatewaycode2, String roomcode, String roomcode2,
+			String locktype, String roomimei, Integer timeout, UnlockPsw psw, String callbackurl) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("gatewaycode", gatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("roomcode", roomcode);
+		param.put("roomcode2", roomcode2);
+		param.put("locktype", locktype);
+		param.put("roomimei", roomimei);
+		param.put("pass", psw.getPass());
+		param.put("opencount", psw.getOpencount());
+		param.put("edate", psw.getEdate());
+		param.put("openstime", psw.getOpenstime());
+		param.put("openetime", psw.getOpenetime());
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr=StringTools.checkTotal(param);
+		if(sr.getResultCode().equals("0")) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "savetotalunlockpsw", secret, param);
+			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult saveTotalResetList(List<AuthRestAndOpen> rstlist) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SendResult saveTotalOpenList(List<AuthRestAndOpen> oplist) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SendResult updateTotalForcelockList(List<AuthTotal> frlist) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SendResult updateTotalRoomWorkmodeList(List<AuthTotal> wklist) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SendResult updateTotalRoomNetmodeList(List<AuthTotal> ntlist) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SendResult saveTotalUnlockPswList(List<AuthPsw> plist) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SendResult delTotalUnlockpsw(String gatewaycode, String gatewaycode2, String roomcode, DelUnlockPsw dpsw,
+			Integer timeout, String callbackurl) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SendResult delTotalUnlockpswList(List<AuthDelPsw> delist) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SendResult saveTotalRoomCard(String gatewaycode, String gatewaycode2, String roomcode, String roomcode2,
+			String roomimei, String locktype, RoomCard rc, Integer timeout, String callbackurl) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SendResult saveTotalRoomCardList(List<AuthCard> clist) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SendResult delTotalRoomCard(String gatewaycode, String gatewaycode2, String roomcode, String roomcode2,
+			String roomimei, String locktype, String cardtype, String cardcode, Integer timeout, String callbackurl) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SendResult delTotalRoomCardList(List<AuthDelCard> dclist) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SendResult saveTotalRoomFinger(String gatewaycode, String gatewaycode2, String roomcode, String roomcode2,
+			String roomimei, String locktype, RoomFinger rf, Integer timeout, String callbackurl) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SendResult saveTotalRoomFingerList(String gatewaycode, String gatewaycode2, String roomcode,
+			String roomcode2, String roomimei, String locktype, RoomFinger rf, Integer timeout, String callbackurl) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<SendResult> delTotalRoomFinger(String gatewaycode, String gatewaycode2, String roomid, String roomcode,
+			String roomcode2, String roomimei, String locktype, List<DelRoomFinger> rflist, Integer timeout,
+			String callbackurl) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
