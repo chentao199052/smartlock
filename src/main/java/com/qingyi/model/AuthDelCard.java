@@ -123,7 +123,4 @@ public class AuthDelCard {
 	public void setImei(String imei) {
 		this.imei = imei;
 	}
-	
-	
-	
 }
