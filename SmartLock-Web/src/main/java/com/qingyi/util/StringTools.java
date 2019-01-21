@@ -275,7 +275,11 @@ public class StringTools {
 				sr.setResultMsg("卡片类型不能为空");
 				return sr;
 			}
-			
+			if(!au.getCardtype().equals("开门卡")&&!au.getCardtype().equals("管理卡")&&!au.getCardtype().equals("授权卡")&&!au.getCardtype().equals("身份证")) {
+				sr.setResultCode("-20007");
+				sr.setResultMsg("卡片类型不能为空");
+				return sr;
+			}
 			if(au.getCardtype().equals("开门卡")||au.getCardtype().equals("管理卡")||au.getCardtype().equals("授权卡")) {
 				if(au.getCardcode().length()!=8||au.getCardcode().toUpperCase().matches(".*[G-Z].*")) {
 					sr.setResultCode("-10029");
