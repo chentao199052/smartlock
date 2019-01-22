@@ -6,7 +6,7 @@ package com.qingyi.model;
  */
 public class UnlockPsw {
 	
-	private String pass;
+	private String password;
 	
 	private String opencount;
 	
@@ -28,22 +28,23 @@ public class UnlockPsw {
 	 * @param unlocketime 可开门时间段结束时间（格式为XX:XX）
 	 */
 	
-	public String getPass() {
-		return pass;
+	public String getPassword() {
+		return password;
 	}
 
-	public UnlockPsw(String pass, String opencount, String edate, String openstime, String openetime) {
+	public UnlockPsw(String password, String opencount, String edate, String openstime, String openetime) {
 		super();
-		this.pass = pass;
+		this.password = password;
 		this.opencount = opencount;
 		this.edate = edate;
 		this.openstime = openstime;
 		this.openetime = openetime;
 	}
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
+	
 
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public String getOpencount() {
 		return opencount;
 	}
@@ -74,6 +75,11 @@ public class UnlockPsw {
 
 	public void setOpenetime(String openetime) {
 		this.openetime = openetime;
+	}
+	@Override
+	public String toString() {
+		return "{'password':'" + password + "', 'opencount':'" + opencount + "', 'edate':'" + edate + "', 'openstime':'" + openstime
+				+ "', 'openetime':'" + openetime + "'}";
 	}
 
 		

@@ -5,8 +5,6 @@ package com.qingyi.model;
  *
  */
 public class RoomFinger {
-	private String rfid;//SlRoomfinger 主键
-	
 	private String fingercode;
 	
 	private String fingercontent;
@@ -48,25 +46,6 @@ public class RoomFinger {
 		this.actioncount = actioncount;
 	}
 	
-	public RoomFinger(String rfid, String fingercode, String fingercontent, String fingerseq, String edate,
-			String openstime, String openetime, String opencount, String actioncount) {
-		super();
-		this.rfid = rfid;
-		this.fingercode = fingercode;
-		this.fingercontent = fingercontent;
-		this.fingerseq = fingerseq;
-		this.edate = edate;
-		this.openstime = openstime;
-		this.openetime = openetime;
-		this.opencount = opencount;
-		this.actioncount = actioncount;
-	}
-	public String getRfid() {
-		return rfid;
-	}
-	public void setRfid(String rfid) {
-		this.rfid = rfid;
-	}
 	public String getFingercode() {
 		return fingercode;
 	}
@@ -114,6 +93,12 @@ public class RoomFinger {
 	}
 	public void setActioncount(String actioncount) {
 		this.actioncount = actioncount;
+	}
+	@Override
+	public String toString() {
+		return "{'fingercode':'" + fingercode + "', 'fingercontent':'" + fingercontent
+				+ "', 'fingerseq':'" + fingerseq + "', 'edate':'" + edate + "', 'openstime':'" + openstime + "', 'openetime':'"
+				+ openetime + "', 'opencount':'" + opencount + "', 'actioncount':'" + actioncount + "'}";
 	}
 	
 }

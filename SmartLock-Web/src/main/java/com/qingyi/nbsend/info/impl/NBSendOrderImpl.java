@@ -48,7 +48,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			LinkedHashMap param=new LinkedHashMap();
 			param.put("roomcode2", roomcode2);
 			param.put("roomimei",roomimei);
-			param.put("pass", psw.getPass());
+			param.put("password", psw.getPassword());
 			param.put("count",psw.getOpencount());
 			param.put("edate", psw.getEdate());
 			param.put("roomtxtype",roomtxtype);
@@ -69,7 +69,7 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			// TODO Auto-generated method stub
 			LinkedHashMap param=new LinkedHashMap();
 			param.put("roomcode2", roomcode2);
-			param.put("pass", psw.getPass());
+			param.put("password", psw.getPassword());
 			param.put("count",psw.getOpencount());
 			param.put("edate", psw.getEdate());
 			param.put("unlockstime", psw.getOpenstime());
@@ -97,11 +97,9 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("cardcode",card.getCardcode());
 			param.put("personcode",card.getPersoncode());
 			param.put("personname",card.getPersonname());
-			param.put("empedate",card.getEmpedate());
 			param.put("rcusecount",card.getOpencount());
 			param.put("openstime",card.getOpenstime());
 			param.put("openetime",card.getOpenetime());
-			param.put("rcid",card.getRcid());
 			param.put("timeout", timeout);
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
@@ -215,7 +213,6 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("roomtxtype",roomtxtype);
 			param.put("cardtype",rc.getCardtype());
 			param.put("cardcode",rc.getCardcode());
-			param.put("empedate",rc.getEmpedate());
 			param.put("cardedate",rc.getEdate());
 			param.put("personcode",rc.getPersoncode());
 			param.put("personname",rc.getPersonname());

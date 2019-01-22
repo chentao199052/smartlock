@@ -11,6 +11,7 @@ import com.qingyi.model.AuthFinger;
 import com.qingyi.model.AuthPsw;
 import com.qingyi.model.AuthRestAndOpen;
 import com.qingyi.model.AuthResult;
+import com.qingyi.model.AuthSync;
 import com.qingyi.model.AuthTotal;
 import com.qingyi.model.CardsResult;
 import com.qingyi.model.Command;
@@ -26,6 +27,7 @@ import com.qingyi.model.Room;
 import com.qingyi.model.RoomCard;
 import com.qingyi.model.RoomFinger;
 import com.qingyi.model.SendResult;
+import com.qingyi.model.SyncResult;
 import com.qingyi.model.UnlockPsw;
 import com.qingyi.send.info.SendOrderInfo;
 import com.qingyi.util.Constant;
@@ -147,7 +149,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("gatewaycode", gatewaycode);
 		param.put("gatewaycode2", gatewaycode2);
 		param.put("roomcode", roomcode);
-		param.put("pass", psw.getPass());
+		param.put("password", psw.getPassword());
 		param.put("opencount", psw.getOpencount());
 		param.put("edate", psw.getEdate());
 		param.put("openstime", psw.getOpenstime());
@@ -568,11 +570,9 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("personcode", card.getPersoncode());
 		param.put("personname", card.getPersonname());
 		param.put("rcusecount", card.getOpencount());
-		param.put("empedate", card.getEmpedate());
 		param.put("cardedate", card.getEdate());
 		param.put("openstime", card.getOpenstime());
 		param.put("openetime", card.getOpenetime());
-		param.put("rcid", card.getRcid());
 		param.put("timeout", timeout);
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
@@ -594,7 +594,6 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("fingercontent", finger.getFingercontent());
 		param.put("fingerseq", finger.getFingerseq());
 		param.put("count", finger.getOpencount());
-		param.put("rfid", finger.getRfid());
 		param.put("openstime", finger.getOpenstime());
 		param.put("openetime", finger.getOpenetime());
 		param.put("empedate", finger.getEdate());
@@ -714,10 +713,6 @@ public class SendOrderImpl implements SendOrderInfo{
 		
 		String result=HttpsUtil.httpURLConnectionPOST(baseurl,"savelotauth", secret, param);
 		sr = StringTools.getSendResultByJson(result);
-		System.out.println(null!=sr.getResult().getCardsresult()?sr.getResult().getCardsresult().toString():"无卡");
-		System.out.println(null!=sr.getResult().getDelcardsresult()?sr.getResult().getDelcardsresult().toString():"无删卡");
-		System.out.println(null!=sr.getResult().getFingersresult()?sr.getResult().getFingersresult().toString():"无指");
-		System.out.println(null!=sr.getResult().getDelfingersresult()?sr.getResult().getDelfingersresult().toString():"无删指");
 		return sr;
 	}
 
@@ -838,7 +833,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("roomcode2", roomcode2);
 		param.put("locktype", locktype);
 		param.put("roomimei", roomimei);
-		param.put("pass", psw.getPass());
+		param.put("password", psw.getPassword());
 		param.put("opencount", psw.getOpencount());
 		param.put("edate", psw.getEdate());
 		param.put("openstime", psw.getOpenstime());
@@ -1018,6 +1013,23 @@ public class SendOrderImpl implements SendOrderInfo{
 			String callbackurl) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public SendResult<SyncResult> saveAuthSync(List<AuthSync> synclist) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		if(null!=synclist&&synclist.size()>0){
+			param.put("synclist", synclist);
+		}else {
+			return new SendResult("-2003","参数不能为空","");
+		}
+		SendResult<SyncResult> sr = StringTools.checkSyncList(synclist);
+		if(sr.getResultCode().equals("0")) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"savelotauthsync", secret, param);
+			sr = StringTools.getSyncSendResultByJson(result);
+		}
+		return sr;
 	}
 
 	

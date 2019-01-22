@@ -6,9 +6,12 @@ package com.qingyi.model;
  */
 public class RoomCard {
 	
-	
-	private String rcid;
-	
+	@Override
+	public String toString() {
+		return "{'cardtype':'" + cardtype + "', 'cardcode':'" + cardcode + "', 'personcode':'"
+				+ personcode + "', 'personname':'" + personname + "', 'edate':'" + edate
+				+ "', 'openstime':'" + openstime + "', 'openetime':'" + openetime + "', 'opencount':'" + opencount + "'}";
+	}
 	private String cardtype;//中文标识
 	
 	private String cardcode;
@@ -16,8 +19,6 @@ public class RoomCard {
 	private String personcode;
 	
 	private String personname;
-	
-	private String empedate;//授权截止日期
 	
 	private String edate;
 	
@@ -34,48 +35,27 @@ public class RoomCard {
 	 * 卡片授权构造方法
 	 * @param cardtype 卡片类型（开门卡/管理卡/授权卡/身份证）
 	 * @param cardcode 卡号（开门卡/管理卡/授权卡为8位16进制字符串，身份证为16位16进制字符串）
-	 * @param empedate 卡片有效结束日期（-1为不限日期，格式yyMMddHHmm）
+	 * @param edate 卡片有效结束日期（-1为不限日期，格式yyMMddHHmm）
 	 * @param personcode 人员编号
 	 * @param personname 人员姓名
 	 * @param openstime 可开门时间段开始时间（格式XX:XX）
 	 * @param openetime 可开门时间段结束时间（格式XX:XX）
 	 * @param opencount 可开门次数（-1为不限次数）
 	 */
-
-	
-	
-	public RoomCard(String cardtype, String cardcode, String personcode, String personname, String empedate,
+	public RoomCard(String cardtype, String cardcode, String personcode, String personname, String edate,
 			String openstime, String openetime, String opencount) {
 		super();
 		this.cardtype = cardtype;
 		this.cardcode = cardcode;
 		this.personcode = personcode;
 		this.personname = personname;
-		this.empedate = empedate;
-		this.openstime = openstime;
-		this.openetime = openetime;
-		this.opencount = opencount;
-	}
-	public RoomCard(String rcid, String cardtype, String cardcode, String personcode, String personname,
-			String empedate, String edate, String openstime, String openetime, String opencount) {
-		super();
-		this.rcid = rcid;
-		this.cardtype = cardtype;
-		this.cardcode = cardcode;
-		this.personcode = personcode;
-		this.personname = personname;
-		this.empedate = empedate;
 		this.edate = edate;
 		this.openstime = openstime;
 		this.openetime = openetime;
 		this.opencount = opencount;
 	}
-	public String getRcid() {
-		return rcid;
-	}
-	public void setRcid(String rcid) {
-		this.rcid = rcid;
-	}
+	
+	
 	public String getCardtype() {
 		return cardtype;
 	}
@@ -100,12 +80,7 @@ public class RoomCard {
 	public void setPersonname(String personname) {
 		this.personname = personname;
 	}
-	public String getEmpedate() {
-		return empedate;
-	}
-	public void setEmpedate(String empedate) {
-		this.empedate = empedate;
-	}
+	
 	public String getEdate() {
 		return edate;
 	}

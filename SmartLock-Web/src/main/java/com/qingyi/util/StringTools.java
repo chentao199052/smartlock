@@ -20,6 +20,7 @@ import com.qingyi.model.AuthFinger;
 import com.qingyi.model.AuthPsw;
 import com.qingyi.model.AuthRestAndOpen;
 import com.qingyi.model.AuthResult;
+import com.qingyi.model.AuthSync;
 import com.qingyi.model.AuthTotal;
 import com.qingyi.model.CardsResult;
 import com.qingyi.model.DelCardsResult;
@@ -29,7 +30,11 @@ import com.qingyi.model.FingersResult;
 import com.qingyi.model.LockResult;
 import com.qingyi.model.PswsResult;
 import com.qingyi.model.RoomCard;
+import com.qingyi.model.RoomFinger;
 import com.qingyi.model.SendResult;
+import com.qingyi.model.SyncCPResult;
+import com.qingyi.model.SyncFResult;
+import com.qingyi.model.SyncResult;
 import com.qingyi.model.UnlockPsw;
 import com.qingyi.send.info.SendOrderInfo;
 import com.qingyi.send.info.impl.SendOrderImpl;
@@ -681,7 +686,7 @@ public class StringTools {
 					sr.setResultMsg("指令超时时间必须为数字");
 					return sr;
 				}
-			}else if(key.equals("pass")) {
+			}else if(key.equals("pass") || key.equals("password")) {
 				if(val.toString()==null||val.toString().equals("")||val.toString().equals("null")) {
 					sr.setResultCode("-10008");
 					sr.setResultMsg("密码不能为空");
@@ -1231,6 +1236,372 @@ public class StringTools {
 		return sr;
 	}
 	
+	public static SendResult checkSyncList(List<AuthSync> synclist) {
+		SendResult sr=new SendResult("0","","");
+		if(null==synclist || synclist.size()<=0) {
+			return sr;
+		}
+		for(int i=0;i<synclist.size();i++) {
+			AuthSync au = synclist.get(i);
+			List<RoomCard> rclist = null;
+			List<UnlockPsw> pswlist = null;
+			List<RoomFinger> rflist = null;
+			rclist = au.getRoomcardlist();
+			pswlist = au.getPswlist();
+			rflist = au.getRoomfingerlist();
+			System.out.println("指纹数："+rflist.size());
+			if(null==au.getLocktype()) {
+				sr.setResultCode("-20002");
+				sr.setResultMsg("门锁类型不能为空");
+				return sr;
+			}
+			if(au.getLocktype()<1 || au.getLocktype()>4) {
+				sr.setResultCode("-20003");
+				sr.setResultMsg("门锁类型不存在");
+				return sr;
+			}
+			
+			if(null==au.getRoomcode2()||au.getRoomcode2().equals("")||au.getRoomcode2().equals("null")) {
+				sr.setResultCode("-10019");
+				sr.setResultMsg("门锁唯一ID不能为空");
+				return sr;
+			}else if(au.getRoomcode2().length()!=10||au.getRoomcode2().toUpperCase().matches(".*[G-Z].*")) {
+				sr.setResultCode("-10020");
+				sr.setResultMsg("门锁唯一ID必须为10位十六进制字符串");
+				return sr;
+			}
+			if(au.getLocktype()==1) {
+				if(null==au.getRoomcode()||au.getRoomcode().equals("")||au.getRoomcode().equals("null")) {
+					sr.setResultCode("-10005");
+					sr.setResultMsg("无线联网锁门锁编号不能为空");
+					return sr;
+				}else if(au.getRoomcode().length()!=4||au.getRoomcode().toUpperCase().matches(".*[G-Z].*")) {
+					sr.setResultCode("-10006");
+					sr.setResultMsg("门锁编号必须为4位十六进制字符串");
+					return sr;
+				}
+				if(null==au.getGatewaycode()||au.getGatewaycode().equals("")||au.getGatewaycode().equals("null")) {
+					sr.setResultCode("-10001");
+					sr.setResultMsg("无线联网锁网关通讯ID不能为空");
+					return sr;
+				}else if(au.getGatewaycode().length()!=10||au.getGatewaycode().toUpperCase().matches(".*[G-Z].*")) {
+					sr.setResultCode("-10002");
+					sr.setResultMsg("网关通讯ID必须为10位十六进制字符串");
+					return sr;
+				}
+				if(null==au.getGatewaycode2()||au.getGatewaycode2().equals("")||au.getGatewaycode2().equals("null")) {
+					sr.setResultCode("-10003");
+					sr.setResultMsg("无线联网锁网关唯一ID不能为空");
+					return sr;
+				}else if(au.getGatewaycode2().length()!=10||au.getGatewaycode2().toUpperCase().matches(".*[G-Z].*")) {
+					sr.setResultCode("-10004");
+					sr.setResultMsg("网关唯一ID必须为10位十六进制字符串");
+					return sr;
+				}
+			}else {
+				if(null==au.getImei()||au.getImei().equals("")||au.getImei().equals("null")) {
+					sr.setResultCode("-10042");
+					sr.setResultMsg("IMEI不能为空");
+					return sr;
+				}
+			}
+			
+			if((null==rclist || rclist.size()<=0) && (null==pswlist || pswlist.size()<=0) && (null==rflist || rflist.size()<=0)) {
+				sr.setResultCode("-20003");
+				sr.setResultMsg("授权同步不能卡片，密码/指纹全部为空");
+				return sr;
+			}
+			
+			if(null==au.getCallbackurl() || au.getCallbackurl().equals("") || au.getCallbackurl().equals("null")) {
+				sr.setResultCode("-20004");
+				sr.setResultMsg("回调地址不能为空");
+				return sr;
+			}
+			
+			if(null==au.getTimeout() || au.getTimeout()<0) {
+				sr.setResultCode("-20005");
+				sr.setResultMsg("指令超时时间不能为空");
+				return sr;
+			}
+			
+			if(null!=rclist && rclist.size()>0) {
+				for(int x=0;x<rclist.size();x++) {
+					RoomCard rc = rclist.get(x);
+					
+					if(null==rc.getCardcode()||rc.getCardcode().equals("")||rc.getCardcode().equals("null")) {
+						sr.setResultCode("-10028");
+						sr.setResultMsg("卡号不能为空");
+						return sr;
+					}
+					
+					if(null==rc.getCardtype()||rc.getCardtype().equals("")||rc.getCardtype().equals("null")) {
+						sr.setResultCode("-20006");
+						sr.setResultMsg("卡片类型不能为空");
+						return sr;
+					}
+					if(!rc.getCardtype().equals("开门卡")&&!rc.getCardtype().equals("管理卡")&&!rc.getCardtype().equals("授权卡")&&!rc.getCardtype().equals("身份证")) {
+						sr.setResultCode("-20007");
+						sr.setResultMsg("卡片类型不能为空");
+						return sr;
+					}
+					if(rc.getCardtype().equals("开门卡")||rc.getCardtype().equals("管理卡")||rc.getCardtype().equals("授权卡")) {
+						if(rc.getCardcode().length()!=8||rc.getCardcode().toUpperCase().matches(".*[G-Z].*")) {
+							sr.setResultCode("-10029");
+							sr.setResultMsg("开门卡/管理卡/授权卡必须为8位十六进制字符串");
+							return sr;
+						}
+					}else if(rc.getCardtype().equals("身份证")) {
+						if(rc.getCardcode().length()!=16||rc.getCardcode().toUpperCase().matches(".*[G-Z].*")) {
+							sr.setResultCode("-10030");
+							sr.setResultMsg("身份证必须为16位十六进制字符串");
+							return sr;
+						}
+					}
+						
+					if(null==rc.getOpenstime()||rc.getOpenstime().equals("")||rc.getOpenstime().equals("null")) {
+						sr.setResultCode("-10022");
+						sr.setResultMsg("可开门时间段开始时间不能为空");
+						return sr;
+					}else if(rc.getOpenstime().length()!=5) {
+						sr.setResultCode("-10023");
+						sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
+						return sr;
+					}else if(!rc.getOpenstime().contains(":")) {
+						sr.setResultCode("-10023");
+						sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
+						return sr;
+					}else {
+						String t = rc.getOpenstime().replace(":", "");
+						if(t.length()!=4||!t.matches("\\d+")) {
+							sr.setResultCode("-10023");
+							sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
+							return sr;
+						}
+					}
+						
+					if(null==rc.getOpenetime()||rc.getOpenetime().equals("")||rc.getOpenetime().equals("null")) {
+						sr.setResultCode("-10024");
+						sr.setResultMsg("可开门时间段结束时间不能为空");
+						return sr;
+					}else if(rc.getOpenetime().length()!=5) {
+						sr.setResultCode("-10025");
+						sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
+						return sr;
+					}else if(!rc.getOpenetime().contains(":")) {
+						sr.setResultCode("-10025");
+						sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
+						return sr;
+					}else {
+						String t = rc.getOpenetime().replace(":", "");
+						if(t.length()!=4||!t.matches("[0-9]+")) {
+							sr.setResultCode("-10025");
+							sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
+							return sr;
+						}
+					}
+					
+					if(null==rc.getEdate()||rc.getEdate().equals("")||rc.getEdate().equals("null")) {
+						sr.setResultCode("-10012");
+						sr.setResultMsg("授权结束时间不能为空");
+						return sr;
+					}else if(!rc.getEdate().equals("-1")&&(rc.getEdate().length()!=10||!rc.getEdate().matches("\\d+"))) {
+						sr.setResultCode("-10013");
+						sr.setResultMsg("授权结束时间格式为yyMMddHHmm");
+						return sr;
+					}
+					
+					if(null==rc.getOpencount()||rc.getOpencount().equals("")||rc.getOpencount().equals("null")) {
+						sr.setResultCode("-10010");
+						sr.setResultMsg("可开门次数不能为空");
+						return sr;
+					}else if(!rc.getOpencount().matches("[0-9]+|(-1)")) {
+						sr.setResultCode("-10011");
+						sr.setResultMsg("可开门次数必须为0-254数字,0表示不限次数");
+						return sr;
+					}
+				}
+			}
+			
+			if(null!=pswlist && pswlist.size()>0) {
+				for(int y=0;y<pswlist.size();y++) {
+					UnlockPsw psw = pswlist.get(y);
+					if(null==psw.getPassword()||psw.getPassword().equals("")||psw.getPassword().equals("null")) {
+						sr.setResultCode("-10008");
+						sr.setResultMsg("密码不能为空");
+						return sr;
+					}
+					Pattern pattern = Pattern.compile("[0-9]*");
+					Matcher isNum = pattern.matcher(psw.getPassword());
+					if (!isNum.matches() || psw.getPassword().length()!=6) {
+						sr.setResultCode("-10009");
+						sr.setResultMsg("密码必须为6位数字");
+						return sr;
+					}
+					
+					if(null==psw.getOpenstime()||psw.getOpenstime().equals("")||psw.getOpenstime().equals("null")) {
+						sr.setResultCode("-10022");
+						sr.setResultMsg("可开门时间段开始时间不能为空");
+						return sr;
+					}else if(psw.getOpenstime().length()!=5) {
+						sr.setResultCode("-10023");
+						sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
+						return sr;
+					}else if(!psw.getOpenstime().contains(":")) {
+						sr.setResultCode("-10023");
+						sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
+						return sr;
+					}else {
+						String t = psw.getOpenstime().replace(":", "");
+						if(t.length()!=4||!t.matches("\\d+")) {
+							sr.setResultCode("-10023");
+							sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
+							return sr;
+						}
+					}
+						
+					if(null==psw.getOpenetime()||psw.getOpenetime().equals("")||psw.getOpenetime().equals("null")) {
+						sr.setResultCode("-10024");
+						sr.setResultMsg("可开门时间段结束时间不能为空");
+						return sr;
+					}else if(psw.getOpenetime().length()!=5) {
+						sr.setResultCode("-10025");
+						sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
+						return sr;
+					}else if(!psw.getOpenetime().contains(":")) {
+						sr.setResultCode("-10025");
+						sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
+						return sr;
+					}else {
+						String t = psw.getOpenetime().replace(":", "");
+						if(t.length()!=4||!t.matches("[0-9]+")) {
+							sr.setResultCode("-10025");
+							sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
+							return sr;
+						}
+					}
+					
+					if(null==psw.getEdate()||psw.getEdate().equals("")||psw.getEdate().equals("null")) {
+						sr.setResultCode("-10012");
+						sr.setResultMsg("授权结束时间不能为空");
+						return sr;
+					}else if(!psw.getEdate().equals("-1")&&(psw.getEdate().length()!=10||!psw.getEdate().matches("\\d+"))) {
+						sr.setResultCode("-10013");
+						sr.setResultMsg("授权结束时间格式为yyMMddHHmm");
+						return sr;
+					}
+					
+					if(null==psw.getOpencount()||psw.getOpencount().equals("")||psw.getOpencount().equals("null")) {
+						sr.setResultCode("-10010");
+						sr.setResultMsg("可开门次数不能为空");
+						return sr;
+					}else if(!psw.getOpencount().matches("[0-9]+|(-1)")) {
+						sr.setResultCode("-10011");
+						sr.setResultMsg("可开门次数必须为0-254数字,0表示不限次数");
+						return sr;
+					}
+				}
+			}
+			
+			if(null!=rflist && rflist.size()>0) {
+				for(int z=0;z<rflist.size();z++) {
+					RoomFinger rf = rflist.get(z);
+					System.out.println(">>>"+rf.getActioncount());
+					if(null==rf.getActioncount()||rf.getActioncount().equals("")||rf.getActioncount().equals("null")) {
+						sr.setResultCode("-10039");
+						sr.setResultMsg("开门需按指纹次数不能为空");
+						return sr;
+					}else if(!rf.getActioncount().matches("[0-9]*")) {
+						sr.setResultCode("-10040");
+						sr.setResultMsg("开门需按指纹次数必须为数字");
+						return sr;
+					}
+					
+					if(null==rf.getFingercode()||rf.getFingercode().equals("")||rf.getFingercode().equals("null")) {
+						sr.setResultCode("-10035");
+						sr.setResultMsg("指纹编号不能为空");
+						return sr;
+					}else if(rf.getFingercode().length()!=8||rf.getFingercode().toUpperCase().matches(".*[G-Z].*")) {
+						sr.setResultCode("-10036");
+						sr.setResultMsg("指纹编号必须为8位十六进制字符串");
+						return sr;
+					}
+					if(null==rf.getFingercontent()||rf.getFingercontent().equals("")||rf.getFingercontent().equals("null")) {
+						sr.setResultCode("-10037");
+						sr.setResultMsg("指纹特征码不能为空");
+						return sr;
+					}else if(rf.getFingercontent().length()!=988||rf.getFingercontent().toUpperCase().matches(".*[G-Z].*")) {
+						sr.setResultCode("-10038");
+						sr.setResultMsg("指纹特征码必须为988位十六进制字符串");
+						return sr;
+					}
+					
+					
+					if(null==rf.getOpenstime()||rf.getOpenstime().equals("")||rf.getOpenstime().equals("null")) {
+						sr.setResultCode("-10022");
+						sr.setResultMsg("可开门时间段开始时间不能为空");
+						return sr;
+					}else if(rf.getOpenstime().length()!=5) {
+						sr.setResultCode("-10023");
+						sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
+						return sr;
+					}else if(!rf.getOpenstime().contains(":")) {
+						sr.setResultCode("-10023");
+						sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
+						return sr;
+					}else {
+						String t = rf.getOpenstime().replace(":", "");
+						if(t.length()!=4||!t.matches("\\d+")) {
+							sr.setResultCode("-10023");
+							sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
+							return sr;
+						}
+					}
+						
+					if(null==rf.getOpenetime()||rf.getOpenetime().equals("")||rf.getOpenetime().equals("null")) {
+						sr.setResultCode("-10024");
+						sr.setResultMsg("可开门时间段结束时间不能为空");
+						return sr;
+					}else if(rf.getOpenetime().length()!=5) {
+						sr.setResultCode("-10025");
+						sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
+						return sr;
+					}else if(!rf.getOpenetime().contains(":")) {
+						sr.setResultCode("-10025");
+						sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
+						return sr;
+					}else {
+						String t = rf.getOpenetime().replace(":", "");
+						if(t.length()!=4||!t.matches("[0-9]+")) {
+							sr.setResultCode("-10025");
+							sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
+							return sr;
+						}
+					}
+					
+					if(null==rf.getEdate()||rf.getEdate().equals("")||rf.getEdate().equals("null")) {
+						sr.setResultCode("-10012");
+						sr.setResultMsg("授权结束时间不能为空");
+						return sr;
+					}else if(!rf.getEdate().equals("-1")&&(rf.getEdate().length()!=10||!rf.getEdate().matches("\\d+"))) {
+						sr.setResultCode("-10013");
+						sr.setResultMsg("授权结束时间格式为yyMMddHHmm");
+						return sr;
+					}
+					
+					if(null==rf.getOpencount()||rf.getOpencount().equals("")||rf.getOpencount().equals("null")) {
+						sr.setResultCode("-10010");
+						sr.setResultMsg("可开门次数不能为空");
+						return sr;
+					}else if(!rf.getOpencount().matches("[0-9]+|(-1)")) {
+						sr.setResultCode("-10011");
+						sr.setResultMsg("可开门次数必须为0-254数字,0表示不限次数");
+						return sr;
+					}
+				}
+			}
+		}
+		return sr;
+	}
 	/**
 	  * 鍒囧壊鎸囦护鑾峰彇failtype
 	  * @param result
@@ -1827,129 +2198,150 @@ public class StringTools {
 		 return retsu;
 	 }
 	 
+	 public static SendResult getSyncSendResultByJson(String result) {
+		SendResult<SyncResult> retsu = new SendResult<SyncResult>();
+		SyncResult retau = new SyncResult();
+		
+		JSONObject json = JSONObject.fromObject(result);
+		retsu = (SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
+		
+		//authresult
+		JSONObject ar = json.getJSONObject("result");
+		
+		if(ar.containsKey("syncpresult") && !ar.get("syncpresult").equals("") && !ar.get("syncpresult").equals("null")) {
+			JSONArray cl = ar.getJSONArray("syncpresult");
+			List<SyncCPResult> list= JSONArray.toList(cl, new SyncCPResult(),new JsonConfig());
+			retau.setSyncpresult(list);
+		}
+		if(ar.containsKey("synfresult") && !ar.get("synfresult").equals("") && !ar.get("synfresult").equals("null")) {
+			JSONArray dcl = ar.getJSONArray("synfresult");
+			List<SyncFResult> list = JSONArray.toList(dcl, new SyncFResult(),new JsonConfig());
+			retau.setSynfresult(list);
+		}
+		
+		retsu.setResult(retau);
+		return retsu;
+	 }
+	 
 	 public static void main(String[] args) {
 		SendOrderInfo sio = new SendOrderImpl();
-		List<AuthCard> clist = new ArrayList<AuthCard>();
-		List<AuthDelCard> dclist = new ArrayList<AuthDelCard>();
-		List<AuthFinger> flist = new ArrayList<AuthFinger>();
-		List<AuthDelFinger> dflist = new ArrayList<AuthDelFinger>();
-		List<AuthPsw> plist = new ArrayList<AuthPsw>();
-		List<AuthDelPsw> dplist = new ArrayList<AuthDelPsw>();
+		List<RoomCard> clist = new ArrayList<RoomCard>();
+		List<RoomFinger> flist = new ArrayList<RoomFinger>();
+		List<RoomFinger> flist2 = new ArrayList<RoomFinger>();
+		List<UnlockPsw> plist = new ArrayList<UnlockPsw>();
 		
-		AuthCard au = new AuthCard();
-		au.setLocktype(2);
+		List<AuthSync> synclist = new ArrayList<AuthSync>();
+		AuthSync sn1 = new AuthSync();
+		AuthSync sn2 = new AuthSync();
+		
+		RoomCard au = new RoomCard();
 		au.setCardcode("00010001");
-		au.setGatewaycode("002a010101");
-		au.setGatewaycode2("1901010001");
-		au.setRoomcode("0101");
-		au.setRoomcode2("1901000001");
 		au.setEdate("-1");
 		au.setOpencount("0");
 		au.setOpenstime("00:00");
-		au.setImei("1216121514151");
 		au.setOpenetime("23:59");
-		au.setCardtype("身份证");
-		au.setCallbackurl("1");
-		au.setTimeout(200);
-		//clist.add(au);
+		au.setCardtype("开门卡");
+		clist.add(au);
 		
-		AuthDelCard d = new AuthDelCard();
-		d.setLocktype(2);
-		d.setCardcode("00010001");
-		d.setGatewaycode("002a010101");
-		d.setGatewaycode2("1901010001");
-		d.setRoomcode("0101");
-		d.setRoomcode2("1901000001");
-		d.setImei("1216121514151");
-		d.setCallbackurl("1");
-		d.setTimeout(200);
-		//dclist.add(d);
+		RoomCard d = new RoomCard();
+		d.setCardcode("00010002");
+		d.setEdate("-1");
+		d.setOpencount("0");
+		d.setOpenstime("00:00");
+		d.setOpenetime("23:59");
+		d.setCardtype("开门卡");
+		clist.add(d);
 		
-		AuthFinger f = new AuthFinger();
-		f.setLocktype(2);
+		RoomFinger f = new RoomFinger();
 		f.setFingercode("00010001");
-		f.setGatewaycode("002a010101");
-		f.setGatewaycode2("1901010001");
-		f.setRoomcode("0101");
-		f.setRoomcode2("1901000001");
 		f.setEdate("-1");
 		f.setOpencount("0");
 		f.setOpenstime("00:00");
 		f.setOpenetime("23:59");
-		f.setImei("1216121514151");
 		f.setActioncount("1");
 		f.setFingercontent("dd0217ff843201c8060b02c30c2908c88c45024f8d8990070cda11140dd213110768141608d7c104143802d2971204669d2008e6a1160a6e4050a40e08f2a74705d8283b0560294e0258c0cc800d04441b2d1a60201c0d6d840f034b5cc91d1605e41e2d0d63a12203e300000000c194000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000dbdfcb79edbebc78867776070000000000000000550053000b0a4347474747474b4b4b524747474747474b4b4b4f4a4a4b4b4b4b4b4b4f4f52524f4f4f4f4f4f4f4f665e5b57535353534f4f6b6b635f5b575353534f6f6f6b63635b5753535373736f6b675f57575353ff77736b67635b575757ff7b736f67635f5b5757ffff736f6b675f5b57ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff209d0000000000000000000000000000808a04700e45e5bf410b00a6");
-		f.setCallbackurl("1");
-		f.setTimeout(200);
-		//flist.add(f);
+		flist.add(f);
 		
-		AuthDelFinger df = new AuthDelFinger();
-		df.setLocktype(2);
+		RoomFinger df = new RoomFinger();
 		df.setFingercode("00010001");
-		df.setGatewaycode("002a010101");
-		df.setGatewaycode2("1901010001");
-		df.setRoomcode("0101");
-		df.setRoomcode2("1901000001");
-		df.setImei("1216121514151");
-		df.setCallbackurl("1");
-		df.setTimeout(200);
-		dflist.add(df);
+		df.setEdate("-1");
+		df.setOpencount("0");
+		df.setOpenstime("00:00");
+		df.setOpenetime("23:59");
+		df.setActioncount("1");
+		df.setFingercontent("dd0217ff843201c8060b02c30c2908c88c45024f8d8990070cda11140dd213110768141608d7c104143802d2971204669d2008e6a1160a6e4050a40e08f2a74705d8283b0560294e0258c0cc800d04441b2d1a60201c0d6d840f034b5cc91d1605e41e2d0d63a12203e300000000c194000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000dbdfcb79edbebc78867776070000000000000000550053000b0a4347474747474b4b4b524747474747474b4b4b4f4a4a4b4b4b4b4b4b4f4f52524f4f4f4f4f4f4f4f665e5b57535353534f4f6b6b635f5b575353534f6f6f6b63635b5753535373736f6b675f57575353ff77736b67635b575757ff7b736f67635f5b5757ffff736f6b675f5b57ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff209d0000000000000000000000000000808a04700e45e5bf410b00a6");
+		flist2.add(df);
 		
-		AuthDelFinger df2 = new AuthDelFinger();
-		df2.setLocktype(2);
-		df2.setFingercode("00010002");
-		df2.setGatewaycode("002a010101");
-		df2.setGatewaycode2("1901010001");
-		df2.setRoomcode("0101");
-		df2.setRoomcode2("1901000001");
-		df2.setCallbackurl("1");
-		df2.setImei("1216121514151");
-		df2.setTimeout(200);
-		dflist.add(df2);
+		RoomFinger df2 = new RoomFinger();
+		df2.setFingercode("00010003");
+		df2.setEdate("-1");
+		df2.setOpencount("0");
+		df2.setOpenstime("00:00");
+		df2.setOpenetime("23:59");
+		df2.setActioncount("1");
+		df2.setFingercontent("ff0217ff843201c8060b02c30c2908c88c45024f8d8990070cda11140dd213110768141608d7c104143802d2971204669d2008e6a1160a6e4050a40e08f2a74705d8283b0560294e0258c0cc800d04441b2d1a60201c0d6d840f034b5cc91d1605e41e2d0d63a12203e300000000c194000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000dbdfcb79edbebc78867776070000000000000000550053000b0a4347474747474b4b4b524747474747474b4b4b4f4a4a4b4b4b4b4b4b4f4f52524f4f4f4f4f4f4f4f665e5b57535353534f4f6b6b635f5b575353534f6f6f6b63635b5753535373736f6b675f57575353ff77736b67635b575757ff7b736f67635f5b5757ffff736f6b675f5b57ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff209d0000000000000000000000000000808a04700e45e5bf410b00a6");
+		flist2.add(df2);
 		
-		AuthDelFinger df3 = new AuthDelFinger();
-		df3.setLocktype(2);
-		df3.setFingercode("00010001");
-		df3.setGatewaycode("002a010102");
-		df3.setGatewaycode2("1901010002");
-		df3.setRoomcode("0102");
-		df3.setRoomcode2("1901000002");
-		df3.setCallbackurl("1");
-		df3.setImei("1216121514151");
-		df3.setTimeout(200);
-		dflist.add(df3);
+		RoomFinger df3 = new RoomFinger();
+		df3.setFingercode("00010002");
+		df3.setEdate("-1");
+		df3.setOpencount("0");
+		df3.setOpenstime("00:00");
+		df3.setOpenetime("23:59");
+		df3.setActioncount("1");
+		df3.setFingercontent("ee0217ff843201c8060b02c30c2908c88c45024f8d8990070cda11140dd213110768141608d7c104143802d2971204669d2008e6a1160a6e4050a40e08f2a74705d8283b0560294e0258c0cc800d04441b2d1a60201c0d6d840f034b5cc91d1605e41e2d0d63a12203e300000000c194000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000dbdfcb79edbebc78867776070000000000000000550053000b0a4347474747474b4b4b524747474747474b4b4b4f4a4a4b4b4b4b4b4b4f4f52524f4f4f4f4f4f4f4f665e5b57535353534f4f6b6b635f5b575353534f6f6f6b63635b5753535373736f6b675f57575353ff77736b67635b575757ff7b736f67635f5b5757ffff736f6b675f5b57ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff209d0000000000000000000000000000808a04700e45e5bf410b00a6");
+		flist2.add(df3);
 		
-		AuthPsw p = new AuthPsw();
-		p.setLocktype(3);
+		UnlockPsw p = new UnlockPsw();
+		/*p.setLocktype(3);
 		p.setPassword("123456");
 		p.setGatewaycode("002a010101");
 		p.setGatewaycode2("1901010001");
 		p.setRoomcode("0101");
-		p.setRoomcode2("1901000001");
+		p.setRoomcode2("1901000001");*/
+		p.setPassword("123456");
 		p.setEdate("-1");
 		p.setOpencount("0");
 		p.setOpenstime("00:00");
 		p.setOpenetime("23:59");
-		p.setImei("1216121514151");
-		p.setCallbackurl("1");
-		p.setTimeout(200);
+		//p.setImei("1216121514151");
 		plist.add(p);
 		
-		AuthDelPsw dp = new AuthDelPsw();
-		dp.setLocktype(2);
-		dp.setPassword("123456");
-		dp.setGatewaycode("002a010101");
-		dp.setGatewaycode2("1901010001");
-		dp.setRoomcode("0101");
-		dp.setRoomcode2("1901000001");
-		dp.setCallbackurl("1");
-		dp.setImei("1216121514151");
-		dp.setTimeout(200);
-		dplist.add(dp);
+		UnlockPsw dp = new UnlockPsw();
+		dp.setPassword("654321");
+		dp.setEdate("-1");
+		dp.setOpencount("0");
+		dp.setOpenstime("00:00");
+		dp.setOpenetime("23:59");
+		plist.add(dp);
 		
-		SendResult<AuthResult> ret = sio.saveLotAuth(clist,dclist,flist,dflist,plist,dplist);
+		sn1.setCallbackurl("1");
+		sn1.setLocktype(1);
+		sn1.setTimeout(20);
+		sn1.setGatewaycode("002a010101");
+		sn1.setGatewaycode2("1901010001");
+		sn1.setRoomcode("0101");
+		sn1.setRoomcode2("1901000001");
+		sn1.setImei("1216121514151");
+		sn1.setPswlist(plist);
+		sn1.setRoomfingerlist(flist);
+		sn1.setRoomcardlist(clist);
+		synclist.add(sn1);
+		
+		sn2.setCallbackurl("1");
+		sn2.setLocktype(1);
+		sn2.setTimeout(20);
+		sn2.setGatewaycode("002a010102");
+		sn2.setGatewaycode2("1901010002");
+		sn2.setRoomcode("0102");
+		sn2.setRoomcode2("1901000002");
+		sn2.setImei("1216121514152");
+		sn2.setRoomfingerlist(flist2);
+		synclist.add(sn2);
+		
+		SendResult<SyncResult> ret = sio.saveAuthSync(synclist);
 		System.out.println("报错信息:"+ret.getResultCode()+"-"+ret.getResultMsg());
-		List<CardsResult> cardl = ret.getResult().getCardsresult();
+		List<SyncCPResult> cardl = ret.getResult().getSyncpresult();
 		for(int i=0;i<cardl.size();i++) {
 			System.out.println(cardl.get(i).toString());
 		}
