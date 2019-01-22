@@ -25,6 +25,7 @@ public class DelRoomCardxzsx {
 		this.openetime = openetime;
 		this.rcusecount = rcusecount;
 	}
+	
 	public String getRcid() {
 		return rcid;
 	}

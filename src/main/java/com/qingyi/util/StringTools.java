@@ -2448,6 +2448,104 @@ public class StringTools {
 			st.setResultMsg("回调地址不能为空");
 			return st;
 		}
+		if(param.containsKey("pass")) {
+			String pass=(String)param.get("pass");
+			if(pass==null||pass.equals("")||pass.equals("null")) {
+				st.setResultCode("-10008");
+				st.setResultMsg("密码不能为空");
+				return st;
+			}else if(pass.length()!=6||!pass.matches("[0-9]+")) {
+				st.setResultCode("-10009");
+				st.setResultMsg("密码必须为6位数字");
+				return st;
+			}
+		}
+		if(param.containsKey("count")) {
+			String count=(String)param.get("count");
+			if(count==null||count.equals("")||count.equals("null")) {
+				st.setResultCode("-10010");
+				st.setResultMsg("可开门次数不能为空");
+				return st;
+			}else if(!count.matches("[0-9]+|(-1)")) {
+				st.setResultCode("-10011");
+				st.setResultMsg("可开门次数必须为0-254数字,0表示不限次数");
+				return st;
+			}
+		}
+		
+		if(param.containsKey("edate")) {
+			String edate=(String)param.get("edate");
+			if(edate==null||edate.equals("")||edate.equals("null")) {
+				st.setResultCode("-10012");
+				st.setResultMsg("授权结束时间不能为空");
+				return st;
+			}else if(!edate.equals("-1")&&(edate.length()!=10||!edate.matches("\\d+"))) {
+				st.setResultCode("-10013");
+				st.setResultMsg("授权结束时间格式为yyMMddHHmm");
+				return st;
+			}
+		}
+		if(param.containsKey("cardtype")) {
+			String cardtype=(String) param.get("cardtype");
+		}
+		if(param.containsKey("cardcode")) {
+			String cardcode=(String) param.get("cardcode");
+		}
+		if(param.containsKey("personcode")) {
+			String personcode=(String) param.get("personcode");
+		}
+		if(param.containsKey("openstime")) {
+			String openstime=(String) param.get("openstime");
+			if(openstime==null||openstime.equals("")||openstime.equals("null")) {
+				st.setResultCode("-10022");
+				st.setResultMsg("可开门时间段开始时间不能为空");
+				return st;
+			}else if(openstime.length()!=5) {
+				st.setResultCode("-10023");
+				st.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
+				return st;
+			}else if(!openstime.contains(":")) {
+				st.setResultCode("-10023");
+				st.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
+				return st;
+			}else if(openstime.replace(":", "").length()!=4||!openstime.matches("\\d+")) {
+				st.setResultCode("-10023");
+				st.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
+				return st;
+			}
+		}
+		if(param.containsKey("openetime")) {
+			String openetime=(String) param.get("openetime");
+			if(openetime==null||openetime.equals("")||openetime.equals("null")) {
+				st.setResultCode("-10022");
+				st.setResultMsg("可开门时间段开始时间不能为空");
+				return st;
+			}else if(openetime.length()!=5) {
+				st.setResultCode("-10023");
+				st.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
+				return st;
+			}else if(!openetime.contains(":")) {
+				st.setResultCode("-10023");
+				st.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
+				return st;
+			}else if(openetime.replace(":", "").length()!=4||!openetime.matches("\\d+")) {
+				st.setResultCode("-10023");
+				st.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
+				return st;
+			}
+		}
+		if(param.containsKey("opencount")) {
+			String opencount=(String) param.get("opencount");
+			if(null==opencount||opencount.equals("")||opencount.equals("null")) {
+				st.setResultCode("-10010");
+				st.setResultMsg("可开门次数不能为空");
+				return st;
+			}else if(!opencount.matches("[0-9]+|(-1)")) {
+				st.setResultCode("-10011");
+				st.setResultMsg("可开门次数必须为0-254数字,0表示不限次数");
+				return st;
+			}
+		}
 		return st;
 	}
 
