@@ -9,6 +9,7 @@ import com.qingyi.model.AuthDelPsw;
 import com.qingyi.model.AuthFinger;
 import com.qingyi.model.AuthPsw;
 import com.qingyi.model.AuthRestAndOpen;
+import com.qingyi.model.AuthSync;
 import com.qingyi.model.AuthTotal;
 import com.qingyi.model.Command;
 import com.qingyi.model.DelRoomFinger;
@@ -355,11 +356,24 @@ public interface SendOrderInfo {
 	
 	/**
 	 * 根据授权列表生成网关锁与NB锁的授权与取消授权指令
-	 * @param authlist
-	 * @param callbackurl
+	 * @param clist 需授权卡片列表
+	 * @param dclist 需删除卡片授权列表
+	 * @param flist 需授权指纹列表
+	 * @param dflist 需删除指纹列表
+	 * @param plist 需授权密码列表
+	 * @param dplist 需删除密码列表
 	 * @return
 	 */
 	public SendResult saveLotAuth(List<AuthCard> clist,List<AuthDelCard> dclist,List<AuthFinger> flist,List<AuthDelFinger> dflist,List<AuthPsw> plist,List<AuthDelPsw> dplist);
+	
+	/**
+	 * 批量卡密/指纹授权同步
+	 * @param clist 需同步的卡片列表
+	 * @param plist 需同步的密码列表
+	 * @param flist 需同步的指纹列表
+	 * @return
+	 */
+	public SendResult saveAuthSync(List<AuthSync> synclist);
 	/**
 	 * 发送门锁复位指令(合)
 	 */

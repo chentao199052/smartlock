@@ -57,8 +57,10 @@ public class HttpsUtil {
             String md="";
     		for (Map.Entry<String, Object> paramEntry : paramsSet) {
     			if(paramEntry.getKey().contains("list")) {
+    				System.out.println(paramEntry.getValue());
     				List<Object> l=(List<Object>) paramEntry.getValue();
     				String json=StringTools.beanToString(l);
+    				System.out.println(json);
     				params+="&"+paramEntry.getKey()+"="+URLEncoder.encode(json, "utf-8");
 	    			md+=json;
     			}else {
