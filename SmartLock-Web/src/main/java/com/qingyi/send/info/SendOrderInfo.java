@@ -420,7 +420,7 @@ public interface SendOrderInfo {
 	/**
 	 * 发送密码授权指令(合)
 	 */
-	public SendResult saveTotalUnlockPsw(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String roomtxtype,String roomimei,Integer timeout,UnlockPsw psw,String callbackurl);
+	public SendResult saveTotalUnlockPsw(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String locktype,String roomimei,Integer timeout,UnlockPsw psw,String callbackurl);
 	/**
 	 * 发送密码授权指令(合-批量)
 	 */
@@ -428,7 +428,7 @@ public interface SendOrderInfo {
 	/**
 	 * 取消密码授权指令(合)
 	 */
-	public SendResult delTotalUnlockpsw(String gatewaycode,String gatewaycode2,String roomcode,DelUnlockPsw dpsw,Integer timeout,String callbackurl);
+	public SendResult delTotalUnlockpsw(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String roomimei,String locktype,DelUnlockPsw dpsw,Integer timeout,String callbackurl);
 	/**
 	 * 取消密码授权指令(合-批量)
 	 * @return
@@ -461,9 +461,13 @@ public interface SendOrderInfo {
 	/**
 	 * 发送指纹授权指令(合-批量)
 	 */
-	public SendResult saveTotalRoomFingerList(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String roomimei,String locktype,RoomFinger rf,Integer timeout,String callbackurl);
+	public SendResult saveTotalRoomFingerList(List<AuthFinger> rflist);
 	/**
 	 * 删除指纹授权指令(合)
 	 */
-	public List<SendResult> delTotalRoomFinger(String gatewaycode,String gatewaycode2,String roomid,String roomcode,String roomcode2,String roomimei,String locktype,List<DelRoomFinger> rflist,Integer timeout,String callbackurl);
+	public SendResult delTotalRoomFinger(String gatewaycode,String gatewaycode2,String roomid,String roomcode,String roomcode2,String roomimei,String locktype,List<DelRoomFinger> rflist,Integer timeout,String callbackurl);
+	/**
+	 * 删除指纹授权指令(合-批量)
+	 */
+	public SendResult delTotalRoomFingerList(List<AuthDelFinger> dflist);
 }

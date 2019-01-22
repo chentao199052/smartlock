@@ -64,12 +64,12 @@ public interface NBSendOrderInfo {
 		 * @param roomimei
 		 * @param roomtxtype
 		 * @param fingercode
-		 * @param content
+		 * @param fingercontent
 		 * @param timeout
 		 * @param callbackurl
 		 * @return
 		 */
-		public SendResult saveRoomFingerNB(String roomcode2,String roomimei,String roomtxtype,String fingercode,String content,Integer timeout,String callbackurl);
+		public SendResult saveRoomFingerNB(String roomcode2,String roomimei,String roomtxtype,String fingercode,String fingercontent,Integer timeout,String callbackurl);
 		/**
 		 * 删除指纹授权 NB
 		 * @param roomcode2

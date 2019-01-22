@@ -171,7 +171,6 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("gatewaycode", gatewaycode);
 		param.put("gatewaycode2", gatewaycode2);
 		param.put("roomcode", roomcode);
-		param.put("rcid", dpsw.getRcid());
 		param.put("pass", dpsw.getPass());
 		param.put("count", dpsw.getCount());
 		param.put("edate", dpsw.getEdate());
@@ -955,66 +954,198 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult delTotalUnlockpsw(String gatewaycode, String gatewaycode2, String roomcode, DelUnlockPsw dpsw,
+	public SendResult delTotalUnlockpsw(String gatewaycode, String gatewaycode2, String roomcode,String roomcode2,String roomimei,String locktype, DelUnlockPsw dpsw,
 			Integer timeout, String callbackurl) {
 		// TODO Auto-generated method stub
-		return null;
+		LinkedHashMap param =new LinkedHashMap();
+		param.put("gatewaycode", gatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("roomcode", roomcode);
+		param.put("roomcode2", roomcode2);
+		param.put("roomimei", roomimei);
+		param.put("locktype", locktype);
+		param.put("pass", dpsw.getPass());
+		param.put("count",dpsw.getCount());
+		param.put("edate", dpsw.getEdate());
+		SendResult sr=StringTools.checkTotal(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "deltotalunlockpsw", secret, param);
+			sr = (SendResult) StringTools.getResultObject(result, SendResult.class);
+		}
+		return sr;
 	}
 
 	@Override
 	public SendResult delTotalUnlockpswList(List<AuthDelPsw> delist) {
 		// TODO Auto-generated method stub
-		return null;
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("delist", delist);
+		SendResult sr = StringTools.checkDelPswList(delist);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "deltotalunlockpswlist", secret, param);
+			sr = StringTools.getSendResultByJson2(result,PswsResult.class);
+		}
+		return sr;
 	}
 
 	@Override
 	public SendResult saveTotalRoomCard(String gatewaycode, String gatewaycode2, String roomcode, String roomcode2,
 			String roomimei, String locktype, RoomCard rc, Integer timeout, String callbackurl) {
 		// TODO Auto-generated method stub
-		return null;
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("gatewaycode", gatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("roomcode", roomcode);
+		param.put("roomcode2", roomcode2);
+		param.put("roomimei", roomimei);
+		param.put("locktype", locktype);
+		param.put("cardtype", rc.getCardtype());
+		param.put("cardcode", rc.getCardcode());
+		param.put("personcode", rc.getPersoncode());
+		param.put("personname", rc.getPersonname());
+		param.put("edate", rc.getEdate());
+		param.put("openstime", rc.getOpenstime());
+		param.put("openetime", rc.getOpenetime());
+		param.put("opencount", rc.getOpencount());
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr = StringTools.checkTotal(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "savetotalroomcard", secret, param);
+			sr = (SendResult) StringTools.getResultObject(result, SendResult.class);
+		}
+		return sr;
 	}
 
 	@Override
 	public SendResult saveTotalRoomCardList(List<AuthCard> clist) {
 		// TODO Auto-generated method stub
-		return null;
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("clist", clist);
+		SendResult sr = StringTools.checkCardList(clist);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "savetotalroomcardlist", secret, param);
+			sr = StringTools.getSendResultByJson2(result,CardsResult.class);
+			//sr = (SendResult) StringTools.getResultObject(result, SendResult.class);
+		}
+		return sr;
 	}
 
 	@Override
 	public SendResult delTotalRoomCard(String gatewaycode, String gatewaycode2, String roomcode, String roomcode2,
 			String roomimei, String locktype, String cardtype, String cardcode, Integer timeout, String callbackurl) {
 		// TODO Auto-generated method stub
-		return null;
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("gatewaycode", gatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("roomcode", roomcode);
+		param.put("roomcode2", roomcode2);
+		param.put("roomimei", roomimei);
+		param.put("locktype", locktype);
+		param.put("cardtype", cardtype);
+		param.put("cardcode", cardcode);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr = StringTools.checkTotal(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "deltotalroomcard", secret, param);
+			sr = (SendResult) StringTools.getResultObject(result, SendResult.class);
+		}
+		return sr;
 	}
 
 	@Override
 	public SendResult delTotalRoomCardList(List<AuthDelCard> dclist) {
 		// TODO Auto-generated method stub
-		return null;
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("dclist", dclist);
+		SendResult sr = StringTools.checkDelCardList(dclist);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "deltotalroomcardlist", secret, param);
+			StringTools.getSendResultByJson2(result,DelCardsResult.class);
+		}
+		return sr;
 	}
 
 	@Override
 	public SendResult saveTotalRoomFinger(String gatewaycode, String gatewaycode2, String roomcode, String roomcode2,
 			String roomimei, String locktype, RoomFinger rf, Integer timeout, String callbackurl) {
 		// TODO Auto-generated method stub
-		return null;
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("gatewaycode", gatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("roomcode", roomcode);
+		param.put("roomcode2", roomcode2);
+		param.put("roomimei", roomimei);
+		param.put("locktype", locktype);
+		param.put("fingercode", rf.getFingercode());
+		param.put("fingercontent", rf.getFingercontent());
+		param.put("edate", rf.getEdate());
+		param.put("openstime", rf.getOpenstime());
+		param.put("openetime", rf.getOpenetime());
+		param.put("opencount", rf.getOpencount());
+		param.put("actioncount", rf.getActioncount());
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr = StringTools.checkTotal(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "savetotalroomfinger", secret, param);
+			//StringTools.getSendResultByJson2(result,DelCardsResult.class);
+			sr = (SendResult) StringTools.getResultObject(result, SendResult.class);
+		}
+		return sr;
 	}
 
 	@Override
-	public SendResult saveTotalRoomFingerList(String gatewaycode, String gatewaycode2, String roomcode,
-			String roomcode2, String roomimei, String locktype, RoomFinger rf, Integer timeout, String callbackurl) {
+	public SendResult saveTotalRoomFingerList(List<AuthFinger> rflist) {
 		// TODO Auto-generated method stub
-		return null;
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("rflist", rflist);
+		SendResult sr = StringTools.checkFingerList(rflist);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "savetotalroomfingerlist", secret, param);
+			StringTools.getSendResultByJson2(result,FingersResult.class);
+		}
+		return sr;
 	}
 
 	@Override
-	public List<SendResult> delTotalRoomFinger(String gatewaycode, String gatewaycode2, String roomid, String roomcode,
+	public SendResult delTotalRoomFinger(String gatewaycode, String gatewaycode2, String roomid, String roomcode,
 			String roomcode2, String roomimei, String locktype, List<DelRoomFinger> rflist, Integer timeout,
 			String callbackurl) {
 		// TODO Auto-generated method stub
-		return null;
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("gatewaycode", gatewaycode);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("roomid", roomid);
+		param.put("roomcode", roomcode);
+		param.put("roomcode2", roomcode2);
+		param.put("roomimei", roomimei);
+		param.put("locktype", locktype);
+		param.put("rflist", rflist);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr = StringTools.checkTotal(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "deltotalroomfinger", secret, param);
+			StringTools.getSendResultByJson2(result,DelFingersResult.class);
+		}
+		return sr;
 	}
-
+	
+	@Override
+	public SendResult delTotalRoomFingerList(List<AuthDelFinger> dflist) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("dflist", dflist);
+		SendResult sr = StringTools.checkDelFingerList(dflist);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "deltotalroomfingerlist", secret, param);
+			StringTools.getSendResultByJson2(result,DelFingersResult.class);
+		}
+		return sr;
+	}
+	
 	@Override
 	public SendResult<SyncResult> saveAuthSync(List<AuthSync> synclist) {
 		// TODO Auto-generated method stub

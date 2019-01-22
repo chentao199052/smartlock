@@ -238,7 +238,6 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 			param.put("roomcode2", roomcode2);
 			param.put("roomimei",roomimei);
 			param.put("roomtxtype",roomtxtype);
-			param.put("rcid",rc.getRcid());
 			param.put("cardtype",rc.getCardtype());
 			param.put("cardcode",rc.getCardcode());
 			param.put("cardedate",rc.getCardedate());
@@ -544,14 +543,14 @@ public class NBSendOrderImpl implements NBSendOrderInfo {
 
 		@Override
 		public SendResult saveRoomFingerNB(String roomcode2, String roomimei, String roomtxtype, String fingercode,
-				String content, Integer timeout, String callbackurl) {
+				String fingercontent, Integer timeout, String callbackurl) {
 			// TODO Auto-generated method stub
 			LinkedHashMap param=new LinkedHashMap();
 			param.put("roomcode2", roomcode2);
 			param.put("roomimei", roomimei);
 			param.put("roomtxtype", roomtxtype);
 			param.put("fingercode", fingercode);
-			param.put("content", content);
+			param.put("fingercontent", fingercontent);
 			param.put("timeout", timeout);
 			param.put("callbackurl", callbackurl);
 			SendResult sr=StringTools.check(param);
