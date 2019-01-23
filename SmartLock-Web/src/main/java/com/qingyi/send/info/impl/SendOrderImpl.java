@@ -22,10 +22,11 @@ import com.qingyi.model.DelRoomFinger;
 import com.qingyi.model.DelUnlockPsw;
 import com.qingyi.model.FingersResult;
 import com.qingyi.model.LockResult;
+import com.qingyi.model.PowResult;
 import com.qingyi.model.PswsResult;
-import com.qingyi.model.Room;
 import com.qingyi.model.RoomCard;
 import com.qingyi.model.RoomFinger;
+import com.qingyi.model.Roompow;
 import com.qingyi.model.SendResult;
 import com.qingyi.model.SyncResult;
 import com.qingyi.model.UnlockPsw;
@@ -1062,7 +1063,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		SendResult sr = StringTools.checkDelCardList(dclist);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "deltotalroomcardlist", secret, param);
-			StringTools.getSendResultByJson2(result,DelCardsResult.class);
+			sr=StringTools.getSendResultByJson2(result,DelCardsResult.class);
 		}
 		return sr;
 	}
@@ -1104,7 +1105,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		SendResult sr = StringTools.checkFingerList(rflist);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "savetotalroomfingerlist", secret, param);
-			StringTools.getSendResultByJson2(result,FingersResult.class);
+			sr=StringTools.getSendResultByJson2(result,FingersResult.class);
 		}
 		return sr;
 	}
@@ -1128,7 +1129,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		SendResult sr = StringTools.checkTotal(param);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "deltotalroomfinger", secret, param);
-			StringTools.getSendResultByJson2(result,DelFingersResult.class);
+			sr=StringTools.getSendResultByJson2(result,DelFingersResult.class);
 		}
 		return sr;
 	}
@@ -1141,7 +1142,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		SendResult sr = StringTools.checkDelFingerList(dflist);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "deltotalroomfingerlist", secret, param);
-			StringTools.getSendResultByJson2(result,DelFingersResult.class);
+			sr =StringTools.getSendResultByJson2(result,DelFingersResult.class);
 		}
 		return sr;
 	}
@@ -1159,6 +1160,19 @@ public class SendOrderImpl implements SendOrderInfo{
 		if(sr.getResultCode().equals("0")) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"savelotauthsync", secret, param);
 			sr = StringTools.getSyncSendResultByJson(result);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult updateRoompowList(List<Roompow> powlist) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("powlist", powlist);
+		SendResult sr = StringTools.checkPowList(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateroompowlist", secret, param);
+			sr =StringTools.getSendResultByJson2(result,PowResult.class);
 		}
 		return sr;
 	}

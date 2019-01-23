@@ -17,6 +17,7 @@ import com.qingyi.model.DelUnlockPsw;
 import com.qingyi.model.Room;
 import com.qingyi.model.RoomCard;
 import com.qingyi.model.RoomFinger;
+import com.qingyi.model.Roompow;
 import com.qingyi.model.SendResult;
 import com.qingyi.model.UnlockPsw;
 
@@ -376,98 +377,227 @@ public interface SendOrderInfo {
 	public SendResult saveAuthSync(List<AuthSync> synclist);
 	/**
 	 * 发送门锁复位指令(合)
+	 * @param gatewaycode
+	 * @param gatewaycode2
+	 * @param roomcode
+	 * @param roomcode2
+	 * @param locktype
+	 * @param timeout
+	 * @param callbackurl
+	 * @return
 	 */
 	public SendResult saveTotalReset(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String locktype,Integer timeout,String callbackurl);
 	/**
 	 * 发送门锁复位指令(合-批量)
+	 * @param rstlist
+	 * @return
 	 */
 	public SendResult saveTotalResetList(List<AuthRestAndOpen> rstlist);
 
 	/**
-	 * 发送门锁远程开门指令(合)
+	 *  发送门锁远程开门指令(合)
+	 * @param gatewaycode
+	 * @param gatewaycode2
+	 * @param roomcode
+	 * @param roomcode2
+	 * @param locktype
+	 * @param timeout
+	 * @param callbackurl
+	 * @return
 	 */
 	public SendResult saveTotalOpen(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String locktype,Integer timeout,String callbackurl);
 	/**
 	 * 发送门锁远程开门指令(合-批量)
+	 * @param oplist
+	 * @return
 	 */
 	public SendResult saveTotalOpenList(List<AuthRestAndOpen> oplist);
 	/**
-	 * 修改门锁强锁/非强锁模式（合）
+	 * 修改门锁强锁/非强锁模式（合)
+	 * @param type  type 1强制锁门 2非强制锁门
+	 * @param gatewaycode
+	 * @param gatewaycode2
+	 * @param roomcode
+	 * @param roomcode2
+	 * @param locktype
+	 * @param timeout
+	 * @param callbackurl
+	 * @return
 	 */
 	public SendResult updateTotalForcelock(Integer type,String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String locktype,Integer timeout,String callbackurl);
 	/**
 	 * 修改门锁强锁/非强锁模式（合-批量）
+	 * @param frlist
+	 * @return
 	 */
 	public SendResult updateTotalForcelockList(List<AuthTotal> frlist);
 	/**
 	 * 修改门锁常开/常闭模式(合)
+	 * @param type  type 1常开，2常闭
+	 * @param gatewaycode
+	 * @param gatewaycode2
+	 * @param roomcode
+	 * @param roomcode2
+	 * @param locktype
+	 * @param timeout
+	 * @param callbackurl
+	 * @return
 	 */
 	public SendResult updateTotalRoomWorkmode(Integer type,String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String locktype,Integer timeout,String callbackurl);
 	/**
 	 * 修改门锁常开/常闭模式(合-批量)
+	 * @param wklist
 	 * @return
 	 */
 	public SendResult updateTotalRoomWorkmodeList(List<AuthTotal> wklist);
 	/**
 	 * 修改门锁授权模式（合）
+	 * @param type type 1允许离线授权，2禁止离线授权
+	 * @param gatewaycode
+	 * @param gatewaycode2
+	 * @param roomcode
+	 * @param roomcode2
+	 * @param locktype
+	 * @param timeout
+	 * @param callbackurl
+	 * @return
 	 */
 	public SendResult updateTotalRoomNetmode(Integer type,String gatewaycode,String gatewaycode2,String roomcode,String roomcode2 ,String locktype,Integer timeout,String callbackurl);
 	/**
 	 * 修改门锁授权模式（合-批量）
+	 * @param ntlist
+	 * @return
 	 */
 	public SendResult updateTotalRoomNetmodeList(List<AuthTotal> ntlist);
 
 	/**
 	 * 发送密码授权指令(合)
+	 * @param gatewaycode
+	 * @param gatewaycode2
+	 * @param roomcode
+	 * @param roomcode2
+	 * @param locktype
+	 * @param roomimei
+	 * @param timeout
+	 * @param psw
+	 * @param callbackurl
+	 * @return
 	 */
 	public SendResult saveTotalUnlockPsw(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String locktype,String roomimei,Integer timeout,UnlockPsw psw,String callbackurl);
 	/**
 	 * 发送密码授权指令(合-批量)
+	 * @param plist
+	 * @return
 	 */
 	public SendResult saveTotalUnlockPswList(List<AuthPsw> plist);
 	/**
 	 * 取消密码授权指令(合)
+	 * @param gatewaycode
+	 * @param gatewaycode2
+	 * @param roomcode
+	 * @param roomcode2
+	 * @param roomimei
+	 * @param locktype
+	 * @param dpsw
+	 * @param timeout
+	 * @param callbackurl
+	 * @return
 	 */
 	public SendResult delTotalUnlockpsw(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String roomimei,String locktype,DelUnlockPsw dpsw,Integer timeout,String callbackurl);
 	/**
 	 * 取消密码授权指令(合-批量)
+	 * @param delist
 	 * @return
 	 */
 	public SendResult delTotalUnlockpswList(List<AuthDelPsw> delist);
 
 	/**
 	 * 发送卡片授权指令(合)
+	 * @param gatewaycode
+	 * @param gatewaycode2
+	 * @param roomcode
+	 * @param roomcode2
+	 * @param roomimei
+	 * @param locktype
+	 * @param rc
+	 * @param timeout
+	 * @param callbackurl
+	 * @return
 	 */
 	public SendResult saveTotalRoomCard(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String roomimei,String locktype,RoomCard rc,Integer timeout,String callbackurl);
 	/**
 	 * 发送卡片授权指令(合-批量)
+	 * @param clist
 	 * @return
 	 */
 	public SendResult saveTotalRoomCardList(List<AuthCard> clist);
 
 	/**
 	 * 删除卡片授权指令(合)
+	 * @param gatewaycode
+	 * @param gatewaycode2
+	 * @param roomcode
+	 * @param roomcode2
+	 * @param roomimei
+	 * @param locktype
+	 * @param cardtype
+	 * @param cardcode
+	 * @param timeout
+	 * @param callbackurl
+	 * @return
 	 */
 	public SendResult delTotalRoomCard(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String roomimei,String locktype,String cardtype,String cardcode,Integer timeout,String callbackurl);
 	/**
 	 * 删除卡片授权指令(合-批量)
+	 * @param dclist
+	 * @return
 	 */
 	public SendResult delTotalRoomCardList(List<AuthDelCard> dclist);
 	
 	/**
 	 * 发送指纹授权指令(合)
+	 * @param gatewaycode
+	 * @param gatewaycode2
+	 * @param roomcode
+	 * @param roomcode2
+	 * @param roomimei
+	 * @param locktype
+	 * @param rf
+	 * @param timeout
+	 * @param callbackurl
+	 * @return
 	 */
 	public SendResult saveTotalRoomFinger(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String roomimei,String locktype,RoomFinger rf,Integer timeout,String callbackurl);
 	/**
-	 * 发送指纹授权指令(合-批量)
+	 *  发送指纹授权指令(合-批量)
+	 * @param rflist
+	 * @return
 	 */
 	public SendResult saveTotalRoomFingerList(List<AuthFinger> rflist);
 	/**
-	 * 删除指纹授权指令(合)
+	 *  删除指纹授权指令(合)
+	 * @param gatewaycode
+	 * @param gatewaycode2
+	 * @param roomid
+	 * @param roomcode
+	 * @param roomcode2
+	 * @param roomimei
+	 * @param locktype
+	 * @param rflist
+	 * @param timeout
+	 * @param callbackurl
+	 * @return
 	 */
 	public SendResult delTotalRoomFinger(String gatewaycode,String gatewaycode2,String roomid,String roomcode,String roomcode2,String roomimei,String locktype,List<DelRoomFinger> rflist,Integer timeout,String callbackurl);
 	/**
-	 * 删除指纹授权指令(合-批量)
+	 *  删除指纹授权指令(合-批量)
+	 * @param dflist
+	 * @return
 	 */
 	public SendResult delTotalRoomFingerList(List<AuthDelFinger> dflist);
+	
+	/**
+	 * 批量修改门锁功率等级
+	 */
+	public SendResult updateRoompowList(List<Roompow> powlist);
 }
