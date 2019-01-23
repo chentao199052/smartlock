@@ -1205,30 +1205,73 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			Map json=StringTools.stringToMap2(content);
 			
 			CardOrPswResult r=new CardOrPswResult();
-			String rcid = json.get("rcid").toString();
-			String orderid=json.get("itid").toString();
-			String status = json.get("status").toString();
-			String cardtype=json.get("cardtype").toString();
-			String order=json.get("order").toString();
-			String no=json.get("no").toString();
-			String space=json.get("space").toString();
-			String ret=json.get("result").toString();
-			String osdate=json.get("osdate").toString();
-			String orderType=json.get("orderType").toString();
-			r.setOrderid(orderid);
-			r.setRcid(rcid);
-			r.setResultstatus(Integer.parseInt(status));
-			result.setResultstatus(Integer.parseInt(status));
-			r.setCardtype(cardtype);
-			r.setOrder(order);
-			r.setNo(no);
-			r.setSpace(space);
-			r.setOsdate(osdate);
-			r.setResult(ret);
-			int failtype = StringTools.getFailtype(ret);
-			r.setFailtype(failtype);
-			r.setOrderType(orderType);
-			result.setResult(r);
+			String locktype = json.get("locktype").toString();
+			String ordertype=json.get("orderType").toString();
+			r.setLocktype(locktype);
+			if(ordertype.equals("orderfail") || ordertype.equals("ordersuccess") || ordertype.equals("ordererror")) {
+				String status = json.get("status").toString();
+				String no="1";
+				if(json.containsKey("no")) {
+					no = json.get("no").toString();
+				}
+				String ret=json.get("result").toString();
+				String osdate=json.get("osdate").toString();
+				
+				r.setOrderid(json.get("itid").toString());
+				r.setResultstatus(Integer.parseInt(status));
+				r.setOrder(json.get("order").toString());
+				r.setNo(no);
+				r.setOsdate(osdate);
+				r.setResult(ret);
+				
+				if(!ordertype.equals("orderfail")) {
+					if(status.equals("2")) {
+						r.setFailtype(44);
+					} if(status.equals("1")){
+						r.setFailtype(-1);
+					}else {
+						int failtype = StringTools.getFailtype(ret);
+						r.setFailtype(failtype);
+					}
+				}else {
+					if(no.equals("1")) {
+						r.setFailtype(42);
+					}else {
+						r.setFailtype(43);
+					}
+				}
+				r.setOrderType(ordertype);
+				
+				result.setResultstatus(Integer.parseInt(status));
+				result.setResult(r);
+			}else if(ordertype.equals("c1success")){
+				String status = json.get("status").toString();
+				r.setOsdate(json.get("osdate").toString());
+				r.setOrder(json.get("order").toString());
+				r.setOrderid(json.get("ids").toString());	
+				r.setNo(json.get("no").toString());
+				
+				if(json.containsKey("resultmap")) {
+					r.setResult(json.get("resultmap").toString());
+				}
+				
+				if(status.equals("1")) {	
+					r.setFailtype(-1);
+					r.setResultstatus(1);
+					result.setResultstatus(1);
+				}else {
+					String fail = json.get("messageId").toString().substring(0, 2);
+					if(fail.equals("6")) {
+						r.setFailtype(6);
+					}else {
+						int failtype = StringTools.getFailtype2(fail);
+						r.setFailtype(failtype);
+					}
+					r.setResultstatus(0);
+					result.setResultstatus(0);
+				}
+				result.setResult(r);
+			}
 		}
 		return result;
 	}
