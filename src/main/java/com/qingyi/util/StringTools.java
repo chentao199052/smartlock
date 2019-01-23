@@ -67,6 +67,61 @@ public class StringTools {
         return javabean;
     }
 	
+	/**
+	  * 切割指令获取failtype
+	  * @param result
+	  * @return
+	  */
+	 public static Integer getFailtype2(String messageId){
+		 int ret = 6;
+		 if(null!=messageId && !"".equals(messageId)){
+			String od = messageId.substring(0, 2);
+			
+			if(od.equals("01") || od.equals("3a") || od.equals("3A")){
+				ret = 1;
+			}else if(od.equals("02")){
+				ret = 2;
+			}else if(od.equals("03")){
+				ret = 3;
+			}else if(od.equals("04")){
+				ret = 4;
+			}else if(od.equals("05")){
+				ret = 5;
+			}else if(od.equals("06")){
+				ret = 6;
+			}else if(od.equals("07")){
+				ret = 7;
+			}else if(od.equals("08")){
+				ret = 8;
+			}else if(od.equals("09")){
+				ret = 9;
+			}else if(od.equals("0a") || od.equals("0A")){
+				ret = 10;
+			}else if(od.equals("0b") || od.equals("0B")){
+				ret = 13;
+			}else if(od.equals("20")){
+				ret = 20;
+			}else if(od.equals("21")){
+				ret = 21;
+			}else if(od.equals("22")){
+				ret = 22;
+			}else if(od.equals("23")){
+				ret = 23;
+			}else if(od.equals("30")){
+				ret = 30;
+			}else if(od.equals("31")){
+				ret = 31;
+			}else if(od.equals("32")){
+				ret = 32;
+			}else if(od.equals("33")){
+				ret = 33;
+			}else if(od.equals("34")){
+				ret = 34;
+			}
+		 }
+		 return ret;
+	 }
+	
 	public static Map stringToMap(String result) {
 		Map map=new HashMap();
 		String json2=result.substring(1,result.length()-1);
