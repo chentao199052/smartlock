@@ -9,12 +9,13 @@ import com.qingyi.model.FingerResult;
 import com.qingyi.model.FingerfailResult;
 import com.qingyi.model.FingerfinishResult;
 import com.qingyi.model.FingersuccessResult;
+import com.qingyi.model.ForcelockResult;
 import com.qingyi.model.GatewayInitializeResult;
 import com.qingyi.model.GatewaystatusResult;
 import com.qingyi.model.LockInitializeResult;
-import com.qingyi.model.LockRemoteOpenResult;
 import com.qingyi.model.LockResetResult;
 import com.qingyi.model.LockStatusResult;
+import com.qingyi.model.OpenResult;
 import com.qingyi.model.ReadGatewayRecordResult;
 import com.qingyi.model.ReadLockRecordResult;
 import com.qingyi.model.ReceiveResult;
@@ -26,7 +27,6 @@ import com.qingyi.model.SyncFinishResult;
 import com.qingyi.model.SyncSuccessResult;
 import com.qingyi.model.UpdateGatewayRoomsResult;
 import com.qingyi.model.UpdateGatewaypowResult;
-import com.qingyi.model.UpdateRoomForcelockResult;
 import com.qingyi.model.UpdateRoomNetmodeResult;
 import com.qingyi.model.UpdateRoomWorkmodeResult;
 import com.qingyi.model.UpdateRoompowResult;
@@ -55,7 +55,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult<LockRemoteOpenResult> getLockRemoteOpenResult(String content,String sysdate,String verify);
+	public ReceiveResult<OpenResult> getLockRemoteOpenResult(String content,String sysdate,String verify);
 	/**
 	 * 解析门锁记录读取指令
 	 * @param content 结果内容
@@ -71,7 +71,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult<UpdateRoomForcelockResult> getUpdateRoomForcelockResult(String content,String sysdate,String verify);
+	public ReceiveResult<ForcelockResult> getUpdateRoomForcelockResult(String content,String sysdate,String verify);
 	/**
 	 * 解析修改门锁功率等级指令
 	 * @param content 结果内容

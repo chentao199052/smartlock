@@ -17,13 +17,14 @@ import com.qingyi.model.FingerResult;
 import com.qingyi.model.FingerfailResult;
 import com.qingyi.model.FingerfinishResult;
 import com.qingyi.model.FingersuccessResult;
+import com.qingyi.model.ForcelockResult;
 import com.qingyi.model.GatewayInitializeResult;
 import com.qingyi.model.GatewayRecord;
 import com.qingyi.model.GatewaystatusResult;
 import com.qingyi.model.LockInitializeResult;
-import com.qingyi.model.LockRemoteOpenResult;
 import com.qingyi.model.LockResetResult;
 import com.qingyi.model.LockStatusResult;
+import com.qingyi.model.OpenResult;
 import com.qingyi.model.ReadGatewayRecordResult;
 import com.qingyi.model.ReadLockRecord;
 import com.qingyi.model.ReadLockRecordResult;
@@ -36,7 +37,6 @@ import com.qingyi.model.SyncFinishResult;
 import com.qingyi.model.SyncSuccessResult;
 import com.qingyi.model.UpdateGatewayRoomsResult;
 import com.qingyi.model.UpdateGatewaypowResult;
-import com.qingyi.model.UpdateRoomForcelockResult;
 import com.qingyi.model.UpdateRoomNetmodeResult;
 import com.qingyi.model.UpdateRoomWorkmodeResult;
 import com.qingyi.model.UpdateRoompowResult;
@@ -189,38 +189,41 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult<LockRemoteOpenResult> getLockRemoteOpenResult(String content, String sysdate, String verify) {
+	public ReceiveResult<OpenResult> getLockRemoteOpenResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult<LockRemoteOpenResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<OpenResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			try {
 				Map json=StringTools.stringToMap2(content);
+				OpenResult r=new OpenResult();
 				String itid=json.get("itid").toString();
-				LockRemoteOpenResult r=new LockRemoteOpenResult();
+				String locktype=json.get("locktype").toString();
+				r.setLocktype(locktype);
 				r.setResultstatus(Integer.parseInt(json.get("status").toString()));
 				result.setResultstatus(Integer.parseInt(json.get("status").toString()));
 				r.setOrderid(itid);
-				String order=json.get("order").toString();
-				String no=json.get("no").toString();
-				String space=json.get("space")==null?"":json.get("space").toString();
 				String ret = json.get("result")==null?"":json.get("result").toString();
+				if("1".equals(locktype)) {
+					String order=json.get("order").toString();
+					r.setOrder(order);
+					String space=json.get("space")==null?"":json.get("space").toString();
+					r.setSpace(space);
+					int failtype = StringTools.getFailtype(ret);
+					r.setFiletype(failtype);
+				}
+				String no=json.get("no").toString();
 				String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
 				r.setOsdate(osdate);
-				r.setOrder(order);
 				if(null!=no&&no.matches("^[0-9]{1,}$")) {
 					r.setNo(Integer.parseInt(no));
 				}
 				r.setResult(ret);
-				r.setSpace(space);
-				int failtype = StringTools.getFailtype(ret);
-				r.setFiletype(failtype);
 				result.setResult(r);
 			} catch (Exception e) {
 				e.printStackTrace();
 				result.setResultCode("100005");
 				result.setResultMsg("解析失败");
 			}
-		
 		}
 		return result;
 	}
@@ -285,33 +288,42 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult<UpdateRoomForcelockResult> getUpdateRoomForcelockResult(String content, String sysdate, String verify) {
+	public ReceiveResult<ForcelockResult> getUpdateRoomForcelockResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult<UpdateRoomForcelockResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<ForcelockResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
-			Map json=StringTools.stringToMap2(content);
-			String itid=json.get("itid").toString();
-			UpdateRoomForcelockResult r=new UpdateRoomForcelockResult();
-			r.setOrderid(itid);
-			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
-			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
-			String order=json.get("order").toString();
-			String no=json.get("no").toString();
-			String space=json.get("space")==null?"":json.get("space").toString();
-			String ret = json.get("result")==null?"":json.get("result").toString();
-			String type =json.get("type")==null?"":json.get("type").toString();
-			r.setType(type);
-			String osdate=json.get("osdate").toString();
-			r.setOsdate(osdate);
-			r.setOrder(order);
-			if(null!=no&&no.matches("^[0-9]{1,}$")) {
-				r.setNo(Integer.parseInt(no));
+			try {
+				Map json=StringTools.stringToMap2(content);
+				ForcelockResult r=new ForcelockResult();
+				r.setResultstatus(Integer.parseInt(json.get("status").toString()));
+				String itid=json.get("itid").toString();
+				r.setOrderid(itid);
+				String locktype=json.get("locktype").toString();
+				r.setLocktype(locktype);
+				String type =json.get("type")==null?"":json.get("type").toString();
+				r.setType(type);
+				String ret = json.get("result")==null?"":json.get("result").toString();
+				r.setResult(ret);
+				if("1".equals(locktype)) {
+					String order=json.get("order")==null?"":json.get("order").toString();
+					r.setOrder(order);
+					String space=json.get("space")==null?"":json.get("space").toString();
+					r.setSpace(space);
+					int failtype = StringTools.getFailtype(ret);
+					r.setFiletype(failtype);
+				}
+				
+				String no=json.get("no")==null?"":json.get("no").toString();
+				if(null!=no&&no.matches("^[0-9]{1,}$")) {
+					r.setNo(Integer.parseInt(no));
+				}
+				String osdate=json.get("osdate").toString();
+				r.setOsdate(osdate);
+				result.setResult(r);
+			} catch (Exception e) {
+				e.printStackTrace();
+				result=new ReceiveResult<ForcelockResult>("10001", "解析错误",null, null);
 			}
-			r.setResult(ret);
-			r.setSpace(space);
-			int failtype = StringTools.getFailtype(ret);
-			r.setFiletype(failtype);
-			result.setResult(r);
 		}	
 		return result;
 	}
