@@ -1,6 +1,6 @@
 package com.qingyi.receive.info;
 
-import com.qingyi.model.CardOrPswResult;
+import com.qingyi.model.OrderResult;
 import com.qingyi.model.ClearsGatewaytatusResult;
 import com.qingyi.model.DelRoomCardResult;
 import com.qingyi.model.DelUnlockpswResult;
@@ -183,7 +183,8 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult<CardOrPswResult> getCardOrPswResult(String content,String sysdate,String verify);
+	public ReceiveResult<OrderResult> getOrderResult(String content,String sysdate,String verify);
+	
 	/**
 	 * 解析发送/取消指纹授权指令(失败)
 	 * @param content 结果内容
