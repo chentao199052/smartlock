@@ -4,7 +4,7 @@ import java.util.List;
 
 public class LockRecordResult {
 	private String orderid;
-	private String roomid;//只有NB锁有值
+	private String roomcode2;//只有NB锁有值
 	private String locktype;
 	private Integer filetype;
 	private Integer resultstatus;
@@ -19,12 +19,12 @@ public class LockRecordResult {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public LockRecordResult(String orderid, String roomid, String locktype, Integer filetype, Integer resultstatus,
+	public LockRecordResult(String orderid, String roomcode2, String locktype, Integer filetype, Integer resultstatus,
 			Integer recordcount, String no, String order, String result, String space, String osdate,
 			List<ReadLockRecord> lockRecords) {
 		super();
 		this.orderid = orderid;
-		this.roomid = roomid;
+		this.roomcode2 = roomcode2;
 		this.locktype = locktype;
 		this.filetype = filetype;
 		this.resultstatus = resultstatus;
@@ -42,11 +42,11 @@ public class LockRecordResult {
 	public void setOrderid(String orderid) {
 		this.orderid = orderid;
 	}
-	public String getRoomid() {
-		return roomid;
+	public String getRoomcode2() {
+		return roomcode2;
 	}
-	public void setRoomid(String roomid) {
-		this.roomid = roomid;
+	public void setRoomcode2(String roomcode2) {
+		this.roomcode2 = roomcode2;
 	}
 	public String getLocktype() {
 		return locktype;
@@ -108,7 +108,6 @@ public class LockRecordResult {
 	public void setLockRecords(List<ReadLockRecord> lockRecords) {
 		this.lockRecords = lockRecords;
 	}
-	
 	
 	
 }
