@@ -1561,7 +1561,6 @@ public class StringTools {
 			if(null!=rflist && rflist.size()>0) {
 				for(int z=0;z<rflist.size();z++) {
 					RoomFinger rf = rflist.get(z);
-					System.out.println(">>>"+rf.getActioncount());
 					if(null==rf.getActioncount()||rf.getActioncount().equals("")||rf.getActioncount().equals("null")) {
 						sr.setResultCode("-10039");
 						sr.setResultMsg("开门需按指纹次数不能为空");
@@ -2280,127 +2279,139 @@ public class StringTools {
 	 }
 	 
 	 public static void main(String[] args) {
-		SendOrderInfo sio = new SendOrderImpl();
-		List<RoomCard> clist = new ArrayList<RoomCard>();
-		List<RoomFinger> flist = new ArrayList<RoomFinger>();
-		List<RoomFinger> flist2 = new ArrayList<RoomFinger>();
-		List<UnlockPsw> plist = new ArrayList<UnlockPsw>();
-		
-		List<AuthSync> synclist = new ArrayList<AuthSync>();
-		AuthSync sn1 = new AuthSync();
-		AuthSync sn2 = new AuthSync();
-		
-		RoomCard au = new RoomCard();
-		au.setCardcode("00010001");
-		au.setEdate("-1");
-		au.setOpencount("0");
-		au.setOpenstime("00:00");
-		au.setOpenetime("23:59");
-		au.setCardtype("开门卡");
-		clist.add(au);
-		
-		RoomCard d = new RoomCard();
-		d.setCardcode("00010002");
-		d.setEdate("-1");
-		d.setOpencount("0");
-		d.setOpenstime("00:00");
-		d.setOpenetime("23:59");
-		d.setCardtype("开门卡");
-		clist.add(d);
-		
-		RoomFinger f = new RoomFinger();
-		f.setFingercode("00010001");
-		f.setEdate("-1");
-		f.setOpencount("0");
-		f.setOpenstime("00:00");
-		f.setOpenetime("23:59");
-		f.setActioncount("1");
-		f.setFingercontent("dd0217ff843201c8060b02c30c2908c88c45024f8d8990070cda11140dd213110768141608d7c104143802d2971204669d2008e6a1160a6e4050a40e08f2a74705d8283b0560294e0258c0cc800d04441b2d1a60201c0d6d840f034b5cc91d1605e41e2d0d63a12203e300000000c194000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000dbdfcb79edbebc78867776070000000000000000550053000b0a4347474747474b4b4b524747474747474b4b4b4f4a4a4b4b4b4b4b4b4f4f52524f4f4f4f4f4f4f4f665e5b57535353534f4f6b6b635f5b575353534f6f6f6b63635b5753535373736f6b675f57575353ff77736b67635b575757ff7b736f67635f5b5757ffff736f6b675f5b57ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff209d0000000000000000000000000000808a04700e45e5bf410b00a6");
-		flist.add(f);
-		
-		RoomFinger df = new RoomFinger();
-		df.setFingercode("00010001");
-		df.setEdate("-1");
-		df.setOpencount("0");
-		df.setOpenstime("00:00");
-		df.setOpenetime("23:59");
-		df.setActioncount("1");
-		df.setFingercontent("dd0217ff843201c8060b02c30c2908c88c45024f8d8990070cda11140dd213110768141608d7c104143802d2971204669d2008e6a1160a6e4050a40e08f2a74705d8283b0560294e0258c0cc800d04441b2d1a60201c0d6d840f034b5cc91d1605e41e2d0d63a12203e300000000c194000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000dbdfcb79edbebc78867776070000000000000000550053000b0a4347474747474b4b4b524747474747474b4b4b4f4a4a4b4b4b4b4b4b4f4f52524f4f4f4f4f4f4f4f665e5b57535353534f4f6b6b635f5b575353534f6f6f6b63635b5753535373736f6b675f57575353ff77736b67635b575757ff7b736f67635f5b5757ffff736f6b675f5b57ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff209d0000000000000000000000000000808a04700e45e5bf410b00a6");
-		flist2.add(df);
-		
-		RoomFinger df2 = new RoomFinger();
-		df2.setFingercode("00010003");
-		df2.setEdate("-1");
-		df2.setOpencount("0");
-		df2.setOpenstime("00:00");
-		df2.setOpenetime("23:59");
-		df2.setActioncount("1");
-		df2.setFingercontent("ff0217ff843201c8060b02c30c2908c88c45024f8d8990070cda11140dd213110768141608d7c104143802d2971204669d2008e6a1160a6e4050a40e08f2a74705d8283b0560294e0258c0cc800d04441b2d1a60201c0d6d840f034b5cc91d1605e41e2d0d63a12203e300000000c194000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000dbdfcb79edbebc78867776070000000000000000550053000b0a4347474747474b4b4b524747474747474b4b4b4f4a4a4b4b4b4b4b4b4f4f52524f4f4f4f4f4f4f4f665e5b57535353534f4f6b6b635f5b575353534f6f6f6b63635b5753535373736f6b675f57575353ff77736b67635b575757ff7b736f67635f5b5757ffff736f6b675f5b57ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff209d0000000000000000000000000000808a04700e45e5bf410b00a6");
-		flist2.add(df2);
-		
-		RoomFinger df3 = new RoomFinger();
-		df3.setFingercode("00010002");
-		df3.setEdate("-1");
-		df3.setOpencount("0");
-		df3.setOpenstime("00:00");
-		df3.setOpenetime("23:59");
-		df3.setActioncount("1");
-		df3.setFingercontent("ee0217ff843201c8060b02c30c2908c88c45024f8d8990070cda11140dd213110768141608d7c104143802d2971204669d2008e6a1160a6e4050a40e08f2a74705d8283b0560294e0258c0cc800d04441b2d1a60201c0d6d840f034b5cc91d1605e41e2d0d63a12203e300000000c194000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000dbdfcb79edbebc78867776070000000000000000550053000b0a4347474747474b4b4b524747474747474b4b4b4f4a4a4b4b4b4b4b4b4f4f52524f4f4f4f4f4f4f4f665e5b57535353534f4f6b6b635f5b575353534f6f6f6b63635b5753535373736f6b675f57575353ff77736b67635b575757ff7b736f67635f5b5757ffff736f6b675f5b57ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff209d0000000000000000000000000000808a04700e45e5bf410b00a6");
-		flist2.add(df3);
-		
-		UnlockPsw p = new UnlockPsw();
-		/*p.setLocktype(3);
-		p.setPassword("123456");
-		p.setGatewaycode("002a010101");
-		p.setGatewaycode2("1901010001");
-		p.setRoomcode("0101");
-		p.setRoomcode2("1901000001");*/
-		p.setPassword("123456");
-		p.setEdate("-1");
-		p.setOpencount("0");
-		p.setOpenstime("00:00");
-		p.setOpenetime("23:59");
-		//p.setImei("1216121514151");
-		plist.add(p);
-		
-		UnlockPsw dp = new UnlockPsw();
-		dp.setPassword("654321");
-		dp.setEdate("-1");
-		dp.setOpencount("0");
-		dp.setOpenstime("00:00");
-		dp.setOpenetime("23:59");
-		plist.add(dp);
-		
-		sn1.setCallbackurl("1");
-		sn1.setLocktype(1);
-		sn1.setTimeout(20);
-		sn1.setGatewaycode("002a010101");
-		sn1.setGatewaycode2("1901010001");
-		sn1.setRoomcode("0101");
-		sn1.setRoomcode2("1901000001");
-		sn1.setImei("1216121514151");
-		sn1.setPswlist(plist);
-		sn1.setRoomfingerlist(flist);
-		sn1.setRoomcardlist(clist);
-		synclist.add(sn1);
-		
-		sn2.setCallbackurl("1");
-		sn2.setLocktype(1);
-		sn2.setTimeout(20);
-		sn2.setGatewaycode("002a010102");
-		sn2.setGatewaycode2("1901010002");
-		sn2.setRoomcode("0102");
-		sn2.setRoomcode2("1901000002");
-		sn2.setImei("1216121514152");
-		sn2.setRoomfingerlist(flist2);
-		synclist.add(sn2);
-		
-		SendResult<SyncResult> ret = sio.saveAuthSync(synclist);
-		System.out.println("报错信息:"+ret.getResultCode()+"-"+ret.getResultMsg());
-		List<SyncCPResult> cardl = ret.getResult().getSyncpresult();
-		for(int i=0;i<cardl.size();i++) {
-			System.out.println(cardl.get(i).toString());
-		}
+		 SendOrderInfo sio = new SendOrderImpl();
+			/*List<AuthCard> clist = new ArrayList<AuthCard>();
+			List<AuthDelCard> dclist = new ArrayList<AuthDelCard>();
+			List<AuthFinger> flist = new ArrayList<AuthFinger>();
+			List<AuthDelFinger> dflist = new ArrayList<AuthDelFinger>();
+			List<AuthPsw> plist = new ArrayList<AuthPsw>();
+			List<AuthDelPsw> dplist = new ArrayList<AuthDelPsw>();
+			
+			AuthCard au = new AuthCard();
+			au.setLocktype(2);
+			au.setCardcode("00010001");
+			au.setGatewaycode("002a010101");
+			au.setGatewaycode2("1901010001");
+			au.setRoomcode("0101");
+			au.setRoomcode2("1901000001");
+			au.setEdate("-1");
+			au.setOpencount("0");
+			au.setOpenstime("00:00");
+			au.setImei("1216121514151");
+			au.setOpenetime("23:59");
+			au.setCardtype("身份证");
+			au.setCallbackurl("1");
+			au.setTimeout(200);
+			//clist.add(au);
+			
+			AuthDelCard d = new AuthDelCard();
+			d.setLocktype(2);
+			d.setCardcode("00010001");
+			d.setGatewaycode("002a010101");
+			d.setGatewaycode2("1901010001");
+			d.setRoomcode("0101");
+			d.setRoomcode2("1901000001");
+			d.setImei("1216121514151");
+			d.setCallbackurl("1");
+			d.setTimeout(200);
+			//dclist.add(d);
+			
+			AuthFinger f = new AuthFinger();
+			f.setLocktype(2);
+			f.setFingercode("00010001");
+			f.setGatewaycode("002a010101");
+			f.setGatewaycode2("1901010001");
+			f.setRoomcode("0101");
+			f.setRoomcode2("1901000001");
+			f.setEdate("-1");
+			f.setOpencount("0");
+			f.setOpenstime("00:00");
+			f.setOpenetime("23:59");
+			f.setImei("1216121514151");
+			f.setActioncount("1");
+			f.setFingercontent("dd0217ff843201c8060b02c30c2908c88c45024f8d8990070cda11140dd213110768141608d7c104143802d2971204669d2008e6a1160a6e4050a40e08f2a74705d8283b0560294e0258c0cc800d04441b2d1a60201c0d6d840f034b5cc91d1605e41e2d0d63a12203e300000000c194000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000dbdfcb79edbebc78867776070000000000000000550053000b0a4347474747474b4b4b524747474747474b4b4b4f4a4a4b4b4b4b4b4b4f4f52524f4f4f4f4f4f4f4f665e5b57535353534f4f6b6b635f5b575353534f6f6f6b63635b5753535373736f6b675f57575353ff77736b67635b575757ff7b736f67635f5b5757ffff736f6b675f5b57ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff209d0000000000000000000000000000808a04700e45e5bf410b00a6");
+			f.setCallbackurl("1");
+			f.setTimeout(200);
+			//flist.add(f);
+			
+			AuthDelFinger df = new AuthDelFinger();
+			df.setLocktype(2);
+			df.setFingercode("00010001");
+			df.setGatewaycode("002a010101");
+			df.setGatewaycode2("1901010001");
+			df.setRoomcode("0101");
+			df.setRoomcode2("1901000001");
+			df.setImei("1216121514151");
+			df.setCallbackurl("1");
+			df.setTimeout(200);
+			//dflist.add(df);
+			
+			AuthDelFinger df2 = new AuthDelFinger();
+			df2.setLocktype(2);
+			df2.setFingercode("00010002");
+			df2.setGatewaycode("002a010101");
+			df2.setGatewaycode2("1901010001");
+			df2.setRoomcode("0101");
+			df2.setRoomcode2("1901000001");
+			df2.setCallbackurl("1");
+			df2.setImei("1216121514151");
+			df2.setTimeout(200);
+			//dflist.add(df2);
+			
+			AuthDelFinger df3 = new AuthDelFinger();
+			df3.setLocktype(2);
+			df3.setFingercode("00010001");
+			df3.setGatewaycode("002a010102");
+			df3.setGatewaycode2("1901010002");
+			df3.setRoomcode("0102");
+			df3.setRoomcode2("1901000002");
+			df3.setCallbackurl("1");
+			df3.setImei("1216121514151");
+			df3.setTimeout(200);
+			//dflist.add(df3);
+			
+			AuthPsw p = new AuthPsw();
+			p.setLocktype(3);
+			p.setPassword("123456");
+			p.setGatewaycode("002a010101");
+			p.setGatewaycode2("1901010001");
+			p.setRoomcode("0101");
+			p.setRoomcode2("1901000001");
+			p.setEdate("-1");
+			p.setOpencount("0");
+			p.setOpenstime("00:00");
+			p.setOpenetime("23:59");
+			p.setImei("1216121514151");
+			p.setCallbackurl("1");
+			p.setTimeout(200);
+			plist.add(p);
+			
+			AuthDelPsw dp = new AuthDelPsw();
+			dp.setLocktype(2);
+			dp.setPassword("123456");
+			dp.setGatewaycode("002a010101");
+			dp.setGatewaycode2("1901010001");
+			dp.setRoomcode("0101");
+			dp.setRoomcode2("1901000001");
+			dp.setCallbackurl("1");
+			dp.setImei("1216121514151");
+			dp.setTimeout(200);
+			//dplist.add(dp);
+			
+			SendResult<AuthResult> ret = sio.saveLotAuth(null,null,null,null,plist,null);
+			System.out.println("报错信息:"+ret.getResultCode()+"-"+ret.getResultMsg());
+			List<CardsResult> cardl = ret.getResult().getCardsresult();
+			for(int i=0;i<cardl.size();i++) {
+				System.out.println(cardl.get(i).toString());
+			}*/
+		 UnlockPsw p = new UnlockPsw();
+		 p.setPassword("123456");
+		 p.setEdate("-1");
+			p.setOpencount("0");
+			p.setOpenstime("00:00");
+			p.setOpenetime("23:59");
+			SendResult ret = sio.saveTotalUnlockPsw("00a2010101", "1828010101", "0120", "1828000101", "1", "", 20, p, "1");
+			System.out.println(ret.getResultMsg());
 	 }
 
 	public static SendResult checkTotal(LinkedHashMap param) {
@@ -2493,9 +2504,9 @@ public class StringTools {
 			}	
 		}
 		String timeout=param.get("timeout")==null?"":param.get("timeout").toString();
-		if(timeout==null ||!timeout.matches("[1-9]+")) {
+		if(timeout==null ||!timeout.matches("[0-9]*")) {
 			st.setResultCode("-10042");
-			st.setResultMsg("超时间格式错误");
+			st.setResultMsg("超时时间格式错误");
 			return st;
 		}
 		String callbackurl=param.get("callbackurl")==null?"":param.get("callbackurl").toString();
@@ -2564,7 +2575,9 @@ public class StringTools {
 				st.setResultCode("-10023");
 				st.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
 				return st;
-			}else if(openstime.replace(":", "").length()!=4||!openstime.matches("\\d+")) {
+			}
+			String newp = openstime.replace(":", "");
+			if(newp.length()!=4||!newp.matches("\\d+")) {
 				st.setResultCode("-10023");
 				st.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
 				return st;
@@ -2574,7 +2587,7 @@ public class StringTools {
 			String openetime=(String) param.get("openetime");
 			if(openetime==null||openetime.equals("")||openetime.equals("null")) {
 				st.setResultCode("-10022");
-				st.setResultMsg("可开门时间段开始时间不能为空");
+				st.setResultMsg("可开门时间段结束时间不能为空");
 				return st;
 			}else if(openetime.length()!=5) {
 				st.setResultCode("-10023");
@@ -2582,11 +2595,13 @@ public class StringTools {
 				return st;
 			}else if(!openetime.contains(":")) {
 				st.setResultCode("-10023");
-				st.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
+				st.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
 				return st;
-			}else if(openetime.replace(":", "").length()!=4||!openetime.matches("\\d+")) {
+			}
+			String newp = openetime.replace(":", "");
+			if(newp.length()!=4||!newp.matches("\\d+")) {
 				st.setResultCode("-10023");
-				st.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
+				st.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
 				return st;
 			}
 		}

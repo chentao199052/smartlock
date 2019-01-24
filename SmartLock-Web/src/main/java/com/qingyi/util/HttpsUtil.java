@@ -95,7 +95,7 @@ public class HttpsUtil {
             connection.disconnect(); // 销毁连接  
         } catch (Exception e) {  
             e.printStackTrace();  
-            result="{\"resultCode\":\"0\",\"resultMsg\":\"连接指令服务器失败，请检查网络！\"}";
+            result="{\"resultCode\":\"-20000\",\"resultMsg\":\"连接指令服务器失败，请检查网络！\"}";
         }  
         return result;
     } 
