@@ -45,6 +45,8 @@ import com.qingyi.util.Constant;
 import com.qingyi.util.StringTools;
 import com.qingyi.util.Verify;
 
+import net.sf.json.JSONObject;
+
 
 
 
@@ -234,13 +236,14 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 		ReceiveResult<LockRecordResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
-			String itid=json.get("itid").toString();
+			
 			LockRecordResult recordresult=new LockRecordResult();
 			recordresult.setResultstatus(Integer.parseInt(json.get("status").toString()));
 			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
-			recordresult.setOrderid(itid);
 			String locktype=json.get("locktype").toString();
 			if("1".equals(locktype)) {
+				String itid=json.get("itid").toString();
+				recordresult.setOrderid(itid);
 				String ret = json.get("result").toString();
 				if(json.get("status").equals("1")){
 					String[] res = ret.split("-");
@@ -251,12 +254,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 						    List<Map> unlockings = StringTools.getUnlockinglist(res[x]);
 						    for(int h=0;h<unlockings.size();h++){
 								Map map = unlockings.get(h);
-								String cardcode=map.get("cardcode").toString();
-								String packageNo=map.get("packageNo").toString();
-								String time=map.get("time").toString();
-								String type=map.get("type").toString();
-								String cardcode2=map.get("cardcode2").toString();
-								String password=map.get("password").toString();
+								String cardcode=map.get("cardcode")==null?"":map.get("cardcode").toString();
+								String packageNo=map.get("packageNo")==null?"":map.get("packageNo").toString();
+								String time=map.get("time")==null?"":map.get("time").toString();
+								String type=map.get("type")==null?"":map.get("type").toString();
+								String cardcode2=map.get("cardcode2")==null?"":map.get("cardcode2").toString();
+								String password=map.get("password")==null?"":map.get("password").toString();
 								ReadLockRecord record=new ReadLockRecord(cardcode, packageNo, time, type, cardcode2, password,h+1);
 								lockRecords.add(record);
 						    }
@@ -282,10 +285,46 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				recordresult.setFiletype(failtype);
 				result.setResult(recordresult);
 			}else {
-				
-				
-			}
-			
+				String[] p = content.split("-");
+				String roomid = p[1];
+				recordresult.setRoomid(roomid);
+				String records = p[0];
+				//保存读取到的记录
+			    List<JSONObject> unlockings = StringTools.getUnlockinglist3(records);
+				List<ReadLockRecord> lockRecords=new ArrayList<ReadLockRecord>();
+			    for(int h=0;h<unlockings.size();h++){
+				String cardcode="";
+				String packageNo="";
+				String time="";
+				String type="";
+				String cardcode2="";
+				String password="";
+			    JSONObject jsonObject = unlockings.get(h);
+				if(jsonObject.has("packageNo")) {
+					packageNo=jsonObject.getString("packageNo");
+				}
+			    if(jsonObject.has("time")) {
+			    	time=jsonObject.getString("time");
+			    	String lrdate = jsonObject.getString("time").substring(0,10)+" 00:00:00";
+			    }
+				if(jsonObject.has("cardcode")) {
+					cardcode=jsonObject.getString("cardcode");
+				}
+				if(jsonObject.has("type")) {
+					type=jsonObject.getString("type");
+				}
+				if(jsonObject.has("cardcode2")) {
+					cardcode2=jsonObject.getString("cardcode2");
+				}
+				if(jsonObject.has("password")) {
+					password=jsonObject.getString("password");
+				}
+				ReadLockRecord record=new ReadLockRecord(cardcode, packageNo, time, type, cardcode2, password,h+1);
+				lockRecords.add(record);
+			    }
+			    recordresult.setLockRecords(lockRecords);
+				result.setResult(recordresult);
+		   }
 		}
 		return result;
 	}

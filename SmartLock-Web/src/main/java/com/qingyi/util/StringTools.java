@@ -1969,11 +1969,7 @@ public class StringTools {
 		 return fcodes;
 	 }
 	 
-	 /**
-	  * 澶氭潯闂ㄩ攣鎿嶄綔璁板綍瑙ｆ瀽鎴恓son鍒楄〃(鏈夋晥鎸囦护鎴彇鐗�)
-	  * @param order
-	  * @return
-	  */
+	
 	 public static List<Map> getUnlockinglist2(String order){
 		 List<Map> slUnlockings = new ArrayList<Map>();
 		 if(order.length()<38) {
@@ -2808,6 +2804,108 @@ public class StringTools {
 				return new SendResult("100001","参数错误", "");
 		}
 		return sr;
-		
 	}
+	
+	 /**
+	  * 多条门锁操作记录解析成json列表(有效指令截取版)
+	  * @param order
+	  * @return
+	  */
+	 public static List<JSONObject> getUnlockinglist3(String order){
+		 List<JSONObject> slUnlockings = new ArrayList<JSONObject>();
+		 
+		 String[] oders = getUnlockingorders(order);
+		 for(int i=0;i<oders.length;i++){
+			 String unlock = oders[i];
+			 String locktype = unlock.substring(0,2);
+			 String cardtype = unlock.substring(2,4);
+			 String cardcode = unlock.substring(4,12);
+			 String roomcode = unlock.substring(12,16);
+			 String packageno = unlock.substring(16,20);
+			 String password = unlock.substring(20,26).toUpperCase();
+			 String time = unlock.substring(26,38);
+			 time = "20" + time.substring(0,2) +"-"+time.substring(2,4)+"-"+time.substring(4,6)+
+					 " "+ time.substring(6,8)+":"+time.substring(8,10)+":"+time.substring(10,12);
+			
+			 JSONObject lock = new JSONObject();
+			 
+			 if(packageno.equals("0000") || packageno.equals("ffff") || packageno.equals("FFFF")){
+				 lock.put("packageNo", "0");
+			 }else{
+				 String n = Long.valueOf(packageno,16) + "";
+				 lock.put("packageNo", Integer.valueOf(n)+"");
+			 }
+			 
+			 lock.put("roomcode", roomcode);
+			 lock.put("cardcode", cardcode);
+			 lock.put("cardcode2", "");
+			 
+			 if(!password.equals("FFFFFF")){
+				 lock.put("password", password);
+			 }else{
+				 lock.put("password", "0");
+			 }
+			 lock.put("time", time);
+			 if(locktype.equals("01")){
+				 if(cardtype.equals("20")){
+					 lock.put("type", "6");
+				 }else if(cardtype.equals("08")) {
+					 lock.put("type", "17");
+				 }else if(cardtype.equals("10")) {
+					 lock.put("type", "9");
+				 }else{
+				     lock.put("type", "1");
+				 }
+			 }else if(locktype.equals("02")){
+				 lock.put("type", "4");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("03")){
+				 lock.put("type", "3");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("04")){
+				 lock.put("type", "5");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("08")){
+				 lock.put("type", "8");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("10")){
+				 lock.put("type", "10");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("20")){
+				 lock.put("type", "20");
+				 lock.put("cardcode2", unlock.substring(16, 24));
+			 }else if(locktype.equals("80")){
+				 lock.put("type", "19");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("90")){
+				 lock.put("type", "21");
+				 String newcode = cardcode + unlock.substring(16,24);
+				 lock.put("cardcode", newcode);
+			 }else if(locktype.equals("f1") || locktype.equals("F1")){
+				 lock.put("type", "11");
+			 }else if(locktype.equals("f2") || locktype.equals("F2")){
+				 lock.put("type", "12");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("f3") || locktype.equals("F3")) {
+				 lock.put("type", "14");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("f4") || locktype.equals("F4")) {
+				 lock.put("type", "15");
+			 }else if(locktype.equals("f5") || locktype.equals("F5")) {
+				 lock.put("type", "16");
+				 lock.put("cardcode", "");
+			 }else if(locktype.equals("f6") || locktype.equals("F6")) {
+				 lock.put("type", "18");
+			 }else if(locktype.equals("f7") || locktype.equals("F7")) {
+				 lock.put("type", "19");
+			 }else if(locktype.equals("f8") || locktype.equals("F8")) {
+				 lock.put("type", "20");
+			 }else{
+				 lock.put("type", "0");
+			 }
+			 slUnlockings.add(lock);
+		 }
+		 return slUnlockings;
+	 }
+	
 }
