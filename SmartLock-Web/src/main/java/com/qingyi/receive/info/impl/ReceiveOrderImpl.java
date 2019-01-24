@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.qingyi.model.CardOrPswResult;
+import com.qingyi.model.OrderResult;
 import com.qingyi.model.ClearsGatewaytatusResult;
 import com.qingyi.model.DelRoomCardResult;
 import com.qingyi.model.DelRoomFingerResult;
@@ -1252,77 +1252,79 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult<CardOrPswResult> getCardOrPswResult(String content, String sysdate, String verify) {
+	public ReceiveResult<OrderResult> getOrderResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult<CardOrPswResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<OrderResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
-			
-			CardOrPswResult r=new CardOrPswResult();
+			//锁类型
 			String locktype = json.get("locktype").toString();
+			//结果类型
 			String ordertype=json.get("orderType").toString();
-			r.setLocktype(locktype);
-			if(ordertype.equals("orderfail") || ordertype.equals("ordersuccess") || ordertype.equals("ordererror")) {
-				String status = json.get("status").toString();
-				String no="1";
-				if(json.containsKey("no")) {
-					no = json.get("no").toString();
-				}
-				String ret=json.get("result").toString();
-				String osdate=json.get("osdate").toString();
+			//下发轮次
+			String no="1";
+			if(json.containsKey("no")) {
+				no = json.get("no").toString();
+			}
+			//指令下发时间
+			String osdate=json.get("osdate").toString();
+			//指令结果状态
+			String status = json.get("status").toString();
+			
+			OrderResult r=new OrderResult();
+			if(locktype.equals("1")) {
+				//网关锁的结果指令
+				String ret = json.get("result").toString();
 				
 				r.setOrderid(json.get("itid").toString());
 				r.setResultstatus(Integer.parseInt(status));
-				r.setOrder(json.get("order").toString());
 				r.setNo(no);
 				r.setOsdate(osdate);
-				r.setResult(ret);
-				
-				if(!ordertype.equals("orderfail")) {
-					if(status.equals("2")) {
-						r.setFailtype(44);
-					} if(status.equals("1")){
-						r.setFailtype(-1);
-					}else {
-						int failtype = StringTools.getFailtype(ret);
-						r.setFailtype(failtype);
-					}
-				}else {
+				//如果是单轮结果，无需判断指令失败原因
+				if(ordertype.equals("0")) {
 					if(no.equals("1")) {
 						r.setFailtype(42);
 					}else {
 						r.setFailtype(43);
 					}
+				}else {
+					if(status.equals("1")){
+						r.setFailtype(-1);
+					}else {
+						int failtype = StringTools.getFailtype(ret);
+						r.setFailtype(failtype);
+					}
 				}
+				
 				r.setOrderType(ordertype);
 				
 				result.setResultstatus(Integer.parseInt(status));
 				result.setResult(r);
-			}else if(ordertype.equals("c1success")){
-				String status = json.get("status").toString();
-				r.setOsdate(json.get("osdate").toString());
-				r.setOrder(json.get("order").toString());
+			}else {
+				r.setOsdate(osdate);
 				r.setOrderid(json.get("ids").toString());	
-				r.setNo(json.get("no").toString());
+				r.setNo(no);
 				
-				if(json.containsKey("resultmap")) {
-					r.setResult(json.get("resultmap").toString());
-				}
-				
-				if(status.equals("1")) {	
-					r.setFailtype(-1);
-					r.setResultstatus(1);
+				if(ordertype.equals("2")) {
+					r.setFailtype(44);
+					r.setResultstatus(0);
 					result.setResultstatus(1);
 				}else {
-					String fail = json.get("messageId").toString().substring(0, 2);
-					if(fail.equals("6")) {
-						r.setFailtype(6);
+					if(status.equals("1")) {	
+						r.setFailtype(-1);
+						r.setResultstatus(1);
+						result.setResultstatus(1);
 					}else {
-						int failtype = StringTools.getFailtype2(fail);
-						r.setFailtype(failtype);
+						String fail = json.get("messageId").toString().substring(0, 2);
+						if(fail.equals("6")) {
+							r.setFailtype(6);
+						}else {
+							int failtype = StringTools.getFailtype2(fail);
+							r.setFailtype(failtype);
+						}
+						r.setResultstatus(0);
+						result.setResultstatus(0);
 					}
-					r.setResultstatus(0);
-					result.setResultstatus(0);
 				}
 				result.setResult(r);
 			}
