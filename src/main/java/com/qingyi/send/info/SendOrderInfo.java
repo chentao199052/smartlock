@@ -55,16 +55,15 @@ public interface SendOrderInfo {
 	public SendResult saveLockRemoteOpen(String gatewaycode,String gatewaycode2,String roomcode,Integer timeout,String callbackurl);
 	
 	/**
-	 * 发送门锁记录读取指令  NB不支持 通过心跳返回
+	 * 发送门锁记录读取指令 (含NB锁)
 	 * @param gatewaycode 门锁归属网关通讯ID
 	 * @param gatewaycode2 门锁归属网关唯一ID
-	 * @param itid slIntimeorder
 	 * @param roomcode 房间编号
 	 * @param timeout 有效时间（单位s）
 	 * @param callbackurl 回调地址（接收指令发送结果）
 	 * @return 指令发送结果SendResult
 	 */
-	public SendResult readLockRecord(String gatewaycode,String gatewaycode2,String itid ,String roomcode,Integer timeout,String callbackurl);
+	public SendResult readLockRecord(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String locktype,Integer timeout,String callbackurl);
 	
 	/**
 	 * 修改门锁强锁/非强锁模式

@@ -2,30 +2,31 @@ package com.qingyi.model;
 
 import java.util.List;
 
-public class ReadLockRecordResult {
+public class LockRecordResult {
 	private String orderid;
-	private String itid;//slIntimeorder 的主键
+	private String locktype;
 	private Integer filetype;
 	private Integer resultstatus;
-	private Integer Recordcount;
+	private Integer recordcount;
 	private String no;
 	private String order;
 	private String result;
 	private String space;
 	private String osdate; // 下发时间
 	private List<ReadLockRecord> lockRecords;
-	public ReadLockRecordResult() {
+	public LockRecordResult() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
-	public ReadLockRecordResult(String orderid, String itid, Integer filetype, Integer resultstatus,
+	public LockRecordResult(String orderid, String locktype, Integer filetype, Integer resultstatus,
 			Integer recordcount, String no, String order, String result, String space, String osdate,
 			List<ReadLockRecord> lockRecords) {
 		super();
 		this.orderid = orderid;
-		this.itid = itid;
+		this.locktype = locktype;
 		this.filetype = filetype;
 		this.resultstatus = resultstatus;
-		Recordcount = recordcount;
+		this.recordcount = recordcount;
 		this.no = no;
 		this.order = order;
 		this.result = result;
@@ -39,11 +40,11 @@ public class ReadLockRecordResult {
 	public void setOrderid(String orderid) {
 		this.orderid = orderid;
 	}
-	public String getItid() {
-		return itid;
+	public String getLocktype() {
+		return locktype;
 	}
-	public void setItid(String itid) {
-		this.itid = itid;
+	public void setLocktype(String locktype) {
+		this.locktype = locktype;
 	}
 	public Integer getFiletype() {
 		return filetype;
@@ -58,10 +59,10 @@ public class ReadLockRecordResult {
 		this.resultstatus = resultstatus;
 	}
 	public Integer getRecordcount() {
-		return Recordcount;
+		return recordcount;
 	}
 	public void setRecordcount(Integer recordcount) {
-		Recordcount = recordcount;
+		this.recordcount = recordcount;
 	}
 	public String getNo() {
 		return no;
@@ -99,7 +100,6 @@ public class ReadLockRecordResult {
 	public void setLockRecords(List<ReadLockRecord> lockRecords) {
 		this.lockRecords = lockRecords;
 	}
-	
 	
 	
 }
