@@ -13,11 +13,11 @@ import com.qingyi.model.ForcelockResult;
 import com.qingyi.model.GatewayInitializeResult;
 import com.qingyi.model.GatewaystatusResult;
 import com.qingyi.model.LockInitializeResult;
+import com.qingyi.model.LockRecordResult;
 import com.qingyi.model.LockResetResult;
 import com.qingyi.model.LockStatusResult;
 import com.qingyi.model.OpenResult;
 import com.qingyi.model.ReadGatewayRecordResult;
-import com.qingyi.model.ReadLockRecordResult;
 import com.qingyi.model.ReceiveResult;
 import com.qingyi.model.SaveFingerReagyResult;
 import com.qingyi.model.SaveUnlockPswResult;
@@ -63,7 +63,7 @@ public interface ReceiveOrderInfo {
 	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
-	public ReceiveResult<ReadLockRecordResult> getReadLockRecordResult(String content,String sysdate,String verify);
+	public ReceiveResult<LockRecordResult> getReadLockRecordResult(String content,String sysdate,String verify);
 	/**
 	 * 解析修改门锁强锁/非强锁模式指令
 	 * @param content 结果内容

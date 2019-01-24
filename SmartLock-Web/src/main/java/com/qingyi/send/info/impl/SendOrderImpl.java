@@ -126,17 +126,18 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult readLockRecord(String gatewaycode, String gatewaycode2,String itid, String roomcode, Integer timeout,
+	public SendResult readLockRecord(String gatewaycode, String gatewaycode2, String roomcode, String roomcode2,String locktype,Integer timeout,
 			String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
 		param.put("gatewaycode", gatewaycode);
 		param.put("gatewaycode2", gatewaycode2);
-		param.put("itid", itid);
 		param.put("roomcode", roomcode);
+		param.put("roomcode2", roomcode2);
+		param.put("locktype", locktype);
 		param.put("timeout", timeout);
 		param.put("callbackurl", callbackurl);
-		SendResult sr=StringTools.check(param);
+		SendResult sr=StringTools.checkTotal(param);
 		if(sr.getResultCode().equals("0")) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "readlockrecord", secret, param);
 			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);

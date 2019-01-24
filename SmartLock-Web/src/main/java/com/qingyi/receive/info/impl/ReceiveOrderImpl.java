@@ -22,12 +22,12 @@ import com.qingyi.model.GatewayInitializeResult;
 import com.qingyi.model.GatewayRecord;
 import com.qingyi.model.GatewaystatusResult;
 import com.qingyi.model.LockInitializeResult;
+import com.qingyi.model.LockRecordResult;
 import com.qingyi.model.LockResetResult;
 import com.qingyi.model.LockStatusResult;
 import com.qingyi.model.OpenResult;
 import com.qingyi.model.ReadGatewayRecordResult;
 import com.qingyi.model.ReadLockRecord;
-import com.qingyi.model.ReadLockRecordResult;
 import com.qingyi.model.ReceiveResult;
 import com.qingyi.model.SaveFingerReagyResult;
 import com.qingyi.model.SaveUnlockPswResult;
@@ -229,60 +229,63 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult<ReadLockRecordResult> getReadLockRecordResult(String content, String sysdate, String verify) {
+	public ReceiveResult<LockRecordResult> getReadLockRecordResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult<ReadLockRecordResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<LockRecordResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
 			String itid=json.get("itid").toString();
-			String itid2=json.get("itid2").toString();
-			ReadLockRecordResult recordresult=new ReadLockRecordResult();
+			LockRecordResult recordresult=new LockRecordResult();
 			recordresult.setResultstatus(Integer.parseInt(json.get("status").toString()));
 			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
 			recordresult.setOrderid(itid);
-			recordresult.setItid(itid2);
-			String ret = json.get("result").toString();
-			if(json.get("status").equals("1")){
-				String[] res = ret.split("-");
-				recordresult.setRecordcount(StringTools.getRecordcount(ret));
-				if(res!=null&&res.length>0) {
-					List<ReadLockRecord> lockRecords=new ArrayList<ReadLockRecord>();
-					for(int x=0;x<res.length;x++) {
-					    List<Map> unlockings = StringTools.getUnlockinglist(res[x]);
-					    for(int h=0;h<unlockings.size();h++){
-							Map map = unlockings.get(h);
-							String cardcode=map.get("cardcode").toString();
-							String packageNo=map.get("packageNo").toString();
-							String time=map.get("time").toString();
-							String type=map.get("type").toString();
-							String cardcode2=map.get("cardcode2").toString();
-							String password=map.get("password").toString();
-							ReadLockRecord record=new ReadLockRecord(cardcode, packageNo, time, type, cardcode2, password,h+1);
-							lockRecords.add(record);
-							
-					    }
-		         }
-					recordresult.setLockRecords(lockRecords);
+			String locktype=json.get("locktype").toString();
+			if("1".equals(locktype)) {
+				String ret = json.get("result").toString();
+				if(json.get("status").equals("1")){
+					String[] res = ret.split("-");
+					recordresult.setRecordcount(StringTools.getRecordcount(ret));
+					if(res!=null&&res.length>0) {
+						List<ReadLockRecord> lockRecords=new ArrayList<ReadLockRecord>();
+						for(int x=0;x<res.length;x++) {
+						    List<Map> unlockings = StringTools.getUnlockinglist(res[x]);
+						    for(int h=0;h<unlockings.size();h++){
+								Map map = unlockings.get(h);
+								String cardcode=map.get("cardcode").toString();
+								String packageNo=map.get("packageNo").toString();
+								String time=map.get("time").toString();
+								String type=map.get("type").toString();
+								String cardcode2=map.get("cardcode2").toString();
+								String password=map.get("password").toString();
+								ReadLockRecord record=new ReadLockRecord(cardcode, packageNo, time, type, cardcode2, password,h+1);
+								lockRecords.add(record);
+						    }
+			         }
+						recordresult.setLockRecords(lockRecords);
+				}
+			  }
+				String no  = "0";
+				try {
+					no = json.get("no").toString();
+				} catch (Exception e) {
+					no ="3";
+				}
+				recordresult.setNo(no);
+				String order=json.get("order")==null?"":json.get("order").toString();
+				String space=json.get("space")==null?"":json.get("space").toString();
+				String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
+				recordresult.setOsdate(osdate);
+				recordresult.setOrder(order);
+				recordresult.setResult(ret);
+				recordresult.setSpace(space);
+				int failtype = StringTools.getFailtype(ret);
+				recordresult.setFiletype(failtype);
+				result.setResult(recordresult);
+			}else {
+				
+				
 			}
-		  }
-			String no  = "0";
-			try {
-				no = json.get("no").toString();
-			} catch (Exception e) {
-				no ="3";
-			}
-			recordresult.setNo(no);
 			
-			String order=json.get("order")==null?"":json.get("order").toString();
-			String space=json.get("space")==null?"":json.get("space").toString();
-			String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
-			recordresult.setOsdate(osdate);
-			recordresult.setOrder(order);
-			recordresult.setResult(ret);
-			recordresult.setSpace(space);
-			int failtype = StringTools.getFailtype(ret);
-			recordresult.setFiletype(failtype);
-			result.setResult(recordresult);
 		}
 		return result;
 	}
@@ -621,7 +624,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			r.setOrderid(itid);
 			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
 			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
-			if(json.get("status").toString().equals("1")) {
+			if(json.get("status").toString().equals("1")){
 				String resultorder = json.get("result").toString();
 				if(null!=resultorder && resultorder.length()>50) {
 					String recordnum = resultorder.substring(30,34);
