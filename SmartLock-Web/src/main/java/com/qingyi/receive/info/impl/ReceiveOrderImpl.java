@@ -1,6 +1,8 @@
 package com.qingyi.receive.info.impl;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -56,6 +58,10 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	private String timeout;
 	
 	private String secret;
+	
+	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+	private static SimpleDateFormat sdf1 = new SimpleDateFormat("yyMMddHHmmss");
+	private static SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	public ReceiveOrderImpl() {
 		super();
@@ -1288,11 +1294,19 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			if(locktype.equals("1")) {
 				//网关锁的结果指令
 				String ret = json.get("result").toString();
-				
 				r.setOrderid(json.get("itid").toString());
 				r.setResultstatus(Integer.parseInt(status));
 				r.setNo(no);
-				r.setOsdate(osdate);
+				String odate = sdf2.format(new Date());
+				try {
+					odate = sdf2.format(sdf.parse(osdate));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				r.setOsdate(odate);
+				r.setOrderType(ordertype);
+				
 				//如果是单轮结果，无需判断指令失败原因
 				if(ordertype.equals("0")) {
 					if(no.equals("1")) {
@@ -1303,30 +1317,43 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				}else {
 					if(status.equals("1")){
 						r.setFailtype(-1);
+					}if(status.equals("2")){
+						r.setFailtype(44);
 					}else {
 						int failtype = StringTools.getFailtype(ret);
 						r.setFailtype(failtype);
 					}
 				}
 				
-				r.setOrderType(ordertype);
 				
 				result.setResultstatus(Integer.parseInt(status));
 				result.setResult(r);
 			}else {
-				r.setOsdate(osdate);
+				String odate = sdf2.format(new Date());
+				try {
+					odate = sdf2.format(sdf1.parse(osdate));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				r.setOsdate(odate);
 				r.setOrderid(json.get("ids").toString());	
 				r.setNo(no);
+				r.setOrderType(ordertype);
+				r.setResultstatus(Integer.parseInt(status));
 				
-				if(ordertype.equals("2")) {
-					r.setFailtype(44);
-					r.setResultstatus(0);
-					result.setResultstatus(1);
+				if(ordertype.equals("0")) {
+					if(no.equals("1")) {
+						r.setFailtype(42);
+					}else {
+						r.setFailtype(43);
+					}
 				}else {
 					if(status.equals("1")) {	
 						r.setFailtype(-1);
 						r.setResultstatus(1);
-						result.setResultstatus(1);
+					}else if(status.equals("2")){
+						r.setFailtype(44);
 					}else {
 						String fail = json.get("messageId").toString().substring(0, 2);
 						if(fail.equals("6")) {
@@ -1335,10 +1362,10 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 							int failtype = StringTools.getFailtype2(fail);
 							r.setFailtype(failtype);
 						}
-						r.setResultstatus(0);
-						result.setResultstatus(0);
 					}
 				}
+				
+				result.setResultstatus(Integer.parseInt(status));
 				result.setResult(r);
 			}
 		}

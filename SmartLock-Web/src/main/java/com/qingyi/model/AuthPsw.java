@@ -24,10 +24,6 @@ public class AuthPsw {
 	
 	private String opencount;
 	
-	private Integer timeout;
-	
-	private String callbackurl;
-	
 	private String imei;
 	
 	public AuthPsw() {
@@ -47,16 +43,14 @@ public class AuthPsw {
 	 * @param openetime 可开门结束时间（必填，格式为HH:mm）
 	 * @param edate 授权到期时间（必填，-1表示永久，格式为yyMMddHHmm）
 	 * @param opencount 可开门次数（必填，0表示永久，非永久次数范围1-254）
-	 * @param timeout 超时秒数（网关或门锁离线超时秒数后，指令超时，必填）
-	 * @param callbackurl 回调地址（指令结果回调地址，必填）
 	 */
-	public AuthPsw(Integer locktype, String roomcode2, String roomcode, String gatewaycode2, String gatewaycode,
-			String password, String openstime, String openetime, String edate, String opencount, Integer timeout,
-			String callbackurl,String imei) {
+	public AuthPsw(Integer locktype, String roomcode2, String roomcode,String imei, String gatewaycode2, String gatewaycode,
+			String password, String openstime, String openetime, String edate, String opencount, Integer timeout) {
 		super();
 		this.locktype = locktype;
 		this.roomcode2 = roomcode2;
 		this.roomcode = roomcode;
+		this.imei = imei;
 		this.gatewaycode2 = gatewaycode2;
 		this.gatewaycode = gatewaycode;
 		this.password = password;
@@ -64,9 +58,6 @@ public class AuthPsw {
 		this.openetime = openetime;
 		this.edate = edate;
 		this.opencount = opencount;
-		this.timeout = timeout;
-		this.callbackurl = callbackurl;
-		this.imei = imei;
 	}
 
 	public Integer getLocktype() {
@@ -147,22 +138,6 @@ public class AuthPsw {
 
 	public void setOpencount(String opencount) {
 		this.opencount = opencount;
-	}
-
-	public Integer getTimeout() {
-		return timeout;
-	}
-
-	public void setTimeout(Integer timeout) {
-		this.timeout = timeout;
-	}
-
-	public String getCallbackurl() {
-		return callbackurl;
-	}
-
-	public void setCallbackurl(String callbackurl) {
-		this.callbackurl = callbackurl;
 	}
 
 	public String getImei() {

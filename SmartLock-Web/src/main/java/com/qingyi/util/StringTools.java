@@ -419,18 +419,6 @@ public class StringTools {
 				sr.setResultMsg("可开门次数必须为0-254数字,0表示不限次数");
 				return sr;
 			}
-			
-			if(null==au.getCallbackurl() || au.getCallbackurl().equals("") || au.getCallbackurl().equals("null")) {
-				sr.setResultCode("-20004");
-				sr.setResultMsg("回调地址不能为空");
-				return sr;
-			}
-			
-			if(null==au.getTimeout() || au.getTimeout()<0) {
-				sr.setResultCode("-20005");
-				sr.setResultMsg("指令超时时间不能为空");
-				return sr;
-			}
 		}
 		return sr;
 	}
@@ -507,18 +495,6 @@ public class StringTools {
 			if((au.getCardcode().length()!=8 && au.getCardcode().length()!=16)||au.getCardcode().toUpperCase().matches(".*[G-Z].*")) {
 				sr.setResultCode("-10029");
 				sr.setResultMsg("开门卡，管理卡，授权卡卡号必须为8位（身份证16位）十六进制字符串");
-				return sr;
-			}
-			
-			if(null==au.getCallbackurl() || au.getCallbackurl().equals("") || au.getCallbackurl().equals("null")) {
-				sr.setResultCode("-20004");
-				sr.setResultMsg("回调地址不能为空");
-				return sr;
-			}
-			
-			if(null==au.getTimeout() || au.getTimeout()<0) {
-				sr.setResultCode("-20005");
-				sr.setResultMsg("指令超时时间不能为空");
 				return sr;
 			}
 		}
@@ -680,17 +656,6 @@ public class StringTools {
 				return sr;
 			}
 			
-			if(null==au.getCallbackurl() || au.getCallbackurl().equals("") || au.getCallbackurl().equals("null")) {
-				sr.setResultCode("-20004");
-				sr.setResultMsg("回调地址不能为空");
-				return sr;
-			}
-			
-			if(null==au.getTimeout() || au.getTimeout()<0) {
-				sr.setResultCode("-20005");
-				sr.setResultMsg("指令超时时间不能为空");
-				return sr;
-			}
 		}
 		return sr;
 	}
@@ -1032,19 +997,6 @@ public class StringTools {
 				sr.setResultMsg("指纹编号必须为8位十六进制字符串");
 				return sr;
 			}
-			
-			if(null==au.getCallbackurl() || au.getCallbackurl().equals("") || au.getCallbackurl().equals("null")) {
-				sr.setResultCode("-20004");
-				sr.setResultMsg("回调地址不能为空");
-				return sr;
-			}
-			
-			if(null==au.getTimeout() || au.getTimeout()<0) {
-				sr.setResultCode("-20005");
-				sr.setResultMsg("指令超时时间不能为空");
-				return sr;
-			}
-				
 		}
 		return sr;
 	}
@@ -1185,18 +1137,6 @@ public class StringTools {
 				sr.setResultMsg("可开门次数必须为0-254数字,0表示不限次数");
 				return sr;
 			}
-			
-			if(null==au.getCallbackurl() || au.getCallbackurl().equals("") || au.getCallbackurl().equals("null")) {
-				sr.setResultCode("-20004");
-				sr.setResultMsg("回调地址不能为空");
-				return sr;
-			}
-			
-			if(null==au.getTimeout() || au.getTimeout()<0) {
-				sr.setResultCode("-20005");
-				sr.setResultMsg("指令超时时间不能为空");
-				return sr;
-			}
 		}
 		return sr;
 	}
@@ -1274,18 +1214,6 @@ public class StringTools {
 			if (!isNum.matches() || au.getPassword().length()!=6) {
 				sr.setResultCode("-10009");
 				sr.setResultMsg("密码必须为6位数字");
-				return sr;
-			}
-			
-			if(null==au.getCallbackurl() || au.getCallbackurl().equals("") || au.getCallbackurl().equals("null")) {
-				sr.setResultCode("-20004");
-				sr.setResultMsg("回调地址不能为空");
-				return sr;
-			}
-			
-			if(null==au.getTimeout() || au.getTimeout()<0) {
-				sr.setResultCode("-20005");
-				sr.setResultMsg("指令超时时间不能为空");
 				return sr;
 			}
 		}
@@ -2276,7 +2204,7 @@ public class StringTools {
 	 
 	 public static void main(String[] args) {
 		 SendOrderInfo sio = new SendOrderImpl();
-			/*List<AuthCard> clist = new ArrayList<AuthCard>();
+			List<AuthCard> clist = new ArrayList<AuthCard>();
 			List<AuthDelCard> dclist = new ArrayList<AuthDelCard>();
 			List<AuthFinger> flist = new ArrayList<AuthFinger>();
 			List<AuthDelFinger> dflist = new ArrayList<AuthDelFinger>();
@@ -2296,8 +2224,6 @@ public class StringTools {
 			au.setImei("1216121514151");
 			au.setOpenetime("23:59");
 			au.setCardtype("身份证");
-			au.setCallbackurl("1");
-			au.setTimeout(200);
 			//clist.add(au);
 			
 			AuthDelCard d = new AuthDelCard();
@@ -2308,8 +2234,6 @@ public class StringTools {
 			d.setRoomcode("0101");
 			d.setRoomcode2("1901000001");
 			d.setImei("1216121514151");
-			d.setCallbackurl("1");
-			d.setTimeout(200);
 			//dclist.add(d);
 			
 			AuthFinger f = new AuthFinger();
@@ -2326,8 +2250,6 @@ public class StringTools {
 			f.setImei("1216121514151");
 			f.setActioncount("1");
 			f.setFingercontent("dd0217ff843201c8060b02c30c2908c88c45024f8d8990070cda11140dd213110768141608d7c104143802d2971204669d2008e6a1160a6e4050a40e08f2a74705d8283b0560294e0258c0cc800d04441b2d1a60201c0d6d840f034b5cc91d1605e41e2d0d63a12203e300000000c194000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000dbdfcb79edbebc78867776070000000000000000550053000b0a4347474747474b4b4b524747474747474b4b4b4f4a4a4b4b4b4b4b4b4f4f52524f4f4f4f4f4f4f4f665e5b57535353534f4f6b6b635f5b575353534f6f6f6b63635b5753535373736f6b675f57575353ff77736b67635b575757ff7b736f67635f5b5757ffff736f6b675f5b57ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff209d0000000000000000000000000000808a04700e45e5bf410b00a6");
-			f.setCallbackurl("1");
-			f.setTimeout(200);
 			//flist.add(f);
 			
 			AuthDelFinger df = new AuthDelFinger();
@@ -2338,8 +2260,6 @@ public class StringTools {
 			df.setRoomcode("0101");
 			df.setRoomcode2("1901000001");
 			df.setImei("1216121514151");
-			df.setCallbackurl("1");
-			df.setTimeout(200);
 			//dflist.add(df);
 			
 			AuthDelFinger df2 = new AuthDelFinger();
@@ -2349,9 +2269,7 @@ public class StringTools {
 			df2.setGatewaycode2("1901010001");
 			df2.setRoomcode("0101");
 			df2.setRoomcode2("1901000001");
-			df2.setCallbackurl("1");
 			df2.setImei("1216121514151");
-			df2.setTimeout(200);
 			//dflist.add(df2);
 			
 			AuthDelFinger df3 = new AuthDelFinger();
@@ -2361,9 +2279,7 @@ public class StringTools {
 			df3.setGatewaycode2("1901010002");
 			df3.setRoomcode("0102");
 			df3.setRoomcode2("1901000002");
-			df3.setCallbackurl("1");
 			df3.setImei("1216121514151");
-			df3.setTimeout(200);
 			//dflist.add(df3);
 			
 			AuthPsw p = new AuthPsw();
@@ -2378,8 +2294,6 @@ public class StringTools {
 			p.setOpenstime("00:00");
 			p.setOpenetime("23:59");
 			p.setImei("1216121514151");
-			p.setCallbackurl("1");
-			p.setTimeout(200);
 			plist.add(p);
 			
 			AuthDelPsw dp = new AuthDelPsw();
@@ -2389,25 +2303,23 @@ public class StringTools {
 			dp.setGatewaycode2("1901010001");
 			dp.setRoomcode("0101");
 			dp.setRoomcode2("1901000001");
-			dp.setCallbackurl("1");
 			dp.setImei("1216121514151");
-			dp.setTimeout(200);
 			//dplist.add(dp);
 			
-			SendResult<AuthResult> ret = sio.saveLotAuth(null,null,null,null,plist,null);
+			SendResult<AuthResult> ret = sio.saveLotAuth(null,null,null,null,plist,null,20,"1");
 			System.out.println("报错信息:"+ret.getResultCode()+"-"+ret.getResultMsg());
 			List<CardsResult> cardl = ret.getResult().getCardsresult();
 			for(int i=0;i<cardl.size();i++) {
 				System.out.println(cardl.get(i).toString());
-			}*/
-		 UnlockPsw p = new UnlockPsw();
+			}
+		 /*UnlockPsw p = new UnlockPsw();
 		 p.setPassword("123456");
 		 p.setEdate("-1");
 			p.setOpencount("0");
 			p.setOpenstime("00:00");
 			p.setOpenetime("23:59");
 			SendResult ret = sio.saveTotalUnlockPsw("00a2010101", "1828010101", "0120", "1828000101", "1", "", 20, p, "1");
-			System.out.println(ret.getResultMsg());
+			System.out.println(ret.getResultMsg());*/
 	 }
 
 	public static SendResult checkTotal(LinkedHashMap param) {

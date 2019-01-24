@@ -16,10 +16,6 @@ public class AuthDelFinger {
 	
 	private String fingercode;
 	
-	private Integer timeout;
-	
-	private String callbackurl;
-	
 	private String imei;
 	
 	public AuthDelFinger() {
@@ -35,11 +31,9 @@ public class AuthDelFinger {
 	 * @param gatewaycode2 网关唯一ID（无线联网锁必填）
 	 * @param gatewaycode 网关通信ID（无线联网锁必填）
 	 * @param fingercode 指纹号（必填）
-	 * @param timeout 超时秒数（网关或门锁离线超时秒数后，指令超时，必填）
-	 * @param callbackurl 回调地址（指令结果回调地址，必填）
 	 */
 	public AuthDelFinger(Integer locktype, String roomcode2, String roomcode,String imei, String gatewaycode2, String gatewaycode,
-			String fingercode, Integer timeout, String callbackurl) {
+			String fingercode) {
 		super();
 		this.locktype = locktype;
 		this.roomcode2 = roomcode2;
@@ -47,8 +41,6 @@ public class AuthDelFinger {
 		this.gatewaycode2 = gatewaycode2;
 		this.gatewaycode = gatewaycode;
 		this.fingercode = fingercode;
-		this.timeout = timeout;
-		this.callbackurl = callbackurl;
 		this.imei = imei;
 	}
 
@@ -98,22 +90,6 @@ public class AuthDelFinger {
 
 	public void setFingercode(String fingercode) {
 		this.fingercode = fingercode;
-	}
-
-	public Integer getTimeout() {
-		return timeout;
-	}
-
-	public void setTimeout(Integer timeout) {
-		this.timeout = timeout;
-	}
-
-	public String getCallbackurl() {
-		return callbackurl;
-	}
-
-	public void setCallbackurl(String callbackurl) {
-		this.callbackurl = callbackurl;
 	}
 
 	public String getImei() {
