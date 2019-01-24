@@ -362,9 +362,11 @@ public interface SendOrderInfo {
 	 * @param dflist 需删除指纹列表
 	 * @param plist 需授权密码列表
 	 * @param dplist 需删除密码列表
+	 * @param timeout
+	 * @param callbackurl
 	 * @return
 	 */
-	public SendResult saveLotAuth(List<AuthCard> clist,List<AuthDelCard> dclist,List<AuthFinger> flist,List<AuthDelFinger> dflist,List<AuthPsw> plist,List<AuthDelPsw> dplist);
+	public SendResult saveLotAuth(List<AuthCard> clist,List<AuthDelCard> dclist,List<AuthFinger> flist,List<AuthDelFinger> dflist,List<AuthPsw> plist,List<AuthDelPsw> dplist,Integer timeout,String callbackurl);
 	
 	/**
 	 * 批量卡密/指纹授权同步

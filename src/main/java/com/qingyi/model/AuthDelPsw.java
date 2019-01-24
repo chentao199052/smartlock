@@ -16,10 +16,6 @@ public class AuthDelPsw {
 	
 	private String password;
 	
-	private Integer timeout;
-	
-	private String callbackurl;
-	
 	private String imei;
 	
 	public AuthDelPsw() {
@@ -35,21 +31,17 @@ public class AuthDelPsw {
 	 * @param gatewaycode 网关通信ID（无线联网锁必填）
 	 * @param password 6位数字密码（必填）
 	 * @param timeout 超时秒数（网关或门锁离线超时秒数后，指令超时，必填）
-	 * @param callbackurl 回调地址（指令结果回调地址，必填）
-	 * @param imei NB锁imei（NB锁必填）
-	*/
-	public AuthDelPsw(Integer locktype, String roomcode2, String roomcode, String gatewaycode2, String gatewaycode,
-			String password,Integer timeout,String callbackurl,String imei) {
+	 */
+	public AuthDelPsw(Integer locktype, String roomcode2, String roomcode,String imei, String gatewaycode2, String gatewaycode,
+			String password) {
 		super();
 		this.locktype = locktype;
 		this.roomcode2 = roomcode2;
 		this.roomcode = roomcode;
+		this.imei = imei;
 		this.gatewaycode2 = gatewaycode2;
 		this.gatewaycode = gatewaycode;
 		this.password = password;
-		this.timeout = timeout;
-		this.callbackurl = callbackurl;
-		this.imei = imei;
 	}
 
 	public Integer getLocktype() {
@@ -99,23 +91,7 @@ public class AuthDelPsw {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public Integer getTimeout() {
-		return timeout;
-	}
-
-	public void setTimeout(Integer timeout) {
-		this.timeout = timeout;
-	}
-
-	public String getCallbackurl() {
-		return callbackurl;
-	}
-
-	public void setCallbackurl(String callbackurl) {
-		this.callbackurl = callbackurl;
-	}
-
+	
 	public String getImei() {
 		return imei;
 	}

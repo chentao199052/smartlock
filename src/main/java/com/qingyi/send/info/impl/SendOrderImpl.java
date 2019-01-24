@@ -659,7 +659,7 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult<AuthResult> saveLotAuth(List<AuthCard> clist,List<AuthDelCard> dclist,List<AuthFinger> flist,List<AuthDelFinger> dflist,List<AuthPsw> plist,List<AuthDelPsw> dplist) {
+	public SendResult<AuthResult> saveLotAuth(List<AuthCard> clist,List<AuthDelCard> dclist,List<AuthFinger> flist,List<AuthDelFinger> dflist,List<AuthPsw> plist,List<AuthDelPsw> dplist,Integer timeout,String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
 		if(null!=clist&&clist.size()>0){
@@ -680,11 +680,26 @@ public class SendOrderImpl implements SendOrderInfo{
 		if(null!=dplist&&dplist.size()>0) {
 			param.put("delpswlist", dplist);
 		}
+		
 		if(param.isEmpty()) {
-			return new SendResult("-2003","参数不能全部为空","");
+			return new SendResult("-20003","授权内容不能全部为空","");
 		}
 		//判断
 		SendResult<AuthResult> sr = StringTools.checkCardList(clist);
+		if(null==callbackurl || callbackurl.equals("") || callbackurl.equals("null")) {
+			sr.setResultCode("-20004");
+			sr.setResultMsg("回调地址不能为空");
+			return sr;
+		}
+		
+		if(null==timeout || timeout<0) {
+			sr.setResultCode("-20005");
+			sr.setResultMsg("指令超时时间不能为空或小于0");
+			return sr;
+		}
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		
 		if("0".equals(sr.getResultCode())) {
 			sr = StringTools.checkDelCardList(dclist);
 			if("0".equals(sr.getResultCode())) {

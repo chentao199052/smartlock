@@ -26,10 +26,6 @@ public class AuthCard {
 	
 	private String cardtype;
 	
-	private Integer timeout;
-	
-	private String callbackurl;
-	
 	private String imei;
 	
 	
@@ -52,12 +48,9 @@ public class AuthCard {
 	 * @param openetime 可开门结束时间（必填，格式为HH:mm）
 	 * @param edate 授权到期时间（必填，-1表示永久，格式为yyMMddHHmm）
 	 * @param opencount 可开门次数（必填，0表示永久，非永久次数范围1-254）
-	 * @param timeout 超时秒数（网关或门锁离线超时秒数后，指令超时，必填）
-	 * @param callbackurl 回调地址（指令结果回调地址，必填）
 	 */
 	public AuthCard(Integer locktype, String roomcode2, String roomcode,String imei, String gatewaycode2, String gatewaycode, String cardtype,
-			String cardcode, String openstime, String openetime, String edate, String opencount,
-			Integer timeout, String callbackurl) {
+			String cardcode, String openstime, String openetime, String edate, String opencount) {
 		super();
 		this.locktype = locktype;
 		this.roomcode2 = roomcode2;
@@ -70,8 +63,6 @@ public class AuthCard {
 		this.edate = edate;
 		this.opencount = opencount;
 		this.cardtype = cardtype;
-		this.timeout = timeout;
-		this.callbackurl = callbackurl;
 		this.imei = imei;
 	}
 
@@ -186,26 +177,7 @@ public class AuthCard {
 	}
 
 
-	public Integer getTimeout() {
-		return timeout;
-	}
-
-
-	public void setTimeout(Integer timeout) {
-		this.timeout = timeout;
-	}
-
-
-	public String getCallbackurl() {
-		return callbackurl;
-	}
-
-
-	public void setCallbackurl(String callbackurl) {
-		this.callbackurl = callbackurl;
-	}
-
-
+	
 	public String getImei() {
 		return imei;
 	}
