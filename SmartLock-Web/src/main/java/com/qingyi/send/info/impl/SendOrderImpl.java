@@ -881,7 +881,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		SendResult sr=StringTools.checkRestAndOpenList( oplist);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "savetotalopenlist", secret, param);
-			System.out.println(result);
+			//System.out.println(result);
 			sr = StringTools.getSendResultByJson2(result,LockResult.class);
 		}
 		return sr;

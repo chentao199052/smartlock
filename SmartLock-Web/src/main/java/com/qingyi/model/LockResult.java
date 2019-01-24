@@ -33,6 +33,10 @@ public class LockResult {
 	public void setRoomcode2(String roomcode2) {
 		this.roomcode2 = roomcode2;
 	}
+	@Override
+	public String toString() {
+		return "LockResult [orderId=" + orderId + ", locktype=" + locktype + ", roomcode2=" + roomcode2 + "]";
+	}
 	
 	
 	

@@ -166,25 +166,37 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 		ReceiveResult<LockResetResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
-			String itid=json.get("itid").toString();
 			LockResetResult r =new LockResetResult();
+			String itid=json.get("itid").toString();
+			String locktype=json.get("locktype").toString();
 			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
 			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
 			r.setOrderid(itid);
-			String order=json.get("order").toString();
-			String no=json.get("no").toString();
-			String space=json.get("space").toString();
-			String ret = json.get("result").toString();
-			String osdate=json.get("osdate").toString();
-			r.setOsdate(osdate);
-			r.setOrder(order);
-			if(null!=no&&no.matches("^[0-9]{1,}$")) {
-				r.setNo(Integer.parseInt(no));
+			if("1".equals(locktype)) {
+				String order=json.get("order")==null?"":json.get("order").toString();
+				String no=json.get("no")==null?"":json.get("no").toString();
+				String space=json.get("space")==null?"":json.get("space").toString();
+				String ret = json.get("result")==null?"":json.get("result").toString();
+				String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
+				r.setOsdate(osdate);
+				r.setOrder(order);
+				if(null!=no&&no.matches("^[0-9]{1,}$")) {
+					r.setNo(Integer.parseInt(no));
+				}
+				r.setResult(ret);
+				r.setSpace(space);
+				int failtype = StringTools.getFailtype(ret);
+				r.setFiletype(failtype);
+			}else {
+				String ret = json.get("result")==null?"":json.get("result").toString();
+				String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
+				String no=json.get("no")==null?"":json.get("no").toString();
+				r.setResult(ret);
+				r.setOsdate(osdate);
+				if(null!=no&&no.matches("^[0-9]{1,}$")) {
+					r.setNo(Integer.parseInt(no));
+				}
 			}
-			r.setResult(ret);
-			r.setSpace(space);
-			int failtype = StringTools.getFailtype(ret);
-			r.setFiletype(failtype);
 			result.setResult(r);
 		}
 		return result;
@@ -285,45 +297,46 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				recordresult.setFiletype(failtype);
 				result.setResult(recordresult);
 			}else {
-				String[] p = content.split("-");
-				String roomid = p[1];
-				recordresult.setRoomid(roomid);
-				String records = p[0];
-				//保存读取到的记录
-			    List<JSONObject> unlockings = StringTools.getUnlockinglist3(records);
-				List<ReadLockRecord> lockRecords=new ArrayList<ReadLockRecord>();
-			    for(int h=0;h<unlockings.size();h++){
-				String cardcode="";
-				String packageNo="";
-				String time="";
-				String type="";
-				String cardcode2="";
-				String password="";
-			    JSONObject jsonObject = unlockings.get(h);
-				if(jsonObject.has("packageNo")) {
-					packageNo=jsonObject.getString("packageNo");
+				if(json.get("status").equals("1")) {
+					String records=json.get("records").toString();
+					recordresult.setRoomcode2(json.get("roomcode2").toString());
+					//String records = p[0];
+					//保存读取到的记录
+				    List<JSONObject> unlockings = StringTools.getUnlockinglist3(records);
+					List<ReadLockRecord> lockRecords=new ArrayList<ReadLockRecord>();
+				    for(int h=0;h<unlockings.size();h++){
+					String cardcode="";
+					String packageNo="";
+					String time="";
+					String type="";
+					String cardcode2="";
+					String password="";
+				    JSONObject jsonObject = unlockings.get(h);
+					if(jsonObject.has("packageNo")) {
+						packageNo=jsonObject.getString("packageNo");
+					}
+				    if(jsonObject.has("time")) {
+				    	time=jsonObject.getString("time");
+				    	String lrdate = jsonObject.getString("time").substring(0,10)+" 00:00:00";
+				    }
+					if(jsonObject.has("cardcode")) {
+						cardcode=jsonObject.getString("cardcode");
+					}
+					if(jsonObject.has("type")) {
+						type=jsonObject.getString("type");
+					}
+					if(jsonObject.has("cardcode2")) {
+						cardcode2=jsonObject.getString("cardcode2");
+					}
+					if(jsonObject.has("password")) {
+						password=jsonObject.getString("password");
+					}
+					ReadLockRecord record=new ReadLockRecord(cardcode, packageNo, time, type, cardcode2, password,h+1);
+					lockRecords.add(record);
+				    }
+				    recordresult.setLockRecords(lockRecords);
+					result.setResult(recordresult);
 				}
-			    if(jsonObject.has("time")) {
-			    	time=jsonObject.getString("time");
-			    	String lrdate = jsonObject.getString("time").substring(0,10)+" 00:00:00";
-			    }
-				if(jsonObject.has("cardcode")) {
-					cardcode=jsonObject.getString("cardcode");
-				}
-				if(jsonObject.has("type")) {
-					type=jsonObject.getString("type");
-				}
-				if(jsonObject.has("cardcode2")) {
-					cardcode2=jsonObject.getString("cardcode2");
-				}
-				if(jsonObject.has("password")) {
-					password=jsonObject.getString("password");
-				}
-				ReadLockRecord record=new ReadLockRecord(cardcode, packageNo, time, type, cardcode2, password,h+1);
-				lockRecords.add(record);
-			    }
-			    recordresult.setLockRecords(lockRecords);
-				result.setResult(recordresult);
 		   }
 		}
 		return result;
