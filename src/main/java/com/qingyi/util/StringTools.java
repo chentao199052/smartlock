@@ -2819,5 +2819,92 @@ public class StringTools {
 		 }
 		 return slUnlockings;
 	 }
+
+	public static SendResult checkurl(LinkedHashMap param) {
+		SendResult sr=new SendResult("0", "", "");
+		Set<Map.Entry<String, String>> params = param.entrySet();
+		for(Map.Entry<String, String> p :params) {
+			String key=p.getKey();
+			String value=p.getValue();
+			if(key ==null ||key.trim().length()==0 || value ==null || value.trim().length()==0) {
+				sr.setResultCode("-10001");
+				sr.setResultMsg("参数不允许出现空值");
+				return sr;
+			}
+			if(key.equals("gatewaycode2")) {
+				if(value.toString()==null||value.toString().equals("")||value.toString().equals("null")) {
+					sr.setResultCode("-10003");
+					sr.setResultMsg("网关唯一ID不能为空");
+					return sr;
+				}else if(value.toString().length()!=10||value.toString().toUpperCase().matches(".*[G-Z].*")) {
+					sr.setResultCode("-10004");
+					sr.setResultMsg("网关唯一ID必须为10位十六进制字符串");
+					return sr;
+				}
+			}
+			if(key.equals("roomcode2")) {
+				if(value.toString()==null||value.toString().equals("")||value.toString().equals("null")) {
+					sr.setResultCode("-10005");
+					sr.setResultMsg("门锁唯一ID不能为空");
+					return sr;
+				}else if(value.toString().length()!=10||value.toString().toUpperCase().matches(".*[G-Z].*")) {
+					sr.setResultCode("-10006");
+					sr.setResultMsg("门锁唯一ID必须为10位十六进制字符串");
+					return sr;
+				}
+			}
+		}
+		return sr;
+		
+		
+	}
+
+	public static SendResult checkurl2(LinkedHashMap param) {
+		// TODO Auto-generated method stub
+		SendResult sr=new SendResult("0", "", "");
+		if(param.containsKey("locktype")) {
+			String locktype=(String)param.get("locktype");
+			if("1".equals(locktype)) {
+				Set<Map.Entry<String, String>> params = param.entrySet();
+				for(Map.Entry<String, String> p :params) {
+					String key=p.getKey();
+					String value=p.getValue();
+					if(key.equals("gatewaycode2")) {
+						if(value.toString()==null||value.toString().equals("")||value.toString().equals("null")) {
+							sr.setResultCode("-10003");
+							sr.setResultMsg("网关唯一ID不能为空");
+							return sr;
+						}else if(value.toString().length()!=10||value.toString().toUpperCase().matches(".*[G-Z].*")) {
+							sr.setResultCode("-10004");
+							sr.setResultMsg("网关唯一ID必须为10位十六进制字符串");
+							return sr;
+						}
+					}
+				}	
+			}else {
+				Set<Map.Entry<String, String>> params = param.entrySet();
+				for(Map.Entry<String, String> p :params) {
+					String key=p.getKey();
+					String value=p.getValue();
+					if(key.equals("roomcode2")) {
+						if(value.toString()==null||value.toString().equals("")||value.toString().equals("null")) {
+							sr.setResultCode("-10005");
+							sr.setResultMsg("门锁唯一ID不能为空");
+							return sr;
+						}else if(value.toString().length()!=10||value.toString().toUpperCase().matches(".*[G-Z].*")) {
+							sr.setResultCode("-10006");
+							sr.setResultMsg("门锁唯一ID必须为10位十六进制字符串");
+							return sr;
+						}
+					}
+				}
+				
+			}
+		}else {
+			sr.setResultCode("-10007");
+			sr.setResultMsg("门锁类型不能为空");
+		}
+		return sr;
+	}
 	
 }

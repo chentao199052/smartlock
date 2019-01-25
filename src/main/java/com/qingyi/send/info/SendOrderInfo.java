@@ -1,7 +1,6 @@
 package com.qingyi.send.info;
 
 import java.util.List;
-
 import com.qingyi.model.AuthCard;
 import com.qingyi.model.AuthDelCard;
 import com.qingyi.model.AuthDelFinger;
@@ -55,7 +54,7 @@ public interface SendOrderInfo {
 	public SendResult saveLockRemoteOpen(String gatewaycode,String gatewaycode2,String roomcode,Integer timeout,String callbackurl);
 	
 	/**
-	 * 发送门锁记录读取指令 (含NB锁)
+	 * 发送门锁记录读取指令 (不含NB锁)
 	 * @param gatewaycode 门锁归属网关通讯ID
 	 * @param gatewaycode2 门锁归属网关唯一ID
 	 * @param roomcode 房间编号
@@ -63,7 +62,7 @@ public interface SendOrderInfo {
 	 * @param callbackurl 回调地址（接收指令发送结果）
 	 * @return 指令发送结果SendResult
 	 */
-	public SendResult readLockRecord(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String locktype,Integer timeout,String callbackurl);
+	public SendResult readLockRecord(String gatewaycode,String gatewaycode2,String roomcode,Integer timeout,String callbackurl);
 	
 	/**
 	 * 修改门锁强锁/非强锁模式
@@ -635,4 +634,80 @@ public interface SendOrderInfo {
 	 * @return
 	 */
 	public SendResult delDevice(String roomdeviceid,String roomtxtype,Integer timeout ,String callbackurl); 
+	
+	/**
+	 * 网关记录回调配置
+	 * @param gatewaycode2  网关唯一ID
+	 * @param url  回调地址
+	 * @return
+	 */
+	public SendResult setGatewayRecordBackUrl(String gatewaycode2,String url);
+	/**
+	 * 授权卡授权回调设置
+	 * @param locktype
+	 * @param gatewaycode2
+	 * @param roomcode2
+	 * @param url
+	 * @return
+	 */
+	public SendResult setCardAuthBackUrl(String locktype,String gatewayByCode2, String roomcode2,String url);
+	/**
+	 * 网关-服务器通路测试回调设置
+	 * @param gatewaycode2
+	 * @param url
+	 * @return
+	 */
+	public SendResult setInstallTestBackUrl(String gatewaycode2,String url);
+	/**
+	 * 指纹特征码上传回调设置
+	 * @param gatewaycode2
+	 * @param url
+	 * @return
+	 */
+	public SendResult setFingerContentBackUrl(String gatewaycode2,String url);
+	/**
+	 * NB锁门锁记录回调设置
+	 * @param roomcode2
+	 * @param url
+	 * @return
+	 */
+	public SendResult setNbLockRecordBackUrl(String roomcode2,String url);
+	
+	/**
+	 * 网关记录回调获取
+	 * @param gatewaycode2  网关唯一ID
+	 * @param url  回调地址
+	 * @return
+	 */
+	public SendResult getGatewayRecordBackUrl(String gatewaycode2);
+	/**
+	 * 授权卡授权回调获取
+	 * @param locktype
+	 * @param gatewaycode2
+	 * @param roomcode2
+	 * @param url
+	 * @return
+	 */
+	public SendResult getCardAuthBackUrl(String locktype,String gatewaycode2, String roomcode2);
+	/**
+	 * 网关-服务器通路测试回调获取
+	 * @param gatewaycode2
+	 * @param url
+	 * @return
+	 */
+	public SendResult getInstallTestBackUrl(String gatewaycode2);
+	/**
+	 * 指纹特征码上传回调获取
+	 * @param gatewaycode2
+	 * @param url
+	 * @return
+	 */
+	public SendResult getFingerContentBackUrl(String gatewaycode2);
+	/**
+	 * NB锁门锁记录回调获取
+	 * @param roomcode2
+	 * @param url
+	 * @return
+	 */
+	public SendResult getNbLockRecordBackUrl(String roomcode2);
 }
