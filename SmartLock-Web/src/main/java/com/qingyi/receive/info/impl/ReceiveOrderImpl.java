@@ -1299,7 +1299,11 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				r.setNo(no);
 				String odate = sdf2.format(new Date());
 				try {
-					odate = sdf2.format(sdf.parse(osdate));
+					if(osdate.length()==12) {
+						odate = sdf2.format(sdf1.parse(osdate));
+					}else {
+						odate = sdf2.format(sdf.parse(osdate));
+					}
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -1331,7 +1335,11 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			}else {
 				String odate = sdf2.format(new Date());
 				try {
-					odate = sdf2.format(sdf1.parse(osdate));
+					if(osdate.length()==12) {
+						odate = sdf2.format(sdf1.parse(osdate));
+					}else {
+						odate = sdf2.format(sdf.parse(osdate));
+					}
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
