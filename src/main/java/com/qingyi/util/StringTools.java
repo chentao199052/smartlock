@@ -1833,7 +1833,11 @@ public class StringTools {
 		 return alllockString;
 	 }
 	 
-	 //鎸囦护浣�22,26
+	 /**
+	  * 
+	  * @param od
+	  * @return
+	  */
 	 public static String getAllFailRoomcardByFailorder(String[] od) {
 		 String allcardcodes = "";
 		 for(int i=0;i<od.length;i++) {
@@ -1851,6 +1855,65 @@ public class StringTools {
 			 }
 		 }
 		 return allcardcodes;
+	 }
+	 
+	 public static JSONObject getPassOrCardBySendorder(String sendorder) {
+		 JSONObject json = new JSONObject();
+		 if(null!=sendorder && !"".equals(sendorder) && sendorder.length()>42) {
+			 String authnum = sendorder.substring(40, 42);
+			 int num = Integer.valueOf(authnum,16);
+			 if(num>0) {
+				 String cardcodes = "";
+				 String passwords = "";
+				 String authorder = sendorder.substring(42,66*num+42);
+				 String[] authorders = getAuthorder(authorder);
+				 for(int i=0;i<authorders.length;i++) {
+					 String ad = authorders[i];
+					 String type = ad.substring(0, 2);
+					 if(type.equals("20")) {
+						 if(passwords.equals("")) {
+							 passwords = ad.substring(42, 48);
+						 }else {
+							 passwords += ","+ad.substring(42, 48);
+						 }
+					 }else if(type.equals("90")) {
+						 if(cardcodes.equals("")) {
+							 cardcodes = ad.substring(14, 30);
+						 }else {
+							 cardcodes += ","+ad.substring(14, 30);
+						 }
+					 }else {
+						 if(cardcodes.equals("")) {
+							 cardcodes = ad.substring(2, 10);
+						 }else {
+							 cardcodes += ","+ad.substring(2, 10);
+						 }
+					 }
+				 }
+				 if(!"".equals(passwords)) {
+					 json.put("pass", passwords);
+				 }
+				 if(!"".equals(cardcodes)) {
+					 json.put("card", cardcodes);
+				 }
+			 }
+		 }
+		 return json;
+	 }
+	 
+	 private static JSONObject getPassOrCardByNBSendorder(String sendorder) {
+		 JSONObject json = new JSONObject();
+		 return json;
+	 }
+	 
+	 private static String[] getAuthorder(String content) {
+		 int len = content.length()/66;
+		 String[] cardcode = new String[len];
+		 for(int i=0;i<len;i++) {
+			 String rc = content.substring(i*66, (i+1)*66);
+			 cardcode[i]=rc;
+		 }
+		 return cardcode;
 	 }
 	 
 	 private static String getFailRoomcardOne(String content) {

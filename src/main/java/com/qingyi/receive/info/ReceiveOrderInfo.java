@@ -21,7 +21,7 @@ import com.qingyi.model.ReadGatewayRecordResult;
 import com.qingyi.model.ReceiveResult;
 import com.qingyi.model.SaveFingerReagyResult;
 import com.qingyi.model.SaveUnlockPswResult;
-import com.qingyi.model.SyncCardResult;
+import com.qingyi.model.SyncCPOrderResult;
 import com.qingyi.model.SyncFailResult;
 import com.qingyi.model.SyncFinishResult;
 import com.qingyi.model.SyncSuccessResult;
@@ -177,7 +177,7 @@ public interface ReceiveOrderInfo {
 	 */
 	public ReceiveResult<LockInitializeResult> getLockInitializeResult(String content,String sysdate,String verify);
 	/**
-	 * 解析发送卡片/密码授权指令
+	 * 解析授权指令结果
 	 * @param content 结果内容
 	 * @param sysdate 时间戳
 	 * @param verify 校验
@@ -186,46 +186,13 @@ public interface ReceiveOrderInfo {
 	public ReceiveResult<OrderResult> getOrderResult(String content,String sysdate,String verify);
 	
 	/**
-	 * 解析发送/取消指纹授权指令(失败)
-	 * @param content 结果内容
-	 * @param sysdate 时间戳
-	 * @param verify 校验
-	 * @return 解析结果ReceiveResult
-	 */
-	public ReceiveResult<FingerfailResult> getSaveRoomFingerResult(String content,String sysdate,String verify);
-	/**
-	 * 解析发送/取消指纹授权指令(分包)
-	 * @param content 结果内容
-	 * @param sysdate 时间戳
-	 * @param verify 校验
-	 * @return 解析结果ReceiveResult
-	 */
-	public ReceiveResult<FingerfinishResult> getSaveRoomFingerResult2(String content,String sysdate,String verify);
-	/**
-	 * 解析发送/取消指纹授权指令(总结果)
-	 * @param content 结果内容
-	 * @param sysdate 时间戳
-	 * @param verify 校验
-	 * @return 解析结果ReceiveResult
-	 */
-	public ReceiveResult<FingersuccessResult> getSaveRoomFingerResult3(String content,String sysdate,String verify);
-	/**
-	 * 解析删除卡片授权指令
-	 * @param content 结果内容
-	 * @param sysdate 时间戳
-	 * @param verify 校验
-	 * @return 解析结果ReceiveResult
-	 */
-	public ReceiveResult<DelRoomCardResult> getDelRoomCardResult(String content,String sysdate,String verify);
-	/**
-	 * 解析卡片授权同步指令
+	 * 解析卡密授权同步指令
 	 * @param content
 	 * @param sysdate
 	 * @param verify
 	 * @return
 	 */
-	
-	public ReceiveResult<SyncCardResult> getSyncCardResult(String content,String sysdate,String verify);
+	public ReceiveResult<SyncCPOrderResult> getSyncCPResult(String content,String sysdate,String verify);
 	
 	/**
 	 * 解析卡片授权同步失败指令
