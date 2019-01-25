@@ -1195,40 +1195,21 @@ public class SendOrderImpl implements SendOrderInfo{
 
 	
 	@Override
-	public SendResult registerDevice(String roomlocation,String roomname,String roomimsi,String roomtxtype, String roomimei, Integer timeout, String callbackurl) {
+	public SendResult registerDevice(String locktype,String roomimei,String lockname,String roomimsi) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
-		param.put("roomlocation", roomlocation);
-		param.put("roomname", roomname);
-		param.put("roomimsi", roomimsi);
-		param.put("roomtxtype", roomtxtype);
+		param.put("locktype", locktype);
 		param.put("roomimei", roomimei);
-		param.put("timeout", timeout);
-		param.put("callbackurl", callbackurl);
+		param.put("lockname", lockname);
+		param.put("roomimsi", roomimsi);
 		SendResult sr=StringTools.check(param);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"registerdevice", secret, param);
-			Map map=StringTools.stringToMap2(result);
-			if(map!=null) {
-				String resultCode=map.get("resultCode")==null?"":map.get("resultCode").toString();
-				String resultMsg=map.get("resultMsg")==null?"":map.get("resultMsg").toString();
-				String orderId=map.get("orderId")==null?"":map.get("orderId").toString();
-				String msg=map.get("msg")==null?"":map.get("msg").toString();
-				String[] split = msg.split("~");
-				String deviceId="";
-				String verifyCode="";
-				String psk="";
-				if(split.length==3) {
-					deviceId=split[0];
-					verifyCode=split[1];
-					psk=split[2];
-				}else {
-					deviceId=msg;
-				}
-				RegistNb registNb=new RegistNb(deviceId, verifyCode, psk);
-				sr=new SendResult(resultCode, resultMsg, orderId, registNb);
-			}
-			
+			JSONObject json = JSONObject.fromObject(result);
+			String ar = json.getString("result");
+			RegistNb rr=(RegistNb)JSONObject.toBean(JSONObject.fromObject(ar), RegistNb.class);
+			sr=new SendResult(json.getString("resultCode"),json.getString("resultMsg") , "");
+			sr.setResult(rr);
 			//sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 		}
 		return sr;
