@@ -175,6 +175,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			LockResetResult r =new LockResetResult();
 			String itid=json.get("itid").toString();
 			String locktype=json.get("locktype").toString();
+			r.setLocktype(locktype);
 			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
 			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
 			r.setOrderid(itid);
@@ -252,11 +253,11 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 		ReceiveResult<LockRecordResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
-			
 			LockRecordResult recordresult=new LockRecordResult();
 			recordresult.setResultstatus(Integer.parseInt(json.get("status").toString()));
 			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
 			String locktype=json.get("locktype").toString();
+			recordresult.setLocktype(locktype);
 			if("1".equals(locktype)) {
 				String itid=json.get("itid").toString();
 				recordresult.setOrderid(itid);
