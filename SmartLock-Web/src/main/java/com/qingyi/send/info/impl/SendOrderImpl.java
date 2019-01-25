@@ -126,15 +126,13 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult readLockRecord(String gatewaycode, String gatewaycode2, String roomcode, String roomcode2,String locktype,Integer timeout,
+	public SendResult readLockRecord(String gatewaycode, String gatewaycode2, String roomcode,Integer timeout,
 			String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
 		param.put("gatewaycode", gatewaycode);
 		param.put("gatewaycode2", gatewaycode2);
 		param.put("roomcode", roomcode);
-		param.put("roomcode2", roomcode2);
-		param.put("locktype", locktype);
 		param.put("timeout", timeout);
 		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.checkTotal(param);
@@ -1270,6 +1268,145 @@ public class SendOrderImpl implements SendOrderInfo{
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"deldevice", secret, param);
 			//sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
 			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult setGatewayRecordBackUrl(String gatewaycode2, String url) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param =new LinkedHashMap();
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("url",url);
+		SendResult sr = StringTools.checkurl(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"setgatewayrecordbackurl", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult setCardAuthBackUrl(String locktype, String gatewaycode2, String roomcode2, String url) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("locktype", locktype);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("roomcode2", roomcode2);
+		param.put("url", url);
+		SendResult sr = StringTools.checkurl2(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"setcardauthbackurl", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult setInstallTestBackUrl(String gatewaycode2, String url) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param =new LinkedHashMap();
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("url",url);
+		SendResult sr = StringTools.checkurl(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"setinstalltestbackurl", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult setFingerContentBackUrl(String gatewaycode2, String url) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param =new LinkedHashMap();
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("url",url);
+		SendResult sr = StringTools.checkurl(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"setfingercontentbackurl", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult setNbLockRecordBackUrl(String roomcode2, String url) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param =new LinkedHashMap();
+		param.put("roomcode2", roomcode2);
+		param.put("url",url);
+		SendResult sr = StringTools.checkurl(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"setnblockrecordbackurl", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult getGatewayRecordBackUrl(String gatewaycode2) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param =new LinkedHashMap();
+		param.put("gatewaycode2", gatewaycode2);
+		SendResult sr = StringTools.checkurl(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getGatewayRecordBackUrl", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult getCardAuthBackUrl(String locktype, String gatewaycode2, String roomcode2) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param =new LinkedHashMap();
+		param.put("locktype", locktype);
+		param.put("gatewaycode2", gatewaycode2);
+		param.put("roomcode2", roomcode2);
+		SendResult sr = StringTools.checkurl2(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getcardauthbackurl", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult getInstallTestBackUrl(String gatewaycode2) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param =new LinkedHashMap();
+		param.put("gatewaycode2", gatewaycode2);
+		SendResult sr = StringTools.checkurl(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getinstalltestbackurl", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult getFingerContentBackUrl(String gatewaycode2) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param =new LinkedHashMap();
+		param.put("gatewaycode2", gatewaycode2);
+		SendResult sr = StringTools.checkurl(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getfingercontentbackurl", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult getNbLockRecordBackUrl(String roomcode2) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param =new LinkedHashMap();
+		param.put("roomcode2", roomcode2);
+		SendResult sr = StringTools.checkurl(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getnblockrecordbackurl", secret, param);
+			sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
 		}
 		return sr;
 	}

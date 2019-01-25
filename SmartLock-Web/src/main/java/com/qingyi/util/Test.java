@@ -27,7 +27,16 @@ public class Test {
 //	}
 	
 	public static void main(String[] args) {
-		//SendOrderInfo info=new SendOrderImpl();
-		String regex="[1-9]+";
+		SendOrderInfo info=new SendOrderImpl();
+		//发送门锁记录
+//		SendResult readLockRecord = info.readLockRecord("7415267456", "7415267456", "7415", "", "1", 111550, "ss");
+//		System.out.println(readLockRecord);
+		List<AuthRestAndOpen> oplist=new ArrayList<AuthRestAndOpen>();
+		AuthRestAndOpen a1=new AuthRestAndOpen("1", "7415267456", "7415267456", "1234", "7894561232", 100, "ss");
+		AuthRestAndOpen a2=new AuthRestAndOpen("2", "", "", "", "7894561232", 100, "ss");
+		oplist.add(a1);
+		oplist.add(a2);
+		SendResult readLockRecord=info.saveTotalOpenList(oplist);
+		System.out.println(readLockRecord);
 	}
 }
