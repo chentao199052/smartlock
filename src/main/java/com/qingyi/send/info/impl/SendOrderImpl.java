@@ -1216,17 +1216,14 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult updateDevice(String roomlocation, String roomname, String roomtxtype, String roomimei,String roomdeviceid,
-			Integer timeout, String callbackurl) {
+	public SendResult updateDevice(String locktype,String roomimei,String roomdeviceid,String lockname,String roomimsi) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
-		param.put("roomlocation", roomlocation);
-		param.put("roomname", roomname);
-		param.put("roomtxtype", roomtxtype);
+		param.put("locktype", locktype);
 		param.put("roomimei", roomimei);
 		param.put("roomdeviceid", roomdeviceid);
-		param.put("timeout", timeout);
-		param.put("callbackurl", callbackurl);
+		param.put("lockname", lockname);
+		param.put("roomimsi", roomimsi);
 		SendResult sr=StringTools.check(param);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updatedevice", secret, param);

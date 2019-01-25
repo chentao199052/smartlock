@@ -603,13 +603,7 @@ public interface SendOrderInfo {
 	
 	/**
 	 * 注册NB锁
-	 * @param roomlocation  移动注册时必传
-	 * @param roomname  移动注册时必传
-	 * @param roomimsi  移动注册时必传
-	 * @param roomtxtype
-	 * @param roomimei
-	 * @param timeout
-	 * @param callbackurl
+	
 	 * @return
 	 */
 	public SendResult registerDevice(String locktype,String roomimei,String lockname,String roomimsi); 
@@ -624,7 +618,7 @@ public interface SendOrderInfo {
 	 * @param callbackurl
 	 * @return
 	 */
-	public SendResult updateDevice(String roomlocation,String roomname,String roomtxtype ,String roomimei,String roomdeviceid,Integer timeout ,String callbackurl); 
+	public SendResult updateDevice(String locktype,String roomimei,String roomdeviceid,String lockname,String roomimsi); 
 	
 	/**
 	 * 删除NB锁
