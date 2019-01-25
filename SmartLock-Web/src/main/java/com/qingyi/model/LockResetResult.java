@@ -5,6 +5,8 @@ public class LockResetResult {
 	
 	private Integer filetype;
 	
+	private String locktype;
+	
 	private Integer resultstatus;
 	
 	private String order;
@@ -21,11 +23,12 @@ public class LockResetResult {
 		super();
 	}
 
-	public LockResetResult(String orderid, Integer filetype, Integer resultstatus, String order, Integer no,
-			String result, String space, String osdate) {
+	public LockResetResult(String orderid, Integer filetype, String locktype, Integer resultstatus, String order,
+			Integer no, String result, String space, String osdate) {
 		super();
 		this.orderid = orderid;
 		this.filetype = filetype;
+		this.locktype = locktype;
 		this.resultstatus = resultstatus;
 		this.order = order;
 		this.no = no;
@@ -48,6 +51,14 @@ public class LockResetResult {
 
 	public void setFiletype(Integer filetype) {
 		this.filetype = filetype;
+	}
+
+	public String getLocktype() {
+		return locktype;
+	}
+
+	public void setLocktype(String locktype) {
+		this.locktype = locktype;
 	}
 
 	public Integer getResultstatus() {
@@ -97,7 +108,4 @@ public class LockResetResult {
 	public void setOsdate(String osdate) {
 		this.osdate = osdate;
 	}
-
-	
-	
 }
