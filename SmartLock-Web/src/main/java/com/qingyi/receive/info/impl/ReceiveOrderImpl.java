@@ -33,7 +33,7 @@ import com.qingyi.model.ReadLockRecord;
 import com.qingyi.model.ReceiveResult;
 import com.qingyi.model.SaveFingerReagyResult;
 import com.qingyi.model.SaveUnlockPswResult;
-import com.qingyi.model.SyncCardResult;
+import com.qingyi.model.SyncCPOrderResult;
 import com.qingyi.model.SyncFailResult;
 import com.qingyi.model.SyncFinishResult;
 import com.qingyi.model.SyncSuccessResult;
@@ -46,11 +46,7 @@ import com.qingyi.receive.info.ReceiveOrderInfo;
 import com.qingyi.util.Constant;
 import com.qingyi.util.StringTools;
 import com.qingyi.util.Verify;
-
 import net.sf.json.JSONObject;
-
-
-
 
 
 public class ReceiveOrderImpl implements ReceiveOrderInfo{
@@ -1380,243 +1376,71 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	}
 
 	@Override
-	public ReceiveResult<FingerfailResult> getSaveRoomFingerResult(String content, String sysdate, String verify) {
+	public ReceiveResult<SyncCPOrderResult> getSyncCPResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
-		ReceiveResult<FingerfailResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
-		if(result.getResultCode().equals("0")) {
-			Map json = StringTools.stringToMap2(content);
-			FingerfailResult r=new FingerfailResult();
-			String type = json.get("type").toString();
-			String no = json.get("num").toString();
-				if(no.equals("1") || no.equals("2")) {
-					String itid = json.get("itid").toString();
-					r.setOrderid(itid);
-					r.setRcid(json.get("rcid").toString());
-					String order = json.get("fail").toString();
-					r.setOrder(order);
-					//授权
-					if(type.equals("1")) {
-						if(no.equals("1")) {
-							r.setFailtype(42);
-						}else {
-							r.setFailtype(43);
-						}
-						
-					}
-					//取消授权
-					else if(type.equals("2")){
-						//取消授权的rcid为房间id
-						String fingercodes = StringTools.getFingercodeByOrder(order);
-						r.setFingercodes(fingercodes);
-					}else {
-						//查询order
-						String fcodes = StringTools.getFingercodesByOrders(new String[] {order});
-						r.setFingercodes(fcodes);
-					}
-					
-				}
-			String ret=json.get("result").toString();
-			r.setResult(ret);
-			String space=json.get("space").toString();
-			r.setSpace(space);
-    		result.setResult(r);
-		}
-		return result;
-	}
-	@Override
-	//??
-	public ReceiveResult<FingerfinishResult> getSaveRoomFingerResult2(String content, String sysdate, String verify) {
-		// TODO Auto-generated method stub
-		ReceiveResult<FingerfinishResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
-		if(result.getResultCode().equals("0")) {
-			Map json = StringTools.stringToMap2(content);
-			FingerfinishResult r=new FingerfinishResult();
-			String type = json.get("type").toString();
-			String itid = json.get("itid").toString();
-    		String order = json.get("finish").toString();
-    		r.setType(type);
-    		r.setOrderid(itid);
-    		r.setRcid(json.get("rcid").toString());
-    		if(type.equals("1")) {}
-    		else if(type.equals("2")) {
-				String fingercodes = StringTools.getFingercodeByOrder(order);
-				r.setFingercodes(fingercodes);
-			}else {
-				String fingercodes = StringTools.getFingercodeByOrder(order);
-				r.setFingercodes(fingercodes);
-			}
-			Object object = json.get("result");
-			if(null!=object) {
-				String ret =(String)object;
-				int failtype = StringTools.getFailtype(ret);
-				r.setFiletype(failtype);
-				r.setResult(ret);
-			}
-			String space=json.get("space").toString();
-			r.setSpace(space);
-			r.setResultstatus(1);
-			result.setResultstatus(1);
-			result.setResult(r);
-		}
-		return result;
-	}
-	@Override
-	//??
-	public ReceiveResult<FingersuccessResult> getSaveRoomFingerResult3(String content, String sysdate, String verify) {
-		// TODO Auto-generated method stub
-		ReceiveResult<FingersuccessResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
-		if(result.getResultCode().equals("0")) {
-			Map json = StringTools.stringToMap2(content);
-			FingersuccessResult r=new FingersuccessResult();
-			String itid = json.get("itid").toString();
-			String type = json.get("type").toString();
-			String status = json.get("status").toString();
-			r.setOrderid(itid);
-			r.setRcid(json.get("rcid").toString());
-			r.setType(type);
-			r.setResultstatus(Integer.parseInt(status));
-			result.setResultstatus(Integer.parseInt(status));
-			if(status.equals("0")) {
-				if(type.equals("1")) {
-					String order=json.get("order").toString();
-					r.setOrder(order);
-				}else if(type.equals("2")) {
-					String failorder = json.get("fail").toString();
-					String order=json.get("order").toString();
-					r.setOrder(order);
-					if(!"".equals(failorder)) {
-						String fingercodes = StringTools.getFingercodeByOrder(failorder);
-						r.setFingercodes(fingercodes);
-					}
-				}
-			}
-			String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
-			r.setOsdate(osdate);
-			Object object = json.get("result");
-			if(null!=object) {
-				String ret =(String)object;
-				int failtype = StringTools.getFailtype(ret);
-				r.setFiletype(failtype);
-				r.setResult(ret);
-			}
-			result.setResult(r);
-		}
-		return result;
-	}
-
-	@Override
-	//??
-	public ReceiveResult<DelRoomCardResult> getDelRoomCardResult(String content, String sysdate, String verify) {
-		// TODO Auto-generated method stub
-		ReceiveResult<DelRoomCardResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
-		if(result.getResultCode().equals("0")) {
-			Map json = StringTools.stringToMap2(content);
-			DelRoomCardResult r=new DelRoomCardResult();
-			String rcid=json.get("rcid").toString();
-    		String status=json.get("status").toString();
-    		r.setOrderid(rcid);
-    		r.setResultstatus(Integer.parseInt(status));
-    		result.setResultstatus(Integer.parseInt(status));
-    		if(status.equals("0")) {
-    			String cardtype=json.get("cardtype").toString();
-    			r.setCardtype(cardtype);
-    			if(!cardtype.equals("20")&&!cardtype.equals("40")){
-    				String order=json.get("order").toString();
-    				String no=json.get("no").toString();
-    				String space=json.get("space").toString();
-    				r.setOrder(order);
-    				r.setNo(no);
-    				r.setSpace(space);
-    			}
-    		}
-    		String oscontent=json.get("oscontent").toString();
-			String osdate=json.get("osdate").toString();
-			String osresult=json.get("osresult").toString();
-			String oscount=json.get("oscount").toString();
-			String osstatus=json.get("osstatus").toString();
-			String osspace=json.get("osspace").toString();
-			r.setOscontent(oscontent);
-			r.setOsdate(osdate);
-			r.setOsresult(osresult);
-			r.setOscount(Integer.parseInt(oscount));
-			r.setOsstatus(osstatus);
-			r.setOsspace(osspace);
-    		String ret=json.get("result").toString();
-    		Integer failtype = StringTools.getFailtype(ret);
-    		r.setFiletype(failtype);
-    		result.setResult(r);
-		}
-		return result;
-	}
-	
-
-	@Override
-	public ReceiveResult<SyncCardResult> getSyncCardResult(String content, String sysdate, String verify) {
-		// TODO Auto-generated method stub
-		ReceiveResult<SyncCardResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
+		ReceiveResult<SyncCPOrderResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if("0".equals(result.getResultCode())) {
 			Map json=StringTools.stringToMap2(content);
 			String orderType=json.get("orderType").toString();
-			SyncCardResult res=new SyncCardResult();
+			String locktype = json.get("locktype").toString();
+			String status = json.get("status").toString();
+			String osdate = json.get("osdate").toString();
+			SyncCPOrderResult res=new SyncCPOrderResult();
 			res.setOrderType(orderType);
-			if("fail".equals(orderType)) {
-				String num = json.get("num").toString();
-				SyncFailResult r=new SyncFailResult();
-				String status = json.get("status").toString();
-				r.setResultstatus(Integer.parseInt(status));
-				r.setNum(num);
-				result.setResultstatus(Integer.parseInt(status));
-				if(num.equals("1") || num.equals("2")) {
+			res.setResultstatus(Integer.valueOf(status));
+			String odate = sdf2.format(new Date());
+			try {
+				if(osdate.length()==12) {
+					odate = sdf2.format(sdf1.parse(osdate));
+				}else {
+					odate = sdf2.format(sdf.parse(osdate));
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			res.setOsdate(odate);
+			//小包结果
+			if("0".equals(orderType)) {
+				//联网锁
+				if(locktype.equals("1")) {
+					String num = json.get("num").toString();
 					String itid = json.get("itid").toString();
-					String fail = json.get("fail").toString();
-					String cards = json.get("finish").toString();
-					String cardcodes = StringTools.getAllFailRoomcardByFailorder(new String[] {cards});
-					r.setOrderid(itid);
-					r.setFail(fail);
-					r.setCardcodes(cardcodes);
+					String sendorder = json.get("sendorder").toString();
+					String resultorder = json.get("result").toString();
+					JSONObject retj = StringTools.getPassOrCardBySendorder(sendorder);
+					if(retj.containsKey("pass")) {
+						res.setPasswords(retj.getString("pass"));
+					}
+					if(retj.containsKey("card")) {
+						res.setCardcodes(retj.getString("card"));
+					}
+					res.setNo(num);
+					res.setOrderid(itid);
+					int failtype = StringTools.getFailtype(resultorder);
+					res.setFailtype(failtype);
+				}else {
+					
 				}
-				String osdate=json.get("osdate").toString();
-				r.setOsdate(osdate);
-				Object object = json.get("result");
-				if(object!=null) {
-					String ret=(String)object;
-		    		Integer failtype = StringTools.getFailtype(ret);
-		    		r.setFiletype(failtype);
+			}else if("1".equals(orderType)) {
+				//联网锁
+				if(locktype.equals("1")) {
+					if(status.equals("2")) {
+						res.setFailtype(44);
+					}else if(status.equals("1")){
+						res.setFailtype(-1);
+					}else {
+						String resultorder = json.get("result").toString();
+						int failtype = StringTools.getFailtype(resultorder);
+						res.setFailtype(failtype);
+					}
+					
+					String num = json.get("num").toString();
+					String itid = json.get("itid").toString();
+					res.setNo(num);
+					res.setOrderid(itid);
+				}else {
+					
 				}
-				res.setFailResult(r);
-			}else if("finish".equals(orderType)) {
-				String itid = json.get("itid").toString();
-				String status = json.get("status").toString();
-				String cards = json.get("finish").toString();
-				String cardcodes = StringTools.getAllFailRoomcardByFailorder(new String[] {cards});
-				SyncFinishResult r=new SyncFinishResult();
-				r.setOrderid(itid);
-				r.setResultstatus(Integer.parseInt(status));
-				result.setResultstatus(Integer.parseInt(status));
-				r.setCardcodes(cardcodes);
-				String osdate=json.get("osdate").toString();
-				r.setOsdate(osdate);
-				Object object = json.get("result");
-				if(object!=null) {
-					String ret=(String)object;
-		    		Integer failtype = StringTools.getFailtype(ret);
-		    		r.setFiletype(failtype);
-				}
-				res.setFinishResult(r);
-			}else if("success".equals(orderType)) {
-				String itid = json.get("itid").toString();
-				String status = json.get("status").toString();
-				String ret = json.get("result").toString();
-				SyncSuccessResult r=new SyncSuccessResult();
-				r.setOrderid(itid);
-				String osdate=json.get("osdate").toString();
-				r.setOsdate(osdate);
-				r.setResultstatus(Integer.parseInt(status));
-				result.setResultstatus(Integer.parseInt(status));
-				Integer failtype = StringTools.getFailtype(ret);
-	    		r.setFiletype(failtype);
-	    		r.setResult(ret);
-	    		res.setSuccessResult(r);
 			}
 			result.setResult(res);
 		}
