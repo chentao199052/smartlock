@@ -612,7 +612,7 @@ public interface SendOrderInfo {
 	 * @param callbackurl
 	 * @return
 	 */
-	public SendResult registerDevice(String roomlocation,String roomname,String roomimsi,String roomtxtype ,String roomimei,Integer timeout ,String callbackurl); 
+	public SendResult registerDevice(String locktype,String roomimei,String lockname,String roomimsi); 
 	/**
 	 * 修改NB锁
 	 * @param roomlocation
