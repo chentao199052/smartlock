@@ -194,10 +194,8 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				int failtype = StringTools.getFailtype(ret);
 				r.setFiletype(failtype);
 			}else {
-				String ret = json.get("result")==null?"":json.get("result").toString();
 				String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
 				String no=json.get("no")==null?"":json.get("no").toString();
-				r.setResult(ret);
 				r.setOsdate(osdate);
 				if(null!=no&&no.matches("^[0-9]{1,}$")) {
 					r.setNo(Integer.parseInt(no));
