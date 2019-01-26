@@ -1259,7 +1259,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		SendResult sr = StringTools.checkurl(param);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"setgatewayrecordbackurl", secret, param);
-			sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 		}
 		return sr;
 	}
@@ -1275,7 +1275,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		SendResult sr = StringTools.checkurl2(param);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"setcardauthbackurl", secret, param);
-			sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 		}
 		return sr;
 	}
@@ -1289,7 +1289,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		SendResult sr = StringTools.checkurl(param);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"setinstalltestbackurl", secret, param);
-			sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 		}
 		return sr;
 	}
@@ -1303,7 +1303,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		SendResult sr = StringTools.checkurl(param);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"setfingercontentbackurl", secret, param);
-			sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 		}
 		return sr;
 	}
@@ -1317,7 +1317,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		SendResult sr = StringTools.checkurl(param);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"setnblockrecordbackurl", secret, param);
-			sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 		}
 		return sr;
 	}
@@ -1330,7 +1330,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		SendResult sr = StringTools.checkurl(param);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getGatewayRecordBackUrl", secret, param);
-			sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 		}
 		return sr;
 	}
@@ -1345,7 +1345,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		SendResult sr = StringTools.checkurl2(param);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getcardauthbackurl", secret, param);
-			sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 		}
 		return sr;
 	}
@@ -1358,7 +1358,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		SendResult sr = StringTools.checkurl(param);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getinstalltestbackurl", secret, param);
-			sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 		}
 		return sr;
 	}
@@ -1371,7 +1371,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		SendResult sr = StringTools.checkurl(param);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getfingercontentbackurl", secret, param);
-			sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 		}
 		return sr;
 	}
@@ -1384,7 +1384,8 @@ public class SendOrderImpl implements SendOrderInfo{
 		SendResult sr = StringTools.checkurl(param);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getnblockrecordbackurl", secret, param);
-			sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
+			//sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
 		}
 		return sr;
 	}
