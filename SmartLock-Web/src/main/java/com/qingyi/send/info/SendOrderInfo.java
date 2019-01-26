@@ -683,7 +683,7 @@ public interface SendOrderInfo {
 	 * @param url  回调地址
 	 * @return
 	 */
-	public SendResult getGatewayRecordBackUrl(String gatewaycode2);
+	public SendResult<String> getGatewayRecordBackUrl(String gatewaycode2);
 	/**
 	 * 授权卡授权回调获取
 	 * @param locktype
@@ -692,26 +692,26 @@ public interface SendOrderInfo {
 	 * @param url
 	 * @return
 	 */
-	public SendResult getCardAuthBackUrl(String locktype,String gatewaycode2, String roomcode2);
+	public SendResult<String> getCardAuthBackUrl(String locktype,String gatewaycode2, String roomcode2);
 	/**
 	 * 网关-服务器通路测试回调获取
 	 * @param gatewaycode2
 	 * @param url
 	 * @return
 	 */
-	public SendResult getInstallTestBackUrl(String gatewaycode2);
+	public SendResult<String> getInstallTestBackUrl(String gatewaycode2);
 	/**
 	 * 指纹特征码上传回调获取
 	 * @param gatewaycode2
 	 * @param url
 	 * @return
 	 */
-	public SendResult getFingerContentBackUrl(String gatewaycode2);
+	public SendResult<String> getFingerContentBackUrl(String gatewaycode2);
 	/**
 	 * NB锁门锁记录回调获取
 	 * @param roomcode2
 	 * @param url
 	 * @return
 	 */
-	public SendResult getNbLockRecordBackUrl(String roomcode2);
+	public SendResult<String> getNbLockRecordBackUrl(String roomcode2);
 }
