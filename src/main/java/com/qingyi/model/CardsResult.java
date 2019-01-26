@@ -13,7 +13,12 @@ public class CardsResult {
 	public CardsResult() {
 		super();
 	}
-
+	/**
+	 * 
+	 * @param orderId 分布式ID
+	 * @param cardcode
+	 * @param roomcode2
+	 */
 	public CardsResult(String orderId, String cardcode, String roomcode2) {
 		super();
 		this.orderId = orderId;
