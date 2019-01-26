@@ -155,9 +155,8 @@ public interface SendOrderInfo {
 	/**
 	 * 指纹机状态(查询是否可录入指纹)
 	 * @param fpcode  指纹机唯一ID
-	 * @param sifid  SlIntimefingerprint 的Id  
-	 * @param timeout
-	 * @param callbackurl
+	 * @param timeout 有效时间（单位s）
+	 * @param callbackurl 回调地址（接收指令发送结果）
 	 * @return
 	 */
 	public SendResult fingerMachineState(String fpcode,Integer timeout,String callbackurl);
@@ -185,10 +184,10 @@ public interface SendOrderInfo {
 	public SendResult updateGatewaypow(String gatewaycode,String gatewaycode2,Integer level,Integer timeout,String callbackurl);
 	/**
 	 * 清除网关异常数据
-	 * @param gatewaycode
-	 * @param gatewaycode2
-	 * @param timeout
-	 * @param callbackurl
+	 * @param gatewaycode  网关通讯ID
+	 * @param gatewaycode2   网关唯一ID
+	 * @param timeout      有效时间（单位s）
+	 * @param callbackurl  回调地址（接收指令发送结果）
 	 * @return
 	 */
 	public SendResult clearsGatewaytatus(String gatewaycode,String gatewaycode2,Integer timeout,String callbackurl);
@@ -340,25 +339,24 @@ public interface SendOrderInfo {
 
 	/**
 	 * 重载卡片白名单
-	 * @param gatewaycode
-	 * @param gatewaycode2
-	 * @param roomcode
-	 * @param xzsx
-	 * @param timeout
-	 * @param callbackurl
+	 * @param gatewaycode  门锁归属网关通讯ID
+	 * @param gatewaycode2  门锁归属网关唯一ID
+	 * @param roomcode 房间编号
+	 * @param xzsx 卡片授权实体类
+	 * @param timeout 有效时间（单位s）
+	 * @param callbackurl 回调地址（接收指令发送结果）
 	 * @return
 	 */
 	public SendResult updateRoomCardxzsx(String gatewaycode,String gatewaycode2,String roomcode,RoomCard card,Integer timeout,String callbackurl); 
 	
 	/**
 	 * 重载指纹白名单
-	 * @param gatewaycode
-	 * @param gatewaycode2
-	 * @param gatewayip
-	 * @param roomcode
-	 * @param xzsx
-	 * @param timeout
-	 * @param callbackurl
+	 * @param gatewaycode  门锁归属网关通讯ID
+	 * @param gatewaycode2   门锁归属网关唯一ID
+	 * @param roomcode 房间编号
+	 * @param xzsx 指纹授权实体
+	 * @param timeout 有效时间（单位s）
+	 * @param callbackurl 回调地址（接收指令发送结果）
 	 * @return
 	 */
 	public SendResult updateRoomFingerxzsx(String gatewaycode,String gatewaycode2,String roomcode,RoomFinger finger,Integer timeout,String callbackurl);
@@ -387,13 +385,13 @@ public interface SendOrderInfo {
 	public SendResult<SyncResult> saveAuthSync(List<AuthSync> synclist);
 	/**
 	 * 发送门锁复位指令(合)
-	 * @param gatewaycode
-	 * @param gatewaycode2
-	 * @param roomcode
-	 * @param roomcode2
-	 * @param locktype
-	 * @param timeout
-	 * @param callbackurl
+	 * @param gatewaycode 网关通讯ID
+	 * @param gatewaycode2 属网关唯一ID
+	 * @param roomcode  房间编号
+	 * @param roomcode2 
+	 * @param locktype	门锁类型 1联网锁2华为3电信4移动
+	 * @param timeout 有效时间（单位s）
+	 * @param callbackurl 回调地址
 	 * @return
 	 */
 	public SendResult saveTotalReset(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String locktype,Integer timeout,String callbackurl);
@@ -645,7 +643,7 @@ public interface SendOrderInfo {
 	 * @param url  回调地址
 	 * @return
 	 */
-	public SendResult setGatewayRecordBackUrl(String gatewaycode2,String url);
+	public SendResult setGatewayRecordBackUrl(String url);
 	/**
 	 * 授权卡授权回调设置
 	 * @param locktype
@@ -654,28 +652,28 @@ public interface SendOrderInfo {
 	 * @param url
 	 * @return
 	 */
-	public SendResult setCardAuthBackUrl(String locktype,String gatewayByCode2, String roomcode2,String url);
+	public SendResult setCardAuthBackUrl(String url);
 	/**
 	 * 网关-服务器通路测试回调设置
 	 * @param gatewaycode2
 	 * @param url
 	 * @return
 	 */
-	public SendResult setInstallTestBackUrl(String gatewaycode2,String url);
+	public SendResult setInstallTestBackUrl(String url);
 	/**
 	 * 指纹特征码上传回调设置
 	 * @param gatewaycode2
 	 * @param url
 	 * @return
 	 */
-	public SendResult setFingerContentBackUrl(String gatewaycode2,String url);
+	public SendResult setFingerContentBackUrl(String url);
 	/**
 	 * NB锁门锁记录回调设置
 	 * @param roomcode2
 	 * @param url
 	 * @return
 	 */
-	public SendResult setNbLockRecordBackUrl(String roomcode2,String url);
+	public SendResult setNbLockRecordBackUrl(String url);
 	
 	/**
 	 * 网关记录回调获取
@@ -683,7 +681,7 @@ public interface SendOrderInfo {
 	 * @param url  回调地址
 	 * @return
 	 */
-	public SendResult<String> getGatewayRecordBackUrl(String gatewaycode2);
+	public SendResult<String> getGatewayRecordBackUrl();
 	/**
 	 * 授权卡授权回调获取
 	 * @param locktype
@@ -692,28 +690,28 @@ public interface SendOrderInfo {
 	 * @param url
 	 * @return
 	 */
-	public SendResult<String> getCardAuthBackUrl(String locktype,String gatewaycode2, String roomcode2);
+	public SendResult<String> getCardAuthBackUrl();
 	/**
 	 * 网关-服务器通路测试回调获取
 	 * @param gatewaycode2
 	 * @param url
 	 * @return
 	 */
-	public SendResult<String> getInstallTestBackUrl(String gatewaycode2);
+	public SendResult<String> getInstallTestBackUrl();
 	/**
 	 * 指纹特征码上传回调获取
 	 * @param gatewaycode2
 	 * @param url
 	 * @return
 	 */
-	public SendResult<String> getFingerContentBackUrl(String gatewaycode2);
+	public SendResult<String> getFingerContentBackUrl();
 	/**
 	 * NB锁门锁记录回调获取
 	 * @param roomcode2
 	 * @param url
 	 * @return
 	 */
-	public SendResult<String> getNbLockRecordBackUrl(String roomcode2);
+	public SendResult<String> getNbLockRecordBackUrl();
 	
 	/**
 	 * 设置NB锁房间信息的回调地址
@@ -721,12 +719,12 @@ public interface SendOrderInfo {
 	 * @param url
 	 * @return
 	 */
-	public SendResult setNbRoomParamasBackUrl(String roomcode2,String url);
+	public SendResult setNbRoomParamasBackUrl(String url);
 	/**
 	 * 获取NB锁房间信息的回调地址
 	 * @param roomcode2
 	 * @param url
 	 * @return
 	 */
-	public SendResult getNbRoomParamasBackUrl(String roomcode2,String url);
+	public SendResult getNbRoomParamasBackUrl();
 }

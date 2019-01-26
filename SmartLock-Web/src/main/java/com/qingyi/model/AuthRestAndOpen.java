@@ -12,6 +12,16 @@ public class AuthRestAndOpen {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	/**
+	 * 
+	 * @param locktype 门锁类型
+	 * @param gatewaycode 网关通讯ID
+	 * @param gatewaycode2 网关唯一ID
+	 * @param roomcode 房间编号
+	 * @param roomcode2 
+	 * @param timeout
+	 * @param callbackurl
+	 */
 	public AuthRestAndOpen(String locktype, String gatewaycode, String gatewaycode2, String roomcode, String roomcode2,
 			Integer timeout, String callbackurl) {
 		super();
