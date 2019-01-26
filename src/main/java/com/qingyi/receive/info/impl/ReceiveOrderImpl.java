@@ -481,77 +481,91 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			r.setOrderid(itid);
 			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
 			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
-			if(json.get("status").toString().equals("1")){
-				String resultorder = json.get("result").toString();
-				//生命周期
-				String lca = resultorder.substring(30,31);
-				
-				//开关门状态
-				String status =  resultorder.substring(31,32);
-				String bet = resultorder.substring(32,34);
-				//门锁功率等级默认为最大功率A3
-				String powerlev = resultorder.substring(46,48);
-				if(powerlev.toUpperCase().equals("A0")){
-					powerlev = "A0";
-				}else if(powerlev.toUpperCase().equals("A1")){
-					powerlev = "A1";
-				}else if(powerlev.toUpperCase().equals("A2")){
-					powerlev = "A2";
-				}else{
-					powerlev = "A3";
+			String locktype=json.get("locktype").toString();
+			if("1".equals(locktype)) {
+				if(json.get("status").toString().equals("1")){
+					String resultorder = json.get("result").toString();
+					//生命周期
+					String lca = resultorder.substring(30,31);
+					
+					//开关门状态
+					String status =  resultorder.substring(31,32);
+					String bet = resultorder.substring(32,34);
+					//门锁功率等级默认为最大功率A3
+					String powerlev = resultorder.substring(46,48);
+					if(powerlev.toUpperCase().equals("A0")){
+						powerlev = "A0";
+					}else if(powerlev.toUpperCase().equals("A1")){
+						powerlev = "A1";
+					}else if(powerlev.toUpperCase().equals("A2")){
+						powerlev = "A2";
+					}else{
+						powerlev = "A3";
+					}
+					String recordnum = resultorder.substring(50,54);
+					String ver = resultorder.substring(54,62);
+					String channelid = resultorder.substring(62,66);
+					String channel = resultorder.substring(66,68);
+					String networkmode = resultorder.substring(78,79);
+					String workmode = resultorder.substring(79,80);
+					String figernum = resultorder.substring(82,84);
+					
+					int bettery  = Integer.valueOf(bet,16);
+					if(lca.equals("1")){
+						r.setLocklca(-1);
+					}else if(lca.equals("2")){
+						r.setLocklca(1);
+					}else if(lca.equals("4")){
+						r.setLocklca(2);
+					}
+					
+					String[] type = StringTools.getlockstatus(status);
+					//更新状态
+					r.setLockstatus(Integer.valueOf(type[0]));
+					r.setLockstatus2(Integer.valueOf(type[1]));
+					r.setChannelid(channelid);
+					r.setChannel(Integer.valueOf(channel,16)+"");
+					r.setPowerlev(powerlev);
+					r.setNetworkmode(Integer.valueOf(networkmode));
+					r.setWorkmode(Integer.valueOf(workmode));
+					r.setLocktype(Integer.valueOf(locktype));
+					r.setFigernum(Integer.valueOf(figernum,16));
+					r.setLockver(ver);
+					r.setLockcharge(bettery);
+					if(recordnum.equals("0000")){
+						r.setRecordnum(0);
+					}else{
+						r.setRecordnum(Integer.valueOf(recordnum,16));
+					}
 				}
-				String recordnum = resultorder.substring(50,54);
-				String ver = resultorder.substring(54,62);
-				String channelid = resultorder.substring(62,66);
-				String channel = resultorder.substring(66,68);
-				String networkmode = resultorder.substring(78,79);
-				String workmode = resultorder.substring(79,80);
-				String locktype = resultorder.substring(81,82);
-				String figernum = resultorder.substring(82,84);
-				
-				int bettery  = Integer.valueOf(bet,16);
-				if(lca.equals("1")){
-					r.setLocklca(-1);
-				}else if(lca.equals("2")){
-					r.setLocklca(1);
-				}else if(lca.equals("4")){
-					r.setLocklca(2);
+				String order=json.get("order")==null?"":json.get("order").toString();
+				String no=json.get("no")==null?"":json.get("no").toString();
+				String space=json.get("space")==null?"":json.get("space").toString();
+				String ret =json.get("result")==null?"" :json.get("result").toString();
+				String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
+				r.setOsdate(osdate);
+				r.setOrder(order);
+				if(null!=no&&no.matches("^[0-9]{1,}$")) {
+					r.setNo(Integer.parseInt(no));
 				}
-				
-				String[] type = StringTools.getlockstatus(status);
-				//更新状态
-				r.setLockstatus(Integer.valueOf(type[0]));
-				r.setLockstatus2(Integer.valueOf(type[1]));
-				r.setChannelid(channelid);
-				r.setChannel(Integer.valueOf(channel,16)+"");
-				r.setPowerlev(powerlev);
-				r.setNetworkmode(Integer.valueOf(networkmode));
-				r.setWorkmode(Integer.valueOf(workmode));
-				r.setLocktype(Integer.valueOf(locktype));
-				r.setFigernum(Integer.valueOf(figernum,16));
-				r.setLockver(ver);
-				r.setLockcharge(bettery);
-				if(recordnum.equals("0000")){
-					r.setRecordnum(0);
-				}else{
-					r.setRecordnum(Integer.valueOf(recordnum,16));
+				r.setResult(ret);
+				r.setSpace(space);
+				int failtype = StringTools.getFailtype(ret);
+				r.setFiletype(failtype);
+				result.setResult(r);
+			}else {
+				String type=json.get("type").toString();
+				r.setType(type);
+				String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
+				r.setOsdate(osdate);
+				String ret =json.get("result")==null?"" :json.get("result").toString();
+				r.setResult(ret);
+				String no=json.get("no")==null?"":json.get("no").toString();
+				if(null!=no&&no.matches("^[0-9]{1,}$")) {
+					r.setNo(Integer.parseInt(no));
 				}
 			}
-			String order=json.get("order")==null?"":json.get("order").toString();
-			String no=json.get("no")==null?"":json.get("no").toString();
-			String space=json.get("space")==null?"":json.get("space").toString();
-			String ret =json.get("result")==null?"" :json.get("result").toString();
-			String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
-			r.setOsdate(osdate);
-			r.setOrder(order);
-			if(null!=no&&no.matches("^[0-9]{1,}$")) {
-				r.setNo(Integer.parseInt(no));
-			}
-			r.setResult(ret);
-			r.setSpace(space);
-			int failtype = StringTools.getFailtype(ret);
-			r.setFiletype(failtype);
-			result.setResult(r);
+			
 		}
 		return result;
 	}
@@ -567,77 +581,91 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			r.setOrderid(itid);
 			r.setResultstatus(Integer.parseInt(json.get("status").toString()));
 			result.setResultstatus(Integer.parseInt(json.get("status").toString()));
-			if(json.get("status").toString().equals("1")){
-				String resultorder = json.get("result").toString();
-				//生命周期
-				String lca = resultorder.substring(30,31);
-				
-				//开关门状态
-				String status =  resultorder.substring(31,32);
-				String bet = resultorder.substring(32,34);
-				//门锁功率等级默认为最大功率A3
-				String powerlev = resultorder.substring(46,48);
-				if(powerlev.toUpperCase().equals("A0")){
-					powerlev = "A0";
-				}else if(powerlev.toUpperCase().equals("A1")){
-					powerlev = "A1";
-				}else if(powerlev.toUpperCase().equals("A2")){
-					powerlev = "A2";
-				}else{
-					powerlev = "A3";
+			String locktype=json.get("locktype").toString();
+			if("1".equals(locktype)) {
+				if(json.get("status").toString().equals("1")){
+					String resultorder = json.get("result").toString();
+					//生命周期
+					String lca = resultorder.substring(30,31);
+					
+					//开关门状态
+					String status =  resultorder.substring(31,32);
+					String bet = resultorder.substring(32,34);
+					//门锁功率等级默认为最大功率A3
+					String powerlev = resultorder.substring(46,48);
+					if(powerlev.toUpperCase().equals("A0")){
+						powerlev = "A0";
+					}else if(powerlev.toUpperCase().equals("A1")){
+						powerlev = "A1";
+					}else if(powerlev.toUpperCase().equals("A2")){
+						powerlev = "A2";
+					}else{
+						powerlev = "A3";
+					}
+					String recordnum = resultorder.substring(50,54);
+					String ver = resultorder.substring(54,62);
+					String channelid = resultorder.substring(62,66);
+					String channel = resultorder.substring(66,68);
+					String networkmode = resultorder.substring(78,79);
+					String workmode = resultorder.substring(79,80);
+					locktype = resultorder.substring(81,82);
+					String figernum = resultorder.substring(82,84);
+					
+					int bettery  = Integer.valueOf(bet,16);
+					if(lca.equals("1")){
+						r.setLocklca(-1);
+					}else if(lca.equals("2")){
+						r.setLocklca(1);
+					}else if(lca.equals("4")){
+						r.setLocklca(2);
+					}
+					
+					String[] type = StringTools.getlockstatus(status);
+					//更新状态
+					r.setLockstatus(Integer.valueOf(type[0]));
+					r.setLockstatus2(Integer.valueOf(type[1]));
+					r.setChannelid(channelid);
+					r.setChannel(Integer.valueOf(channel,16)+"");
+					r.setPowerlev(powerlev);
+					r.setNetworkmode(Integer.valueOf(networkmode));
+					r.setWorkmode(Integer.valueOf(workmode));
+					r.setLocktype(Integer.valueOf(locktype));
+					r.setFigernum(Integer.valueOf(figernum,16));
+					r.setLockver(ver);
+					r.setLockcharge(bettery);
+					if(recordnum.equals("0000")){
+						r.setRecordnum(0);
+					}else{
+						r.setRecordnum(Integer.valueOf(recordnum,16));
+					}
 				}
-				String recordnum = resultorder.substring(50,54);
-				String ver = resultorder.substring(54,62);
-				String channelid = resultorder.substring(62,66);
-				String channel = resultorder.substring(66,68);
-				String networkmode = resultorder.substring(78,79);
-				String workmode = resultorder.substring(79,80);
-				String locktype = resultorder.substring(81,82);
-				String figernum = resultorder.substring(82,84);
-				
-				int bettery  = Integer.valueOf(bet,16);
-				if(lca.equals("1")){
-					r.setLocklca(-1);
-				}else if(lca.equals("2")){
-					r.setLocklca(1);
-				}else if(lca.equals("4")){
-					r.setLocklca(2);
+				String order=json.get("order")==null?"":json.get("order").toString();
+				String no=json.get("no")==null?"":json.get("no").toString();
+				String space=json.get("space")==null?"":json.get("space").toString();
+				String ret =json.get("result")==null?"": json.get("result").toString();
+				String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
+				r.setOsdate(osdate);
+				r.setOrder(order);
+				if(null!=no&&no.matches("^[0-9]{1,}$")) {
+					r.setNo(Integer.parseInt(no));
 				}
-				
-				String[] type = StringTools.getlockstatus(status);
-				//更新状态
-				r.setLockstatus(Integer.valueOf(type[0]));
-				r.setLockstatus2(Integer.valueOf(type[1]));
-				r.setChannelid(channelid);
-				r.setChannel(Integer.valueOf(channel,16)+"");
-				r.setPowerlev(powerlev);
-				r.setNetworkmode(Integer.valueOf(networkmode));
-				r.setWorkmode(Integer.valueOf(workmode));
-				r.setLocktype(Integer.valueOf(locktype));
-				r.setFigernum(Integer.valueOf(figernum,16));
-				r.setLockver(ver);
-				r.setLockcharge(bettery);
-				if(recordnum.equals("0000")){
-					r.setRecordnum(0);
-				}else{
-					r.setRecordnum(Integer.valueOf(recordnum,16));
+				r.setResult(ret);
+				r.setSpace(space);
+				int failtype = StringTools.getFailtype(ret);
+				r.setFiletype(failtype);
+				result.setResult(r);
+			}else {
+				String type=json.get("type").toString();
+				r.setType(type);
+				String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
+				r.setOsdate(osdate);
+				String ret =json.get("result")==null?"" :json.get("result").toString();
+				r.setResult(ret);
+				String no=json.get("no")==null?"":json.get("no").toString();
+				if(null!=no&&no.matches("^[0-9]{1,}$")) {
+					r.setNo(Integer.parseInt(no));
 				}
 			}
-			String order=json.get("order")==null?"":json.get("order").toString();
-			String no=json.get("no")==null?"":json.get("no").toString();
-			String space=json.get("space")==null?"":json.get("space").toString();
-			String ret =json.get("result")==null?"": json.get("result").toString();
-			String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
-			r.setOsdate(osdate);
-			r.setOrder(order);
-			if(null!=no&&no.matches("^[0-9]{1,}$")) {
-				r.setNo(Integer.parseInt(no));
-			}
-			r.setResult(ret);
-			r.setSpace(space);
-			int failtype = StringTools.getFailtype(ret);
-			r.setFiletype(failtype);
-			result.setResult(r);
 		}
 		return result;
 	}
