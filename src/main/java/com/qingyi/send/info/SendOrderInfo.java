@@ -288,7 +288,7 @@ public interface SendOrderInfo {
 	 * @param gatewaycode 门锁归属网关通讯ID
 	 * @param gatewaycode2 门锁归属网关唯一ID
 	 * @param roomcode 房间编号
-	 * @param cardcode
+	 * @param cardcode 卡号 
 	 * @param timeout 有效时间（单位s）
 	 * @param callbackurl 回调地址（接收指令发送结果）
 	 * @return 指令发送结果SendResult
@@ -404,13 +404,13 @@ public interface SendOrderInfo {
 
 	/**
 	 *  发送门锁远程开门指令(合)
-	 * @param gatewaycode
-	 * @param gatewaycode2
-	 * @param roomcode
-	 * @param roomcode2
-	 * @param locktype
-	 * @param timeout
-	 * @param callbackurl
+	 * @param gatewaycode 网关通讯ID
+	 * @param gatewaycode2 网关唯一ID
+	 * @param roomcode  房间编号
+	 * @param roomcode2	房间唯一ID
+	 * @param locktype 门锁类型 1网关锁 2华为 3电信  4 移动
+	 * @param timeout  超时时间
+	 * @param callbackurl 回调地址
 	 * @return
 	 */
 	public SendResult saveTotalOpen(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String locktype,Integer timeout,String callbackurl);
@@ -423,13 +423,13 @@ public interface SendOrderInfo {
 	/**
 	 * 修改门锁强锁/非强锁模式（合)
 	 * @param type  type 1强制锁门 2非强制锁门
-	 * @param gatewaycode
-	 * @param gatewaycode2
-	 * @param roomcode
-	 * @param roomcode2
-	 * @param locktype
-	 * @param timeout
-	 * @param callbackurl
+	 * @param gatewaycode  网关通讯ID
+	 * @param gatewaycode2	网关唯一ID
+	 * @param roomcode 房间编号
+	 * @param roomcode2	房间唯一ID
+	 * @param locktype 门锁类型 1网关锁 2华为 3电信4 移动
+	 * @param timeout 有效时间
+	 * @param callbackurl 回调地址
 	 * @return
 	 */
 	public SendResult updateTotalForcelock(Integer type,String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String locktype,Integer timeout,String callbackurl);
@@ -442,13 +442,13 @@ public interface SendOrderInfo {
 	/**
 	 * 修改门锁常开/常闭模式(合)
 	 * @param type  type 1常开，2常闭
-	 * @param gatewaycode
-	 * @param gatewaycode2
-	 * @param roomcode
-	 * @param roomcode2
-	 * @param locktype
-	 * @param timeout
-	 * @param callbackurl
+	 * @param gatewaycode 网关通讯ID
+	 * @param gatewaycode2	网关唯一ID
+	 * @param roomcode 房间编号
+	 * @param roomcode2 房间唯一编号
+	 * @param locktype 门锁类型  1网关锁 2华为 3电信4 移动
+	 * @param timeout 有效时间
+	 * @param callbackurl 回调地址
 	 * @return
 	 */
 	public SendResult updateTotalRoomWorkmode(Integer type,String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String locktype,Integer timeout,String callbackurl);
@@ -461,13 +461,13 @@ public interface SendOrderInfo {
 	/**
 	 * 修改门锁授权模式（合）
 	 * @param type type 1允许离线授权，2禁止离线授权
-	 * @param gatewaycode
-	 * @param gatewaycode2
-	 * @param roomcode
-	 * @param roomcode2
-	 * @param locktype
-	 * @param timeout
-	 * @param callbackurl
+	 * @param gatewaycode 网关通讯ID
+	 * @param gatewaycode2 网关唯一ID
+	 * @param roomcode	房间编号
+	 * @param roomcode2	房间唯一ID
+	 * @param locktype 门锁类型
+	 * @param timeout 有效时间
+	 * @param callbackurl 回调地址
 	 * @return
 	 */
 	public SendResult updateTotalRoomNetmode(Integer type,String gatewaycode,String gatewaycode2,String roomcode,String roomcode2 ,String locktype,Integer timeout,String callbackurl);
@@ -480,15 +480,15 @@ public interface SendOrderInfo {
 
 	/**
 	 * 发送密码授权指令(合)
-	 * @param gatewaycode
-	 * @param gatewaycode2
-	 * @param roomcode
-	 * @param roomcode2
-	 * @param locktype
-	 * @param roomimei
-	 * @param timeout
-	 * @param psw
-	 * @param callbackurl
+	 * @param gatewaycode 网关通讯ID
+	 * @param gatewaycode2 网关唯一ID
+	 * @param roomcode 房间编号
+	 * @param roomcode2 房间唯一ID
+	 * @param locktype 门锁类型 1网关锁 2华为 3电信 4移动
+	 * @param roomimei IMEI
+	 * @param timeout 有效时间
+	 * @param psw 密码授权实体
+	 * @param callbackurl 回调地址
 	 * @return
 	 */
 	public SendResult saveTotalUnlockPsw(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String locktype,String roomimei,Integer timeout,UnlockPsw psw,String callbackurl);
@@ -500,15 +500,15 @@ public interface SendOrderInfo {
 	public SendResult<PswsResult> saveTotalUnlockPswList(List<AuthPsw> plist);
 	/**
 	 * 取消密码授权指令(合)
-	 * @param gatewaycode
-	 * @param gatewaycode2
-	 * @param roomcode
-	 * @param roomcode2
-	 * @param roomimei
-	 * @param locktype
-	 * @param dpsw
-	 * @param timeout
-	 * @param callbackurl
+	 * @param gatewaycode 网关通讯ID
+	 * @param gatewaycode2 网关唯一ID
+	 * @param roomcode 房间编号
+	 * @param roomcode2 房间唯一ID
+	 * @param roomimei IMEI
+	 * @param locktype 门锁类型 1网关锁 2华为 3电信 4移动
+	 * @param dpsw 密码授权实体
+	 * @param timeout 有效时间
+	 * @param callbackurl 回调地址
 	 * @return
 	 */
 	public SendResult delTotalUnlockpsw(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String roomimei,String locktype,DelUnlockPsw dpsw,Integer timeout,String callbackurl);
@@ -521,15 +521,15 @@ public interface SendOrderInfo {
 
 	/**
 	 * 发送卡片授权指令(合)
-	 * @param gatewaycode
-	 * @param gatewaycode2
-	 * @param roomcode
-	 * @param roomcode2
-	 * @param roomimei
-	 * @param locktype
-	 * @param rc
-	 * @param timeout
-	 * @param callbackurl
+	 * @param gatewaycode 网关通讯ID
+	 * @param gatewaycode2 网关唯一ID
+	 * @param roomcode 房间编号
+	 * @param roomcode2	房间唯一ID
+	 * @param roomimei IMEI
+	 * @param locktype 门锁类型
+	 * @param rc 卡片授权实体
+	 * @param timeout 超时时间
+	 * @param callbackurl 回调地址
 	 * @return
 	 */
 	public SendResult saveTotalRoomCard(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String roomimei,String locktype,RoomCard rc,Integer timeout,String callbackurl);
