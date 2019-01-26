@@ -1251,10 +1251,9 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult setGatewayRecordBackUrl(String gatewaycode2, String url) {
+	public SendResult setGatewayRecordBackUrl(String url) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param =new LinkedHashMap();
-		param.put("gatewaycode2", gatewaycode2);
 		param.put("url",url);
 		SendResult sr = StringTools.checkurl(param);
 		if("0".equals(sr.getResultCode())) {
@@ -1265,14 +1264,11 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult setCardAuthBackUrl(String locktype, String gatewaycode2, String roomcode2, String url) {
+	public SendResult setCardAuthBackUrl(String url) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
-		param.put("locktype", locktype);
-		param.put("gatewaycode2", gatewaycode2);
-		param.put("roomcode2", roomcode2);
 		param.put("url", url);
-		SendResult sr = StringTools.checkurl2(param);
+		SendResult sr = StringTools.checkurl(param);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"setcardauthbackurl", secret, param);
 			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
@@ -1281,10 +1277,9 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult setInstallTestBackUrl(String gatewaycode2, String url) {
+	public SendResult setInstallTestBackUrl(String url) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param =new LinkedHashMap();
-		param.put("gatewaycode2", gatewaycode2);
 		param.put("url",url);
 		SendResult sr = StringTools.checkurl(param);
 		if("0".equals(sr.getResultCode())) {
@@ -1295,10 +1290,9 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult setFingerContentBackUrl(String gatewaycode2, String url) {
+	public SendResult setFingerContentBackUrl(String url) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param =new LinkedHashMap();
-		param.put("gatewaycode2", gatewaycode2);
 		param.put("url",url);
 		SendResult sr = StringTools.checkurl(param);
 		if("0".equals(sr.getResultCode())) {
@@ -1309,10 +1303,9 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult setNbLockRecordBackUrl(String roomcode2, String url) {
+	public SendResult setNbLockRecordBackUrl(String url) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param =new LinkedHashMap();
-		param.put("roomcode2", roomcode2);
 		param.put("url",url);
 		SendResult sr = StringTools.checkurl(param);
 		if("0".equals(sr.getResultCode())) {
@@ -1323,11 +1316,10 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult getGatewayRecordBackUrl(String gatewaycode2) {
+	public SendResult getGatewayRecordBackUrl() {
 		// TODO Auto-generated method stub
 		LinkedHashMap param =new LinkedHashMap();
-		param.put("gatewaycode2", gatewaycode2);
-		SendResult sr = StringTools.checkurl(param);
+		SendResult sr = StringTools.getSendResult();
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getGatewayRecordBackUrl", secret, param);
 			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
@@ -1336,13 +1328,10 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult getCardAuthBackUrl(String locktype, String gatewaycode2, String roomcode2) {
+	public SendResult getCardAuthBackUrl() {
 		// TODO Auto-generated method stub
 		LinkedHashMap param =new LinkedHashMap();
-		param.put("locktype", locktype);
-		param.put("gatewaycode2", gatewaycode2);
-		param.put("roomcode2", roomcode2);
-		SendResult sr = StringTools.checkurl2(param);
+		SendResult sr = StringTools.getSendResult();
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getcardauthbackurl", secret, param);
 			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
@@ -1351,11 +1340,10 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult getInstallTestBackUrl(String gatewaycode2) {
+	public SendResult getInstallTestBackUrl() {
 		// TODO Auto-generated method stub
 		LinkedHashMap param =new LinkedHashMap();
-		param.put("gatewaycode2", gatewaycode2);
-		SendResult sr = StringTools.checkurl(param);
+		SendResult sr = StringTools.getSendResult();
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getinstalltestbackurl", secret, param);
 			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
@@ -1364,11 +1352,10 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult getFingerContentBackUrl(String gatewaycode2) {
+	public SendResult getFingerContentBackUrl() {
 		// TODO Auto-generated method stub
 		LinkedHashMap param =new LinkedHashMap();
-		param.put("gatewaycode2", gatewaycode2);
-		SendResult sr = StringTools.checkurl(param);
+		SendResult sr = StringTools.getSendResult();
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getfingercontentbackurl", secret, param);
 			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
@@ -1377,11 +1364,10 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult getNbLockRecordBackUrl(String roomcode2) {
+	public SendResult getNbLockRecordBackUrl() {
 		// TODO Auto-generated method stub
 		LinkedHashMap param =new LinkedHashMap();
-		param.put("roomcode2", roomcode2);
-		SendResult sr = StringTools.checkurl(param);
+		SendResult sr = StringTools.getSendResult();
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getnblockrecordbackurl", secret, param);
 			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
@@ -1391,10 +1377,9 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult setNbRoomParamasBackUrl(String roomcode2, String url) {
+	public SendResult setNbRoomParamasBackUrl(String url) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param =new LinkedHashMap();
-		param.put("roomcode2", roomcode2);
 		param.put("url",url);
 		SendResult sr = StringTools.checkurl(param);
 		if("0".equals(sr.getResultCode())) {
@@ -1405,11 +1390,10 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult getNbRoomParamasBackUrl(String roomcode2, String url) {
+	public SendResult getNbRoomParamasBackUrl() {
 		// TODO Auto-generated method stub
 		LinkedHashMap param =new LinkedHashMap();
-		param.put("roomcode2", roomcode2);
-		SendResult sr = StringTools.checkurl(param);
+		SendResult sr = StringTools.getSendResult();
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getnbroomparamasbackurl", secret, param);
 			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);

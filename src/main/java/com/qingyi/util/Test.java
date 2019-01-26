@@ -31,12 +31,19 @@ public class Test {
 		//发送门锁记录
 //		SendResult readLockRecord = info.readLockRecord("7415267456", "7415267456", "7415", "", "1", 111550, "ss");
 //		System.out.println(readLockRecord);
-		List<AuthRestAndOpen> oplist=new ArrayList<AuthRestAndOpen>();
-		AuthRestAndOpen a1=new AuthRestAndOpen("1", "7415267456", "7415267456", "1234", "7894561232", 100, "ss");
-		AuthRestAndOpen a2=new AuthRestAndOpen("2", "", "", "", "7894561232", 100, "ss");
-		oplist.add(a1);
-		oplist.add(a2);
-		SendResult readLockRecord=info.saveTotalOpenList(oplist);
-		System.out.println(readLockRecord);
+//		List<AuthRestAndOpen> oplist=new ArrayList<AuthRestAndOpen>();
+//		AuthRestAndOpen a1=new AuthRestAndOpen("1", "7415267456", "7415267456", "1234", "7894561232", 100, "ss");
+//		AuthRestAndOpen a2=new AuthRestAndOpen("2", "", "", "", "7894561232", 100, "ss");
+//		oplist.add(a1);
+//		oplist.add(a2);
+//		SendResult readLockRecord=info.saveTotalOpenList(oplist);
+//		System.out.println(readLockRecord);
+		SendResult ss = info.setNbLockRecordBackUrl("http://localhost/lock/order/callback/4/savelockrecord");
+		System.out.println(ss);
+		//SendResult sss = info.getNbLockRecordBackUrl("1901033045");
+		//System.out.println(sss);
+//		Object o=null;
+//		String s=(String)o;
+//		System.out.println(s);
 	}
 }

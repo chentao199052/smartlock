@@ -2885,41 +2885,12 @@ public class StringTools {
 
 	public static SendResult checkurl(LinkedHashMap param) {
 		SendResult sr=new SendResult("0", "", "");
-		Set<Map.Entry<String, String>> params = param.entrySet();
-		for(Map.Entry<String, String> p :params) {
-			String key=p.getKey();
-			String value=p.getValue();
-			if(key ==null ||key.trim().length()==0 || value ==null || value.trim().length()==0) {
-				sr.setResultCode("-10001");
-				sr.setResultMsg("参数不允许出现空值");
-				return sr;
-			}
-			if(key.equals("gatewaycode2")) {
-				if(value.toString()==null||value.toString().equals("")||value.toString().equals("null")) {
-					sr.setResultCode("-10003");
-					sr.setResultMsg("网关唯一ID不能为空");
-					return sr;
-				}else if(value.toString().length()!=10||value.toString().toUpperCase().matches(".*[G-Z].*")) {
-					sr.setResultCode("-10004");
-					sr.setResultMsg("网关唯一ID必须为10位十六进制字符串");
-					return sr;
-				}
-			}
-			if(key.equals("roomcode2")) {
-				if(value.toString()==null||value.toString().equals("")||value.toString().equals("null")) {
-					sr.setResultCode("-10005");
-					sr.setResultMsg("门锁唯一ID不能为空");
-					return sr;
-				}else if(value.toString().length()!=10||value.toString().toUpperCase().matches(".*[G-Z].*")) {
-					sr.setResultCode("-10006");
-					sr.setResultMsg("门锁唯一ID必须为10位十六进制字符串");
-					return sr;
-				}
-			}
+		String url = (String)param.get("url");
+		if(url==null || url.trim().length()==0) {
+			sr.setResultCode("-10001");
+			sr.setResultMsg("url不能为空");
 		}
 		return sr;
-		
-		
 	}
 
 	public static SendResult checkurl2(LinkedHashMap param) {
@@ -2968,6 +2939,11 @@ public class StringTools {
 			sr.setResultMsg("门锁类型不能为空");
 		}
 		return sr;
+	}
+
+	public static SendResult getSendResult() {
+		// TODO Auto-generated method stub
+		return new SendResult("0", "", "");
 	}
 	
 }
