@@ -1303,7 +1303,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			//锁类型
 			String locktype = json.get("locktype").toString();
 			//结果类型
-			String ordertype=json.get("orderType").toString();
+			String ordertype=json.get("ordertype").toString();
 			//下发轮次
 			String no="1";
 			if(json.containsKey("no")) {
