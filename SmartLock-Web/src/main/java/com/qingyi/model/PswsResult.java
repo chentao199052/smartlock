@@ -13,7 +13,12 @@ public class PswsResult {
 	public PswsResult() {
 		super();
 	}
-
+	/**
+	 * 
+	 * @param orderId 分布式ID
+	 * @param password 密码
+	 * @param roomcode2 房间唯一编号
+	 */
 	public PswsResult(String orderId, String password, String roomcode2) {
 		super();
 		this.orderId = orderId;
