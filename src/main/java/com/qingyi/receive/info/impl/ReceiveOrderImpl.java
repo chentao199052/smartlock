@@ -31,6 +31,7 @@ import com.qingyi.model.OpenResult;
 import com.qingyi.model.ReadGatewayRecordResult;
 import com.qingyi.model.ReadLockRecord;
 import com.qingyi.model.ReceiveResult;
+import com.qingyi.model.RoomParamas;
 import com.qingyi.model.SaveFingerReagyResult;
 import com.qingyi.model.SaveUnlockPswResult;
 import com.qingyi.model.SyncCPOrderResult;
@@ -1830,6 +1831,54 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				r.setResult(ret);
 				res.setSuccessResult(r);
 			}
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult<RoomParamas> getSlRoomParamas(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult<RoomParamas> result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if ("0".equals(result.getResultCode())) {
+			RoomParamas r=new RoomParamas();
+			JSONObject json=JSONObject.fromObject(content);
+			 String roomcode2=json.getString("roomcode2");
+			 r.setRoomcode2(roomcode2);
+			 Integer roomcharge = json.getInt("roomcharge");
+			 r.setRoomcharge(roomcharge);
+			 String roomecl = json.getString("roomecl");
+			 r.setRoomecl(roomecl);
+			 String roomsnr = json.getString("roomsnr");
+			 r.setRoomsnr(roomsnr);
+			 String lockver = json.getString("lockver");
+			 r.setLockver(lockver);
+			 String locklca = json.getString("locklca");
+			 r.setLocklca(locklca);
+			 String roomreset =json.getString("roomreset");
+			 r.setRoomreset(roomreset);
+			 String isfinger =json.getString("isfinger");
+			 r.setIsfinger(isfinger);
+			 String isbluetooth =json.getString("isbluetooth");
+			 r.setIsbluetooth(isbluetooth);
+			 String isscanner =json.getString("isscanner");
+			 r.setIsscanner(isscanner);
+			 String islockswith =json.getString("islockswith");
+			 r.setIslockswith(islockswith);
+			 String islatchswith =json.getString("islatchswith");
+			 r.setIslatchswith(islatchswith);
+			 String iskeyswith =json.getString("iskeyswith");
+			 r.setIskeyswith(iskeyswith);
+			 String iscontactswith =json.getString("iscontactswith");
+			 r.setIscontactswith(iscontactswith);
+			 String signalStrength =json.getString("signalStrength");
+			 r.setSignalStrength(signalStrength);
+			 String roomstatus2 =json.getString("roomstatus2");
+			 r.setRoomstatus2(roomstatus2);
+			 String roomstatus =json.getString("roomstatus");
+			 r.setRoomstatus(roomstatus);
+			 String recordcount =json.getString("recordcount");
+			 r.setRecordcount(recordcount);
+			 result.setResult(r);
 		}
 		return result;
 	}

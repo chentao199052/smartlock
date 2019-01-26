@@ -19,6 +19,7 @@ import com.qingyi.model.LockStatusResult;
 import com.qingyi.model.OpenResult;
 import com.qingyi.model.ReadGatewayRecordResult;
 import com.qingyi.model.ReceiveResult;
+import com.qingyi.model.RoomParamas;
 import com.qingyi.model.SaveFingerReagyResult;
 import com.qingyi.model.SaveUnlockPswResult;
 import com.qingyi.model.SyncCPOrderResult;
@@ -261,4 +262,10 @@ public interface ReceiveOrderInfo {
 	
 	public ReceiveResult<FingerResult> getFingerResult(String content,String sysdate,String verify);
 
+	/**
+	 * 解析NB锁房间的信息（post过来的信息）
+	 * @param content
+	 * @return
+	 */
+	public ReceiveResult<RoomParamas> getSlRoomParamas(String content,String sysdate,String verify);
 }

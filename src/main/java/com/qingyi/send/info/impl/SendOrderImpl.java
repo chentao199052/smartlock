@@ -1389,5 +1389,33 @@ public class SendOrderImpl implements SendOrderInfo{
 		}
 		return sr;
 	}
+
+	@Override
+	public SendResult setNbRoomParamasBackUrl(String roomcode2, String url) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param =new LinkedHashMap();
+		param.put("roomcode2", roomcode2);
+		param.put("url",url);
+		SendResult sr = StringTools.checkurl(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"setnbroomparamasbackurl", secret, param);
+			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult getNbRoomParamasBackUrl(String roomcode2, String url) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param =new LinkedHashMap();
+		param.put("roomcode2", roomcode2);
+		SendResult sr = StringTools.checkurl(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getnbroomparamasbackurl", secret, param);
+			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
+			//sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+		}
+		return sr;
+	}
 	
 }

@@ -714,4 +714,19 @@ public interface SendOrderInfo {
 	 * @return
 	 */
 	public SendResult<String> getNbLockRecordBackUrl(String roomcode2);
+	
+	/**
+	 * 设置NB锁房间信息的回调地址
+	 * @param roomcode2
+	 * @param url
+	 * @return
+	 */
+	public SendResult setNbRoomParamasBackUrl(String roomcode2,String url);
+	/**
+	 * 获取NB锁房间信息的回调地址
+	 * @param roomcode2
+	 * @param url
+	 * @return
+	 */
+	public SendResult getNbRoomParamasBackUrl(String roomcode2,String url);
 }
