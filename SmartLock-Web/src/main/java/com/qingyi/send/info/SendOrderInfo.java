@@ -8,16 +8,26 @@ import com.qingyi.model.AuthDelPsw;
 import com.qingyi.model.AuthFinger;
 import com.qingyi.model.AuthPsw;
 import com.qingyi.model.AuthRestAndOpen;
+import com.qingyi.model.AuthResult;
 import com.qingyi.model.AuthSync;
 import com.qingyi.model.AuthTotal;
+import com.qingyi.model.CardsResult;
 import com.qingyi.model.Command;
+import com.qingyi.model.DelCardsResult;
+import com.qingyi.model.DelFingersResult;
 import com.qingyi.model.DelRoomFinger;
 import com.qingyi.model.DelUnlockPsw;
+import com.qingyi.model.FingersResult;
+import com.qingyi.model.LockResult;
+import com.qingyi.model.PowResult;
+import com.qingyi.model.PswsResult;
+import com.qingyi.model.RegistNb;
 import com.qingyi.model.Room;
 import com.qingyi.model.RoomCard;
 import com.qingyi.model.RoomFinger;
 import com.qingyi.model.Roompow;
 import com.qingyi.model.SendResult;
+import com.qingyi.model.SyncResult;
 import com.qingyi.model.UnlockPsw;
 
 public interface SendOrderInfo {
@@ -138,7 +148,7 @@ public interface SendOrderInfo {
 	 * @param callbackurl
 	 * @return
 	 */
-	public SendResult readFingerMachine(String fpcode,String type);
+	public SendResult<String> readFingerMachine(String fpcode,String type);
 	
 	
 	
@@ -365,7 +375,7 @@ public interface SendOrderInfo {
 	 * @param callbackurl
 	 * @return
 	 */
-	public SendResult saveLotAuth(List<AuthCard> clist,List<AuthDelCard> dclist,List<AuthFinger> flist,List<AuthDelFinger> dflist,List<AuthPsw> plist,List<AuthDelPsw> dplist,Integer timeout,String callbackurl);
+	public SendResult<AuthResult> saveLotAuth(List<AuthCard> clist,List<AuthDelCard> dclist,List<AuthFinger> flist,List<AuthDelFinger> dflist,List<AuthPsw> plist,List<AuthDelPsw> dplist,Integer timeout,String callbackurl);
 	
 	/**
 	 * 批量卡密/指纹授权同步
@@ -374,7 +384,7 @@ public interface SendOrderInfo {
 	 * @param flist 需同步的指纹列表
 	 * @return
 	 */
-	public SendResult saveAuthSync(List<AuthSync> synclist);
+	public SendResult<SyncResult> saveAuthSync(List<AuthSync> synclist);
 	/**
 	 * 发送门锁复位指令(合)
 	 * @param gatewaycode
@@ -392,7 +402,7 @@ public interface SendOrderInfo {
 	 * @param rstlist
 	 * @return
 	 */
-	public SendResult saveTotalResetList(List<AuthRestAndOpen> rstlist);
+	public SendResult<LockResult> saveTotalResetList(List<AuthRestAndOpen> rstlist);
 
 	/**
 	 *  发送门锁远程开门指令(合)
@@ -411,7 +421,7 @@ public interface SendOrderInfo {
 	 * @param oplist
 	 * @return
 	 */
-	public SendResult saveTotalOpenList(List<AuthRestAndOpen> oplist);
+	public SendResult<LockResult> saveTotalOpenList(List<AuthRestAndOpen> oplist);
 	/**
 	 * 修改门锁强锁/非强锁模式（合)
 	 * @param type  type 1强制锁门 2非强制锁门
@@ -430,7 +440,7 @@ public interface SendOrderInfo {
 	 * @param frlist
 	 * @return
 	 */
-	public SendResult updateTotalForcelockList(List<AuthTotal> frlist);
+	public SendResult<LockResult> updateTotalForcelockList(List<AuthTotal> frlist);
 	/**
 	 * 修改门锁常开/常闭模式(合)
 	 * @param type  type 1常开，2常闭
@@ -449,7 +459,7 @@ public interface SendOrderInfo {
 	 * @param wklist
 	 * @return
 	 */
-	public SendResult updateTotalRoomWorkmodeList(List<AuthTotal> wklist);
+	public SendResult<LockResult> updateTotalRoomWorkmodeList(List<AuthTotal> wklist);
 	/**
 	 * 修改门锁授权模式（合）
 	 * @param type type 1允许离线授权，2禁止离线授权
@@ -468,7 +478,7 @@ public interface SendOrderInfo {
 	 * @param ntlist
 	 * @return
 	 */
-	public SendResult updateTotalRoomNetmodeList(List<AuthTotal> ntlist);
+	public SendResult<LockResult> updateTotalRoomNetmodeList(List<AuthTotal> ntlist);
 
 	/**
 	 * 发送密码授权指令(合)
@@ -489,7 +499,7 @@ public interface SendOrderInfo {
 	 * @param plist
 	 * @return
 	 */
-	public SendResult saveTotalUnlockPswList(List<AuthPsw> plist);
+	public SendResult<PswsResult> saveTotalUnlockPswList(List<AuthPsw> plist);
 	/**
 	 * 取消密码授权指令(合)
 	 * @param gatewaycode
@@ -509,7 +519,7 @@ public interface SendOrderInfo {
 	 * @param delist
 	 * @return
 	 */
-	public SendResult delTotalUnlockpswList(List<AuthDelPsw> delist);
+	public SendResult<PswsResult> delTotalUnlockpswList(List<AuthDelPsw> delist);
 
 	/**
 	 * 发送卡片授权指令(合)
@@ -530,7 +540,7 @@ public interface SendOrderInfo {
 	 * @param clist
 	 * @return
 	 */
-	public SendResult saveTotalRoomCardList(List<AuthCard> clist);
+	public SendResult<CardsResult> saveTotalRoomCardList(List<AuthCard> clist);
 
 	/**
 	 * 删除卡片授权指令(合)
@@ -552,7 +562,7 @@ public interface SendOrderInfo {
 	 * @param dclist
 	 * @return
 	 */
-	public SendResult delTotalRoomCardList(List<AuthDelCard> dclist);
+	public SendResult<DelCardsResult> delTotalRoomCardList(List<AuthDelCard> dclist);
 	
 	/**
 	 * 发送指纹授权指令(合)
@@ -573,7 +583,7 @@ public interface SendOrderInfo {
 	 * @param rflist
 	 * @return
 	 */
-	public SendResult saveTotalRoomFingerList(List<AuthFinger> rflist);
+	public SendResult<FingersResult> saveTotalRoomFingerList(List<AuthFinger> rflist);
 	/**
 	 *  删除指纹授权指令(合)
 	 * @param gatewaycode
@@ -588,25 +598,25 @@ public interface SendOrderInfo {
 	 * @param callbackurl
 	 * @return
 	 */
-	public SendResult delTotalRoomFinger(String gatewaycode,String gatewaycode2,String roomid,String roomcode,String roomcode2,String roomimei,String locktype,List<DelRoomFinger> rflist,Integer timeout,String callbackurl);
+	public SendResult<DelFingersResult> delTotalRoomFinger(String gatewaycode,String gatewaycode2,String roomid,String roomcode,String roomcode2,String roomimei,String locktype,List<DelRoomFinger> rflist,Integer timeout,String callbackurl);
 	/**
 	 *  删除指纹授权指令(合-批量)
 	 * @param dflist
 	 * @return
 	 */
-	public SendResult delTotalRoomFingerList(List<AuthDelFinger> dflist);
+	public SendResult<DelFingersResult> delTotalRoomFingerList(List<AuthDelFinger> dflist);
 	
 	/**
 	 * 批量修改门锁功率等级
 	 */
-	public SendResult updateRoompowList(List<Roompow> powlist);
+	public SendResult<PowResult> updateRoompowList(List<Roompow> powlist);
 	
 	/**
 	 * 注册NB锁
 	
 	 * @return
 	 */
-	public SendResult registerDevice(String locktype,String roomimei,String lockname,String roomimsi); 
+	public SendResult<RegistNb> registerDevice(String locktype,String roomimei,String lockname,String roomimsi); 
 	/**
 	 * 修改NB锁
 	 * @param roomlocation
