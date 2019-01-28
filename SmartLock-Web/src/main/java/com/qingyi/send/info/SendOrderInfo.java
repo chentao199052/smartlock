@@ -400,7 +400,7 @@ public interface SendOrderInfo {
 	 * @param rstlist
 	 * @return
 	 */
-	public SendResult<LockResult> saveTotalResetList(List<AuthRestAndOpen> rstlist);
+	public SendResult<List<LockResult>> saveTotalResetList(List<AuthRestAndOpen> rstlist);
 
 	/**
 	 *  发送门锁远程开门指令(合)
@@ -419,7 +419,7 @@ public interface SendOrderInfo {
 	 * @param oplist
 	 * @return
 	 */
-	public SendResult<LockResult> saveTotalOpenList(List<AuthRestAndOpen> oplist);
+	public SendResult<List<LockResult>> saveTotalOpenList(List<AuthRestAndOpen> oplist);
 	/**
 	 * 修改门锁强锁/非强锁模式（合)
 	 * @param type  type 1强制锁门 2非强制锁门
