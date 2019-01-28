@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 指纹机录入准备
+ * @author Administrator
+ *
+ */
 public class SaveFingerReagyResult {
 	private String orderid;
 	private Integer resultstatus;

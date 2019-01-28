@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 初始化网关ID
+ * @author Administrator
+ *
+ */
 public class GatewayInitializeResult {
 	private String orderid;
 	private Integer filetype;

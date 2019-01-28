@@ -141,7 +141,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				String space=json.get("space").toString();
 				String ret = json.get("result").toString();
 				String osdate=json.get("osdate").toString();
-				r.setOsdate(osdate);
+				r.setOsdate(sdf2.format(sdf.parse(osdate)));
 				r.setOrder(order);
 				if(null!=no&&no.matches("^[0-9]{1,}$")) {
 					r.setNo(Integer.parseInt(no));
@@ -194,7 +194,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			}else {
 				String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
 				String no=json.get("no")==null?"":json.get("no").toString();
-				r.setOsdate(osdate);
+				try {
+					r.setOsdate(sdf2.format(sdf.parse(osdate)));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				if(null!=no&&no.matches("^[0-9]{1,}$")) {
 					r.setNo(Integer.parseInt(no));
 				}
@@ -212,8 +217,6 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 		ReceiveResult<OpenResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			try {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-				SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				Map json=StringTools.stringToMap2(content);
 				OpenResult r=new OpenResult();
 				String itid=json.get("itid").toString();
@@ -234,7 +237,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				String no=json.get("no").toString();
 				String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
 				String format = sdf2.format(sdf.parse(osdate));
-				r.setOsdate(format);
+				r.setOsdate(sdf2.format(sdf.parse(osdate)));
 				if(null!=no&&no.matches("^[0-9]{1,}$")) {
 					r.setNo(Integer.parseInt(no));
 				}
@@ -296,7 +299,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				String order=json.get("order")==null?"":json.get("order").toString();
 				String space=json.get("space")==null?"":json.get("space").toString();
 				String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
-				recordresult.setOsdate(osdate);
+				try {
+					recordresult.setOsdate(sdf2.format(sdf.parse(osdate)));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				recordresult.setOrder(order);
 				recordresult.setResult(ret);
 				recordresult.setSpace(space);
@@ -380,7 +388,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 					r.setNo(Integer.parseInt(no));
 				}
 				String osdate=json.get("osdate").toString();
-				r.setOsdate(osdate);
+				r.setOsdate(sdf2.format(sdf.parse(osdate)));
 				result.setResult(r);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -462,7 +470,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String space=json.get("space")==null?"":json.get("space").toString();
 			String ret = json.get("result")==null?"":json.get("result").toString();
 			String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
-			r.setOsdate(osdate);
+			try {
+				r.setOsdate(sdf2.format(sdf.parse(osdate)));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			r.setOrder(order);
 			if(null!=no&&no.matches("^[0-9]{1,}$")) {
 				r.setNo(Integer.parseInt(no));
@@ -549,7 +562,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				String space=json.get("space")==null?"":json.get("space").toString();
 				String ret =json.get("result")==null?"" :json.get("result").toString();
 				String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
-				r.setOsdate(osdate);
+				try {
+					r.setOsdate(sdf2.format(sdf.parse(osdate)));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				r.setOrder(order);
 				if(null!=no&&no.matches("^[0-9]{1,}$")) {
 					r.setNo(Integer.parseInt(no));
@@ -650,7 +668,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				String space=json.get("space")==null?"":json.get("space").toString();
 				String ret =json.get("result")==null?"": json.get("result").toString();
 				String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
-				r.setOsdate(osdate);
+				try {
+					r.setOsdate(sdf2.format(sdf.parse(osdate)));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				r.setOrder(order);
 				if(null!=no&&no.matches("^[0-9]{1,}$")) {
 					r.setNo(Integer.parseInt(no));
@@ -692,7 +715,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String ret = json.get("result")==null ?"":json.get("result").toString();
 			int failtype = StringTools.getFailtype(ret);
 			String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
-			r.setOsdate(osdate);
+			try {
+				r.setOsdate(sdf2.format(sdf.parse(osdate)));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			r.setResult(ret);
 			r.setFiletype(failtype);
 			result.setResult(r);
@@ -777,7 +805,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String space=json.get("space")==null?"":json.get("space").toString();
 			String ret =json.get("result")==null?"":json.get("result").toString();
 			String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
-			r.setOsdate(osdate);
+			try {
+				r.setOsdate(sdf2.format(sdf.parse(osdate)));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			r.setBegin(begin);
 			if(null!=no&&no.matches("^[0-9]{1,}$")) {
 				r.setNo(Integer.parseInt(no));
@@ -868,7 +901,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String space=json.get("space")==null?"":json.get("space").toString();
 			String ret = json.get("result")==null?"":json.get("result").toString();
 			String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
-			r.setOsdate(osdate);
+			try {
+				r.setOsdate(sdf2.format(sdf.parse(osdate)));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			r.setBegin(begin);
 			if(null!=no&&no.matches("^[0-9]{1,}$")) {
 				r.setNo(Integer.parseInt(no));
@@ -959,7 +997,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String space=json.get("space")==null?"":json.get("space").toString();
 			String ret =json.get("result")==null?"": json.get("result").toString();
 			String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
-			r.setOsdate(osdate);
+			try {
+				r.setOsdate(sdf2.format(sdf.parse(osdate)));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			r.setBegin(begin);
 			if(null!=no&&no.matches("^[0-9]{1,}$")) {
 				r.setNo(Integer.parseInt(no));
@@ -1052,7 +1095,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String begin=json.get("begin")==null?"":json.get("begin").toString();
 			r.setBegin(begin);
 			String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
-			r.setOsdate(osdate);
+			try {
+				r.setOsdate(sdf2.format(sdf.parse(osdate)));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			if(null!=no&&no.matches("^[0-9]{1,}$")) {
 				r.setNo(Integer.parseInt(no));
 			}
@@ -1141,7 +1189,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String no=json.get("no").toString();
 			String space=json.get("space")==null?"":json.get("space").toString();
 			String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
-			r.setOsdate(osdate);
+			try {
+				r.setOsdate(sdf2.format(sdf.parse(osdate)));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			r.setOrder(order);
 			r.setResult(ret);
 			r.setNo(Integer.parseInt(no));
@@ -1178,7 +1231,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 	    		}
 			}
 			String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
-			r.setOsdate(osdate);
+			try {
+				r.setOsdate(sdf2.format(sdf.parse(osdate)));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     		String ret=json.get("result").toString();
     		int failtype = StringTools.getFailtype(ret);
 			r.setFiletype(failtype);
@@ -1210,7 +1268,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
         		r.setSpace(space);
     		}
 			String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
-			r.setOsdate(osdate);
+			try {
+				r.setOsdate(sdf2.format(sdf.parse(osdate)));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     		String ret=json.get("result").toString();
     		int failtype = StringTools.getFailtype(ret);
 			r.setFiletype(failtype);
@@ -1290,7 +1353,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			r.setNo(json.get("no").toString());
 			r.setSpace(json.get("space")==null?"":json.get("space").toString());
 			String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
-			r.setOsdate(osdate);
+			try {
+				r.setOsdate(sdf2.format(sdf.parse(osdate)));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			r.setResult(ret);
 			int failtype = StringTools.getFailtype(ret);
 			r.setFiletype(failtype);
@@ -1373,7 +1441,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				r.setOsdate(odate);
+				try {
+					r.setOsdate(sdf2.format(sdf.parse(osdate)));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				r.setOrderid(json.get("ids").toString());	
 				r.setNo(no);
 				r.setOrderType(ordertype);
@@ -1509,7 +1582,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String osstatus=json.get("osstatus").toString();
 			String osspace=json.get("osspace").toString();
 			r.setOscontent(oscontent);
-			r.setOsdate(osdate);
+			try {
+				r.setOsdate(sdf2.format(sdf.parse(osdate)));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			r.setOsresult(osresult);
 			r.setOscount(Integer.parseInt(oscount));
 			r.setOsstatus(osstatus);
@@ -1547,7 +1625,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String osstatus=json.get("osstatus").toString();
 			String osspace=json.get("osspace").toString();
 			r.setOscontent(oscontent);
-			r.setOsdate(osdate);
+			try {
+				r.setOsdate(sdf2.format(sdf.parse(osdate)));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			r.setOsresult(osresult);
 			r.setOscount(Integer.parseInt(oscount));
 			r.setOsstatus(osstatus);
@@ -1581,7 +1664,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String osstatus=json.get("osstatus").toString();
 			String osspace=json.get("osspace").toString();
 			r.setOscontent(oscontent);
-			r.setOsdate(osdate);
+			try {
+				r.setOsdate(sdf2.format(sdf.parse(osdate)));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			r.setOsresult(osresult);
 			r.setOscount(Integer.parseInt(oscount));
 			r.setOsstatus(osstatus);
@@ -1630,7 +1718,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			String osresult=json.get("result").toString();
 			String space=json.get("osspace").toString();
 			r.setResult(osresult);
-			r.setOsdate(osdate);
+			try {
+				r.setOsdate(sdf2.format(sdf.parse(osdate)));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			r.setSpace(space);
 			Object object = json.get("result");
 			if(object!=null) {
@@ -1667,7 +1760,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			}
 			String osdate=json.get("osdate").toString();
 			String space=json.get("space").toString();
-			r.setOsdate(osdate);
+			try {
+				r.setOsdate(sdf2.format(sdf.parse(osdate)));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			r.setSpace(space);
 			String ret=json.get("result").toString();
 			Integer failtype = StringTools.getFailtype(ret);
@@ -1700,7 +1798,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				r.setFingercodes(fingercodes);
 			}
 			String osdate=json.get("osdate").toString();
-			r.setOsdate(osdate);
+			try {
+				r.setOsdate(sdf2.format(sdf.parse(osdate)));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			String order=json.get("order").toString();
 			Integer failtype = StringTools.getFailtype(ret);
 			r.setFiletype(failtype);
@@ -1740,7 +1843,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			int failtype = StringTools.getFailtype(resultorder);
 			r.setFiletype(failtype);
 			String osdate=json.get("osdate").toString();
-			r.setOsdate(osdate);
+			try {
+				r.setOsdate(sdf2.format(sdf.parse(osdate)));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			String space=json.get("space")==null?"":json.get("space").toString();
 			r.setSpace(space);
 			result.setResult(r);

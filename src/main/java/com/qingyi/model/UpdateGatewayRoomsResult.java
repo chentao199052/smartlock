@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 网关路由表更新
+ * @author Administrator
+ *
+ */
 public class UpdateGatewayRoomsResult {
 	private String orderid;
 	private Integer resultstatus;

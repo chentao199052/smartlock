@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 门锁联网模式
+ * @author Administrator
+ *
+ */
 public class UpdateRoomNetmodeResult {
 private String orderid;
 	

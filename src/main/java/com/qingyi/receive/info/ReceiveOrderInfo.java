@@ -188,10 +188,10 @@ public interface ReceiveOrderInfo {
 	
 	/**
 	 * 解析卡密授权同步指令
-	 * @param content
-	 * @param sysdate
-	 * @param verify
-	 * @return
+	 * @param content 结果内容
+	 * @param sysdate 时间戳
+	 * @param verify 校验
+	 * @return 解析结果ReceiveResult
 	 */
 	public ReceiveResult<SyncCPOrderResult> getSyncCPResult(String content,String sysdate,String verify);
 	
@@ -264,8 +264,8 @@ public interface ReceiveOrderInfo {
 
 	/**
 	 * 解析NB锁房间的信息（post过来的信息）
-	 * @param content
-	 * @return
+	 * @param content  结果内容
+	 * @return 解析结果ReceiveResult
 	 */
 	public ReceiveResult<RoomParamas> getSlRoomParamas(String content,String sysdate,String verify);
 }

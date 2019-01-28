@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 门锁常开/常闭
+ * @author Administrator
+ *
+ */
 public class UpdateRoomWorkmodeResult {
 	private String orderid;
 	

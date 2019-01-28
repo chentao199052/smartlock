@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 卡片授权同步的分包结果
+ * @author Administrator
+ *
+ */
 public class SyncFinishResult {
 	private String orderid;
 	private Integer resultstatus;

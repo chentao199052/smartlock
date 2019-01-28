@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 网关功率等级
+ * @author Administrator
+ *
+ */
 public class UpdateGatewaypowResult {
 	private String orderid;
 	private Integer resultstatus;

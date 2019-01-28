@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 片授权同步的总结果
+ * @author Administrator
+ *
+ */
 public class SyncSuccessResult {
 	private String orderid;
 	private Integer resultstatus;

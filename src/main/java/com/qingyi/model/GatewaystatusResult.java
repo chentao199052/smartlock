@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 网关状态查询
+ * @author Administrator
+ *
+ */
 public class GatewaystatusResult {
 	private String orderid;
 	private Integer resultstatus;

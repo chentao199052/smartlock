@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 清除网关异常数
+ * @author Administrator
+ *
+ */
 public class ClearsGatewaytatusResult {
 	private String orderid;
 	private Integer resultstatus;

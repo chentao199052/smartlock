@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 解析门锁远程开门指令
+ * @author Administrator
+ *
+ */
 public class OpenResult {
 	private String orderid;
 	
@@ -23,7 +27,18 @@ public class OpenResult {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	/**
+	 * 
+	 * @param orderid ID
+	 * @param locktype 门锁类型
+	 * @param filetype 失败类型
+	 * @param resultstatus 状态
+	 * @param order 内容
+	 * @param no 次数
+	 * @param result 结果
+	 * @param space 时间长
+	 * @param osdate 发送时间
+	 */
 	public OpenResult(String orderid, String locktype, Integer filetype, Integer resultstatus, String order, Integer no,
 			String result, String space, String osdate) {
 		super();

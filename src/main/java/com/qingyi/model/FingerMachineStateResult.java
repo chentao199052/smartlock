@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 指纹机状态
+ * @author Administrator
+ *
+ */
 public class FingerMachineStateResult {
 	private String orderid;
 	private Integer resultstatus;
@@ -13,6 +17,17 @@ public class FingerMachineStateResult {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	/**
+	 * 
+	 * @param orderid ID
+	 * @param resultstatus  状态
+	 * @param filetype  失败类型
+	 * @param version 版本
+	 * @param order 内容
+	 * @param result 结果
+	 * @param space 时间长
+	 * @param osdate 发送时间
+	 */
 	public FingerMachineStateResult(String orderid, Integer resultstatus, Integer filetype, String version,
 			String order, String result, String space, String osdate) {
 		super();
