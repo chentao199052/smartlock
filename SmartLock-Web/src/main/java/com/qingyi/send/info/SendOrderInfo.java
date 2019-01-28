@@ -438,7 +438,7 @@ public interface SendOrderInfo {
 	 * @param frlist
 	 * @return
 	 */
-	public SendResult<LockResult> updateTotalForcelockList(List<AuthTotal> frlist);
+	public SendResult<List<LockResult>> updateTotalForcelockList(List<AuthTotal> frlist);
 	/**
 	 * 修改门锁常开/常闭模式(合)
 	 * @param type  type 1常开，2常闭
@@ -457,7 +457,7 @@ public interface SendOrderInfo {
 	 * @param wklist
 	 * @return
 	 */
-	public SendResult<LockResult> updateTotalRoomWorkmodeList(List<AuthTotal> wklist);
+	public SendResult<List<LockResult>> updateTotalRoomWorkmodeList(List<AuthTotal> wklist);
 	/**
 	 * 修改门锁授权模式（合）
 	 * @param type type 1允许离线授权，2禁止离线授权
@@ -476,7 +476,7 @@ public interface SendOrderInfo {
 	 * @param ntlist
 	 * @return
 	 */
-	public SendResult<LockResult> updateTotalRoomNetmodeList(List<AuthTotal> ntlist);
+	public SendResult<List<LockResult>> updateTotalRoomNetmodeList(List<AuthTotal> ntlist);
 
 	/**
 	 * 发送密码授权指令(合)
@@ -497,7 +497,7 @@ public interface SendOrderInfo {
 	 * @param plist
 	 * @return
 	 */
-	public SendResult<AuthResult> saveTotalUnlockPswList(List<AuthPsw> plist,List<AuthDelPsw> dplist,Integer timeout,String callbackurl);
+	public SendResult<List<AuthResult>> saveTotalUnlockPswList(List<AuthPsw> plist,Integer timeout,String callbackurl);
 	/**
 	 * 取消密码授权指令(合)
 	 * @param gatewaycode 网关通讯ID
@@ -517,7 +517,7 @@ public interface SendOrderInfo {
 	 * @param delist
 	 * @return
 	 */
-	public SendResult<PswsResult> delTotalUnlockpswList(List<AuthDelPsw> delist);
+	public SendResult<List<PswsResult>> delTotalUnlockpswList(List<AuthDelPsw> delist);
 
 	/**
 	 * 发送卡片授权指令(合)
@@ -540,7 +540,7 @@ public interface SendOrderInfo {
 	 * @param callbackurl 回调地址
 	 * @return
 	 */
-	public SendResult<AuthResult> saveTotalRoomCardList(List<AuthCard> clist,List<AuthDelCard> dclist, Integer timeout, String callbackurl);
+	public SendResult<List<AuthResult>> saveTotalRoomCardList(List<AuthCard> clist,Integer timeout, String callbackurl);
 
 	/**
 	 * 删除卡片授权指令(合)
@@ -562,7 +562,7 @@ public interface SendOrderInfo {
 	 * @param dclist
 	 * @return
 	 */
-	public SendResult<DelCardsResult> delTotalRoomCardList(List<AuthDelCard> dclist);
+	public SendResult<List<DelCardsResult>> delTotalRoomCardList(List<AuthDelCard> dclist);
 	
 	/**
 	 * 发送指纹授权指令(合)
@@ -583,7 +583,7 @@ public interface SendOrderInfo {
 	 * @param rflist
 	 * @return
 	 */
-	public SendResult<AuthResult> saveTotalRoomFingerList(List<AuthFinger> flist,List<AuthDelFinger> dflist,Integer timeout,String callbackurl);
+	public SendResult<List<DelCardsResult>> saveTotalRoomFingerList(List<AuthFinger> flist,List<AuthDelFinger> dflist,Integer timeout,String callbackurl);
 	/**
 	 *  删除指纹授权指令(合)
 	 * @param gatewaycode
@@ -604,12 +604,12 @@ public interface SendOrderInfo {
 	 * @param dflist
 	 * @return
 	 */
-	public SendResult<DelFingersResult> delTotalRoomFingerList(List<AuthDelFinger> dflist);
+	public SendResult<List<DelFingersResult>> delTotalRoomFingerList(List<AuthDelFinger> dflist);
 	
 	/**
 	 * 批量修改门锁功率等级
 	 */
-	public SendResult<PowResult> updateRoompowList(List<Roompow> powlist);
+	public SendResult<List<PowResult>> updateRoompowList(List<Roompow> powlist);
 	
 	/**
 	 * 注册NB锁
