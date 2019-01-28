@@ -1156,14 +1156,11 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult<AuthResult> saveTotalRoomFingerList(List<AuthFinger> flist,List<AuthDelFinger> dflist,Integer timeout,String callbackurl) {
+	public SendResult<AuthResult> saveTotalRoomFingerList(List<AuthFinger> flist,Integer timeout,String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
 		if(null!=flist&&flist.size()>0) {
 			param.put("finlist", flist);
-		}
-		if(null!=dflist&&dflist.size()>0) {
-			param.put("delfinlist", dflist);
 		}
 		if(param.isEmpty()) {
 			return new SendResult("-20003","授权内容不能全部为空","");
@@ -1180,8 +1177,9 @@ public class SendOrderImpl implements SendOrderInfo{
 			sr.setResultMsg("指令超时时间不能为空或小于0");
 			return sr;
 		}
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
 		if("0".equals(sr.getResultCode())) {
-			sr = StringTools.checkDelFingerList(dflist);
 			if("0".equals(sr.getResultCode())) {
 				String result=HttpsUtil.httpURLConnectionPOST(baseurl, "savetotalroomfingerlist", secret, param);
 				sr = StringTools.getSendResultByJson(result);
