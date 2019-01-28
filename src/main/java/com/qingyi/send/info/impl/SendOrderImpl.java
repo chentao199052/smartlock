@@ -954,18 +954,38 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult saveTotalUnlockPswList(List<AuthPsw> plist) {
+	public SendResult<AuthResult> saveTotalUnlockPswList(List<AuthPsw> plist,List<AuthDelPsw> dplist,Integer timeout,String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param =new LinkedHashMap();
-		if(plist==null || plist.size()==0) {
-			return new SendResult<>("10007", "参数不能为空","");
-		}else {
-			param.put("plist", plist);
+		if(null!=plist&&plist.size()>0) {
+			param.put("pswlist", plist);
 		}
-		SendResult sr=StringTools.checkPswList(plist);
+		if(null!=dplist&&dplist.size()>0) {
+			param.put("delpswlist", dplist);
+		}
+		if(param.isEmpty()) {
+			return new SendResult("-20003","授权内容不能全部为空","");
+		}
+		SendResult<AuthResult> sr=StringTools.checkPswList(plist);
+		if(null==callbackurl || callbackurl.equals("") || callbackurl.equals("null")) {
+			sr.setResultCode("-20004");
+			sr.setResultMsg("回调地址不能为空");
+			return sr;
+		}
+		
+		if(null==timeout || timeout<0) {
+			sr.setResultCode("-20005");
+			sr.setResultMsg("指令超时时间不能为空或小于0");
+			return sr;
+		}
 		if("0".equals(sr.getResultCode())) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "savetotalunlockpswlist", secret, param);
-			sr = StringTools.getSendResultByJson2(result,PswsResult.class);
+			sr = StringTools.checkDelPswList(dplist);
+			if(!"0".equals(sr.getResultCode())) {
+				return sr;
+			}else {
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl, "savetotalunlockpswlist", secret, param);
+				sr = StringTools.getSendResultByJson(result);
+			}
 		}
 		return sr;
 	}
@@ -1035,16 +1055,43 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult saveTotalRoomCardList(List<AuthCard> clist) {
+	public SendResult<AuthResult> saveTotalRoomCardList(List<AuthCard> clist,List<AuthDelCard> dclist, Integer timeout, String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
-		param.put("clist", clist);
-		SendResult sr = StringTools.checkCardList(clist);
-		if("0".equals(sr.getResultCode())) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "savetotalroomcardlist", secret, param);
-			sr = StringTools.getSendResultByJson2(result,CardsResult.class);
-			//sr = (SendResult) StringTools.getResultObject(result, SendResult.class);
+		if(null!=clist&&clist.size()>0){
+			param.put("cardlist", clist);
 		}
+		if(null!=dclist&&dclist.size()>0) {
+			param.put("delcardlist", dclist);
+		}
+		if(param.isEmpty()) {
+			return new SendResult("-20003","授权内容不能全部为空","");
+		}
+		SendResult<AuthResult> sr = StringTools.checkCardList(clist);
+		if(null==callbackurl || callbackurl.equals("") || callbackurl.equals("null")) {
+			sr.setResultCode("-20004");
+			sr.setResultMsg("回调地址不能为空");
+			return sr;
+		}
+		
+		if(null==timeout || timeout<0) {
+			sr.setResultCode("-20005");
+			sr.setResultMsg("指令超时时间不能为空或小于0");
+			return sr;
+		}
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		if(!"0".equals(sr.getResultCode())) {
+			return sr;
+		}else {
+			sr = StringTools.checkDelCardList(dclist);
+			if(!"0".equals(sr.getResultCode())) {
+				return sr;
+			}
+		}
+		
+		String result=HttpsUtil.httpURLConnectionPOST(baseurl, "savetotalroomcardlist", secret, param);
+		sr = StringTools.getSendResultByJson(result);
 		return sr;
 	}
 
@@ -1114,14 +1161,36 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult saveTotalRoomFingerList(List<AuthFinger> rflist) {
+	public SendResult<AuthResult> saveTotalRoomFingerList(List<AuthFinger> flist,List<AuthDelFinger> dflist,Integer timeout,String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
-		param.put("rflist", rflist);
-		SendResult sr = StringTools.checkFingerList(rflist);
+		if(null!=flist&&flist.size()>0) {
+			param.put("finlist", flist);
+		}
+		if(null!=dflist&&dflist.size()>0) {
+			param.put("delfinlist", dflist);
+		}
+		if(param.isEmpty()) {
+			return new SendResult("-20003","授权内容不能全部为空","");
+		}
+		SendResult<AuthResult> sr = StringTools.checkFingerList(flist);
+		if(null==callbackurl || callbackurl.equals("") || callbackurl.equals("null")) {
+			sr.setResultCode("-20004");
+			sr.setResultMsg("回调地址不能为空");
+			return sr;
+		}
+		
+		if(null==timeout || timeout<0) {
+			sr.setResultCode("-20005");
+			sr.setResultMsg("指令超时时间不能为空或小于0");
+			return sr;
+		}
 		if("0".equals(sr.getResultCode())) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "savetotalroomfingerlist", secret, param);
-			sr=StringTools.getSendResultByJson2(result,FingersResult.class);
+			sr = StringTools.checkDelFingerList(dflist);
+			if("0".equals(sr.getResultCode())) {
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl, "savetotalroomfingerlist", secret, param);
+				sr = StringTools.getSendResultByJson(result);
+			}
 		}
 		return sr;
 	}
