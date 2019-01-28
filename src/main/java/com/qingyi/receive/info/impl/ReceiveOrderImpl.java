@@ -204,12 +204,16 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 		return result;
 	}
 
+	
+	
 	@Override
 	public ReceiveResult<OpenResult> getLockRemoteOpenResult(String content, String sysdate, String verify) {
 		// TODO Auto-generated method stub
 		ReceiveResult<OpenResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if(result.getResultCode().equals("0")) {
 			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+				SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				Map json=StringTools.stringToMap2(content);
 				OpenResult r=new OpenResult();
 				String itid=json.get("itid").toString();
@@ -229,7 +233,8 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				}
 				String no=json.get("no").toString();
 				String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
-				r.setOsdate(osdate);
+				String format = sdf2.format(sdf.parse(osdate));
+				r.setOsdate(format);
 				if(null!=no&&no.matches("^[0-9]{1,}$")) {
 					r.setNo(Integer.parseInt(no));
 				}
