@@ -497,7 +497,7 @@ public interface SendOrderInfo {
 	 * @param plist
 	 * @return
 	 */
-	public SendResult<PswsResult> saveTotalUnlockPswList(List<AuthPsw> plist);
+	public SendResult<AuthResult> saveTotalUnlockPswList(List<AuthPsw> plist,List<AuthDelPsw> dplist,Integer timeout,String callbackurl);
 	/**
 	 * 取消密码授权指令(合)
 	 * @param gatewaycode 网关通讯ID
@@ -536,9 +536,11 @@ public interface SendOrderInfo {
 	/**
 	 * 发送卡片授权指令(合-批量)
 	 * @param clist
+	 * @param timeout 超时时间
+	 * @param callbackurl 回调地址
 	 * @return
 	 */
-	public SendResult<CardsResult> saveTotalRoomCardList(List<AuthCard> clist);
+	public SendResult<AuthResult> saveTotalRoomCardList(List<AuthCard> clist,List<AuthDelCard> dclist, Integer timeout, String callbackurl);
 
 	/**
 	 * 删除卡片授权指令(合)
@@ -581,7 +583,7 @@ public interface SendOrderInfo {
 	 * @param rflist
 	 * @return
 	 */
-	public SendResult<FingersResult> saveTotalRoomFingerList(List<AuthFinger> rflist);
+	public SendResult<AuthResult> saveTotalRoomFingerList(List<AuthFinger> flist,List<AuthDelFinger> dflist,Integer timeout,String callbackurl);
 	/**
 	 *  删除指纹授权指令(合)
 	 * @param gatewaycode
