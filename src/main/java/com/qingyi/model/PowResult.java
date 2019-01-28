@@ -2,21 +2,17 @@ package com.qingyi.model;
 
 public class PowResult {
 	private String orderId;
+	private String gatewaycode;
 	private String roomcode;
 	private String ptype;
 	public PowResult() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	/**
-	 * 
-	 * @param orderId
-	 * @param roomcode 房间编号
-	 * @param ptype	   功率等级	
-	 */
-	public PowResult(String orderId, String roomcode, String ptype) {
+	public PowResult(String orderId, String gatewaycode, String roomcode, String ptype) {
 		super();
 		this.orderId = orderId;
+		this.gatewaycode = gatewaycode;
 		this.roomcode = roomcode;
 		this.ptype = ptype;
 	}
@@ -25,6 +21,12 @@ public class PowResult {
 	}
 	public void setOrderId(String orderId) {
 		this.orderId = orderId;
+	}
+	public String getGatewaycode() {
+		return gatewaycode;
+	}
+	public void setGatewaycode(String gatewaycode) {
+		this.gatewaycode = gatewaycode;
 	}
 	public String getRoomcode() {
 		return roomcode;
