@@ -18,6 +18,8 @@ public class Verify {
 			return getErrResult(100002, "校验为必传参数！");
 		}
 		String md5=StringTools.getMd5(content+sysdate+secret);
+		System.out.println("加密前:"+content+sysdate+secret);
+		System.out.println("加密后:"+md5);
 		verify=verify.toLowerCase();
 		if(verify.equals(md5)) {
 			Calendar cal = Calendar.getInstance(); 
