@@ -155,5 +155,15 @@ public class RoomParamas {
 	public void setRecordcount(String recordcount) {
 		this.recordcount = recordcount;
 	}
+	@Override
+	public String toString() {
+		return "RoomParamas [roomcode2=" + roomcode2 + ", roomcharge=" + roomcharge + ", roomecl=" + roomecl
+				+ ", roomsnr=" + roomsnr + ", lockver=" + lockver + ", locklca=" + locklca + ", roomreset=" + roomreset
+				+ ", isfinger=" + isfinger + ", isbluetooth=" + isbluetooth + ", isscanner=" + isscanner
+				+ ", islockswith=" + islockswith + ", islatchswith=" + islatchswith + ", iskeyswith=" + iskeyswith
+				+ ", iscontactswith=" + iscontactswith + ", signalStrength=" + signalStrength + ", roomstatus2="
+				+ roomstatus2 + ", roomstatus=" + roomstatus + ", recordcount=" + recordcount + "]";
+	}
+	
 	
 }
