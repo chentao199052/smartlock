@@ -865,7 +865,7 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult saveTotalResetList(List<AuthRestAndOpen> rstlist) {
+	public SendResult<List<LockResult>> saveTotalResetList(List<AuthRestAndOpen> rstlist) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param =new LinkedHashMap();
 		if(rstlist==null || rstlist.size()==0) {
@@ -883,7 +883,7 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult saveTotalOpenList(List<AuthRestAndOpen> oplist) {
+	public SendResult<List<LockResult>> saveTotalOpenList(List<AuthRestAndOpen> oplist) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param =new LinkedHashMap();
 		if(oplist==null || oplist.size()==0) {
@@ -902,7 +902,7 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult updateTotalForcelockList(List<AuthTotal> frlist) {
+	public SendResult<List<LockResult>> updateTotalForcelockList(List<AuthTotal> frlist) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param =new LinkedHashMap();
 		if(frlist==null || frlist.size()==0) {
@@ -920,7 +920,7 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult updateTotalRoomWorkmodeList(List<AuthTotal> wklist) {
+	public SendResult<List<LockResult>> updateTotalRoomWorkmodeList(List<AuthTotal> wklist) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param =new LinkedHashMap();
 		if(wklist==null || wklist.size()==0) {
@@ -938,13 +938,13 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult updateTotalRoomNetmodeList(List<AuthTotal> ntlist) {
+	public SendResult<List<LockResult>> updateTotalRoomNetmodeList(List<AuthTotal> ntlist) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param =new LinkedHashMap();
 		if(ntlist==null || ntlist.size()==0) {
 			return new SendResult<>("10007", "参数不能为空","");
 		}else {
-			param.put("wklist", ntlist);
+			param.put("ntlist", ntlist);
 		}
 		SendResult sr=StringTools.checkAuthTotalList(ntlist);
 		if("0".equals(sr.getResultCode())) {
@@ -1114,7 +1114,7 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult delTotalRoomCardList(List<AuthDelCard> dclist) {
+	public SendResult<List<DelCardsResult>> delTotalRoomCardList(List<AuthDelCard> dclist) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
 		param.put("dclist", dclist);
