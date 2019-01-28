@@ -896,6 +896,7 @@ public class SendOrderImpl implements SendOrderInfo{
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "savetotalopenlist", secret, param);
 			//System.out.println(result);
 			sr = StringTools.getSendResultByJson2(result,LockResult.class);
+			System.out.println(sr);
 		}
 		return sr;
 	}
@@ -954,14 +955,11 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult<AuthResult> saveTotalUnlockPswList(List<AuthPsw> plist,List<AuthDelPsw> dplist,Integer timeout,String callbackurl) {
+	public SendResult<AuthResult> saveTotalUnlockPswList(List<AuthPsw> plist,Integer timeout,String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param =new LinkedHashMap();
 		if(null!=plist&&plist.size()>0) {
 			param.put("pswlist", plist);
-		}
-		if(null!=dplist&&dplist.size()>0) {
-			param.put("delpswlist", dplist);
 		}
 		if(param.isEmpty()) {
 			return new SendResult("-20003","授权内容不能全部为空","");
@@ -978,8 +976,9 @@ public class SendOrderImpl implements SendOrderInfo{
 			sr.setResultMsg("指令超时时间不能为空或小于0");
 			return sr;
 		}
+		param.put("timeout", timeout);
+		param.put("callbackurl",callbackurl);
 		if("0".equals(sr.getResultCode())) {
-			sr = StringTools.checkDelPswList(dplist);
 			if(!"0".equals(sr.getResultCode())) {
 				return sr;
 			}else {
@@ -1055,14 +1054,11 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult<AuthResult> saveTotalRoomCardList(List<AuthCard> clist,List<AuthDelCard> dclist, Integer timeout, String callbackurl) {
+	public SendResult<AuthResult> saveTotalRoomCardList(List<AuthCard> clist, Integer timeout, String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
 		if(null!=clist&&clist.size()>0){
 			param.put("cardlist", clist);
-		}
-		if(null!=dclist&&dclist.size()>0) {
-			param.put("delcardlist", dclist);
 		}
 		if(param.isEmpty()) {
 			return new SendResult("-20003","授权内容不能全部为空","");
@@ -1084,7 +1080,6 @@ public class SendOrderImpl implements SendOrderInfo{
 		if(!"0".equals(sr.getResultCode())) {
 			return sr;
 		}else {
-			sr = StringTools.checkDelCardList(dclist);
 			if(!"0".equals(sr.getResultCode())) {
 				return sr;
 			}
