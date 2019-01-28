@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 
+ * @author Administrator
+ *
+ */
 public class FingersuccessResult {
 	private String orderid;
 	private String rcid;
