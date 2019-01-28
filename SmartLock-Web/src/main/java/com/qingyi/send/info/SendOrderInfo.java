@@ -542,8 +542,8 @@ public interface SendOrderInfo {
 
 	/**
 	 * 删除卡片授权指令(合)
-	 * @param gatewaycode
-	 * @param gatewaycode2
+	 * @param gatewaycode  网关通讯ID
+	 * @param gatewaycode2 网关
 	 * @param roomcode
 	 * @param roomcode2
 	 * @param roomimei
