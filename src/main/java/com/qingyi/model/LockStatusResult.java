@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 门锁状态指令结果
+ * @author Administrator
+ *
+ */
 public class LockStatusResult {
 	
 	private String orderid;
