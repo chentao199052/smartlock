@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 取消密码授权
+ * @author Administrator
+ *
+ */
 public class DelUnlockpswResult {
 	  private String orderid;
 		

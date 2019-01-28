@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 卡片授权同步失败
+ * @author Administrator
+ *
+ */
 public class SyncFailResult {
 	private String orderid;
 	private Integer resultstatus;

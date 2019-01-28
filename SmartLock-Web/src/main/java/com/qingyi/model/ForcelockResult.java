@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 门锁强锁/非强锁
+ * @author Administrator
+ *
+ */
 public class ForcelockResult {
 	private String orderid;
 	private Integer filetype;

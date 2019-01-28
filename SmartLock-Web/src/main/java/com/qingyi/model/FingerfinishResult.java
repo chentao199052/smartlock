@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 指纹指令分包成功
+ * @author Administrator
+ *
+ */
 public class FingerfinishResult {
 	private String orderid;
 	private String rcid;

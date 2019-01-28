@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 密码授权
+ * @author Administrator
+ *
+ */
 public class SaveUnlockPswResult {
     private String orderid;
 	

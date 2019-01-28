@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 纹授权同步失败
+ * @author Administrator
+ *
+ */
 public class FingerfailResult {
 	private String orderid;// 分布式ID
 	private String rcid;//删除指纹授权时为roomid  授权同步/授权为分布式ID 重载白名单为SlRoomfinger id

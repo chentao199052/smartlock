@@ -1,7 +1,11 @@
 package com.qingyi.model;
 
 import java.util.List;
-
+/**
+ * 门锁记录
+ * @author Administrator
+ *
+ */
 public class LockRecordResult {
 	private String orderid;
 	private String roomcode2;//只有NB锁有值

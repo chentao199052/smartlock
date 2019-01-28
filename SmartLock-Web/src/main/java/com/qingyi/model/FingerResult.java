@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 指纹结果
+ * @author Administrator
+ *
+ */
 public class FingerResult {
 	private String orderType;
 	private FingerfailResult failResult;

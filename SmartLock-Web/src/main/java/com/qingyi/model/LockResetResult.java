@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 门锁复位
+ * @author Administrator
+ *
+ */
 public class LockResetResult {
 	private String orderid;
 	
@@ -22,7 +26,18 @@ public class LockResetResult {
 	public LockResetResult() {
 		super();
 	}
-
+	/**
+	 * 
+	 * @param orderid  ID
+	 * @param filetype  失败类型
+	 * @param locktype  门锁类型
+	 * @param resultstatus 状态
+	 * @param order 内容
+	 * @param no 次数
+	 * @param result 结果
+	 * @param space 时长
+	 * @param osdate 发送时间
+	 */
 	public LockResetResult(String orderid, Integer filetype, String locktype, Integer resultstatus, String order,
 			Integer no, String result, String space, String osdate) {
 		super();

@@ -1,7 +1,11 @@
 package com.qingyi.model;
 
 import java.util.List;
-
+/**
+ * 网关记录
+ * @author Administrator
+ *
+ */
 public class ReadGatewayRecordResult {
 	private String gatewaycode2;
 	private String record;

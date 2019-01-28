@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * NB锁房间信息
+ * @author Administrator
+ *
+ */
 public class RoomParamas {
 	private String roomcode2;
 	private Integer roomcharge;
@@ -23,6 +27,27 @@ public class RoomParamas {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	/**
+	 * 
+	 * @param roomcode2 房间唯一编号
+	 * @param roomcharge
+	 * @param roomecl
+	 * @param roomsnr
+	 * @param lockver
+	 * @param locklca
+	 * @param roomreset
+	 * @param isfinger
+	 * @param isbluetooth
+	 * @param isscanner
+	 * @param islockswith
+	 * @param islatchswith
+	 * @param iskeyswith
+	 * @param iscontactswith
+	 * @param signalStrength
+	 * @param roomstatus2 
+	 * @param roomstatus
+	 * @param recordcount 记录条数
+	 */
 	public RoomParamas(String roomcode2, Integer roomcharge, String roomecl, String roomsnr, String lockver,
 			String locklca, String roomreset, String isfinger, String isbluetooth, String isscanner, String islockswith,
 			String islatchswith, String iskeyswith, String iscontactswith, String signalStrength, String roomstatus2,

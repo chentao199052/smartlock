@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 门锁功率等级
+ * @author Administrator
+ *
+ */
 public class UpdateRoompowResult {
 	private String orderid;
 	

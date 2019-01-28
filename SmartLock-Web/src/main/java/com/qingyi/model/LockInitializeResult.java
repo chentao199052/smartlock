@@ -1,5 +1,9 @@
 package com.qingyi.model;
-
+/**
+ * 初始化房间编号
+ * @author Administrator
+ *
+ */
 public class LockInitializeResult {
 	private String orderid;
 	
