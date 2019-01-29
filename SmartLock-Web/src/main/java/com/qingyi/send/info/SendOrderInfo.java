@@ -313,16 +313,19 @@ public interface SendOrderInfo {
 	
 	/**
 	 * 发送房间卡片/密码授权同步指令
-	 * @param gatewaycode 门锁归属网关通讯ID
-	 * @param gatewaycode2 门锁归属网关唯一ID
-	 * @param roomcode 房间编号
-	 * @param rclist 卡片授权实体list
-	 * @param pswlist 密码授权实体list
-	 * @param timeout 有效时间（单位s）
-	 * @param callbackurl 回调地址（接收指令发送结果）
+	 * @param gatewaycode 门锁归属网关通讯ID（联网锁必填）
+	 * @param gatewaycode2 门锁归属网关唯一ID（联网锁必填）
+	 * @param roomcode 房间编号（联网锁必填）
+	 * @param roomcode2 房间唯一ID（NB锁必填）
+	 * @param roomimei NB锁imei（NB锁必填）
+	 * @param locktype 门锁类型（必填，1，联网锁，2华为NB，3电信NB，4移动NB）
+	 * @param rclist 卡片授权实体list（卡片或密码list不能同时为空）
+	 * @param pswlist 密码授权实体list（）
+	 * @param timeout 有效时间（必填，单位s）
+	 * @param callbackurl 回调地址（必填，接收指令发送结果）
 	 * @return 指令发送结果SendResult
 	 */
-	public SendResult syncRoomCardAndPsw(String gatewaycode,String gatewaycode2,String roomcode,List<RoomCard> rclist,List<UnlockPsw> pswlist,Integer timeout,String callbackurl);
+	public SendResult syncRoomCardAndPsw(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String roomimei,String locktype,List<RoomCard> rclist,List<UnlockPsw> pswlist,Integer timeout,String callbackurl);
 	
 
 	/**
@@ -536,8 +539,6 @@ public interface SendOrderInfo {
 	/**
 	 * 发送卡片授权指令(合-批量)
 	 * @param clist
-	 * @param timeout 超时时间
-	 * @param callbackurl 回调地址
 	 * @return
 	 */
 	public SendResult<AuthResult> saveTotalRoomCardList(List<AuthCard> clist,Integer timeout, String callbackurl);
