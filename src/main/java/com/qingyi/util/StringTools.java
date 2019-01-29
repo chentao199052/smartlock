@@ -588,11 +588,12 @@ public class StringTools {
 				sr.setResultCode("-10037");
 				sr.setResultMsg("指纹特征码不能为空");
 				return sr;
-			}else if(au.getFingercontent().length()!=988||au.getFingercontent().toUpperCase().matches(".*[G-Z].*")) {
-				sr.setResultCode("-10038");
-				sr.setResultMsg("指纹特征码必须为988位十六进制字符串");
-				return sr;
 			}
+//			else if(au.getFingercontent().length()!=988||au.getFingercontent().toUpperCase().matches(".*[G-Z].*")) {
+//				sr.setResultCode("-10038");
+//				sr.setResultMsg("指纹特征码必须为988位十六进制字符串");
+//				return sr;
+//			}
 			
 			
 			if(null==au.getOpenstime()||au.getOpenstime().equals("")||au.getOpenstime().equals("null")) {

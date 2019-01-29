@@ -517,7 +517,7 @@ public interface SendOrderInfo {
 	 * @param delist
 	 * @return
 	 */
-	public SendResult<List<PswsResult>> delTotalUnlockpswList(List<AuthDelPsw> delist);
+	public SendResult<List<PswsResult>> delTotalUnlockpswList(List<AuthDelPsw> delist,Integer timeout,String callbackurl);
 
 	/**
 	 * 发送卡片授权指令(合)
@@ -562,7 +562,7 @@ public interface SendOrderInfo {
 	 * @param dclist
 	 * @return
 	 */
-	public SendResult<List<DelCardsResult>> delTotalRoomCardList(List<AuthDelCard> dclist);
+	public SendResult<List<DelCardsResult>> delTotalRoomCardList(List<AuthDelCard> dclist,Integer timeout,String callbackurl);
 	
 	/**
 	 * 发送指纹授权指令(合)
@@ -604,7 +604,7 @@ public interface SendOrderInfo {
 	 * @param dflist
 	 * @return
 	 */
-	public SendResult<List<DelFingersResult>> delTotalRoomFingerList(List<AuthDelFinger> dflist);
+	public SendResult<List<DelFingersResult>> delTotalRoomFingerList(List<AuthDelFinger> dflist,Integer timeout,String callbackurl);
 	
 	/**
 	 * 批量修改门锁功率等级
