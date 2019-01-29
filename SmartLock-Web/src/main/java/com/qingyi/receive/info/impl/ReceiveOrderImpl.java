@@ -1511,7 +1511,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				//联网锁
 				if(locktype.equals("1")) {
 					String num = json.get("num").toString();
-					String itid = json.get("itid").toString();
+					String itid = json.get("rcid").toString();
 					String sendorder = json.get("sendorder").toString();
 					String resultorder = json.get("result").toString();
 					JSONObject retj = StringTools.getPassOrCardBySendorder(sendorder);
@@ -1542,7 +1542,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 					}
 					
 					String num = json.get("num").toString();
-					String itid = json.get("itid").toString();
+					String itid = json.get("rcid").toString();
 					res.setNo(num);
 					res.setOrderid(itid);
 				}else {
