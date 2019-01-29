@@ -25,6 +25,7 @@ import com.qingyi.model.RegistNb;
 import com.qingyi.model.Room;
 import com.qingyi.model.RoomCard;
 import com.qingyi.model.RoomFinger;
+import com.qingyi.model.RoomResult;
 import com.qingyi.model.Roompow;
 import com.qingyi.model.SendResult;
 import com.qingyi.model.SyncResult;
@@ -619,7 +620,7 @@ public interface SendOrderInfo {
 	 * @param callbackurl 回调地址（接收指令发送结果）
 	 * @return 指令发送结果SendResult
 	 */
-	public SendResult getLockStatusList(List<Room> rlist,Integer timeout,String callbackurl);
+	public SendResult<List<RoomResult>> getLockStatusList(List<Room> rlist,Integer timeout,String callbackurl);
 	/**
 	 * 批量门锁记录读取指令 (不含NB锁)
 	 * @param rlist 房间信息
@@ -627,7 +628,7 @@ public interface SendOrderInfo {
 	 * @param callbackurl 回调地址（接收指令发送结果）
 	 * @return 指令发送结果SendResult
 	 */
-	public SendResult readLockRecordList(List<Room> rlist,Integer timeout,String callbackurl);
+	public SendResult<List<RoomResult>> readLockRecordList(List<Room> rlist,Integer timeout,String callbackurl);
 	
 	
 	/**
