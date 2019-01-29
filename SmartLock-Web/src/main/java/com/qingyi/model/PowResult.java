@@ -40,6 +40,11 @@ public class PowResult {
 	public void setPtype(String ptype) {
 		this.ptype = ptype;
 	}
+	@Override
+	public String toString() {
+		return "PowResult [orderId=" + orderId + ", gatewaycode=" + gatewaycode + ", roomcode=" + roomcode + ", ptype="
+				+ ptype + "]";
+	}
 	
 	
 }
