@@ -29,6 +29,7 @@ import com.qingyi.model.DelPswsResult;
 import com.qingyi.model.FingersResult;
 import com.qingyi.model.LockResult;
 import com.qingyi.model.PswsResult;
+import com.qingyi.model.Room;
 import com.qingyi.model.RoomCard;
 import com.qingyi.model.RoomFinger;
 import com.qingyi.model.Roompow;
@@ -2224,7 +2225,13 @@ public class StringTools {
 	  */
 	 public static SendResult getSendResultByJson2(String result,Class<?> clazz) {
 		 JSONObject json = JSONObject.fromObject(result);
-		 String ar = json.getString("result");
+		 String ar="";
+		 try {
+			ar = json.getString("result");
+		 } catch (Exception e) {
+			// TODO: handle exception
+			 e.printStackTrace();
+		 }
 		 SendResult retsu=new SendResult(json.getString("resultCode"),json.getString("resultMsg"), "");
 		 if(ar!=null && ar.trim().length()>0) {
 			 JSONArray fromObject = JSONArray.fromObject(ar);
@@ -2944,6 +2951,58 @@ public class StringTools {
 	public static SendResult getSendResult() {
 		// TODO Auto-generated method stub
 		return new SendResult("0", "", "");
+	}
+
+	public static SendResult checkRoomList(LinkedHashMap param) {
+		// TODO Auto-generated method stub
+		SendResult sr=new SendResult("0", "", "");
+		if(param.containsKey("rlist")) {
+			try {
+				List<Room> powlist=(List<Room>) param.get("rlist");
+				if(powlist!=null && powlist.size()>0) {
+					for(Room pow : powlist) {
+						if(pow==null) {
+							return new SendResult("100001","参数错误", "");
+						}
+						if(pow.getGatewaycode()==null||pow.getGatewaycode().equals("")||pow.getGatewaycode().equals("null")) {
+							sr.setResultCode("-10001");
+							sr.setResultMsg("网关通讯ID不能为空");
+							return sr;
+						}else if(pow.getGatewaycode().length()!=10||pow.getGatewaycode().toUpperCase().matches(".*[G-Z].*")) {
+							sr.setResultCode("-10002");
+							sr.setResultMsg("网关通讯ID必须为10位十六进制字符串");
+							return sr;
+						}
+						if(pow==null||"".equals(pow.getGatewaycode2())||pow.getGatewaycode2().equals("null")) {
+							sr.setResultCode("-10003");
+							sr.setResultMsg("网关唯一ID不能为空");
+							return sr;
+						}else if(pow.getGatewaycode2().length()!=10||pow.getGatewaycode2().toUpperCase().matches(".*[G-Z].*")) {
+							sr.setResultCode("-10004");
+							sr.setResultMsg("网关唯一ID必须为10位十六进制字符串");
+							return sr;
+						}
+						if(pow.getRoomcode()==null||pow.getRoomcode().equals("")||pow.getRoomcode().equals("null")) {
+							sr.setResultCode("-10005");
+							sr.setResultMsg("门锁编号不能为空");
+							return sr;
+						}else if(pow.getRoomcode().length()!=4||pow.getRoomcode().toUpperCase().matches(".*[G-Z].*")) {
+							sr.setResultCode("-10006");
+							sr.setResultMsg("门锁编号必须为4位十六进制字符串");
+							return sr;
+						}
+					}
+				}else {
+					return new SendResult("100001","参数错误", "");
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				return new SendResult("10008","类型转换错误","");
+			}
+		}else {
+				return new SendResult("100001","参数错误", "");
+		}
+		return sr;
 	}
 	
 }
