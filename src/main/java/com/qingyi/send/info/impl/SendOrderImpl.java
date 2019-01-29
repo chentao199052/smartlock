@@ -310,21 +310,41 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult syncRoomCardAndPsw(String gatewaycode, String gatewaycode2, String roomcode,
+	public SendResult syncRoomCardAndPsw(String gatewaycode, String gatewaycode2, String roomcode,String roomcode2,String roomimei,String locktype,
 			List<RoomCard> rclist, List<UnlockPsw> pswlist, Integer timeout, String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
-		param.put("gatewaycode", gatewaycode);
-		param.put("gatewaycode2", gatewaycode2);
-		param.put("roomcode", roomcode);
-		param.put("rclist", rclist);
-		param.put("pswlist", pswlist);
+		if(locktype.equals("1")) {
+			param.put("gatewaycode", gatewaycode);
+			param.put("gatewaycode2", gatewaycode2);
+			param.put("roomcode", roomcode);
+		}else {
+			param.put("roomcode2", roomcode2);
+			param.put("roomimei", roomimei);
+		}
+		param.put("locktype", locktype);
+		if(null!=rclist && rclist.size()>0) {
+			param.put("rclist", rclist);
+		}
+		if(null!=pswlist && pswlist.size()>0) {
+			param.put("pswlist", pswlist);
+		}
 		param.put("timeout", timeout);
 		param.put("callbackurl", callbackurl);
-		SendResult sr=StringTools.check(param);
+		SendResult sr=StringTools.checksyncRoomCardAndPsw(param);
 		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "syncroomcardandpsw", secret, param);
-			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
+			if((null==rclist || rclist.size()<=0) && (null==pswlist || pswlist.size()<=0)) {
+				return new SendResult("-20003","卡密同步数据不能全空","");
+			}else {
+				sr = StringTools.checkRoomCardList(rclist);
+				if(sr.getResultCode().equals("0")) {
+					sr = StringTools.checkUnlockPswList(pswlist);
+					if(sr.getResultCode().equals("0")) {
+						String result=HttpsUtil.httpURLConnectionPOST(baseurl, "syncroomcardandpsw", secret, param);
+						sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
+					}
+				}
+			}
 		}
 		return sr;
 	}
@@ -915,7 +935,6 @@ public class SendOrderImpl implements SendOrderInfo{
 		SendResult sr=StringTools.checkAuthTotalList(frlist);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updatetotalforcelocklist", secret, param);
-			System.out.println(result);
 			sr = StringTools.getSendResultByJson2(result,LockResult.class);
 		}
 		return sr;
@@ -960,8 +979,10 @@ public class SendOrderImpl implements SendOrderInfo{
 	public SendResult<AuthResult> saveTotalUnlockPswList(List<AuthPsw> plist,Integer timeout,String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param =new LinkedHashMap();
-		if(null!=plist&&plist.size()>0) {
-			param.put("pswlist", plist);
+		if(plist==null || plist.size()==0) {
+			return new SendResult<>("10007", "参数不能为空","");
+		}else {
+			param.put("plist", plist);
 		}
 		if(param.isEmpty()) {
 			return new SendResult("-20003","授权内容不能全部为空","");
@@ -1062,13 +1083,16 @@ public class SendOrderImpl implements SendOrderInfo{
 	public SendResult<AuthResult> saveTotalRoomCardList(List<AuthCard> clist, Integer timeout, String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
-		if(null!=clist&&clist.size()>0){
-			param.put("cardlist", clist);
+		param.put("clist", clist);
+		SendResult sr = StringTools.checkCardList(clist);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "savetotalroomcardlist", secret, param);
+			sr = StringTools.getSendResultByJson2(result,CardsResult.class);
+			//sr = (SendResult) StringTools.getResultObject(result, SendResult.class);
 		}
 		if(param.isEmpty()) {
 			return new SendResult("-20003","授权内容不能全部为空","");
 		}
-		SendResult<AuthResult> sr = StringTools.checkCardList(clist);
 		if(null==callbackurl || callbackurl.equals("") || callbackurl.equals("null")) {
 			sr.setResultCode("-20004");
 			sr.setResultMsg("回调地址不能为空");
