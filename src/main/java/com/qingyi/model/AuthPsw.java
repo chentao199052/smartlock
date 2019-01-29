@@ -45,7 +45,7 @@ public class AuthPsw {
 	 * @param opencount 可开门次数（必填，0表示永久，非永久次数范围1-254）
 	 */
 	public AuthPsw(Integer locktype, String roomcode2, String roomcode,String imei, String gatewaycode2, String gatewaycode,
-			String password, String openstime, String openetime, String edate, String opencount, Integer timeout) {
+			String password, String openstime, String openetime, String edate, String opencount) {
 		super();
 		this.locktype = locktype;
 		this.roomcode2 = roomcode2;
