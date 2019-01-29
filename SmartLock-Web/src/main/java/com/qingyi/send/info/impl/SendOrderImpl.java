@@ -1014,13 +1014,16 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult delTotalUnlockpswList(List<AuthDelPsw> delist) {
+	public SendResult delTotalUnlockpswList(List<AuthDelPsw> delist,Integer timeout,String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
 		param.put("delist", delist);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
 		SendResult sr = StringTools.checkDelPswList(delist);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "deltotalunlockpswlist", secret, param);
+			System.out.println(result);
 			sr = StringTools.getSendResultByJson2(result,PswsResult.class);
 		}
 		return sr;
@@ -1116,10 +1119,12 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult<List<DelCardsResult>> delTotalRoomCardList(List<AuthDelCard> dclist) {
+	public SendResult<List<DelCardsResult>> delTotalRoomCardList(List<AuthDelCard> dclist,Integer timeout,String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
 		param.put("dclist", dclist);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
 		SendResult sr = StringTools.checkDelCardList(dclist);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "deltotalroomcardlist", secret, param);
@@ -1215,13 +1220,16 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 	
 	@Override
-	public SendResult delTotalRoomFingerList(List<AuthDelFinger> dflist) {
+	public SendResult delTotalRoomFingerList(List<AuthDelFinger> dflist,Integer timeout,String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
 		param.put("dflist", dflist);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
 		SendResult sr = StringTools.checkDelFingerList(dflist);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "deltotalroomfingerlist", secret, param);
+			System.out.println(result);
 			sr =StringTools.getSendResultByJson2(result,DelFingersResult.class);
 		}
 		return sr;
