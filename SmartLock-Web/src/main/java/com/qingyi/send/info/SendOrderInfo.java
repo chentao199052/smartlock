@@ -339,7 +339,7 @@ public interface SendOrderInfo {
 	 * @param callbackurl  回调地址（接收指令发送结果）
 	 * @return 指令发送结果SendResult
 	 */
-	public SendResult updateRoomFiger(String gatewaycode,String gatewaycode2,String roomcode,List<RoomFinger> rflist,Integer timeout,String callbackurl); 
+	public SendResult syncRoomFiger(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String roomimei,String locktype,List<RoomFinger> rflist,Integer timeout,String callbackurl); 
 
 	/**
 	 * 重载卡片白名单
