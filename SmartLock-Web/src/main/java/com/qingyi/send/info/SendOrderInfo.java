@@ -609,7 +609,25 @@ public interface SendOrderInfo {
 	/**
 	 * 批量修改门锁功率等级
 	 */
-	public SendResult<List<PowResult>> updateRoompowList(List<Roompow> powlist);
+	public SendResult<List<PowResult>> updateRoompowList(List<Roompow> powlist,Integer timeout,String callbackurl);
+	
+	/**
+	 * 批量门锁状态指令    NB锁不支持
+	 * @param rlist 房间信息
+	 * @param timeout 有效时间（单位s）
+	 * @param callbackurl 回调地址（接收指令发送结果）
+	 * @return 指令发送结果SendResult
+	 */
+	public SendResult getLockStatusList(List<Room> rlist,Integer timeout,String callbackurl);
+	/**
+	 * 批量门锁记录读取指令 (不含NB锁)
+	 * @param rlist 房间信息
+	 * @param timeout 有效时间（单位s）
+	 * @param callbackurl 回调地址（接收指令发送结果）
+	 * @return 指令发送结果SendResult
+	 */
+	public SendResult readLockRecordList(List<Room> rlist,Integer timeout,String callbackurl);
+	
 	
 	/**
 	 * 注册NB锁
