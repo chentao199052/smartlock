@@ -1,44 +1,51 @@
 package com.qingyi.model;
-
+/**
+ * 门锁状态查询
+ * @author Administrator
+ *
+ */
 public class Room {
-	private String roomcode2;
-	private String forcelock;
-	private String networkmode;
-	private String workmode;
+	private String gatewaycode;
+	private String gatewaycode2;
+	private String roomcode;
+	public String getGatewaycode() {
+		return gatewaycode;
+	}
+	
+	
 	public Room() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Room(String roomcode2, String forcelock, String networkmode, String workmode) {
+
+	/**
+	 * 
+	 * @param gatewaycode 网关通讯ID
+	 * @param gatewaycode2 网关唯一ID
+	 * @param roomcode 房间编号
+	 */
+	public Room(String gatewaycode, String gatewaycode2, String roomcode) {
 		super();
-		this.roomcode2 = roomcode2;
-		this.forcelock = forcelock;
-		this.networkmode = networkmode;
-		this.workmode = workmode;
+		this.gatewaycode = gatewaycode;
+		this.gatewaycode2 = gatewaycode2;
+		this.roomcode = roomcode;
 	}
-	public String getRoomcode2() {
-		return roomcode2;
+
+
+	public void setGatewaycode(String gatewaycode) {
+		this.gatewaycode = gatewaycode;
 	}
-	public void setRoomcode2(String roomcode2) {
-		this.roomcode2 = roomcode2;
+	public String getGatewaycode2() {
+		return gatewaycode2;
 	}
-	public String getForcelock() {
-		return forcelock;
+	public void setGatewaycode2(String gatewaycode2) {
+		this.gatewaycode2 = gatewaycode2;
 	}
-	public void setForcelock(String forcelock) {
-		this.forcelock = forcelock;
+	public String getRoomcode() {
+		return roomcode;
 	}
-	public String getNetworkmode() {
-		return networkmode;
-	}
-	public void setNetworkmode(String networkmode) {
-		this.networkmode = networkmode;
-	}
-	public String getWorkmode() {
-		return workmode;
-	}
-	public void setWorkmode(String workmode) {
-		this.workmode = workmode;
+	public void setRoomcode(String roomcode) {
+		this.roomcode = roomcode;
 	}
 	
 	
