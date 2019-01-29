@@ -26,8 +26,10 @@ import com.qingyi.model.LockResult;
 import com.qingyi.model.PowResult;
 import com.qingyi.model.PswsResult;
 import com.qingyi.model.RegistNb;
+import com.qingyi.model.Room;
 import com.qingyi.model.RoomCard;
 import com.qingyi.model.RoomFinger;
+import com.qingyi.model.RoomResult;
 import com.qingyi.model.Roompow;
 import com.qingyi.model.SendResult;
 import com.qingyi.model.SyncResult;
@@ -1243,10 +1245,12 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult updateRoompowList(List<Roompow> powlist) {
+	public SendResult updateRoompowList(List<Roompow> powlist,Integer timeout,String callbackurl) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
 		param.put("powlist", powlist);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
 		SendResult sr = StringTools.checkPowList(param);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateroompowlist", secret, param);
@@ -1255,7 +1259,36 @@ public class SendOrderImpl implements SendOrderInfo{
 		return sr;
 	}
 
+	@Override
+	public SendResult getLockStatusList(List<Room> rlist, Integer timeout, String callbackurl) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("rlist", rlist);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr = StringTools.checkRoomList(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getlockstatuslist", secret, param);
+			System.out.println(result);
+			sr =StringTools.getSendResultByJson2(result,RoomResult.class);
+		}
+		return sr;
+	}
 	
+	@Override
+	public SendResult readLockRecordList(List<Room> rlist, Integer timeout, String callbackurl) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("rlist", rlist);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr = StringTools.checkRoomList(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"readLockRecordList", secret, param);
+			sr =StringTools.getSendResultByJson2(result,RoomResult.class);
+		}
+		return sr;
+	}
 	@Override
 	public SendResult registerDevice(String locktype,String roomimei,String lockname,String roomimsi) {
 		// TODO Auto-generated method stub
@@ -1463,5 +1496,11 @@ public class SendOrderImpl implements SendOrderInfo{
 		}
 		return sr;
 	}
+
+
+
+	
+
+	
 	
 }
