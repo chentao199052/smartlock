@@ -1913,6 +1913,15 @@ public class StringTools {
 		 return json;
 	 }
 	 
+	 public static String getFingersBySendorder(String sendorder) {
+		 String fingers = "";
+		 if(null!=sendorder && !"".equals(sendorder) && sendorder.length()>128) {
+			 String code = sendorder.substring(62,128);
+			 fingers = code.substring(2, 10);
+		 }
+		 return fingers;
+	 }
+	 
 	 private static JSONObject getPassOrCardByNBSendorder(String sendorder) {
 		 JSONObject json = new JSONObject();
 		 return json;
@@ -3030,7 +3039,7 @@ public class StringTools {
 		return sr;
 	}
 	
-	public static SendResult checksyncRoomCardAndPsw(LinkedHashMap param) {
+	public static SendResult checksyncOne(LinkedHashMap param) {
 		SendResult sr = new SendResult("0", "", "");
 		String type = param.get("locktype").toString();
 		if(null==type || "".equals(type)) {
@@ -3226,6 +3235,108 @@ public class StringTools {
 					sr.setResultMsg("密码必须为6位数字");
 					return sr;
 				}
+				
+				if(null==au.getOpenstime()||au.getOpenstime().equals("")||au.getOpenstime().equals("null")) {
+					sr.setResultCode("-10022");
+					sr.setResultMsg("可开门时间段开始时间不能为空");
+					return sr;
+				}else if(au.getOpenstime().length()!=5) {
+					sr.setResultCode("-10023");
+					sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
+					return sr;
+				}else if(!au.getOpenstime().contains(":")) {
+					sr.setResultCode("-10023");
+					sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
+					return sr;
+				}else {
+					String t = au.getOpenstime().replace(":", "");
+					if(t.length()!=4||!t.matches("\\d+")) {
+						sr.setResultCode("-10023");
+						sr.setResultMsg("可开门时间段开始时间格式为XX:XX，如00:00");
+						return sr;
+					}
+				}
+					
+				if(null==au.getOpenetime()||au.getOpenetime().equals("")||au.getOpenetime().equals("null")) {
+					sr.setResultCode("-10024");
+					sr.setResultMsg("可开门时间段结束时间不能为空");
+					return sr;
+				}else if(au.getOpenetime().length()!=5) {
+					sr.setResultCode("-10025");
+					sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
+					return sr;
+				}else if(!au.getOpenetime().contains(":")) {
+					sr.setResultCode("-10025");
+					sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
+					return sr;
+				}else {
+					String t = au.getOpenetime().replace(":", "");
+					if(t.length()!=4||!t.matches("[0-9]+")) {
+						sr.setResultCode("-10025");
+						sr.setResultMsg("可开门时间段结束时间格式为XX:XX，如00:00");
+						return sr;
+					}
+				}
+				
+				if(null==au.getEdate()||au.getEdate().equals("")||au.getEdate().equals("null")) {
+					sr.setResultCode("-10012");
+					sr.setResultMsg("授权结束时间不能为空");
+					return sr;
+				}else if(!au.getEdate().equals("-1")&&(au.getEdate().length()!=10||!au.getEdate().matches("\\d+"))) {
+					sr.setResultCode("-10013");
+					sr.setResultMsg("授权结束时间格式为yyMMddHHmm");
+					return sr;
+				}
+				
+				if(null==au.getOpencount()||au.getOpencount().equals("")||au.getOpencount().equals("null")) {
+					sr.setResultCode("-10010");
+					sr.setResultMsg("可开门次数不能为空");
+					return sr;
+				}else if(!au.getOpencount().matches("[0-9]+|(-1)")) {
+					sr.setResultCode("-10011");
+					sr.setResultMsg("可开门次数必须为0-254数字,0表示不限次数");
+					return sr;
+				}
+			}
+		}
+		return sr;
+	}
+	
+	public static SendResult checkRoomFingerList(List<RoomFinger> rflist) {
+		SendResult sr = new SendResult("0", "", "");
+		if(null!=rflist && rflist.size()>0) {
+			for(int i=0;i<rflist.size();i++) {
+				RoomFinger au = rflist.get(i);
+				if(null==au.getActioncount()||au.getActioncount().equals("")||au.getActioncount().equals("null")) {
+					sr.setResultCode("-10039");
+					sr.setResultMsg("开门需按指纹次数不能为空");
+					return sr;
+				}else if(!au.getActioncount().matches("[0-9]*")) {
+					sr.setResultCode("-10040");
+					sr.setResultMsg("开门需按指纹次数必须为数字");
+					return sr;
+				}
+				
+				if(null==au.getFingercode()||au.getFingercode().equals("")||au.getFingercode().equals("null")) {
+					sr.setResultCode("-10035");
+					sr.setResultMsg("指纹编号不能为空");
+					return sr;
+				}else if(au.getFingercode().length()!=8||au.getFingercode().toUpperCase().matches(".*[G-Z].*")) {
+					sr.setResultCode("-10036");
+					sr.setResultMsg("指纹编号必须为8位十六进制字符串");
+					return sr;
+				}
+				if(null==au.getFingercontent()||au.getFingercontent().equals("")||au.getFingercontent().equals("null")) {
+					sr.setResultCode("-10037");
+					sr.setResultMsg("指纹特征码不能为空");
+					return sr;
+				}
+//				else if(au.getFingercontent().length()!=988||au.getFingercontent().toUpperCase().matches(".*[G-Z].*")) {
+//					sr.setResultCode("-10038");
+//					sr.setResultMsg("指纹特征码必须为988位十六进制字符串");
+//					return sr;
+//				}
+				
 				
 				if(null==au.getOpenstime()||au.getOpenstime().equals("")||au.getOpenstime().equals("null")) {
 					sr.setResultCode("-10022");

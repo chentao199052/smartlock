@@ -331,7 +331,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		}
 		param.put("timeout", timeout);
 		param.put("callbackurl", callbackurl);
-		SendResult sr=StringTools.checksyncRoomCardAndPsw(param);
+		SendResult sr=StringTools.checksyncOne(param);
 		if(sr.getResultCode().equals("0")) {
 			if((null==rclist || rclist.size()<=0) && (null==pswlist || pswlist.size()<=0)) {
 				return new SendResult("-20003","卡密同步数据不能全空","");
@@ -350,21 +350,30 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult updateRoomFiger(String gatewaycode, String gatewaycode2, String roomcode, List<RoomFinger> rflist,
+	public SendResult syncRoomFiger(String gatewaycode, String gatewaycode2, String roomcode,String roomcode2,String roomimei,String locktype, List<RoomFinger> rflist,
 			Integer timeout, String callbackurl) {
 		LinkedHashMap param=new LinkedHashMap();
-		param.put("gatewaycode", gatewaycode);
-		param.put("gatewaycode2", gatewaycode2);
-		param.put("roomcode", roomcode);
+		if(locktype.equals("1")) {
+			param.put("gatewaycode", gatewaycode);
+			param.put("gatewaycode2", gatewaycode2);
+			param.put("roomcode", roomcode);
+		}else {
+			param.put("roomcode2", roomcode2);
+			param.put("roomimei", roomimei);
+		}
 		param.put("rflist", rflist);
 		param.put("timeout", timeout);
 		param.put("callbackurl", callbackurl);
-		SendResult sr=StringTools.check(param);
-		try {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateroomfiger", secret, param);
-			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
-		} catch (Exception e) {
-			
+		SendResult sr=StringTools.checksyncOne(param);
+		if(null==rflist || rflist.size()<=0) {
+			return new SendResult("-20003","指纹同步数据不能全空","");
+		}
+		if(sr.getResultCode().equals("0")) {
+			sr = StringTools.checkRoomFingerList(rflist);
+			if(sr.getResultCode().equals("0")) {
+				String result=HttpsUtil.httpURLConnectionPOST(baseurl, "syncroomfinger", secret, param);
+				sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
+			}
 		}
 		return sr;
 	}
