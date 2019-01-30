@@ -12,7 +12,6 @@ import com.qingyi.model.AuthResult;
 import com.qingyi.model.AuthSync;
 import com.qingyi.model.AuthTotal;
 import com.qingyi.model.CardsResult;
-import com.qingyi.model.ClearCP;
 import com.qingyi.model.Command;
 import com.qingyi.model.DelCardsResult;
 import com.qingyi.model.DelFingersResult;
@@ -43,27 +42,7 @@ public interface SendOrderInfo {
 	 * @return 指令发送结果SendResult
 	 */
 	public SendResult getLockStatus(String gatewaycode,String gatewaycode2,String roomcode,Integer timeout,String callbackurl);
-	/**
-	 * 发送门锁复位指令
-	 * @param gatewaycode 门锁归属网关通讯ID
-	 * @param gatewaycode2 门锁归属网关唯一ID
-	 * @param roomcode 房间编号
-	 * @param timeout 有效时间（单位s）
-	 * @param callbackurl 回调地址（接收指令发送结果）
-	 * @return 指令发送结果SendResult
-	 */
-	public SendResult saveLockReset(String gatewaycode,String gatewaycode2,String roomcode,Integer timeout,String callbackurl);
 	
-	/**
-	 * 发送门锁远程开门指令
-	 * @param gatewaycode 门锁归属网关通讯ID
-	 * @param gatewaycode2 门锁归属网关唯一ID
-	 * @param roomcode 房间编号
-	 * @param timeout 有效时间（单位s）
-	 * @param callbackurl 回调地址（接收指令发送结果）
-	 * @return 指令发送结果SendResult
-	 */
-	public SendResult saveLockRemoteOpen(String gatewaycode,String gatewaycode2,String roomcode,Integer timeout,String callbackurl);
 	
 	/**
 	 * 发送门锁记录读取指令 (不含NB锁)
@@ -76,17 +55,6 @@ public interface SendOrderInfo {
 	 */
 	public SendResult readLockRecord(String gatewaycode,String gatewaycode2,String roomcode,Integer timeout,String callbackurl);
 	
-	/**
-	 * 修改门锁强锁/非强锁模式
-	 * @param gatewaycode 门锁归属网关通讯ID
-	 * @param gatewaycode2  门锁归属网关唯一ID
-	 * @param roomcode 房间编号
-	 * @param type 1强制锁门 2非强制锁门
-	 * @param timeout 有效时间（单位s）
-	 * @param callbackurl 回调地址（接收指令发送结果）
-	 * @return 指令发送结果SendResult
-	 */
-	public SendResult updateRoomForcelock(String gatewaycode,String gatewaycode2,String roomcode,Integer type,Integer timeout,String callbackurl);
 	
 	/**
 	 * 修改门锁功率等级
@@ -99,30 +67,6 @@ public interface SendOrderInfo {
 	 * @return 指令发送结果SendResult
 	 */
 	public SendResult updateRoompow(String gatewaycode,String gatewaycode2,String roomcode,Integer level,Integer timeout,String callbackurl);
-	
-	/**
-	 * 修改门锁常开/常闭模式
-	 * @param gatewaycode 门锁归属网关通讯ID
-	 * @param gatewaycode2  门锁归属网关唯一ID
-	 * @param roomcode 房间编号
-	 * @param type 1常开，2常闭
-	 * @param timeout 有效时间（单位s）
-	 * @param callbackurl 回调地址（接收指令发送结果）
-	 * @return 指令发送结果SendResult
-	 */
-	public SendResult updateRoomWorkmode(String gatewaycode,String gatewaycode2,String roomcode,Integer type,Integer timeout,String callbackurl);
-	
-	/**
-	 * 修改门锁联网模式
-	 * @param gatewaycode 门锁归属网关通讯ID
-	 * @param gatewaycode2  门锁归属网关唯一ID
-	 * @param roomcode 房间编号
-	 * @param type 1允许离线授权，2禁止离线授权
-	 * @param timeout 有效时间（单位s）
-	 * @param callbackurl 回调地址（接收指令发送结果）
-	 * @return 指令发送结果SendResult
-	 */
-	public SendResult updateRoomNetmode(String gatewaycode,String gatewaycode2,String roomcode,Integer type,Integer timeout,String callbackurl);
 	
 	/**
 	 * 指纹机录入准备
@@ -299,19 +243,6 @@ public interface SendOrderInfo {
 	
 	
 	
-	/**
-	 * 删除指纹授权指令
-	 * @param gatewaycode 门锁归属网关通讯ID
-	 * @param gatewaycode2 门锁归属网关唯一ID
-	 * @param roomcode 房间编号
-	 * @param fingercode 指纹编号
-	 * @param timeout 有效时间（单位s）
-	 * @param callbackurl 回调地址（接收指令发送结果）
-	 * @return 指令发送结果SendResult
-	 * 
-	 * orderId 为 XXXX(orderId)-XXX(rfid)   
-	 */
-	public List<SendResult> delRoomFinger(String gatewaycode,String gatewaycode2,String roomid,String roomcode,List<DelRoomFinger> rflist,Integer timeout,String callbackurl);
 	
 	/**
 	 * 发送房间卡片/密码授权同步指令
@@ -342,7 +273,6 @@ public interface SendOrderInfo {
 	 */
 	public SendResult syncRoomFinger(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String roomimei,String locktype,List<RoomFinger> rflist,Integer timeout,String callbackurl); 
 
-	
 	/**
 	 * 根据授权列表生成网关锁与NB锁的授权与取消授权指令
 	 * @param clist 需授权卡片列表
@@ -727,12 +657,4 @@ public interface SendOrderInfo {
 	 * @return
 	 */
 	public SendResult getNbRoomParamasBackUrl();
-	
-	/**
-	 * 房间卡密授权清除指令
-	 * @param roomcode2
-	 * @param url
-	 * @return
-	 */
-	public SendResult clearCardAndPsw(List<ClearCP> cplist,Integer timeout,String callbackurl);
 }
