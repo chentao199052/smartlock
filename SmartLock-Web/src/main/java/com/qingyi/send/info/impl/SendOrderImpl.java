@@ -1251,9 +1251,16 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult saveLog(Integer logtype, List<Log> logs) {
+	public SendResult saveLog(List<Log> loglist) {
 		// TODO Auto-generated method stub
-		return null;
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("loglist", loglist);
+		SendResult  sr = StringTools.checkLog(loglist);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"savelog", secret, param);
+			JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
+		}
+		return sr;
 	}
 
 	@Override
@@ -1307,4 +1314,5 @@ public class SendOrderImpl implements SendOrderInfo{
 		}
 		return sr;
 	}
+
 }
