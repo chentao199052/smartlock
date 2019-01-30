@@ -1377,7 +1377,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 			//锁类型
 			String locktype = json.get("locktype").toString();
 			//结果类型
-			String ordertype=json.get("ordertype").toString();
+			String ordertype=json.containsKey("ordertype")?json.get("ordertype").toString():json.get("orderType").toString();
 			//下发轮次
 			String no="1";
 			if(json.containsKey("no")) {
@@ -1488,7 +1488,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 		ReceiveResult<SyncCPOrderResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
 		if("0".equals(result.getResultCode())) {
 			Map json=StringTools.stringToMap2(content);
-			String orderType=json.get("orderType").toString();
+			String orderType=json.containsKey("orderType")?json.get("orderType").toString():json.get("ordertype").toString();
 			String locktype = json.get("locktype").toString();
 			String status = json.get("status").toString();
 			String osdate = json.get("osdate").toString();
@@ -1560,7 +1560,7 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 		ReceiveResult<SyncFOrderResult> result=Verify.verify(content, sysdate, verify, secret, timeout);;
 		if(result.getResultCode().equals("0")) {
 			Map json=StringTools.stringToMap2(content);
-			String orderType=json.get("orderType").toString();
+			String orderType=json.containsKey("orderType")?json.get("orderType").toString():json.get("ordertype").toString();
 			String locktype = json.get("locktype").toString();
 			String status = json.get("status").toString();
 			String osdate = json.get("osdate").toString();

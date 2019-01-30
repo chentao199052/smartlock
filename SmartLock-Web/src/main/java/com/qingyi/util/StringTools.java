@@ -1245,7 +1245,7 @@ public class StringTools {
 			rclist = au.getRoomcardlist();
 			pswlist = au.getPswlist();
 			rflist = au.getRoomfingerlist();
-			System.out.println("指纹数："+rflist.size());
+			
 			if(null==au.getLocktype()) {
 				sr.setResultCode("-20002");
 				sr.setResultMsg("门锁类型不能为空");
@@ -1308,10 +1308,26 @@ public class StringTools {
 				return sr;
 			}
 			
-			if(null==au.getCallbackurl() || au.getCallbackurl().equals("") || au.getCallbackurl().equals("null")) {
-				sr.setResultCode("-20004");
-				sr.setResultMsg("回调地址不能为空");
-				return sr;
+			if(null!=rclist && rclist.size()>0) {
+				if(null==au.getCpcallbackurl() || au.getCpcallbackurl().equals("") || au.getCpcallbackurl().equals("null")) {
+					sr.setResultCode("-20004");
+					sr.setResultMsg("需要卡密同步时，卡密同步结果回调地址不能为空");
+					return sr;
+				}
+			}
+			if(null!=pswlist && pswlist.size()>0) {
+				if(null==au.getCpcallbackurl() || au.getCpcallbackurl().equals("") || au.getCpcallbackurl().equals("null")) {
+					sr.setResultCode("-20004");
+					sr.setResultMsg("需要卡密同步时，卡密同步结果回调地址不能为空");
+					return sr;
+				}
+			}
+			if(null!=rflist && rflist.size()>0) {
+				if(null==au.getFcallbackurl() || au.getFcallbackurl().equals("") || au.getFcallbackurl().equals("null")) {
+					sr.setResultCode("-20004");
+					sr.setResultMsg("需要指纹同步时，指纹同步结果回调地址不能为空");
+					return sr;
+				}
 			}
 			
 			if(null==au.getTimeout() || au.getTimeout()<0) {
