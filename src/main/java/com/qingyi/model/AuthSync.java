@@ -18,7 +18,9 @@ public class AuthSync {
 	
 	private Integer timeout;
 	
-	private String callbackurl;
+	private String cpcallbackurl;
+	
+	private String fcallbackurl;
 	
 	private List<RoomCard> roomcardlist;
 	
@@ -35,13 +37,14 @@ public class AuthSync {
 	 * @param gatewaycode2 网关唯一ID（无线联网锁必填）
 	 * @param gatewaycode 网关通信ID（无线联网锁必填）
 	 * @param timeout 超时秒数（网关或门锁离线超时秒数后，指令超时，必填）
-	 * @param callbackurl 回调地址（指令结果回调地址，必填）
+	 * @param cpcallbackurl 回调地址（卡密同步结果回调地址，必填）
+	 * @param fcallbackurl 回调地址（指纹同步结果回调地址，必填）
 	 * @param roomcardlist 需同步的卡片授权列表
 	 * @param pswlist 需同步的密码授权列表
 	 * @param roomfingerlist 需同步的指纹授权列表
 	 */
 	public AuthSync(Integer locktype, String roomcode2, String roomcode,String imei, String gatewaycode2, String gatewaycode,
-			Integer timeout,String callbackurl,List<RoomCard> roomcardlist, List<UnlockPsw> pswlist, List<RoomFinger> roomfingerlist) {
+			Integer timeout,String cpcallbackurl,String fcallbackurl,List<RoomCard> roomcardlist, List<UnlockPsw> pswlist, List<RoomFinger> roomfingerlist) {
 		super();
 		this.locktype = locktype;
 		this.roomcode2 = roomcode2;
@@ -50,7 +53,8 @@ public class AuthSync {
 		this.gatewaycode2 = gatewaycode2;
 		this.gatewaycode = gatewaycode;
 		this.timeout = timeout;
-		this.callbackurl = callbackurl;
+		this.cpcallbackurl = cpcallbackurl;
+		this.fcallbackurl = fcallbackurl;
 		this.roomcardlist = roomcardlist;
 		this.pswlist = pswlist;
 		this.roomfingerlist = roomfingerlist;
@@ -140,21 +144,31 @@ public class AuthSync {
 		this.timeout = timeout;
 	}
 
-	public String getCallbackurl() {
-		return callbackurl;
+	
+
+	public String getCpcallbackurl() {
+		return cpcallbackurl;
 	}
 
-	public void setCallbackurl(String callbackurl) {
-		this.callbackurl = callbackurl;
+	public void setCpcallbackurl(String cpcallbackurl) {
+		this.cpcallbackurl = cpcallbackurl;
+	}
+
+	public String getFcallbackurl() {
+		return fcallbackurl;
+	}
+
+	public void setFcallbackurl(String fcallbackurl) {
+		this.fcallbackurl = fcallbackurl;
 	}
 
 	@Override
 	public String toString() {
 		return "AuthSync [locktype=" + locktype + ", roomcode2=" + roomcode2 + ", roomcode=" + roomcode + ", imei="
 				+ imei + ", gatewaycode2=" + gatewaycode2 + ", gatewaycode=" + gatewaycode + ", timeout=" + timeout
-				+ ", callbackurl=" + callbackurl + ", roomcardlist=" + roomcardlist + ", pswlist=" + pswlist
-				+ ", roomfingerlist=" + roomfingerlist + "]";
+				+ ", cpcallbackurl=" + cpcallbackurl + ", fcallbackurl=" + fcallbackurl + ", roomcardlist="
+				+ roomcardlist + ", pswlist=" + pswlist + ", roomfingerlist=" + roomfingerlist + "]";
 	}
-	
+
 	
 }
