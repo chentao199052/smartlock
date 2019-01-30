@@ -12,6 +12,7 @@ import com.qingyi.model.FingersuccessResult;
 import com.qingyi.model.ForcelockResult;
 import com.qingyi.model.GatewayInitializeResult;
 import com.qingyi.model.GatewaystatusResult;
+import com.qingyi.model.HeartRecordResult;
 import com.qingyi.model.LockInitializeResult;
 import com.qingyi.model.LockRecordResult;
 import com.qingyi.model.LockResetResult;
@@ -63,6 +64,14 @@ public interface ReceiveOrderInfo {
 	 * @return 解析结果ReceiveResult
 	 */
 	public ReceiveResult<LockRecordResult> getReadLockRecordResult(String content,String sysdate,String verify);
+	/**
+	 * 解析网关记录读取指令
+	 * @param content 结果内容
+	 * @param sysdate 时间戳
+	 * @param verify 校验
+	 * @return 解析结果ReceiveResult
+	 */
+	public ReceiveResult<HeartRecordResult> getHeartRecordResult(String content,String sysdate,String verify);
 	/**
 	 * 解析修改门锁强锁/非强锁模式指令
 	 * @param content 结果内容
