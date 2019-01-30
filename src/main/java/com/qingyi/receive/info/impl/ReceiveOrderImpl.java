@@ -23,6 +23,8 @@ import com.qingyi.model.ForcelockResult;
 import com.qingyi.model.GatewayInitializeResult;
 import com.qingyi.model.GatewayRecord;
 import com.qingyi.model.GatewaystatusResult;
+import com.qingyi.model.HeartRecord;
+import com.qingyi.model.HeartRecordResult;
 import com.qingyi.model.LockInitializeResult;
 import com.qingyi.model.LockRecordResult;
 import com.qingyi.model.LockResetResult;
@@ -180,7 +182,12 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 				String space=json.get("space")==null?"":json.get("space").toString();
 				String ret = json.get("result")==null?"":json.get("result").toString();
 				String osdate=json.get("osdate")==null?"":json.get("osdate").toString();
-				r.setOsdate(osdate);
+				try {
+					r.setOsdate(sdf2.format(sdf.parse(osdate)));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				r.setOrder(order);
 				if(null!=no&&no.matches("^[0-9]{1,}$")) {
 					r.setNo(Integer.parseInt(no));
@@ -1806,5 +1813,48 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo{
 		return result;
 	}
 
-	
+	@Override
+	public ReceiveResult<HeartRecordResult> getHeartRecordResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult<HeartRecordResult> result=Verify.verify(content, sysdate, verify, secret, timeout);
+		if ("0".equals(result.getResultCode())) {
+			HeartRecordResult r=new HeartRecordResult();
+			JSONObject json=JSONObject.fromObject(content);
+			String status=json.getString("status");
+			r.setResultstatus(Integer.parseInt(status==null?"0":status));
+			String locktype=json.getString("locktype");
+			r.setLocktype(locktype);
+			String resultorder=json.getString("resultorder");
+			String gatewayname = "";
+			String record="";
+			if(resultorder.substring(0,4).toUpperCase().equals("BBBB")){
+				gatewayname = resultorder.substring(8,18);
+				record = resultorder.substring(38,resultorder.length()-4);
+			}else{
+				gatewayname = resultorder.substring(6,16);
+				record = resultorder.substring(36,resultorder.length()-4);
+			}
+			r.setGatewaycode2(gatewayname);
+			//如果该唯一id的网关尚未存在则丢弃记录
+			if(null!=gatewayname) {
+				//保存读取到的记录
+			    List<Map> unlockings = StringTools.getUnlockinglist2(record);
+			    List<HeartRecord> records=new ArrayList<HeartRecord>();
+			    for(int h=0;h<unlockings.size();h++){
+				Map jsonObject = unlockings.get(h);
+				String roomcode = (String)jsonObject.get("roomcode");
+				String cardcode=(String)jsonObject.get("cardcode");
+				String packageNo=(String)jsonObject.get("packageNo");
+				String time=(String)jsonObject.get("time");
+				String cardcode2=(String)jsonObject.get("cardcode2");
+				String type=(String)jsonObject.get("type");
+				HeartRecord readlockrecord=new HeartRecord(roomcode, cardcode, packageNo, time, cardcode2, type);
+				records.add(readlockrecord);
+			    }
+			    r.setRecords(records);
+			}
+			result.setResult(r);
+		}
+		return result;
+	}
 }
