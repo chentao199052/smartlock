@@ -602,4 +602,26 @@ public interface SendOrderInfo {
 	 * @return
 	 */
 	public SendResult getNbRoomParamasBackUrl();
+	/**
+	 * 设置关闭网关的回调地址
+	 * @param url
+	 * @return
+	 */
+	public SendResult setClosegatewaybackUrl(String url);
+	/**
+	 * 设置超时的回调地址
+	 * @param url
+	 * @return
+	 */
+	public SendResult setIdLebackUrl(String url);
+	/**
+	 * 获取关闭网关的回调地址
+	 */
+	public SendResult getClosegatewaybackUrl(String url);
+	/**
+	 * 获取超时的回调地址
+	 */
+	public SendResult getIdLebackUrl(String url);
+	
+	
 }
