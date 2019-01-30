@@ -91,42 +91,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		return sr;
 	}
 
-	@Override
-	public SendResult saveLockReset(String gatewaycode, String gatewaycode2, String roomcode, Integer timeout,
-			String callbackurl) {
-		// TODO Auto-generated method stub
-		LinkedHashMap param=new LinkedHashMap();
-		param.put("gatewaycode", gatewaycode);
-		param.put("gatewaycode2", gatewaycode2);
-		param.put("roomcode", roomcode);
-		param.put("timeout", timeout);
-		param.put("callbackurl", callbackurl);
-		SendResult sr=StringTools.check(param);
-		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "lockreset", secret, param);
-			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
-			//sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
-		}
-		return sr;
-	}
 
-	@Override
-	public SendResult saveLockRemoteOpen(String gatewaycode, String gatewaycode2, String roomcode, Integer timeout,
-			String callbackurl) {
-		// TODO Auto-generated method stub
-		LinkedHashMap param=new LinkedHashMap();
-		param.put("gatewaycode", gatewaycode);
-		param.put("gatewaycode2", gatewaycode2);
-		param.put("roomcode", roomcode);
-		param.put("timeout", timeout);
-		param.put("callbackurl", callbackurl);
-		SendResult sr=StringTools.check(param);
-		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "lockremoteopen", secret, param);
-			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
-		}
-		return sr;
-	}
 
 	@Override
 	public SendResult readLockRecord(String gatewaycode, String gatewaycode2, String roomcode,Integer timeout,
@@ -138,7 +103,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("roomcode", roomcode);
 		param.put("timeout", timeout);
 		param.put("callbackurl", callbackurl);
-		SendResult sr=StringTools.checkTotal(param);
+		SendResult sr=StringTools.check(param);
 		if(sr.getResultCode().equals("0")) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "readlockrecord", secret, param);
 			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
@@ -278,37 +243,6 @@ public class SendOrderImpl implements SendOrderInfo{
 		return sr;
 	}
 
-	@Override
-	public List<SendResult> delRoomFinger(String gatewaycode, String gatewaycode2,String roomid,String roomcode, 
-			List<DelRoomFinger> rflist, Integer timeout, String callbackurl) {
-		// TODO Auto-generated method stub
-		LinkedHashMap param=new LinkedHashMap();
-		param.put("gatewaycode", gatewaycode);
-		param.put("gatewaycode2", gatewaycode2);
-		param.put("roomid", roomid);
-		param.put("roomcode", roomcode);
-		param.put("rflist", rflist);
-		param.put("timeout", timeout);
-		param.put("callbackurl", callbackurl);
-		SendResult sr=StringTools.check(param);
-		List<SendResult> result=null;
-		if(sr.getResultCode().equals("0")) {
-			String ss=HttpsUtil.httpURLConnectionPOST(baseurl, "delroomfinger", secret, param);
-			if(ss.length()>1) {
-				result=new ArrayList<SendResult>();
-				String sss=ss.substring(1,ss.length()-1);
-				System.out.println(sss);
-				while (!(sss.indexOf("{")==-1)) {
-					String s1=sss.substring(sss.indexOf("{"),sss.indexOf("}")+1);
-					sss=sss.substring(sss.indexOf("}")+1);
-					//sr=(SendResult) StringTools.getResultObject(s1,SendResult.class);
-					sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(s1), SendResult.class);
-					result.add(sr);
-				}
-			}
-		}
-		return result;
-	}
 
 	@Override
 	public SendResult syncRoomCardAndPsw(String gatewaycode, String gatewaycode2, String roomcode,String roomcode2,String roomimei,String locktype,
@@ -380,28 +314,6 @@ public class SendOrderImpl implements SendOrderInfo{
 		return sr;
 	}
 
-
-
-	@Override
-	public SendResult updateRoomForcelock(String gatewaycode, String gatewaycode2, String roomcode, Integer type,
-			Integer timeout, String callbackurl) {
-		// TODO Auto-generated method stub
-		LinkedHashMap param=new LinkedHashMap();
-		param.put("gatewaycode", gatewaycode);
-		param.put("gatewaycode2", gatewaycode2);
-		param.put("roomcode", roomcode);
-		param.put("type", type);
-		param.put("timeout", timeout);
-		param.put("callbackurl", callbackurl);
-		SendResult sr=StringTools.check(param);
-		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateroomforcelock", secret, param);
-		//	sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
-			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
-		}
-		return sr;
-	}
-
 	@Override
 	public SendResult updateRoompow(String gatewaycode, String gatewaycode2, String roomcode, Integer level,
 			Integer timeout, String callbackurl) {
@@ -422,45 +334,6 @@ public class SendOrderImpl implements SendOrderInfo{
 		return sr;
 	}
 
-	@Override
-	public SendResult updateRoomWorkmode(String gatewaycode, String gatewaycode2, String roomcode, Integer type,
-			Integer timeout, String callbackurl) {
-		// TODO Auto-generated method stub
-		LinkedHashMap param=new LinkedHashMap();
-		param.put("gatewaycode", gatewaycode);
-		param.put("gatewaycode2", gatewaycode2);
-		param.put("roomcode", roomcode);
-		param.put("type", type);
-		param.put("timeout", timeout);
-		param.put("callbackurl", callbackurl);
-		SendResult sr=StringTools.check(param);
-		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateroomworkmode", secret, param);
-			//sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
-			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
-		}
-		return sr;
-	}
-
-	@Override
-	public SendResult updateRoomNetmode(String gatewaycode, String gatewaycode2, String roomcode, Integer type,
-			Integer timeout, String callbackurl) {
-		// TODO Auto-generated method stub
-		LinkedHashMap param=new LinkedHashMap();
-		param.put("gatewaycode", gatewaycode);
-		param.put("gatewaycode2", gatewaycode2);
-		param.put("roomcode", roomcode);
-		param.put("type", type);
-		param.put("timeout", timeout);
-		param.put("callbackurl", callbackurl);
-		SendResult sr=StringTools.check(param);
-		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "updateroomnetmode", secret, param);
-			//sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
-			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
-		}
-		return sr;
-	}
 
 	@Override
 	public SendResult saveFingerReagy(String fpcode, Integer timeout, String callbackurl) {
@@ -1488,26 +1361,4 @@ public class SendOrderImpl implements SendOrderInfo{
 		}
 		return sr;
 	}
-
-	@Override
-	public SendResult clearCardAndPsw(List<ClearCP> cplist,Integer timeout,String callbackurl) {
-		// TODO Auto-generated method stub
-		LinkedHashMap param=new LinkedHashMap();
-		param.put("cplist", cplist);
-		param.put("timeout", timeout);
-		param.put("callbackurl", callbackurl);
-		SendResult sr=StringTools.checksyncOne(param);
-		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "clearcardandpsw", secret, param);
-			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
-		}
-		return sr;
-	}
-
-
-
-	
-
-	
-	
 }
