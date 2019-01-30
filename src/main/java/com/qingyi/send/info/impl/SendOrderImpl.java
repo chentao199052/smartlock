@@ -15,6 +15,7 @@ import com.qingyi.model.AuthResult;
 import com.qingyi.model.AuthSync;
 import com.qingyi.model.AuthTotal;
 import com.qingyi.model.CardsResult;
+import com.qingyi.model.ClearCP;
 import com.qingyi.model.Command;
 import com.qingyi.model.DelCardsResult;
 import com.qingyi.model.DelFingersResult;
@@ -350,7 +351,7 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult syncRoomFiger(String gatewaycode, String gatewaycode2, String roomcode,String roomcode2,String roomimei,String locktype, List<RoomFinger> rflist,
+	public SendResult syncRoomFinger(String gatewaycode, String gatewaycode2, String roomcode,String roomcode2,String roomimei,String locktype, List<RoomFinger> rflist,
 			Integer timeout, String callbackurl) {
 		LinkedHashMap param=new LinkedHashMap();
 		if(locktype.equals("1")) {
@@ -361,6 +362,7 @@ public class SendOrderImpl implements SendOrderInfo{
 			param.put("roomcode2", roomcode2);
 			param.put("roomimei", roomimei);
 		}
+		param.put("locktype", locktype);
 		param.put("rflist", rflist);
 		param.put("timeout", timeout);
 		param.put("callbackurl", callbackurl);
@@ -583,57 +585,6 @@ public class SendOrderImpl implements SendOrderInfo{
 		SendResult sr=StringTools.check(param);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"clearsgatewaytatus", secret, param);
-			//sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
-			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
-		}
-		return sr;
-	}
-
-	@Override
-	public SendResult updateRoomCardxzsx(String gatewaycode, String gatewaycode2, String roomcode, RoomCard card,
-			Integer timeout, String callbackurl) {
-		// TODO Auto-generated method stub
-		LinkedHashMap param=new LinkedHashMap();
-		param.put("gatewaycode", gatewaycode);
-		param.put("gatewaycode2", gatewaycode2);
-		param.put("roomcode", roomcode);
-		param.put("cardtype", card.getCardtype());
-		param.put("cardcode", card.getCardcode());
-		param.put("personcode", card.getPersoncode());
-		param.put("personname", card.getPersonname());
-		param.put("rcusecount", card.getOpencount());
-		param.put("cardedate", card.getEdate());
-		param.put("openstime", card.getOpenstime());
-		param.put("openetime", card.getOpenetime());
-		param.put("timeout", timeout);
-		param.put("callbackurl", callbackurl);
-		SendResult sr=StringTools.check(param);
-		if("0".equals(sr.getResultCode())) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateroomcardxzsx", secret, param);
-			//sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
-			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
-		}
-		return sr;
-	}
-	@Override
-	public SendResult updateRoomFingerxzsx(String gatewaycode,String gatewaycode2,String roomcode,RoomFinger finger,Integer timeout,String callbackurl) {
-		// TODO Auto-generated method stub
-		LinkedHashMap param=new LinkedHashMap();
-		param.put("gatewaycode", gatewaycode);
-		param.put("gatewaycode2", gatewaycode2);
-		param.put("roomcode", roomcode);
-		param.put("fingercode", finger.getFingercode());
-		param.put("fingercontent", finger.getFingercontent());
-		param.put("fingerseq", finger.getFingerseq());
-		param.put("count", finger.getOpencount());
-		param.put("openstime", finger.getOpenstime());
-		param.put("openetime", finger.getOpenetime());
-		param.put("empedate", finger.getEdate());
-		param.put("timeout", timeout);
-		param.put("callbackurl", callbackurl);
-		SendResult sr=StringTools.check(param);
-		if("0".equals(sr.getResultCode())) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"updateroomfingerxzsx", secret, param);
 			//sr=(SendResult) StringTools.getResultObject(result,SendResult.class);
 			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 		}
@@ -1534,6 +1485,21 @@ public class SendOrderImpl implements SendOrderInfo{
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getnbroomparamasbackurl", secret, param);
 			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 			//sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult clearCardAndPsw(List<ClearCP> cplist,Integer timeout,String callbackurl) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("cplist", cplist);
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
+		SendResult sr=StringTools.checksyncOne(param);
+		if(sr.getResultCode().equals("0")) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "clearcardandpsw", secret, param);
+			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 		}
 		return sr;
 	}

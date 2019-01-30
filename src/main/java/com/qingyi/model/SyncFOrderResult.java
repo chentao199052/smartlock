@@ -1,7 +1,7 @@
 package com.qingyi.model;
 
 /**
- * 卡密授权同步解析结果
+ * 指纹授权同步解析结果
  * @author Administrator
  *
  */
@@ -26,7 +26,7 @@ public class SyncFOrderResult {
 	}
 
 	/**
-	 * 卡密授权同步解析结果
+	 * 指纹授权同步解析结果
 	 * @param orderid 指令id(如果结果包含多个指令id，以逗号隔开，如："12,13")
 	 * @param resultstatus 结果状态（0-下发失败，1-下发成功，2-异常失败）
 	 * @param failtype 失败类型

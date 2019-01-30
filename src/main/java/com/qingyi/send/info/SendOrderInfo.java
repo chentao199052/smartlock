@@ -12,6 +12,7 @@ import com.qingyi.model.AuthResult;
 import com.qingyi.model.AuthSync;
 import com.qingyi.model.AuthTotal;
 import com.qingyi.model.CardsResult;
+import com.qingyi.model.ClearCP;
 import com.qingyi.model.Command;
 import com.qingyi.model.DelCardsResult;
 import com.qingyi.model.DelFingersResult;
@@ -339,31 +340,8 @@ public interface SendOrderInfo {
 	 * @param callbackurl  回调地址（接收指令发送结果）
 	 * @return 指令发送结果SendResult
 	 */
-	public SendResult syncRoomFiger(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String roomimei,String locktype,List<RoomFinger> rflist,Integer timeout,String callbackurl); 
+	public SendResult syncRoomFinger(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String roomimei,String locktype,List<RoomFinger> rflist,Integer timeout,String callbackurl); 
 
-	/**
-	 * 重载卡片白名单
-	 * @param gatewaycode  门锁归属网关通讯ID
-	 * @param gatewaycode2  门锁归属网关唯一ID
-	 * @param roomcode 房间编号
-	 * @param xzsx 卡片授权实体类
-	 * @param timeout 有效时间（单位s）
-	 * @param callbackurl 回调地址（接收指令发送结果）
-	 * @return
-	 */
-	public SendResult updateRoomCardxzsx(String gatewaycode,String gatewaycode2,String roomcode,RoomCard card,Integer timeout,String callbackurl); 
-	
-	/**
-	 * 重载指纹白名单
-	 * @param gatewaycode  门锁归属网关通讯ID
-	 * @param gatewaycode2   门锁归属网关唯一ID
-	 * @param roomcode 房间编号
-	 * @param xzsx 指纹授权实体
-	 * @param timeout 有效时间（单位s）
-	 * @param callbackurl 回调地址（接收指令发送结果）
-	 * @return
-	 */
-	public SendResult updateRoomFingerxzsx(String gatewaycode,String gatewaycode2,String roomcode,RoomFinger finger,Integer timeout,String callbackurl);
 	
 	/**
 	 * 根据授权列表生成网关锁与NB锁的授权与取消授权指令
@@ -749,4 +727,12 @@ public interface SendOrderInfo {
 	 * @return
 	 */
 	public SendResult getNbRoomParamasBackUrl();
+	
+	/**
+	 * 房间卡密授权清除指令
+	 * @param roomcode2
+	 * @param url
+	 * @return
+	 */
+	public SendResult clearCardAndPsw(List<ClearCP> cplist,Integer timeout,String callbackurl);
 }
