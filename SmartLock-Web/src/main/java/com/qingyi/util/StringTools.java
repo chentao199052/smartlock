@@ -2404,8 +2404,9 @@ public class StringTools {
 			}*/
 		 List<RoomCard> rclist = new ArrayList<RoomCard>();
 		 List<UnlockPsw> pswlist = new ArrayList<UnlockPsw>();
+		 List<RoomFinger> rflist = new ArrayList<RoomFinger>();
 		 
-		 UnlockPsw p = new UnlockPsw();
+		 /*UnlockPsw p = new UnlockPsw();
 		 p.setPassword("123456");
 		 p.setEdate("-1");
 		 p.setOpencount("0");
@@ -2420,10 +2421,22 @@ public class StringTools {
 		 au.setOpenstime("00:00");
 		 au.setOpenetime("23:59");
 		 au.setCardtype("开门卡");
-		 rclist.add(au);
+		 rclist.add(au);*/
 		 
-		 SendResult ret = sio.syncRoomCardAndPsw("00a2010101", "1918010001", "0101", "", "", "1", rclist, pswlist, 20, "12s");
-		 System.out.println(ret.getResultMsg());
+		 RoomFinger f = new RoomFinger();
+			f.setFingercode("00010001");
+			f.setEdate("-1");
+			f.setOpencount("0");
+			f.setOpenstime("00:00");
+			f.setOpenetime("23:59");
+			f.setActioncount("1");
+			f.setFingercontent("dd0217ff843201c8060b02c30c2908c88c45024f8d8990070cda11140dd213110768141608d7c104143802d2971204669d2008e6a1160a6e4050a40e08f2a74705d8283b0560294e0258c0cc800d04441b2d1a60201c0d6d840f034b5cc91d1605e41e2d0d63a12203e300000000c194000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000dbdfcb79edbebc78867776070000000000000000550053000b0a4347474747474b4b4b524747474747474b4b4b4f4a4a4b4b4b4b4b4b4f4f52524f4f4f4f4f4f4f4f665e5b57535353534f4f6b6b635f5b575353534f6f6f6b63635b5753535373736f6b675f57575353ff77736b67635b575757ff7b736f67635f5b5757ffff736f6b675f5b57ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff209d0000000000000000000000000000808a04700e45e5bf410b00a6");
+			rflist.add(f);
+		 
+		 //SendResult ret = sio.syncRoomCardAndPsw("00a2010101", "1918010001", "0101", "", "", "1", rclist, pswlist, 20, "12s");
+			SendResult ret = sio.syncRoomFinger("00a2010101", "1918010001", "0101", "", "", "1", rflist, 20, "12s");
+			 
+			System.out.println(ret.getResultMsg());
 	 }
 
 	public static SendResult checkTotal(LinkedHashMap param) {
