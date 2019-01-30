@@ -28,6 +28,7 @@ import com.qingyi.model.DelFingersResult;
 import com.qingyi.model.DelPswsResult;
 import com.qingyi.model.FingersResult;
 import com.qingyi.model.LockResult;
+import com.qingyi.model.Log;
 import com.qingyi.model.PswsResult;
 import com.qingyi.model.Room;
 import com.qingyi.model.RoomCard;
@@ -3427,6 +3428,67 @@ public class StringTools {
 					sr.setResultCode("-10011");
 					sr.setResultMsg("可开门次数必须为0-254数字,0表示不限次数");
 					return sr;
+				}
+			}
+		}
+		return sr;
+	}
+
+	public static SendResult checkLog(List<Log> logs) {
+		// TODO Auto-generated method stub
+		SendResult sr =new SendResult("0", "", "");
+		if(logs==null || logs.size()==0) {
+			sr.setResultCode("-1000");
+			sr.setResultMsg("参数不能为空");
+			return sr;
+		}else {
+			for(Log l :logs) {
+				Integer logtype=l.getLogtype();
+				String gatewaycode=l.getGatewaycode();
+				String gatewaycode2=l.getGatewaycode2();
+				String roomcode2=l.getRoomcode2();
+				String callbackurl=l.getCallbackurl();
+				if(callbackurl==null || "".equals(callbackurl)) {
+					sr.setResultCode("-10000");
+					sr.setResultMsg("回调地址不能为空");
+					return sr;
+				}
+				if(logtype==1) {
+					if(gatewaycode==null||gatewaycode.equals("")||gatewaycode.equals("null")) {
+						sr.setResultCode("-10001");
+						sr.setResultMsg("网关通讯ID不能为空");
+						return sr;
+					}else if(gatewaycode.length()!=10||gatewaycode.toUpperCase().matches(".*[G-Z].*")) {
+						sr.setResultCode("-10002");
+						sr.setResultMsg("网关通讯ID必须为10位十六进制字符串");
+						return sr;
+					}
+					
+					if(gatewaycode2==null||gatewaycode2.equals("")||gatewaycode2.equals("null")) {
+						sr.setResultCode("-10003");
+						sr.setResultMsg("网关唯一ID不能为空");
+						return sr;
+					}else if(gatewaycode2.length()!=10||gatewaycode2.toUpperCase().matches(".*[G-Z].*")) {
+						sr.setResultCode("-10004");
+						sr.setResultMsg("网关唯一ID必须为10位十六进制字符串");
+						return sr;
+					}
+				}else if(logtype==2) {
+					if(gatewaycode==null||gatewaycode.equals("")||gatewaycode.equals("null")) {
+						sr.setResultCode("-10041");
+						sr.setResultMsg("指纹机编号不能为空");
+						return sr;
+					}
+				}else if(logtype==3) {
+					if(roomcode2==null||roomcode2.equals("")||roomcode2.equals("null")) {
+						sr.setResultCode("-10019");
+						sr.setResultMsg("门锁唯一ID不能为空");
+						return sr;
+					}else if(roomcode2.length()!=10||roomcode2.toUpperCase().matches(".*[G-Z].*")) {
+						sr.setResultCode("-10020");
+						sr.setResultMsg("门锁唯一ID必须为10位十六进制字符串");
+						return sr;
+					}
 				}
 			}
 		}
