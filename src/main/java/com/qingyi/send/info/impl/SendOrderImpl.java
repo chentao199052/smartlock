@@ -24,6 +24,7 @@ import com.qingyi.model.DelRoomFinger;
 import com.qingyi.model.DelUnlockPsw;
 import com.qingyi.model.FingersResult;
 import com.qingyi.model.LockResult;
+import com.qingyi.model.Log;
 import com.qingyi.model.PowResult;
 import com.qingyi.model.PswsResult;
 import com.qingyi.model.RegistNb;
@@ -1247,6 +1248,12 @@ public class SendOrderImpl implements SendOrderInfo{
 			//sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
 		}
 		return sr;
+	}
+
+	@Override
+	public SendResult saveLog(Integer logtype, List<Log> logs) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
