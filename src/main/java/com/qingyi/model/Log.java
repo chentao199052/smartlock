@@ -69,4 +69,13 @@ public class Log {
 		this.roomcode2 = roomcode2;
 	}
 
+	public String getCallbackurl() {
+		return callbackurl;
+	}
+
+	public void setCallbackurl(String callbackurl) {
+		this.callbackurl = callbackurl;
+	}
+
+	
 }
