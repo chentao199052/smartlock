@@ -1168,7 +1168,7 @@ public class SendOrderImpl implements SendOrderInfo{
 		LinkedHashMap param =new LinkedHashMap();
 		SendResult sr = StringTools.getSendResult();
 		if("0".equals(sr.getResultCode())) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getGatewayRecordBackUrl", secret, param);
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getgatewayrecordbackurl", secret, param);
 			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 		}
 		return sr;
@@ -1245,6 +1245,58 @@ public class SendOrderImpl implements SendOrderInfo{
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getnbroomparamasbackurl", secret, param);
 			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 			//sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult setClosegatewaybackUrl(String url) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param =new LinkedHashMap();
+		param.put("url", url);
+		SendResult sr = StringTools.checkurl(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"setclosegatewaybackurl", secret, param);
+			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
+			//sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult setIdLebackUrl(String url) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param =new LinkedHashMap();
+		param.put("url", url);
+		SendResult sr = StringTools.checkurl(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"setidlebackurl", secret, param);
+			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
+			//sr=(SendResult) StringTools.getResultObject(result, SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult getClosegatewaybackUrl(String url) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param =new LinkedHashMap();
+		SendResult sr = StringTools.getSendResult();
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getclosegatewaybackurl", secret, param);
+			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
+		}
+		return sr;
+	}
+
+	@Override
+	public SendResult getIdLebackUrl(String url) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param =new LinkedHashMap();
+		SendResult sr = StringTools.getSendResult();
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"getidlebackurl", secret, param);
+			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
 		}
 		return sr;
 	}
