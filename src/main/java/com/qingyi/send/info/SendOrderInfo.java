@@ -170,29 +170,7 @@ public interface SendOrderInfo {
 	 */
 	public SendResult gatewayInitialize(String gatewaycode,String newgatewaycode,String gatewaycode2,Integer timeout,String callbackurl);
 	
-	/**
-	 * 发送密码授权指令
-	 * @param gatewaycode 门锁归属网关通讯ID
-	 * @param gatewaycode2  门锁归属网关唯一ID
-	 * @param roomcode 房间编号
-	 * @param timeout 有效时间（单位s）
-	 * @param psw 密码授权对象
-	 * @param callbackurl 回调地址（接收指令发送结果）
-	 * @return 指令发送结果SendResult
-	 */
-	public SendResult saveUnlockPsw(String gatewaycode,String gatewaycode2,String roomcode,Integer timeout,UnlockPsw psw,String callbackurl);
 	
-	/**
-	 * 取消密码授权指令
-	 * @param gatewaycode 门锁归属网关通讯ID
-	 * @param gatewaycode2  门锁归属网关唯一ID
-	 * @param roomcode 房间编号
-	 * @param dpsw 取消密码授权对象
-	 * @param timeout 有效时间（单位s）
-	 * @param callbackurl 回调地址（接收指令发送结果）
-	 * @return
-	 */
-	public SendResult delUnlockpsw(String gatewaycode,String gatewaycode2,String roomcode,DelUnlockPsw dpsw,Integer timeout,String callbackurl);
 	/**
 	 * 发送初始化房间编号指令  NB不支持
 	 * @param gatewaycode 门锁归属网关通讯ID
@@ -205,41 +183,7 @@ public interface SendOrderInfo {
 	 */
 	public SendResult lockInitialize(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,Integer timeout,String callbackurl);
 	
-	/**
-	 * 发送卡片授权指令
-	 * @param gatewaycode 门锁归属网关通讯ID
-	 * @param gatewaycode2 门锁归属网关唯一ID
-	 * @param roomcode 房间编号
-	 * @param rc 卡片授权实体 cardtype 卡片类型（开门卡/管理卡/授权卡/身份证）
-	 * @param timeout 有效时间（单位s）
-	 * @param callbackurl 回调地址（接收指令发送结果）
-	 * @return 指令发送结果SendResult
-	 */
-	public SendResult saveRoomCard(String gatewaycode,String gatewaycode2,String roomcode,RoomCard rc,Integer timeout,String callbackurl);
 	
-	/**
-	 * 发送指纹授权指令
-	 * @param gatewaycode 门锁归属网关通讯ID
-	 * @param gatewaycode2 门锁归属网关唯一ID
-	 * @param roomcode 房间编号
-	 * @param rf 指纹授权实体
-	 * @param timeout 有效时间（单位s）
-	 * @param callbackurl 回调地址（接收指令发送结果）
-	 * @return 指令发送结果SendResult
-	 */
-	public SendResult saveRoomFinger(String gatewaycode,String gatewaycode2,String roomcode,RoomFinger rf,Integer timeout,String callbackurl);
-	
-	/**
-	 * 删除卡片授权指令
-	 * @param gatewaycode 门锁归属网关通讯ID
-	 * @param gatewaycode2 门锁归属网关唯一ID
-	 * @param roomcode 房间编号
-	 * @param cardcode 卡号 
-	 * @param timeout 有效时间（单位s）
-	 * @param callbackurl 回调地址（接收指令发送结果）
-	 * @return 指令发送结果SendResult
-	 */
-	public SendResult delRoomCard(String gatewaycode,String gatewaycode2,String roomcode,String rcid,String cardtype,String cardcode,Integer timeout,String callbackurl);
 	
 	
 	
@@ -267,6 +211,7 @@ public interface SendOrderInfo {
 	 * @param gatewaycode2  门锁归属网关唯一ID
 	 * @param roomcode 房间编号
 	 * @param rflist 指纹授权实体list
+	 * @param locktype 门锁类型
 	 * @param timeout 有效时间（单位s）
 	 * @param callbackurl  回调地址（接收指令发送结果）
 	 * @return 指令发送结果SendResult
