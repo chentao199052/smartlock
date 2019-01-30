@@ -604,10 +604,9 @@ public interface SendOrderInfo {
 	
 	/**
 	 * 添加日志
-	 * @param logs 日志类型 
 	 * @return
 	 */
-	public SendResult saveLog(Integer logtype,List<Log> logs);
+	public SendResult saveLog(List<Log> loglist);
 	/**
 	 * 设置关闭网关的回调地址
 	 * @param url
