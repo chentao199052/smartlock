@@ -111,48 +111,6 @@ public class SendOrderImpl implements SendOrderInfo{
 		return sr;
 	}
 
-	@Override
-	public SendResult saveUnlockPsw(String gatewaycode, String gatewaycode2, String roomcode, Integer timeout,
-			UnlockPsw psw, String callbackurl) {
-		// TODO Auto-generated method stub
-		LinkedHashMap param=new LinkedHashMap();
-		param.put("gatewaycode", gatewaycode);
-		param.put("gatewaycode2", gatewaycode2);
-		param.put("roomcode", roomcode);
-		param.put("password", psw.getPassword());
-		param.put("opencount", psw.getOpencount());
-		param.put("edate", psw.getEdate());
-		param.put("openstime", psw.getOpenstime());
-		param.put("openetime", psw.getOpenetime());
-		param.put("timeout", timeout);
-		param.put("callbackurl", callbackurl);
-		SendResult sr=StringTools.check(param);
-		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "saveunlockpsw", secret, param);
-			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
-		}
-		return sr;
-	}
-	@Override
-	public SendResult delUnlockpsw(String gatewaycode, String gatewaycode2,String roomcode, DelUnlockPsw dpsw,Integer timeout,
-			 String callbackurl) {
-		// TODO Auto-generated method stub
-		LinkedHashMap param=new LinkedHashMap();
-		param.put("gatewaycode", gatewaycode);
-		param.put("gatewaycode2", gatewaycode2);
-		param.put("roomcode", roomcode);
-		param.put("pass", dpsw.getPass());
-		param.put("count", dpsw.getCount());
-		param.put("edate", dpsw.getEdate());
-		param.put("timeout", timeout);
-		param.put("callbackurl", callbackurl);
-		SendResult sr=StringTools.check(param);
-		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "delUnlockpsw", secret, param);
-			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
-		}
-		return sr;
-	}
 	
 	@Override
 	public SendResult lockInitialize(String gatewaycode, String gatewaycode2, String roomcode, String roomcode2,
@@ -172,77 +130,6 @@ public class SendOrderImpl implements SendOrderInfo{
 		}
 		return sr;
 	}
-
-	@Override
-	public SendResult saveRoomCard(String gatewaycode, String gatewaycode2, String roomcode, RoomCard rc,
-			Integer timeout, String callbackurl) {
-		// TODO Auto-generated method stub
-		LinkedHashMap param=new LinkedHashMap();
-		param.put("gatewaycode", gatewaycode);
-		param.put("gatewaycode2", gatewaycode2);
-		param.put("roomcode", roomcode);
-		param.put("cardtype", rc.getCardtype());
-		param.put("cardcode", rc.getCardcode());
-		param.put("cardedate", rc.getEdate());
-		param.put("openstime", rc.getOpenstime());
-		param.put("openetime", rc.getOpenetime());
-		param.put("opencount", rc.getOpencount());
-		param.put("timeout", timeout);
-		param.put("callbackurl", callbackurl);
-		SendResult sr=StringTools.check(param);
-		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "saveroomcard", secret, param);
-			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
-		}
-		return sr;
-	}
-
-	@Override
-	public SendResult saveRoomFinger(String gatewaycode, String gatewaycode2, String roomcode, RoomFinger rf,
-			Integer timeout, String callbackurl) {
-		// TODO Auto-generated method stub
-		LinkedHashMap param=new LinkedHashMap();
-		param.put("gatewaycode", gatewaycode);
-		param.put("gatewaycode2", gatewaycode2);
-		param.put("roomcode", roomcode);
-		param.put("fingercode", rf.getFingercode());
-		param.put("fingercontent", rf.getFingercontent());
-		param.put("fingeredate", rf.getEdate());
-		param.put("openstime", rf.getOpenstime());
-		param.put("openetime", rf.getOpenetime());
-		param.put("opencount", rf.getOpencount());
-		param.put("actioncount", rf.getActioncount());
-		param.put("timeout", timeout);
-		param.put("callbackurl", callbackurl);
-		SendResult sr=StringTools.check(param);
-		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "saveroomfinger", secret, param);
-			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
-		}
-		return sr;
-	}
-
-	@Override
-	public SendResult delRoomCard(String gatewaycode, String gatewaycode2, String roomcode,String rcid, String cardtype,
-			String cardcode, Integer timeout, String callbackurl) {
-		// TODO Auto-generated method stub
-		LinkedHashMap param=new LinkedHashMap();
-		param.put("gatewaycode", gatewaycode);
-		param.put("gatewaycode2", gatewaycode2);
-		param.put("roomcode", roomcode);
-		param.put("rcid", rcid);
-		param.put("cardtype", cardtype);
-		param.put("cardcode", cardcode);
-		param.put("timeout", timeout);
-		param.put("callbackurl", callbackurl);
-		SendResult sr=StringTools.check(param);
-		if(sr.getResultCode().equals("0")) {
-			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "delroomcard", secret, param);
-			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
-		}
-		return sr;
-	}
-
 
 	@Override
 	public SendResult syncRoomCardAndPsw(String gatewaycode, String gatewaycode2, String roomcode,String roomcode2,String roomimei,String locktype,
