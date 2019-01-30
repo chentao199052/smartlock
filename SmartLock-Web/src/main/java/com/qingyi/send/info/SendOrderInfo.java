@@ -1,6 +1,7 @@
 package com.qingyi.send.info;
 
 import java.util.List;
+
 import com.qingyi.model.AuthCard;
 import com.qingyi.model.AuthDelCard;
 import com.qingyi.model.AuthDelFinger;
@@ -11,14 +12,12 @@ import com.qingyi.model.AuthRestAndOpen;
 import com.qingyi.model.AuthResult;
 import com.qingyi.model.AuthSync;
 import com.qingyi.model.AuthTotal;
-import com.qingyi.model.CardsResult;
-import com.qingyi.model.Command;
 import com.qingyi.model.DelCardsResult;
 import com.qingyi.model.DelFingersResult;
 import com.qingyi.model.DelRoomFinger;
 import com.qingyi.model.DelUnlockPsw;
-import com.qingyi.model.FingersResult;
 import com.qingyi.model.LockResult;
+import com.qingyi.model.Log;
 import com.qingyi.model.PowResult;
 import com.qingyi.model.PswsResult;
 import com.qingyi.model.RegistNb;
@@ -602,6 +601,13 @@ public interface SendOrderInfo {
 	 * @return
 	 */
 	public SendResult getNbRoomParamasBackUrl();
+	
+	/**
+	 * 添加日志
+	 * @param logs 日志类型 
+	 * @return
+	 */
+	public SendResult saveLog(Integer logtype,List<Log> logs);
 	/**
 	 * 设置关闭网关的回调地址
 	 * @param url
