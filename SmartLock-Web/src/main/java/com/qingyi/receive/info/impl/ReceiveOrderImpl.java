@@ -21,6 +21,7 @@ import com.qingyi.model.GatewayRecord;
 import com.qingyi.model.GatewaystatusResult;
 import com.qingyi.model.HeartRecord;
 import com.qingyi.model.HeartRecordResult;
+import com.qingyi.model.LoadResult;
 import com.qingyi.model.LockInitializeResult;
 import com.qingyi.model.LockRecordResult;
 import com.qingyi.model.LockResetResult;
@@ -1885,6 +1886,72 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo {
 				r.setRecords(records);
 			}
 			result.setResult(r);
+		}
+		return result;
+	}
+
+	@Override
+	public ReceiveResult<LoadResult> getUploadResult(String content, String sysdate, String verify) {
+		// TODO Auto-generated method stub
+		ReceiveResult<LoadResult> result = Verify.verify(content, sysdate, verify, secret, timeout);
+		if("0".equals(result.getResultCode())) {
+			JSONObject obj = JSONObject.fromObject(content);
+			LoadResult r=new LoadResult();
+			String locktype = obj.getString("locktype");
+			r.setLocktype(locktype);
+			String successval=obj.getString("result");
+			r.setResult(successval);
+			//唯一id 
+			String wgat = successval.substring(6,16);
+			r.setGatewaycode2(wgat);
+			//通讯id
+			String gatewayname = successval.substring(30,40);
+			r.setGatewaycode(gatewayname);
+			String roomcode = successval.substring(16,20);
+			r.setRoomcode(roomcode);
+			String lca = successval.substring(40,41);
+				//开关门状态
+			String status =  successval.substring(41,42);
+			String bet = successval.substring(42,44);
+			String powerlev = successval.substring(56,58);
+			if(powerlev.toUpperCase().equals("A0")){
+				powerlev = "A0";
+			}else if(powerlev.toUpperCase().equals("A1")){
+				powerlev = "A1";
+			}else if(powerlev.toUpperCase().equals("A2")){
+				powerlev = "A2";
+			}else{
+				powerlev = "A3";
+			}
+				String recordnum =successval.substring(60,64);
+				String ver = successval.substring(64,72);
+				String channelid = successval.substring(72,76);
+				String channel = successval.substring(76,78);
+				int bettery  = Integer.valueOf(bet,16);
+				if(lca.equals("1")){
+					r.setLocklca(-1);
+				}else if(lca.equals("2")){
+					r.setLocklca(1);
+				}else if(lca.equals("4")){
+					r.setLocklca(2);
+				}
+				
+				String[] type = StringTools.getlockstatus(status);
+				//更新状态
+				r.setAntilock(Integer.valueOf(type[0]));
+				r.setOpen(Integer.valueOf(type[1]));
+				r.setChannelid(channelid);
+				r.setChannel(Integer.valueOf(channel,16));
+				r.setPowerlev(powerlev);
+				if(recordnum.equals("0000")){
+					r.setRecordnum(0);
+				}else{
+					r.setRecordnum(Integer.valueOf(recordnum,16));
+				}
+				r.setLockver(ver);
+				r.setRoomcharge(bettery);
+				result.setResult(r);
+		
 		}
 		return result;
 	}

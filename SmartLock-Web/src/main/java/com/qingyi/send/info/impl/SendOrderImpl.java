@@ -747,6 +747,8 @@ public class SendOrderImpl implements SendOrderInfo{
 		param.put("pass", dpsw.getPass());
 		param.put("count",dpsw.getCount());
 		param.put("edate", dpsw.getEdate());
+		param.put("timeout", timeout);
+		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.checkTotal(param);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl, "deltotalunlockpsw", secret, param);

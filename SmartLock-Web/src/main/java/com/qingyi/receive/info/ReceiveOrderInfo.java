@@ -13,6 +13,7 @@ import com.qingyi.model.ForcelockResult;
 import com.qingyi.model.GatewayInitializeResult;
 import com.qingyi.model.GatewaystatusResult;
 import com.qingyi.model.HeartRecordResult;
+import com.qingyi.model.LoadResult;
 import com.qingyi.model.LockInitializeResult;
 import com.qingyi.model.LockRecordResult;
 import com.qingyi.model.LockResetResult;
@@ -233,7 +234,18 @@ public interface ReceiveOrderInfo {
 	/**
 	 * 解析NB锁房间的信息（post过来的信息）
 	 * @param content  结果内容
+	 * @param sysdate 时间戳
+	 * @param verify 校验
 	 * @return 解析结果ReceiveResult
 	 */
 	public ReceiveResult<RoomParamas> getSlRoomParamas(String content,String sysdate,String verify);
+	/**
+	 * 解析网关通路测试结果
+	 * @param content
+	 * @param sysdate
+	 * @param verify
+	 * @return
+	 */
+	public ReceiveResult<LoadResult> getUploadResult(String content,String sysdate,String verify);
+
 }
