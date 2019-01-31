@@ -507,7 +507,15 @@ public interface SendOrderInfo {
 	 * @param callbackurl 回调地址
 	 * @return
 	 */
-	public SendResult delDevice(String roomdeviceid,String roomtxtype,Integer timeout ,String callbackurl); 
+	public SendResult delDevice(String roomdeviceid,String roomtxtype ); 
+	/**
+	 * 
+	 * @param locktype 门锁类型 2华为 3电信   4移动（移动不需要）
+	 * @param roomdeviceid
+	 * @param lockname 锁名称
+	 * @return
+	 */
+	public SendResult InitiDevice(String locktype,String roomdeviceid,String lockname); 
 	
 	/**
 	 * 网关记录回调配置
