@@ -18,7 +18,6 @@ public class DelUnlockPsw {
 	}
 	/**
 	 * 
-	 * @param rcid 密码开锁id
 	 * @param pass 开门密码（必须位6位数字）
 	 * @param count 可开门次数（-1为不限次数）
 	 * @param edate 有效结束日期（-1为不限日期，日期格式yyMMddHHmm）
