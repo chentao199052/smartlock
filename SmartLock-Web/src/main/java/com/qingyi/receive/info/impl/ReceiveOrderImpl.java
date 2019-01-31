@@ -1,18 +1,14 @@
 package com.qingyi.receive.info.impl;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.qingyi.model.OrderResult;
 import com.qingyi.model.ClearsGatewaytatusResult;
-import com.qingyi.model.DelRoomCardResult;
-import com.qingyi.model.DelRoomFingerResult;
 import com.qingyi.model.DelUnlockpswResult;
 import com.qingyi.model.FingerMachineStateResult;
 import com.qingyi.model.FingerResult;
@@ -1789,7 +1785,6 @@ public class ReceiveOrderImpl implements ReceiveOrderInfo {
 			JSONObject json = JSONObject.fromObject(content);
 			String roomcode2 = json.getString("roomcode2");
 			r.setRoomcode2(roomcode2);
-			
 			Integer roomcharge = json.getInt("roomcharge");
 			r.setRoomcharge(roomcharge);
 			String roomecl = json.getString("roomecl");
