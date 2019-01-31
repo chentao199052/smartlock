@@ -397,59 +397,59 @@ public interface SendOrderInfo {
 	public SendResult<AuthResult> saveTotalRoomCardList(List<AuthCard> clist,Integer timeout, String callbackurl);
 
 	/**
-	 * 删除卡片授权指令(合)
-	 * @param gatewaycode  网关通讯ID
-	 * @param gatewaycode2 网关
-	 * @param roomcode
-	 * @param roomcode2
-	 * @param roomimei
-	 * @param locktype
-	 * @param cardtype
-	 * @param cardcode
-	 * @param timeout
-	 * @param callbackurl
+	 *  删除卡片授权指令(合)
+	 * @param gatewaycode网关通讯ID
+	 * @param gatewaycode2网关唯一ID
+	 * @param roomcode 房间编号
+	 * @param roomcode2 房间唯一ID
+	 * @param roomimei IMEI
+	 * @param locktype	门锁类型
+	 * @param cardtype  卡片类型
+	 * @param cardcode  卡号
+	 * @param timeout	有效时间
+	 * @param callbackurl 回调地址
 	 * @return
 	 */
 	public SendResult delTotalRoomCard(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String roomimei,String locktype,String cardtype,String cardcode,Integer timeout,String callbackurl);
 	/**
 	 * 删除卡片授权指令(合-批量)
-	 * @param dclist
+	 * @param dclist 卡片删除的实体类
 	 * @return
 	 */
 	public SendResult<List<DelCardsResult>> delTotalRoomCardList(List<AuthDelCard> dclist,Integer timeout,String callbackurl);
 	
 	/**
 	 * 发送指纹授权指令(合)
-	 * @param gatewaycode
-	 * @param gatewaycode2
-	 * @param roomcode
-	 * @param roomcode2
-	 * @param roomimei
-	 * @param locktype
-	 * @param rf
-	 * @param timeout
-	 * @param callbackurl
+	 * @param gatewaycode 网关通讯ID
+	 * @param gatewaycode2 网关唯一ID
+	 * @param roomcode 房间编号
+	 * @param roomcode2 房间唯一ID
+	 * @param roomimei IMEI
+	 * @param locktype 门锁类型
+	 * @param rf 指纹实体类
+	 * @param timeout 有效时间
+	 * @param callbackurl 回调地址
 	 * @return
 	 */
 	public SendResult saveTotalRoomFinger(String gatewaycode,String gatewaycode2,String roomcode,String roomcode2,String roomimei,String locktype,RoomFinger rf,Integer timeout,String callbackurl);
 	/**
 	 *  发送指纹授权指令(合-批量)
-	 * @param rflist
+	 * @param rflist 指纹实体类集合
 	 * @return
 	 */
 	public SendResult<AuthResult> saveTotalRoomFingerList(List<AuthFinger> flist,Integer timeout,String callbackurl);
 	/**
-	 *  删除指纹授权指令(合)
-	 * @param gatewaycode
-	 * @param gatewaycode2
-	 * @param roomid
-	 * @param roomcode
-	 * @param roomcode2
-	 * @param roomimei
-	 * @param locktype
-	 * @param rflist
-	 * @param timeout
-	 * @param callbackurl
+	 * 删除指纹授权指令(合)
+	 * @param gatewaycode 网关通讯ID
+	 * @param gatewaycode2 网关唯一ID
+	 * @param roomid 房间ID
+	 * @param roomcode 房间编号
+	 * @param roomcode2 房间唯一ID
+	 * @param roomimei IMEI
+	 * @param locktype 门锁类型
+	 * @param rflist 删除指纹实体类集合
+	 * @param timeout 有效时间
+	 * @param callbackurl 回调地址
 	 * @return
 	 */
 	public SendResult<DelFingersResult> delTotalRoomFinger(String gatewaycode,String gatewaycode2,String roomid,String roomcode,String roomcode2,String roomimei,String locktype,List<DelRoomFinger> rflist,Integer timeout,String callbackurl);
@@ -491,13 +491,11 @@ public interface SendOrderInfo {
 	public SendResult<RegistNb> registerDevice(String locktype,String roomimei,String lockname,String roomimsi); 
 	/**
 	 * 修改NB锁
-	 * @param roomlocation
-	 * @param roomname
+	 * @param locktype 门锁类型
+	 * @param roomimei IMEI
+	 * @param roomdeviceid 
+	 * @param lockname 门锁名称（roomlocation+roomname）
 	 * @param roomimsi
-	 * @param roomtxtype
-	 * @param roomimei
-	 * @param timeout
-	 * @param callbackurl
 	 * @return
 	 */
 	public SendResult updateDevice(String locktype,String roomimei,String roomdeviceid,String lockname,String roomimsi); 
@@ -505,99 +503,77 @@ public interface SendOrderInfo {
 	/**
 	 * 删除NB锁
 	 * @param roomdeviceid
-	 * @param timeout
-	 * @param callbackurl
+	 * @param timeout 有效时间
+	 * @param callbackurl 回调地址
 	 * @return
 	 */
 	public SendResult delDevice(String roomdeviceid,String roomtxtype,Integer timeout ,String callbackurl); 
 	
 	/**
 	 * 网关记录回调配置
-	 * @param gatewaycode2  网关唯一ID
 	 * @param url  回调地址
 	 * @return
 	 */
 	public SendResult setGatewayRecordBackUrl(String url);
 	/**
 	 * 授权卡授权回调设置
-	 * @param locktype
-	 * @param gatewaycode2
-	 * @param roomcode2
-	 * @param url
+	 * @param url 回调地址
 	 * @return
 	 */
 	public SendResult setCardAuthBackUrl(String url);
 	/**
 	 * 网关-服务器通路测试回调设置
-	 * @param gatewaycode2
-	 * @param url
+	 * @param url 回调地址
 	 * @return
 	 */
 	public SendResult setInstallTestBackUrl(String url);
 	/**
 	 * 指纹特征码上传回调设置
-	 * @param gatewaycode2
-	 * @param url
+	 * @param url 回调地址
 	 * @return
 	 */
 	public SendResult setFingerContentBackUrl(String url);
 	/**
 	 * NB锁门锁记录回调设置
-	 * @param roomcode2
-	 * @param url
+	 * @param url 回调地址
 	 * @return
 	 */
 	public SendResult setNbLockRecordBackUrl(String url);
 	
 	/**
 	 * 网关记录回调获取
-	 * @param gatewaycode2  网关唯一ID
-	 * @param url  回调地址
 	 * @return
 	 */
 	public SendResult<String> getGatewayRecordBackUrl();
 	/**
 	 * 授权卡授权回调获取
-	 * @param locktype
-	 * @param gatewaycode2
-	 * @param roomcode2
-	 * @param url
 	 * @return
 	 */
 	public SendResult<String> getCardAuthBackUrl();
 	/**
 	 * 网关-服务器通路测试回调获取
-	 * @param gatewaycode2
-	 * @param url
 	 * @return
 	 */
 	public SendResult<String> getInstallTestBackUrl();
 	/**
 	 * 指纹特征码上传回调获取
-	 * @param gatewaycode2
-	 * @param url
 	 * @return
 	 */
 	public SendResult<String> getFingerContentBackUrl();
 	/**
 	 * NB锁门锁记录回调获取
-	 * @param roomcode2
-	 * @param url
 	 * @return
 	 */
 	public SendResult<String> getNbLockRecordBackUrl();
 	
 	/**
 	 * 设置NB锁房间信息的回调地址
-	 * @param roomcode2
 	 * @param url
 	 * @return
 	 */
 	public SendResult setNbRoomParamasBackUrl(String url);
 	/**
 	 * 获取NB锁房间信息的回调地址
-	 * @param roomcode2
-	 * @param url
 	 * @return
 	 */
 	public SendResult getNbRoomParamasBackUrl();
