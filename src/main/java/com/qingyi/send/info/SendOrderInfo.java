@@ -439,7 +439,7 @@ public interface SendOrderInfo {
 	 */
 	public SendResult<AuthResult> saveTotalRoomFingerList(List<AuthFinger> flist,Integer timeout,String callbackurl);
 	/**
-	 * 删除指纹授权指令(合)
+	 * 删除指纹授权指令(合按门锁删除) 
 	 * @param gatewaycode 网关通讯ID
 	 * @param gatewaycode2 网关唯一ID
 	 * @param roomid 房间ID
