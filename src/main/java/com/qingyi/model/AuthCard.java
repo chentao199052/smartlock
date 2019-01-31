@@ -10,6 +10,8 @@ public class AuthCard {
 	
 	private String roomcode;
 	
+	private String imei;
+	
 	private String gatewaycode2;
 	
 	private String gatewaycode;
@@ -25,9 +27,6 @@ public class AuthCard {
 	private String opencount;
 	
 	private String cardtype;
-	
-	private String imei;
-	
 	
 	public AuthCard() {
 		super();
@@ -55,6 +54,7 @@ public class AuthCard {
 		this.locktype = locktype;
 		this.roomcode2 = roomcode2;
 		this.roomcode = roomcode;
+		this.imei = imei;
 		this.gatewaycode2 = gatewaycode2;
 		this.gatewaycode = gatewaycode;
 		this.cardcode = cardcode;
@@ -63,7 +63,62 @@ public class AuthCard {
 		this.edate = edate;
 		this.opencount = opencount;
 		this.cardtype = cardtype;
+	}
+	
+	/**
+	 * NB锁卡片授权构造方法
+	 * @param locktype 门锁类型（必填），1为无线联网锁，2为华为NB锁，3为电信NB锁，4为移动NB锁
+	 * @param roomcode2 门锁唯一ID（必填）
+	 * @param imei NB锁imei（NB锁必填）
+	 * @param cardtype 卡类型：开门卡/管理卡/授权卡为8位16进制字符串，身份证为16位16进制字符串
+	 * @param cardcode 卡号（必填）
+	 * @param openstime 可开门起始时间（必填，格式为HH:mm）
+	 * @param openetime 可开门结束时间（必填，格式为HH:mm）
+	 * @param edate 授权到期时间（必填，-1表示永久，格式为yyMMddHHmm）
+	 * @param opencount 可开门次数（必填，0表示永久，非永久次数范围1-254）
+	 */
+	public AuthCard(Integer locktype, String roomcode2, String imei, String cardcode, String openstime, String openetime,
+			String edate, String opencount, String cardtype) {
+		super();
+		this.locktype = locktype;
+		this.roomcode2 = roomcode2;
 		this.imei = imei;
+		this.cardcode = cardcode;
+		this.openstime = openstime;
+		this.openetime = openetime;
+		this.edate = edate;
+		this.opencount = opencount;
+		this.cardtype = cardtype;
+	}
+	
+	/**
+	 * 无线联网锁卡片授权构造方法
+	 * @param locktype 门锁类型（必填），1为无线联网锁，2为华为NB锁，3为电信NB锁，4为移动NB锁
+	 * @param roomcode2 门锁唯一ID（必填）
+	 * @param roomcode 房间编号（无线联网锁必填）
+	 * @param gatewaycode2 网关唯一ID（无线联网锁必填）
+	 * @param gatewaycode 网关通信ID（无线联网锁必填）
+	 * @param cardtype 卡类型：开门卡/管理卡/授权卡为8位16进制字符串，身份证为16位16进制字符串
+	 * @param cardcode 卡号（必填）
+	 * @param openstime 可开门起始时间（必填，格式为HH:mm）
+	 * @param openetime 可开门结束时间（必填，格式为HH:mm）
+	 * @param edate 授权到期时间（必填，-1表示永久，格式为yyMMddHHmm）
+	 * @param opencount 可开门次数（必填，0表示永久，非永久次数范围1-254）
+	 */
+	public AuthCard(Integer locktype, String roomcode2, String roomcode, String gatewaycode2, String gatewaycode,
+			String cardcode, String openstime, String openetime, String edate, String opencount, String cardtype) {
+		super();
+		this.locktype = locktype;
+		this.roomcode2 = roomcode2;
+		this.roomcode = roomcode;
+		this.gatewaycode2 = gatewaycode2;
+		this.gatewaycode = gatewaycode;
+		this.cardcode = cardcode;
+		this.openstime = openstime;
+		this.openetime = openetime;
+		this.edate = edate;
+		this.opencount = opencount;
+		this.cardtype = cardtype;
 	}
 
 
@@ -177,14 +232,21 @@ public class AuthCard {
 	}
 
 
-	
 	public String getImei() {
 		return imei;
 	}
 
-
 	public void setImei(String imei) {
 		this.imei = imei;
+	}
+
+
+	@Override
+	public String toString() {
+		return "AuthCard [locktype=" + locktype + ", roomcode2=" + roomcode2 + ", roomcode=" + roomcode + ", imei="
+				+ imei + ", gatewaycode2=" + gatewaycode2 + ", gatewaycode=" + gatewaycode + ", cardcode=" + cardcode
+				+ ", openstime=" + openstime + ", openetime=" + openetime + ", edate=" + edate + ", opencount="
+				+ opencount + ", cardtype=" + cardtype + "]";
 	}
 
 	
