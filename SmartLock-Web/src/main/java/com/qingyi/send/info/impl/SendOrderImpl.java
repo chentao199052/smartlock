@@ -1082,13 +1082,11 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult delDevice(String roomdeviceid,String roomtxtype, Integer timeout, String callbackurl) {
+	public SendResult delDevice(String roomdeviceid,String roomtxtype ) {
 		// TODO Auto-generated method stub
 		LinkedHashMap param=new LinkedHashMap();
 		param.put("roomdeviceid", roomdeviceid);
 		param.put("roomtxtype", roomtxtype);
-		param.put("timeout", timeout);
-		param.put("callbackurl", callbackurl);
 		SendResult sr=StringTools.check(param);
 		if("0".equals(sr.getResultCode())) {
 			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"deldevice", secret, param);
@@ -1098,6 +1096,23 @@ public class SendOrderImpl implements SendOrderInfo{
 		return sr;
 	}
 
+	@Override
+	public SendResult InitiDevice(String locktype, String roomdeviceid, String lockname) {
+		// TODO Auto-generated method stub
+		LinkedHashMap param=new LinkedHashMap();
+		param.put("locktype", locktype);
+		param.put("roomdeviceid", roomdeviceid);
+		param.put("lockname", lockname);
+		SendResult sr=StringTools.check(param);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"initidevice", secret, param);
+			//sr=(SendResult)StringTools.getResultObject(result, SendResult.class);
+			sr=(SendResult) JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
+		}
+		return sr;
+	}
+	
+	
 	@Override
 	public SendResult setGatewayRecordBackUrl(String url) {
 		// TODO Auto-generated method stub
@@ -1314,5 +1329,8 @@ public class SendOrderImpl implements SendOrderInfo{
 		}
 		return sr;
 	}
+
+
+	
 
 }
