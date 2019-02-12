@@ -19,6 +19,7 @@ import com.qingyi.model.ClearCP;
 import com.qingyi.model.Command;
 import com.qingyi.model.DelCardsResult;
 import com.qingyi.model.DelFingersResult;
+import com.qingyi.model.DelLog;
 import com.qingyi.model.DelPswsResult;
 import com.qingyi.model.DelRoomFinger;
 import com.qingyi.model.DelUnlockPsw;
@@ -1332,7 +1333,10 @@ public class SendOrderImpl implements SendOrderInfo{
 		return sr;
 	}
 
-
-	
+	@Override
+	public SendResult delLog(List<DelLog> dellogs) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
