@@ -226,8 +226,8 @@ public interface SendOrderInfo {
 	 * @param dflist 需删除指纹列表
 	 * @param plist 需授权密码列表
 	 * @param dplist 需删除密码列表
-	 * @param timeout
-	 * @param callbackurl
+	 * @param timeout 有效时间
+	 * @param callbackurl 回调地址
 	 * @return
 	 */
 	public SendResult<AuthResult> saveLotAuth(List<AuthCard> clist,List<AuthDelCard> dclist,List<AuthFinger> flist,List<AuthDelFinger> dflist,List<AuthPsw> plist,List<AuthDelPsw> dplist,Integer timeout,String callbackurl);
@@ -245,7 +245,7 @@ public interface SendOrderInfo {
 	 * @param gatewaycode 网关通讯ID
 	 * @param gatewaycode2 属网关唯一ID
 	 * @param roomcode  房间编号
-	 * @param roomcode2 
+	 * @param roomcode2 房间唯一编号
 	 * @param locktype	门锁类型 1联网锁2华为3电信4移动
 	 * @param timeout 有效时间（单位s）
 	 * @param callbackurl 回调地址
@@ -588,15 +588,15 @@ public interface SendOrderInfo {
 	public SendResult getNbRoomParamasBackUrl();
 	
 	/**
-	 * 删除日志
-	 * @return
-	 */
-	public SendResult delLog(List<DelLog> dellogs);
-	/**
 	 * 添加日志
 	 * @return
 	 */
 	public SendResult saveLog(List<Log> loglist);
+	/**
+	 * 删除日志
+	 * @return
+	 */
+	public SendResult delLog(List<DelLog> dlist);
 	/**
 	 * 设置关闭网关的回调地址
 	 * @param url
