@@ -14,6 +14,7 @@ import com.qingyi.model.AuthSync;
 import com.qingyi.model.AuthTotal;
 import com.qingyi.model.DelCardsResult;
 import com.qingyi.model.DelFingersResult;
+import com.qingyi.model.DelLog;
 import com.qingyi.model.DelRoomFinger;
 import com.qingyi.model.DelUnlockPsw;
 import com.qingyi.model.LockResult;
@@ -586,6 +587,11 @@ public interface SendOrderInfo {
 	 */
 	public SendResult getNbRoomParamasBackUrl();
 	
+	/**
+	 * 删除日志
+	 * @return
+	 */
+	public SendResult delLog(List<DelLog> dellogs);
 	/**
 	 * 添加日志
 	 * @return
