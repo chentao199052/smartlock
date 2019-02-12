@@ -1334,9 +1334,16 @@ public class SendOrderImpl implements SendOrderInfo{
 	}
 
 	@Override
-	public SendResult delLog(List<DelLog> dellogs) {
+	public SendResult delLog(List<DelLog> dloglist) {
 		// TODO Auto-generated method stub
-		return null;
+		LinkedHashMap param =new LinkedHashMap();
+		param.put("dloglist", dloglist);
+		SendResult sr = StringTools.checkdelLog(dloglist);
+		if("0".equals(sr.getResultCode())) {
+			String result=HttpsUtil.httpURLConnectionPOST(baseurl,"dellog", secret, param);
+			sr=(SendResult)JSONObject.toBean(JSONObject.fromObject(result), SendResult.class);
+		}
+		return sr;
 	}
 
 }
